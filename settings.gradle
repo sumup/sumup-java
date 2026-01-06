@@ -1,0 +1,10 @@
+rootProject.name = 'sumup-java'
+
+include(':sumup-sdk')
+project(':sumup-sdk').projectDir = file('src')
+
+include(':examples:basic')
+project(':examples:basic').projectDir = file('examples/basic')
+
+include(':examples:card-reader-checkout')
+project(':examples:card-reader-checkout').projectDir = file('examples/card-reader-checkout')

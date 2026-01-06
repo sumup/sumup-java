@@ -1,0 +1,98 @@
+import org.gradle.language.jvm.tasks.ProcessResources
+
+plugins {
+    id 'java-library'
+    id 'com.diffplug.spotless'
+    id 'maven-publish'
+    id 'signing'
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+sourceSets {
+    def emptyDirs = []
+    main {
+        java.srcDirs = ['main/java']
+        resources.srcDirs = emptyDirs
+    }
+    test {
+        java.srcDirs = ['test/java']
+        resources.srcDirs = emptyDirs
+    }
+}
+
+dependencies {
+    api 'com.fasterxml.jackson.core:jackson-annotations:2.18.2'
+    api 'com.fasterxml.jackson.core:jackson-core:2.18.2'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
+    api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+}
+
+tasks.named('processResources', ProcessResources) {
+    from(rootProject.file('VERSION')) {
+        into('com/sumup/sdk')
+        rename { 'sdk-version.txt' }
+    }
+}
+
+tasks.withType(Javadoc).configureEach {
+    options.addBooleanOption('Xdoclint:none', true)
+    options.quiet()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            pom {
+                name.set('SumUp Java SDK')
+                description.set('Java SDK for the SumUp API.')
+                url.set('https://github.com/sumup/sumup-java')
+
+                licenses {
+                    license {
+                        name.set('Apache License, Version 2.0')
+                        url.set('https://www.apache.org/licenses/LICENSE-2.0')
+                    }
+                }
+
+                developers {
+                    developer {
+                        id.set('sumup')
+                        name.set('SumUp')
+                        email.set('opensource@sumup.com')
+                        organization.set('SumUp')
+                        organizationUrl.set('https://sumup.com')
+                    }
+                }
+
+                scm {
+                    url.set('https://github.com/sumup/sumup-java')
+                    connection.set('scm:git:https://github.com/sumup/sumup-java.git')
+                    developerConnection.set('scm:git:ssh://git@github.com/sumup/sumup-java.git')
+                }
+            }
+        }
+    }
+}
+
+def signingKey = providers.environmentVariable('SIGNING_KEY')
+def signingPassword = providers.environmentVariable('SIGNING_PASSWORD')
+
+signing {
+    required {
+        gradle.taskGraph.hasTask('publishToSonatype') ||
+            gradle.taskGraph.hasTask('closeAndReleaseSonatypeStagingRepository')
+    }
+
+    if (signingKey.isPresent() && signingPassword.isPresent()) {
+        useInMemoryPgpKeys(signingKey.get(), signingPassword.get())
+        sign(publishing.publications)
+    }
+}

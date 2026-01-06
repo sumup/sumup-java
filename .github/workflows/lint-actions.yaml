@@ -1,0 +1,30 @@
+name: Github Actions
+
+on:
+  pull_request:
+    paths:
+      - '.github/**'
+
+defaults:
+  run:
+    working-directory: ./.github
+
+permissions:
+  contents: read
+
+jobs:
+  actionlint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            .github
+
+      - uses: reviewdog/action-actionlint@83e4ed25b168066ad8f62f5afbb29ebd8641d982 # v1.69.1
+        with:
+          filter_mode: nofilter
+          fail_on_error: true
+          reporter: github-pr-check

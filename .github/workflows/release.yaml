@@ -1,0 +1,65 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate Release
+    runs-on: ubuntu-latest
+    if: '!github.event.release.prerelease'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Set up Go
+        uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5.2.0
+        with:
+          go-version-file: codegen/go.mod
+
+      - name: Generate SDK
+        run: go -C codegen run . generate
+
+      - name: Set up Java
+        uses: actions/setup-java@387ac29b308b003ca37ba93a6cab5eb57c8f5f93 # v4.4.0
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Format SDK code
+        run: ./gradlew spotlessApply
+
+      - name: Ensure clean working tree
+        run: git diff --exit-code
+
+      - name: Build
+        run: ./gradlew build
+
+  publish:
+    name: Publish to Maven Central
+    runs-on: ubuntu-latest
+    needs: validate
+    if: '!github.event.release.prerelease'
+    env:
+      SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+      SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+      SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+      SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Set up Java
+        uses: actions/setup-java@387ac29b308b003ca37ba93a6cab5eb57c8f5f93 # v4.4.0
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Publish artifacts
+        run: ./gradlew :sumup-sdk:publishToSonatype closeAndReleaseSonatypeStagingRepository

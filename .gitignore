@@ -1,0 +1,18 @@
+# Gradle
+.gradle/
+build/
+**/build/
+**/bin/
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+
+# Metadata / development files
+.classpath
+.project
+.settings

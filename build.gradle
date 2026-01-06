@@ -1,0 +1,88 @@
+import com.diffplug.gradle.spotless.SpotlessExtension
+import org.gradle.api.GradleException
+import org.gradle.jvm.toolchain.JavaToolchainService
+
+plugins {
+    id 'base'
+    id 'com.diffplug.spotless' version '6.25.0' apply false
+    id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
+}
+
+ext {
+    javaVersion = JavaLanguageVersion.of(21)
+    minimumRuntimeVersion = 17
+    projectVersion = file('VERSION').text.trim()
+    testJavaVersion = providers.gradleProperty('testJavaVersion')
+        .map(JavaLanguageVersion.&of)
+        .getOrElse(javaVersion)
+}
+
+if (testJavaVersion.asInt() < minimumRuntimeVersion) {
+    throw new GradleException(
+        "SumUp Java SDK requires Java ${minimumRuntimeVersion} or newer, " +
+            "but testJavaVersion=${testJavaVersion.asInt()} was requested.")
+}
+
+allprojects {
+    group = 'com.sumup'
+    version = rootProject.ext.projectVersion
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    def testJavaVersionValue = rootProject.ext.testJavaVersion
+    def minRuntimeVersion = rootProject.ext.minimumRuntimeVersion
+
+    plugins.withType(JavaPlugin).configureEach {
+        project.extensions.configure(JavaPluginExtension) { javaExt ->
+            javaExt.toolchain { spec ->
+                spec.languageVersion.set(rootProject.ext.javaVersion)
+            }
+        }
+
+        project.tasks.withType(JavaCompile).configureEach {
+            options.encoding = 'UTF-8'
+            options.deprecation = true
+            options.release = minRuntimeVersion
+        }
+
+        project.tasks.withType(Test).configureEach {
+            useJUnitPlatform()
+            javaLauncher.set(project.extensions.getByType(JavaToolchainService)
+                .launcherFor { launcher ->
+                    launcher.languageVersion.set(testJavaVersionValue)
+                })
+        }
+    }
+
+    plugins.withId('com.diffplug.spotless') {
+        project.extensions.configure(SpotlessExtension) { spotless ->
+            spotless.java { javaExt ->
+                javaExt.target('**/java/**/*.java')
+                javaExt.targetExclude('build/**')
+                javaExt.googleJavaFormat('1.21.0')
+            }
+        }
+    }
+}
+
+tasks.register('codegen') {
+    group = 'build'
+    description = 'Regenerates the OpenAPI client with go -C codegen run . generate.'
+    doLast {
+        println('Run `go -C codegen run . generate` from the repo root to refresh generated sources.')
+    }
+}
+
+nexusPublishing {
+    packageGroup.set('com.sumup')
+    repositories {
+        sonatype {
+            username.set(providers.environmentVariable('SONATYPE_USERNAME'))
+            password.set(providers.environmentVariable('SONATYPE_PASSWORD'))
+        }
+    }
+}

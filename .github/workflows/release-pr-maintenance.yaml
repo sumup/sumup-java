@@ -1,0 +1,77 @@
+name: Release PR Maintenance
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  bump-readme:
+    if: startsWith(github.event.pull_request.head.ref, 'release-please--')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release branch
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v4.1.1
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Sync README dependency versions
+        id: sync
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        with:
+          script: |
+            const fs = require('fs');
+            const core = require('@actions/core');
+            const version = fs.readFileSync('VERSION', 'utf8').trim();
+            if (!version) {
+              throw new Error('VERSION file is empty');
+            }
+
+            const readmePath = 'README.md';
+            const original = fs.readFileSync(readmePath, 'utf8');
+
+            const gradlePattern = /(implementation\("com\.sumup:sumup-sdk:)([^"]+)("\))/;
+            let gradleUpdated = false;
+            const afterGradle = original.replace(gradlePattern, (_, prefix, _current, suffix) => {
+              gradleUpdated = true;
+              return `${prefix}${version}${suffix}`;
+            });
+            if (!gradleUpdated) {
+              throw new Error('Gradle dependency snippet not found in README.md');
+            }
+
+            const mavenPattern = /(<version>)([^<]+)(<\/version>)/;
+            let mavenUpdated = false;
+            const updated = afterGradle.replace(mavenPattern, (_, prefix, _current, suffix) => {
+              mavenUpdated = true;
+              return `${prefix}${version}${suffix}`;
+            });
+            if (!mavenUpdated) {
+              throw new Error('Maven dependency snippet not found in README.md');
+            }
+
+            if (updated === original) {
+              core.setOutput('updated', 'false');
+              return;
+            }
+
+            fs.writeFileSync(readmePath, updated);
+            core.setOutput('updated', 'true');
+
+      - name: Commit changes
+        if: steps.sync.outputs.updated == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "chore: update README dependency versions"
+
+      - name: Push changes
+        if: steps.sync.outputs.updated == 'true'
+        run: git push

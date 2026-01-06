@@ -1,0 +1,683 @@
+package generator
+
+import (
+	"fmt"
+	"sort"
+	"strings"
+
+	base "github.com/pb33f/libopenapi/datamodel/high/base"
+	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
+	"github.com/pb33f/libopenapi/orderedmap"
+)
+
+// sdkModel represents the aggregate information needed to render the SDK.
+type sdkModel struct {
+	BasePackage   string
+	ClientPackage string
+	ModelPackage  string
+	Clients       []clientModel
+	Schemas       []schemaModel
+}
+
+// clientModel encapsulates the data necessary to render a Java API client.
+type clientModel struct {
+	TagName      string
+	ClassName    string
+	AccessorName string
+	FieldName    string
+	Package      string
+	Methods      []operationModel
+}
+
+// operationModel stores the derived metadata for one OpenAPI operation.
+type operationModel struct {
+	OperationID          string
+	MethodName           string
+	SummaryLines         []string
+	DescriptionLines     []string
+	HttpMethod           string
+	Path                 string
+	PathParams           []parameterModel
+	RequiredQueryParams  []parameterModel
+	OptionalQueryParams  []parameterModel
+	RequiredHeaderParams []parameterModel
+	OptionalHeaderParams []parameterModel
+	QueryStruct          *parameterGroupModel
+	HeaderStruct         *parameterGroupModel
+	RequestBodyType      javaType
+	RequestRequired      bool
+	RequestDescription   string
+	HasRequestBody       bool
+	ResponseType         javaType
+	HasQueryParams       bool
+	HasOptionalQuery     bool
+	HasHeaderParams      bool
+	HasOptionalHeaders   bool
+	HasOptionalArgs      bool
+	TagName              string
+}
+
+// parameterGroupModel holds information about optional parameter structs
+// generated for query or header bags.
+type parameterGroupModel struct {
+	Kind        string
+	ClassName   string
+	VarName     string
+	MapValue    string
+	Fields      []parameterModel
+	ImportType  string
+	Description string
+}
+
+// parameterModel describes a single operation argument.
+type parameterModel struct {
+	Name        string
+	FieldName   string
+	Description string
+	Required    bool
+	Type        javaType
+	Location    string
+}
+
+// schemaModel represents the information required to render a POJO model.
+type schemaModel struct {
+	Name             string
+	ClassName        string
+	Package          string
+	DescriptionLines []string
+	Fields           []schemaField
+	Imports          []string
+	HasRequired      bool
+}
+
+// schemaField stores metadata for a field within a schemaModel.
+type schemaField struct {
+	Name             string
+	Type             string
+	DescriptionLines []string
+	Required         bool
+}
+
+const (
+	parameterInPath   = "path"
+	parameterInQuery  = "query"
+	parameterInHeader = "header"
+)
+
+// buildModel walks the OpenAPI document and produces the aggregated SDK model
+// used by renderers to generate source files.
+func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
+	resolver := newTypeResolver(doc, params)
+	groups := map[string][]operationModel{}
+	if doc.Paths != nil && doc.Paths.PathItems != nil && doc.Paths.PathItems.Len() > 0 {
+		for path, item := range doc.Paths.PathItems.FromOldest() {
+			if item == nil {
+				continue
+			}
+			ops := item.GetOperations()
+			if ops == nil {
+				continue
+			}
+			for method, operation := range ops.FromOldest() {
+				if operation == nil {
+					continue
+				}
+				opModel := convertOperation(method, path, item, operation, resolver)
+				tag := opModel.TagName
+				groups[tag] = append(groups[tag], opModel)
+			}
+		}
+	}
+
+	tagNames := make([]string, 0, len(groups))
+	for tag := range groups {
+		tagNames = append(tagNames, tag)
+	}
+	sort.Strings(tagNames)
+
+	clients := make([]clientModel, 0, len(tagNames))
+	accessorUsage := map[string]int{}
+
+	for _, tag := range tagNames {
+		ops := groups[tag]
+		sort.SliceStable(ops, func(i, j int) bool {
+			if ops[i].MethodName == ops[j].MethodName {
+				return ops[i].OperationID < ops[j].OperationID
+			}
+			return ops[i].MethodName < ops[j].MethodName
+		})
+		ensureUniqueMethodNames(ops)
+
+		className := pascalCase(tag, "Client")
+		accessor := camelCase(tag, "client")
+		count := accessorUsage[accessor]
+		accessorUsage[accessor] = count + 1
+		fieldName := accessor
+		if count > 0 {
+			suffix := fmt.Sprintf("%d", count+1)
+			accessor += suffix
+			fieldName += suffix
+			className += suffix
+		}
+
+		clients = append(clients, clientModel{
+			TagName:      tag,
+			ClassName:    className,
+			AccessorName: accessor,
+			FieldName:    fieldName,
+			Package:      params.clientPackage(),
+			Methods:      ops,
+		})
+	}
+
+	schemas := buildSchemas(doc, params, resolver)
+	schemas = append(schemas, resolver.inlineSchemaModels(params)...)
+
+	return sdkModel{
+		BasePackage:   params.BasePackage,
+		ClientPackage: params.clientPackage(),
+		ModelPackage:  params.modelPackage(),
+		Clients:       clients,
+		Schemas:       schemas,
+	}, nil
+}
+
+// ensureUniqueMethodNames deduplicates generated method names within a client
+// by appending numeric suffixes when duplicates surface.
+func ensureUniqueMethodNames(ops []operationModel) {
+	counts := make(map[string]int, len(ops))
+	for i := range ops {
+		name := ops[i].MethodName
+		count := counts[name]
+		if count > 0 {
+			ops[i].MethodName = fmt.Sprintf("%s%d", name, count+1)
+		}
+		counts[name] = count + 1
+	}
+}
+
+// convertOperation translates an OpenAPI operation into the normalized
+// operationModel used by templates.
+func convertOperation(method, path string, item *v3.PathItem, op *v3.Operation, resolver *typeResolver) operationModel {
+	sanitizedID := sanitizeOperationID(op.OperationId)
+	model := operationModel{
+		OperationID:      sanitizedID,
+		MethodName:       camelCase(sanitizedID, "operation"),
+		SummaryLines:     splitComment(strings.TrimSpace(op.Summary)),
+		DescriptionLines: splitComment(strings.TrimSpace(op.Description)),
+		HttpMethod:       strings.ToUpper(method),
+		Path:             path,
+		TagName:          firstTag(op.Tags),
+	}
+
+	params := collectParameters(item, op)
+	model.PathParams = filterParams(params, parameterInPath, resolver)
+
+	queryParams := filterParams(params, parameterInQuery, resolver)
+	model.RequiredQueryParams, model.OptionalQueryParams = splitParams(queryParams)
+	if len(model.OptionalQueryParams) > 0 {
+		model.QueryStruct = &parameterGroupModel{
+			Kind:        parameterInQuery,
+			ClassName:   pascalCase(sanitizedID, "QueryParams"),
+			VarName:     camelCase(sanitizedID, "queryParams"),
+			MapValue:    "Object",
+			ImportType:  "java.util.Map<String, Object>",
+			Fields:      model.OptionalQueryParams,
+			Description: parameterGroupDescription(parameterInQuery),
+		}
+		model.HasOptionalQuery = true
+	}
+	model.HasQueryParams = len(model.RequiredQueryParams) > 0 || len(model.OptionalQueryParams) > 0
+
+	headerParams := filterParams(params, parameterInHeader, resolver)
+	model.RequiredHeaderParams, model.OptionalHeaderParams = splitParams(headerParams)
+	if len(model.OptionalHeaderParams) > 0 {
+		model.HeaderStruct = &parameterGroupModel{
+			Kind:        parameterInHeader,
+			ClassName:   pascalCase(sanitizedID, "Headers"),
+			VarName:     camelCase(sanitizedID, "headers"),
+			MapValue:    "String",
+			ImportType:  "java.util.Map<String, String>",
+			Fields:      model.OptionalHeaderParams,
+			Description: parameterGroupDescription(parameterInHeader),
+		}
+		model.HasOptionalHeaders = true
+	}
+	model.HasHeaderParams = len(model.RequiredHeaderParams) > 0 || len(model.OptionalHeaderParams) > 0
+
+	if op.RequestBody != nil {
+		model.RequestBodyType = schemaTypeFromContent(op.RequestBody, resolver, sanitizedID, "Request")
+		model.RequestRequired = op.RequestBody.Required != nil && *op.RequestBody.Required
+		model.RequestDescription = normalizeText(op.RequestBody.Description)
+		model.HasRequestBody = !model.RequestBodyType.IsVoid
+	}
+
+	model.ResponseType = responseTypeFromResponses(op.Responses, resolver, sanitizedID, "Response")
+	model.HasOptionalArgs = model.HasOptionalQuery || model.HasOptionalHeaders
+
+	return model
+}
+
+// firstTag returns the first non-empty tag or a default fallback.
+func firstTag(tags []string) string {
+	if len(tags) == 0 || tags[0] == "" {
+		return "core"
+	}
+	return tags[0]
+}
+
+// sanitizeOperationID ensures every operation has an identifier used to derive
+// class and method names.
+func sanitizeOperationID(operationID string) string {
+	if operationID == "" {
+		return "operation"
+	}
+	return operationID
+}
+
+// collectParameters merges operation and path-level parameters, filtering out
+// nil references along the way.
+func collectParameters(item *v3.PathItem, op *v3.Operation) []*v3.Parameter {
+	var result []*v3.Parameter
+	appendParams := func(params []*v3.Parameter) {
+		for _, param := range params {
+			if param == nil {
+				continue
+			}
+			result = append(result, param)
+		}
+	}
+	if item != nil {
+		appendParams(item.Parameters)
+	}
+	if op != nil {
+		appendParams(op.Parameters)
+	}
+	return result
+}
+
+// filterParams keeps parameters that match the requested location and converts
+// them into parameterModel values.
+func filterParams(params []*v3.Parameter, location string, resolver *typeResolver) []parameterModel {
+	var filtered []parameterModel
+	seen := map[string]struct{}{}
+	for _, param := range params {
+		if param == nil || param.In != location {
+			continue
+		}
+		name := strings.TrimSpace(param.Name)
+		if name == "" {
+			continue
+		}
+		if location == parameterInHeader && shouldIgnoreHeader(name) {
+			continue
+		}
+		if _, ok := seen[name]; ok {
+			continue
+		}
+		seen[name] = struct{}{}
+		schemaRef := parameterSchema(param)
+		javaType := resolver.javaType(schemaRef, name)
+		required := param.Required != nil && *param.Required
+		filtered = append(filtered, parameterModel{
+			Name:        name,
+			FieldName:   camelCase(name, name),
+			Description: normalizeText(param.Description),
+			Required:    required,
+			Type:        javaType,
+			Location:    location,
+		})
+	}
+	sort.Slice(filtered, func(i, j int) bool {
+		return filtered[i].Name < filtered[j].Name
+	})
+	return filtered
+}
+
+// shouldIgnoreHeader hides headers that are already injected by the HTTP layer
+// so callers are not forced to duplicate them.
+func shouldIgnoreHeader(name string) bool {
+	switch strings.ToLower(name) {
+	case "authorization", "accept", "content-type":
+		return true
+	default:
+		return false
+	}
+}
+
+// parameterGroupDescription returns a user-friendly description for optional
+// query or header parameter groups.
+func parameterGroupDescription(kind string) string {
+	switch kind {
+	case parameterInQuery:
+		return "Optional query parameters for this request."
+	case parameterInHeader:
+		return "Optional header overrides for this request."
+	default:
+		return "Optional parameters for this request."
+	}
+}
+
+// splitParams separates required and optional parameters to simplify template
+// rendering logic.
+func splitParams(params []parameterModel) (required, optional []parameterModel) {
+	for _, param := range params {
+		if param.Required {
+			required = append(required, param)
+		} else {
+			optional = append(optional, param)
+		}
+	}
+	return
+}
+
+// parameterSchema extracts the schema describing a parameter, checking both the
+// top-level schema and any media types it may define.
+func parameterSchema(param *v3.Parameter) *base.SchemaProxy {
+	if param == nil {
+		return nil
+	}
+	if param.Schema != nil {
+		return param.Schema
+	}
+	if param.Content == nil || param.Content.Len() == 0 {
+		return nil
+	}
+	mediaTypes := make([]string, 0, param.Content.Len())
+	for media := range param.Content.KeysFromOldest() {
+		mediaTypes = append(mediaTypes, media)
+	}
+	sort.Strings(mediaTypes)
+	for _, media := range mediaTypes {
+		if mediaSchema := param.Content.GetOrZero(media); mediaSchema != nil && mediaSchema.Schema != nil {
+			return mediaSchema.Schema
+		}
+	}
+	return nil
+}
+
+// schemaTypeFromContent resolves the preferred schema for a request body,
+// defaulting to a generic map if nothing concrete is available.
+func schemaTypeFromContent(body *v3.RequestBody, resolver *typeResolver, context ...string) javaType {
+	if body == nil || body.Content == nil || body.Content.Len() == 0 {
+		return javaType{IsVoid: true}
+	}
+	if schemaRef := preferredSchema(body.Content); schemaRef != nil {
+		return resolver.javaType(schemaRef, context...)
+	}
+	return javaType{
+		Name:        "java.util.Map<String, Object>",
+		Imports:     []string{"java.util.Map"},
+		TypeRefExpr: "new TypeReference<java.util.Map<String, Object>>() {}",
+	}
+}
+
+// responseTypeFromResponses walks every 2xx response and determines the type we
+// should deserialize into. Anything else yields void.
+func responseTypeFromResponses(responses *v3.Responses, resolver *typeResolver, context ...string) javaType {
+	if responses == nil || responses.Codes == nil || responses.Codes.Len() == 0 {
+		return javaType{IsVoid: true}
+	}
+	statuses := make([]string, 0, responses.Codes.Len())
+	for status := range responses.Codes.KeysFromOldest() {
+		statuses = append(statuses, status)
+	}
+	sort.Strings(statuses)
+	for _, status := range statuses {
+		if !strings.HasPrefix(status, "2") {
+			continue
+		}
+		if status == "204" {
+			return javaType{IsVoid: true}
+		}
+		resp := responses.Codes.GetOrZero(status)
+		if resp == nil || resp.Content == nil || resp.Content.Len() == 0 {
+			continue
+		}
+		if schemaRef := preferredSchema(resp.Content); schemaRef != nil {
+			return resolver.javaType(schemaRef, context...)
+		}
+	}
+	if responses.Default != nil && responses.Default.Content != nil {
+		if schemaRef := preferredSchema(responses.Default.Content); schemaRef != nil {
+			return resolver.javaType(schemaRef, context...)
+		}
+	}
+	return javaType{IsVoid: true}
+}
+
+// splitComment converts raw description strings into trimmed comment lines.
+func splitComment(value string) []string {
+	if value == "" {
+		return nil
+	}
+	lines := strings.Split(value, "\n")
+	out := make([]string, 0, len(lines))
+	for _, line := range lines {
+		trimmed := strings.TrimSpace(line)
+		if trimmed == "" {
+			continue
+		}
+		out = append(out, trimmed)
+	}
+	return out
+}
+
+// normalizeText collapses whitespace so inline descriptions render cleanly in
+// generated JavaDoc.
+func normalizeText(value string) string {
+	if value == "" {
+		return ""
+	}
+	replaced := strings.NewReplacer("\n", " ", "\t", " ").Replace(value)
+	return strings.Join(strings.Fields(replaced), " ")
+}
+
+// preferredSchema picks the schema we should use when multiple media types are
+// described for a request or response body.
+func preferredSchema(content *orderedmap.Map[string, *v3.MediaType]) *base.SchemaProxy {
+	if content == nil || content.Len() == 0 {
+		return nil
+	}
+	if media := content.GetOrZero("application/json"); media != nil && media.Schema != nil {
+		return media.Schema
+	}
+	for _, entry := range content.FromOldest() {
+		if entry != nil && entry.Schema != nil {
+			return entry.Schema
+		}
+	}
+	return nil
+}
+
+// buildSchemas converts OpenAPI components into schemaModel instances.
+func buildSchemas(doc *v3.Document, params Params, resolver *typeResolver) []schemaModel {
+	if doc.Components == nil || doc.Components.Schemas == nil || doc.Components.Schemas.Len() == 0 {
+		return nil
+	}
+	names := make([]string, 0, doc.Components.Schemas.Len())
+	for name := range doc.Components.Schemas.KeysFromOldest() {
+		names = append(names, name)
+	}
+	sort.Strings(names)
+
+	result := make([]schemaModel, 0, len(names))
+	for _, name := range names {
+		ref := doc.Components.Schemas.GetOrZero(name)
+		if ref == nil {
+			continue
+		}
+		fields, imports, hasRequired := buildSchemaFields(name, ref, resolver)
+		description := schemaDescription(ref)
+		if hasRequired {
+			imports = uniqueStrings(append(imports, "java.util.Objects"))
+		}
+		model := schemaModel{
+			Name:             name,
+			ClassName:        pascalCase(name, ""),
+			Package:          params.modelPackage(),
+			DescriptionLines: splitComment(description),
+			Fields:           fields,
+			Imports:          imports,
+			HasRequired:      hasRequired,
+		}
+		result = append(result, model)
+	}
+	return result
+}
+
+// buildSchemaFields inspects a schema proxy and returns the fields, required
+// imports, and a flag indicating whether any required properties exist.
+func buildSchemaFields(name string, ref *base.SchemaProxy, resolver *typeResolver) ([]schemaField, []string, bool) {
+	imports := map[string]struct{}{}
+	var fields []schemaField
+	hasRequired := false
+
+	if ref == nil {
+		return []schemaField{{Name: "value", Type: "Object"}}, nil, false
+	}
+
+	schema := ref.Schema()
+	if schema == nil {
+		return []schemaField{{Name: "value", Type: "Object"}}, nil, false
+	}
+	if schemaHasType(schema, "object") {
+		props := collectProperties(schema)
+		if len(props) == 0 {
+			return []schemaField{{Name: "value", Type: "java.util.Map<String, Object>"}}, []string{"java.util.Map"}, false
+		}
+		required := collectRequired(schema)
+		fields = make([]schemaField, 0, len(props))
+		names := make([]string, 0, len(props))
+		for prop := range props {
+			names = append(names, prop)
+		}
+		sort.Strings(names)
+		for _, propName := range names {
+			propRef := props[propName]
+			javaType := resolver.javaType(propRef, name, propName)
+			for _, imp := range javaType.Imports {
+				imports[imp] = struct{}{}
+			}
+			desc := ""
+			if schemaFromProxy(propRef) != nil {
+				desc = schemaFromProxy(propRef).Description
+			}
+			fields = append(fields, schemaField{
+				Name:             camelCase(propName, propName),
+				Type:             javaType.Name,
+				DescriptionLines: splitComment(desc),
+				Required:         required[propName],
+			})
+			if required[propName] {
+				hasRequired = true
+			}
+		}
+	} else {
+		javaType := resolver.javaType(ref, name)
+		for _, imp := range javaType.Imports {
+			imports[imp] = struct{}{}
+		}
+		fields = []schemaField{{
+			Name: "value",
+			Type: javaType.Name,
+		}}
+	}
+
+	return fields, sortedImports(imports), hasRequired
+}
+
+// collectProperties gathers direct and allOf properties into a unified map.
+func collectProperties(schema *base.Schema) map[string]*base.SchemaProxy {
+	props := map[string]*base.SchemaProxy{}
+	if schema == nil {
+		return props
+	}
+	if schema.Properties != nil {
+		for name := range schema.Properties.KeysFromOldest() {
+			props[name] = schema.Properties.GetOrZero(name)
+		}
+	}
+	for _, item := range schema.AllOf {
+		if item == nil {
+			continue
+		}
+		s := item.Schema()
+		if s == nil || s.Properties == nil {
+			continue
+		}
+		for name := range s.Properties.KeysFromOldest() {
+			props[name] = s.Properties.GetOrZero(name)
+		}
+	}
+	return props
+}
+
+// collectRequired returns a lookup map of required properties, accounting for
+// composed schemas.
+func collectRequired(schema *base.Schema) map[string]bool {
+	required := map[string]bool{}
+	if schema == nil {
+		return required
+	}
+	for _, name := range schema.Required {
+		required[name] = true
+	}
+	for _, item := range schema.AllOf {
+		if item == nil {
+			continue
+		}
+		s := item.Schema()
+		if s == nil {
+			continue
+		}
+		for _, name := range s.Required {
+			required[name] = true
+		}
+	}
+	return required
+}
+
+// schemaFromProxy safely unwraps a SchemaProxy, handling nils.
+func schemaFromProxy(proxy *base.SchemaProxy) *base.Schema {
+	if proxy == nil {
+		return nil
+	}
+	return proxy.Schema()
+}
+
+// schemaDescription returns the description for a schema proxy.
+func schemaDescription(proxy *base.SchemaProxy) string {
+	if schema := schemaFromProxy(proxy); schema != nil {
+		return schema.Description
+	}
+	return ""
+}
+
+// schemaHasType determines whether a schema declares a specific primitive
+// type.
+func schemaHasType(schema *base.Schema, want string) bool {
+	if schema == nil {
+		return false
+	}
+	for _, t := range schema.Type {
+		if t == want {
+			return true
+		}
+	}
+	return false
+}
+
+// sortedImports deterministically orders import strings so rendered files do
+// not churn between runs.
+func sortedImports(set map[string]struct{}) []string {
+	if len(set) == 0 {
+		return nil
+	}
+	values := make([]string, 0, len(set))
+	for v := range set {
+		values = append(values, v)
+	}
+	sort.Strings(values)
+	return values
+}
