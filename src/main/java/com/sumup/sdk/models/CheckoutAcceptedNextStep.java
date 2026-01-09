@@ -7,7 +7,7 @@ public record CheckoutAcceptedNextStep(
      * Indicates allowed mechanisms for redirecting an end user. If both values are provided to
      * ensure a redirect takes place in either.
      */
-    java.util.List<String> mechanism,
+    java.util.List<com.sumup.sdk.models.CheckoutAcceptedNextStepMechanismItem> mechanism,
 
     /** Method used to complete the redirect. */
     String method,
@@ -34,7 +34,7 @@ public record CheckoutAcceptedNextStep(
 
   /** Builder for CheckoutAcceptedNextStep instances. */
   public static final class Builder {
-    private java.util.List<String> mechanism;
+    private java.util.List<com.sumup.sdk.models.CheckoutAcceptedNextStepMechanismItem> mechanism;
     private String method;
     private com.sumup.sdk.models.CheckoutAcceptedNextStepPayload payload;
     private String redirectUrl;
@@ -49,7 +49,8 @@ public record CheckoutAcceptedNextStep(
      *     provided to ensure a redirect takes place in either.
      * @return This builder instance.
      */
-    public Builder mechanism(java.util.List<String> mechanism) {
+    public Builder mechanism(
+        java.util.List<com.sumup.sdk.models.CheckoutAcceptedNextStepMechanismItem> mechanism) {
       this.mechanism = mechanism;
       return this;
     }

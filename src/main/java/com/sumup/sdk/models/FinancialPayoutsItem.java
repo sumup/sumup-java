@@ -8,9 +8,9 @@ public record FinancialPayoutsItem(
     Float fee,
     Long id,
     String reference,
-    String status,
+    com.sumup.sdk.models.FinancialPayoutsItemStatus status,
     String transactionCode,
-    String type) {
+    com.sumup.sdk.models.FinancialPayoutsItemType type) {
   /**
    * Creates a builder for FinancialPayoutsItem.
    *
@@ -28,9 +28,9 @@ public record FinancialPayoutsItem(
     private Float fee;
     private Long id;
     private String reference;
-    private String status;
+    private com.sumup.sdk.models.FinancialPayoutsItemStatus status;
     private String transactionCode;
-    private String type;
+    private com.sumup.sdk.models.FinancialPayoutsItemType type;
 
     private Builder() {}
 
@@ -106,7 +106,7 @@ public record FinancialPayoutsItem(
      * @param status Value for the status field.
      * @return This builder instance.
      */
-    public Builder status(String status) {
+    public Builder status(com.sumup.sdk.models.FinancialPayoutsItemStatus status) {
       this.status = status;
       return this;
     }
@@ -128,7 +128,7 @@ public record FinancialPayoutsItem(
      * @param type Value for the type field.
      * @return This builder instance.
      */
-    public Builder type(String type) {
+    public Builder type(com.sumup.sdk.models.FinancialPayoutsItemType type) {
       this.type = type;
       return this;
     }

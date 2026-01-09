@@ -3,7 +3,7 @@ package com.sumup.sdk.models;
 
 public record TransactionMixinHistory(
     /** Payout plan of the registered user at the time when the transaction was made. */
-    String payoutPlan,
+    com.sumup.sdk.models.TransactionMixinHistoryPayoutPlan payoutPlan,
 
     /** Number of payouts that are made to the registered user specified in the `user` property. */
     Long payoutsReceived,
@@ -27,7 +27,7 @@ public record TransactionMixinHistory(
 
   /** Builder for TransactionMixinHistory instances. */
   public static final class Builder {
-    private String payoutPlan;
+    private com.sumup.sdk.models.TransactionMixinHistoryPayoutPlan payoutPlan;
     private Long payoutsReceived;
     private Long payoutsTotal;
     private String productSummary;
@@ -41,7 +41,7 @@ public record TransactionMixinHistory(
      *     made.
      * @return This builder instance.
      */
-    public Builder payoutPlan(String payoutPlan) {
+    public Builder payoutPlan(com.sumup.sdk.models.TransactionMixinHistoryPayoutPlan payoutPlan) {
       this.payoutPlan = payoutPlan;
       return this;
     }

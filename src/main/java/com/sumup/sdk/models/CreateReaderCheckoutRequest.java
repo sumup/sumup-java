@@ -15,7 +15,7 @@ public record CreateReaderCheckoutRequest(
      * The card type of the card used for the transaction. Is is required only for some countries
      * (e.g: Brazil).
      */
-    String cardType,
+    com.sumup.sdk.models.CreateReaderCheckoutRequestCardType cardType,
 
     /** Description of the checkout to be shown in the Merchant Sales */
     String description,
@@ -60,7 +60,7 @@ public record CreateReaderCheckoutRequest(
   /** Builder for CreateReaderCheckoutRequest instances. */
   public static final class Builder {
     private com.sumup.sdk.models.Affiliate affiliate;
-    private String cardType;
+    private com.sumup.sdk.models.CreateReaderCheckoutRequestCardType cardType;
     private String description;
     private Long installments;
     private String returnUrl;
@@ -89,7 +89,7 @@ public record CreateReaderCheckoutRequest(
      *     some countries (e.g: Brazil).
      * @return This builder instance.
      */
-    public Builder cardType(String cardType) {
+    public Builder cardType(com.sumup.sdk.models.CreateReaderCheckoutRequestCardType cardType) {
       this.cardType = cardType;
       return this;
     }

@@ -88,6 +88,8 @@ type schemaModel struct {
 	Fields           []schemaField
 	Imports          []string
 	HasRequired      bool
+	IsEnum           bool
+	EnumValues       []enumValueModel
 }
 
 // schemaField stores metadata for a field within a schemaModel.
@@ -96,6 +98,12 @@ type schemaField struct {
 	Type             string
 	DescriptionLines []string
 	Required         bool
+}
+
+// enumValueModel captures a single enum constant and its wire value.
+type enumValueModel struct {
+	Name      string
+	WireValue string
 }
 
 const (
@@ -507,8 +515,24 @@ func buildSchemas(doc *v3.Document, params Params, resolver *typeResolver) []sch
 		if ref == nil {
 			continue
 		}
-		fields, imports, hasRequired := buildSchemaFields(name, ref, resolver)
 		description := schemaDescription(ref)
+		if enumValues, ok := enumValuesForSchema(schemaFromProxy(ref)); ok {
+			imports := sortedImports(map[string]struct{}{
+				"com.fasterxml.jackson.annotation.JsonCreator": {},
+				"com.fasterxml.jackson.annotation.JsonValue":   {},
+			})
+			result = append(result, schemaModel{
+				Name:             name,
+				ClassName:        pascalCase(name, ""),
+				Package:          params.modelPackage(),
+				DescriptionLines: splitComment(description),
+				Imports:          imports,
+				IsEnum:           true,
+				EnumValues:       enumValues,
+			})
+			continue
+		}
+		fields, imports, hasRequired := buildSchemaFields(name, ref, resolver)
 		if hasRequired {
 			imports = uniqueStrings(append(imports, "java.util.Objects"))
 		}
@@ -585,6 +609,51 @@ func buildSchemaFields(name string, ref *base.SchemaProxy, resolver *typeResolve
 	}
 
 	return fields, sortedImports(imports), hasRequired
+}
+
+// enumValuesForSchema extracts enum values for string schemas.
+func enumValuesForSchema(schema *base.Schema) ([]enumValueModel, bool) {
+	if schema == nil || len(schema.Enum) == 0 {
+		return nil, false
+	}
+	if len(schema.Type) > 0 && !schemaHasType(schema, "string") {
+		return nil, false
+	}
+	if len(schema.Type) == 0 && !schemaHasType(schema, "string") {
+		for _, node := range schema.Enum {
+			if node == nil || node.Tag != "!!str" {
+				return nil, false
+			}
+		}
+	}
+
+	values := make([]enumValueModel, 0, len(schema.Enum))
+	usedNames := map[string]int{}
+	for _, node := range schema.Enum {
+		if node == nil {
+			continue
+		}
+		raw := node.Value
+		if raw == "" {
+			var decoded string
+			if err := node.Decode(&decoded); err == nil {
+				raw = decoded
+			}
+		}
+		name := enumConstantName(raw)
+		if count := usedNames[name]; count > 0 {
+			name = fmt.Sprintf("%s_%d", name, count+1)
+		}
+		usedNames[name] = usedNames[name] + 1
+		values = append(values, enumValueModel{
+			Name:      name,
+			WireValue: raw,
+		})
+	}
+	if len(values) == 0 {
+		return nil, false
+	}
+	return values, true
 }
 
 // collectProperties gathers direct and allOf properties into a unified map.

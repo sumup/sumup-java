@@ -90,6 +90,14 @@ func (r *typeResolver) javaType(ref *base.SchemaProxy, context ...string) javaTy
 	if schema == nil {
 		return r.genericMap()
 	}
+	if enumValues, ok := enumValuesForSchema(schema); ok && len(enumValues) > 0 {
+		name := r.registerInlineSchema(schema, context)
+		fqn := r.params.modelPackage() + "." + name
+		return javaType{
+			Name:        fqn,
+			TypeRefExpr: fmt.Sprintf("new TypeReference<%s>() {}", fqn),
+		}
+	}
 	switch {
 	case schemaHasType(schema, "string"):
 		return r.stringType(schema)
@@ -317,6 +325,24 @@ func (r *typeResolver) inlineSchemaModels(params Params) []schemaModel {
 		added := false
 		for _, info := range r.inlineSchemas {
 			if info.processed {
+				continue
+			}
+			if enumValues, ok := enumValuesForSchema(info.schema); ok {
+				imports := sortedImports(map[string]struct{}{
+					"com.fasterxml.jackson.annotation.JsonCreator": {},
+					"com.fasterxml.jackson.annotation.JsonValue":   {},
+				})
+				models = append(models, schemaModel{
+					Name:             info.className,
+					ClassName:        info.className,
+					Package:          params.modelPackage(),
+					DescriptionLines: splitComment(info.description),
+					Imports:          imports,
+					IsEnum:           true,
+					EnumValues:       enumValues,
+				})
+				info.processed = true
+				added = true
 				continue
 			}
 			fields, imports, hasRequired := buildSchemaFields(info.className, base.CreateSchemaProxy(info.schema), r)

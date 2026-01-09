@@ -4,7 +4,7 @@ package com.sumup.sdk.models;
 /** Profile information. */
 public record AccountLegacy(
     /** The role of the user. */
-    String type,
+    com.sumup.sdk.models.AccountLegacyType type,
 
     /** Username of the user profile. */
     String username) {
@@ -19,7 +19,7 @@ public record AccountLegacy(
 
   /** Builder for AccountLegacy instances. */
   public static final class Builder {
-    private String type;
+    private com.sumup.sdk.models.AccountLegacyType type;
     private String username;
 
     private Builder() {}
@@ -30,7 +30,7 @@ public record AccountLegacy(
      * @param type The role of the user.
      * @return This builder instance.
      */
-    public Builder type(String type) {
+    public Builder type(com.sumup.sdk.models.AccountLegacyType type) {
       this.type = type;
       return this;
     }

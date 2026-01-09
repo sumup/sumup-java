@@ -11,6 +11,41 @@ package {{ .Package }};
 {{- end }}
  */
 {{- end }}
+{{- if .IsEnum }}
+public enum {{ .ClassName }} {
+{{- range $index, $value := .EnumValues }}{{ if $index }},
+{{ end }}    {{ $value.Name }}({{ quote $value.WireValue }}){{ end }};
+
+    private final String value;
+
+    {{ .ClassName }}(String value) {
+        this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
+
+    @JsonCreator
+    public static {{ .ClassName }} fromValue(String value) {
+        if (value == null) {
+            return null;
+        }
+        for ({{ .ClassName }} entry : values()) {
+            if (entry.value.equals(value)) {
+                return entry;
+            }
+        }
+        throw new IllegalArgumentException("Unknown {{ .ClassName }} value: " + value);
+    }
+}
+{{- else }}
 public record {{ .ClassName }}(
 {{- if .Fields }}
 {{- range $index, $field := .Fields }}{{ if $index }},
@@ -94,3 +129,4 @@ public record {{ .ClassName }}(
         }
     }
 }
+{{- end }}

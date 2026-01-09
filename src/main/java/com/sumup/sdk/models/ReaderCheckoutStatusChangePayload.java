@@ -12,7 +12,7 @@ public record ReaderCheckoutStatusChangePayload(
     String merchantCode,
 
     /** The current status of the transaction. */
-    String status,
+    com.sumup.sdk.models.ReaderCheckoutStatusChangePayloadStatus status,
 
     /** The transaction id. Deprecated: use `client_transaction_id` instead. */
     java.util.UUID transactionId) {
@@ -29,7 +29,7 @@ public record ReaderCheckoutStatusChangePayload(
   public static final class Builder {
     private java.util.UUID clientTransactionId;
     private String merchantCode;
-    private String status;
+    private com.sumup.sdk.models.ReaderCheckoutStatusChangePayloadStatus status;
     private java.util.UUID transactionId;
 
     private Builder() {}
@@ -63,7 +63,7 @@ public record ReaderCheckoutStatusChangePayload(
      * @param status The current status of the transaction.
      * @return This builder instance.
      */
-    public Builder status(String status) {
+    public Builder status(com.sumup.sdk.models.ReaderCheckoutStatusChangePayloadStatus status) {
       this.status = status;
       return this;
     }

@@ -49,7 +49,7 @@ public record Checkout(
     String returnUrl,
 
     /** Current status of the checkout. */
-    String status,
+    com.sumup.sdk.models.CheckoutStatus status,
 
     /** List of transactions related to the payment. */
     java.util.List<com.sumup.sdk.models.TransactionBase> transactions,
@@ -80,7 +80,7 @@ public record Checkout(
     private com.sumup.sdk.models.MandateResponse mandate;
     private String merchantCode;
     private String returnUrl;
-    private String status;
+    private com.sumup.sdk.models.CheckoutStatus status;
     private java.util.List<com.sumup.sdk.models.TransactionBase> transactions;
     private java.time.OffsetDateTime validUntil;
 
@@ -208,7 +208,7 @@ public record Checkout(
      * @param status Current status of the checkout.
      * @return This builder instance.
      */
-    public Builder status(String status) {
+    public Builder status(com.sumup.sdk.models.CheckoutStatus status) {
       this.status = status;
       return this;
     }

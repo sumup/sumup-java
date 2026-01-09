@@ -25,7 +25,7 @@ public record PaymentInstrumentResponse(
     String token,
 
     /** Type of the payment instrument. */
-    String type) {
+    com.sumup.sdk.models.PaymentInstrumentResponseType type) {
   /**
    * Creates a builder for PaymentInstrumentResponse.
    *
@@ -42,7 +42,7 @@ public record PaymentInstrumentResponse(
     private java.time.OffsetDateTime createdAt;
     private com.sumup.sdk.models.MandateResponse mandate;
     private String token;
-    private String type;
+    private com.sumup.sdk.models.PaymentInstrumentResponseType type;
 
     private Builder() {}
 
@@ -109,7 +109,7 @@ public record PaymentInstrumentResponse(
      * @param type Type of the payment instrument.
      * @return This builder instance.
      */
-    public Builder type(String type) {
+    public Builder type(com.sumup.sdk.models.PaymentInstrumentResponseType type) {
       this.type = type;
       return this;
     }

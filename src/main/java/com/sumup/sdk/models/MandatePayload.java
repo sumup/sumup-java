@@ -6,7 +6,7 @@ import java.util.Objects;
 /** Mandate is passed when a card is to be tokenized */
 public record MandatePayload(
     /** Indicates the mandate type */
-    String type,
+    com.sumup.sdk.models.MandatePayloadType type,
 
     /** Operating system and web client used by the end-user */
     String userAgent,
@@ -24,7 +24,7 @@ public record MandatePayload(
 
   /** Builder for MandatePayload instances. */
   public static final class Builder {
-    private String type;
+    private com.sumup.sdk.models.MandatePayloadType type;
     private String userAgent;
     private String userIp;
 
@@ -36,7 +36,7 @@ public record MandatePayload(
      * @param type Indicates the mandate type
      * @return This builder instance.
      */
-    public Builder type(String type) {
+    public Builder type(com.sumup.sdk.models.MandatePayloadType type) {
       this.type = type;
       return this;
     }

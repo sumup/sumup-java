@@ -45,7 +45,7 @@ public record CheckoutCreateRequest(
     String merchantCode,
 
     /** Purpose of the checkout. */
-    String purpose,
+    com.sumup.sdk.models.CheckoutCreateRequestPurpose purpose,
 
     /**
      * __Required__ for [APMs](https://developer.sumup.com/online-payments/apm/introduction) and
@@ -61,7 +61,7 @@ public record CheckoutCreateRequest(
     String returnUrl,
 
     /** Current status of the checkout. */
-    String status,
+    com.sumup.sdk.models.CheckoutCreateRequestStatus status,
 
     /** List of transactions related to the payment. */
     java.util.List<com.sumup.sdk.models.TransactionBase> transactions,
@@ -90,10 +90,10 @@ public record CheckoutCreateRequest(
     private String description;
     private String id;
     private String merchantCode;
-    private String purpose;
+    private com.sumup.sdk.models.CheckoutCreateRequestPurpose purpose;
     private String redirectUrl;
     private String returnUrl;
-    private String status;
+    private com.sumup.sdk.models.CheckoutCreateRequestStatus status;
     private java.util.List<com.sumup.sdk.models.TransactionBase> transactions;
     private java.time.OffsetDateTime validUntil;
 
@@ -198,7 +198,7 @@ public record CheckoutCreateRequest(
      * @param purpose Purpose of the checkout.
      * @return This builder instance.
      */
-    public Builder purpose(String purpose) {
+    public Builder purpose(com.sumup.sdk.models.CheckoutCreateRequestPurpose purpose) {
       this.purpose = purpose;
       return this;
     }
@@ -238,7 +238,7 @@ public record CheckoutCreateRequest(
      * @param status Current status of the checkout.
      * @return This builder instance.
      */
-    public Builder status(String status) {
+    public Builder status(com.sumup.sdk.models.CheckoutCreateRequestStatus status) {
       this.status = status;
       return this;
     }

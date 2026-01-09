@@ -246,7 +246,7 @@ public final class MerchantAsyncClient {
      *     only personal and merchant profile information will be returned.
      * @return This GetAccountQueryParams instance.
      */
-    public GetAccountQueryParams include(java.util.List<String> value) {
+    public GetAccountQueryParams include(java.util.List<com.sumup.sdk.models.IncludeItem> value) {
       this.values.put("include[]", Objects.requireNonNull(value, "include"));
       return this;
     }

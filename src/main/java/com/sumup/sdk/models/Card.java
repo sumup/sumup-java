@@ -9,7 +9,7 @@ public record Card(
     String cvv,
 
     /** Month from the expiration time of the payment card. Accepted format is `MM`. */
-    String expiryMonth,
+    com.sumup.sdk.models.CardExpiryMonth expiryMonth,
 
     /** Year from the expiration time of the payment card. Accepted formats are `YY` and `YYYY`. */
     String expiryYear,
@@ -40,7 +40,7 @@ public record Card(
   /** Builder for Card instances. */
   public static final class Builder {
     private String cvv;
-    private String expiryMonth;
+    private com.sumup.sdk.models.CardExpiryMonth expiryMonth;
     private String expiryYear;
     private String last4Digits;
     private String name;
@@ -68,7 +68,7 @@ public record Card(
      *     `MM`.
      * @return This builder instance.
      */
-    public Builder expiryMonth(String expiryMonth) {
+    public Builder expiryMonth(com.sumup.sdk.models.CardExpiryMonth expiryMonth) {
       this.expiryMonth = expiryMonth;
       return this;
     }

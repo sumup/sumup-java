@@ -8,7 +8,7 @@ public record UnauthorizedErrors(
     String detail,
 
     /** Key indicating type of error */
-    String type) {
+    com.sumup.sdk.models.UnauthorizedErrorsType type) {
   /**
    * Creates a builder for UnauthorizedErrors.
    *
@@ -21,7 +21,7 @@ public record UnauthorizedErrors(
   /** Builder for UnauthorizedErrors instances. */
   public static final class Builder {
     private String detail;
-    private String type;
+    private com.sumup.sdk.models.UnauthorizedErrorsType type;
 
     private Builder() {}
 
@@ -42,7 +42,7 @@ public record UnauthorizedErrors(
      * @param type Key indicating type of error
      * @return This builder instance.
      */
-    public Builder type(String type) {
+    public Builder type(com.sumup.sdk.models.UnauthorizedErrorsType type) {
       this.type = type;
       return this;
     }

@@ -9,7 +9,7 @@ public record ReaderDevice(
     String identifier,
 
     /** Identifier of the model of the device. */
-    String model) {
+    com.sumup.sdk.models.ReaderDeviceModel model) {
   /**
    * Creates a builder for ReaderDevice.
    *
@@ -22,7 +22,7 @@ public record ReaderDevice(
   /** Builder for ReaderDevice instances. */
   public static final class Builder {
     private String identifier;
-    private String model;
+    private com.sumup.sdk.models.ReaderDeviceModel model;
 
     private Builder() {}
 
@@ -43,7 +43,7 @@ public record ReaderDevice(
      * @param model Identifier of the model of the device.
      * @return This builder instance.
      */
-    public Builder model(String model) {
+    public Builder model(com.sumup.sdk.models.ReaderDeviceModel model) {
       this.model = model;
       return this;
     }

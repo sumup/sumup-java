@@ -11,7 +11,7 @@ public record StatusResponseData(
     Long batteryTemperature,
 
     /** Type of connection used by the device */
-    String connectionType,
+    com.sumup.sdk.models.StatusResponseDataConnectionType connectionType,
 
     /** Firmware version of the device */
     String firmwareVersion,
@@ -20,10 +20,10 @@ public record StatusResponseData(
     java.time.OffsetDateTime lastActivity,
 
     /** Latest state of the device */
-    String state,
+    com.sumup.sdk.models.StatusResponseDataState state,
 
     /** Status of a device */
-    String status) {
+    com.sumup.sdk.models.StatusResponseDataStatus status) {
   /**
    * Creates a builder for StatusResponseData.
    *
@@ -37,11 +37,11 @@ public record StatusResponseData(
   public static final class Builder {
     private Float batteryLevel;
     private Long batteryTemperature;
-    private String connectionType;
+    private com.sumup.sdk.models.StatusResponseDataConnectionType connectionType;
     private String firmwareVersion;
     private java.time.OffsetDateTime lastActivity;
-    private String state;
-    private String status;
+    private com.sumup.sdk.models.StatusResponseDataState state;
+    private com.sumup.sdk.models.StatusResponseDataStatus status;
 
     private Builder() {}
 
@@ -73,7 +73,8 @@ public record StatusResponseData(
      * @param connectionType Type of connection used by the device
      * @return This builder instance.
      */
-    public Builder connectionType(String connectionType) {
+    public Builder connectionType(
+        com.sumup.sdk.models.StatusResponseDataConnectionType connectionType) {
       this.connectionType = connectionType;
       return this;
     }
@@ -106,7 +107,7 @@ public record StatusResponseData(
      * @param state Latest state of the device
      * @return This builder instance.
      */
-    public Builder state(String state) {
+    public Builder state(com.sumup.sdk.models.StatusResponseDataState state) {
       this.state = state;
       return this;
     }
@@ -117,7 +118,7 @@ public record StatusResponseData(
      * @param status Status of a device
      * @return This builder instance.
      */
-    public Builder status(String status) {
+    public Builder status(com.sumup.sdk.models.StatusResponseDataStatus status) {
       this.status = status;
       return this;
     }

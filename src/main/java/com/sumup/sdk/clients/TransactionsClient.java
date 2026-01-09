@@ -574,7 +574,7 @@ public final class TransactionsClient {
      * @param value Specifies the order in which the returned results are displayed.
      * @return This ListTransactionsQueryParams instance.
      */
-    public ListTransactionsQueryParams order(String value) {
+    public ListTransactionsQueryParams order(com.sumup.sdk.models.Order2 value) {
       this.values.put("order", Objects.requireNonNull(value, "order"));
       return this;
     }
@@ -599,7 +599,8 @@ public final class TransactionsClient {
      *     transactions.
      * @return This ListTransactionsQueryParams instance.
      */
-    public ListTransactionsQueryParams statuses(java.util.List<String> value) {
+    public ListTransactionsQueryParams statuses(
+        java.util.List<com.sumup.sdk.models.StatusesItem2> value) {
       this.values.put("statuses", Objects.requireNonNull(value, "statuses"));
       return this;
     }
@@ -621,7 +622,8 @@ public final class TransactionsClient {
      * @param value Filters the returned results by the specified list of transaction types.
      * @return This ListTransactionsQueryParams instance.
      */
-    public ListTransactionsQueryParams types(java.util.List<String> value) {
+    public ListTransactionsQueryParams types(
+        java.util.List<com.sumup.sdk.models.TypesItem2> value) {
       this.values.put("types", Objects.requireNonNull(value, "types"));
       return this;
     }
@@ -734,7 +736,7 @@ public final class TransactionsClient {
      * @param value Specifies the order in which the returned results are displayed.
      * @return This ListTransactionsV21QueryParams instance.
      */
-    public ListTransactionsV21QueryParams order(String value) {
+    public ListTransactionsV21QueryParams order(com.sumup.sdk.models.Order value) {
       this.values.put("order", Objects.requireNonNull(value, "order"));
       return this;
     }
@@ -759,7 +761,8 @@ public final class TransactionsClient {
      *     transactions.
      * @return This ListTransactionsV21QueryParams instance.
      */
-    public ListTransactionsV21QueryParams statuses(java.util.List<String> value) {
+    public ListTransactionsV21QueryParams statuses(
+        java.util.List<com.sumup.sdk.models.StatusesItem> value) {
       this.values.put("statuses", Objects.requireNonNull(value, "statuses"));
       return this;
     }
@@ -781,7 +784,8 @@ public final class TransactionsClient {
      * @param value Filters the returned results by the specified list of transaction types.
      * @return This ListTransactionsV21QueryParams instance.
      */
-    public ListTransactionsV21QueryParams types(java.util.List<String> value) {
+    public ListTransactionsV21QueryParams types(
+        java.util.List<com.sumup.sdk.models.TypesItem> value) {
       this.values.put("types", Objects.requireNonNull(value, "types"));
       return this;
     }

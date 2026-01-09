@@ -22,7 +22,7 @@ public record TransactionBase(
     com.sumup.sdk.models.PaymentType paymentType,
 
     /** Current status of the transaction. */
-    String status,
+    com.sumup.sdk.models.TransactionBaseStatus status,
 
     /**
      * Date and time of the creation of the transaction. Response format expressed according to
@@ -50,7 +50,7 @@ public record TransactionBase(
     private String id;
     private Long installmentsCount;
     private com.sumup.sdk.models.PaymentType paymentType;
-    private String status;
+    private com.sumup.sdk.models.TransactionBaseStatus status;
     private java.time.OffsetDateTime timestamp;
     private String transactionCode;
 
@@ -118,7 +118,7 @@ public record TransactionBase(
      * @param status Current status of the transaction.
      * @return This builder instance.
      */
-    public Builder status(String status) {
+    public Builder status(com.sumup.sdk.models.TransactionBaseStatus status) {
       this.status = status;
       return this;
     }

@@ -15,10 +15,10 @@ public record MerchantSettingsPayload(
     String payoutOnDemandAvailable,
 
     /** Payout period. */
-    String payoutPeriod,
+    com.sumup.sdk.models.MerchantSettingsPayloadPayoutPeriod payoutPeriod,
 
     /** Payout type. */
-    String payoutType,
+    com.sumup.sdk.models.MerchantSettingsPayloadPayoutType payoutType,
 
     /** Printers enabled. */
     Boolean printersEnabled) {
@@ -37,8 +37,8 @@ public record MerchantSettingsPayload(
     private Boolean grossSettlement;
     private Boolean payoutOnDemand;
     private String payoutOnDemandAvailable;
-    private String payoutPeriod;
-    private String payoutType;
+    private com.sumup.sdk.models.MerchantSettingsPayloadPayoutPeriod payoutPeriod;
+    private com.sumup.sdk.models.MerchantSettingsPayloadPayoutType payoutType;
     private Boolean printersEnabled;
 
     private Builder() {}
@@ -94,7 +94,8 @@ public record MerchantSettingsPayload(
      * @param payoutPeriod Payout period.
      * @return This builder instance.
      */
-    public Builder payoutPeriod(String payoutPeriod) {
+    public Builder payoutPeriod(
+        com.sumup.sdk.models.MerchantSettingsPayloadPayoutPeriod payoutPeriod) {
       this.payoutPeriod = payoutPeriod;
       return this;
     }
@@ -105,7 +106,7 @@ public record MerchantSettingsPayload(
      * @param payoutType Payout type.
      * @return This builder instance.
      */
-    public Builder payoutType(String payoutType) {
+    public Builder payoutType(com.sumup.sdk.models.MerchantSettingsPayloadPayoutType payoutType) {
       this.payoutType = payoutType;
       return this;
     }

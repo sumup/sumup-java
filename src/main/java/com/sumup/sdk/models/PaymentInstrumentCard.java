@@ -18,7 +18,7 @@ public record PaymentInstrumentCard(
     String token,
 
     /** Type of the payment instrument. */
-    String type) {
+    com.sumup.sdk.models.PaymentInstrumentCardType type) {
   /**
    * Creates a builder for PaymentInstrumentCard.
    *
@@ -33,7 +33,7 @@ public record PaymentInstrumentCard(
     private Boolean active;
     private com.sumup.sdk.models.Card card;
     private String token;
-    private String type;
+    private com.sumup.sdk.models.PaymentInstrumentCardType type;
 
     private Builder() {}
 
@@ -77,7 +77,7 @@ public record PaymentInstrumentCard(
      * @param type Type of the payment instrument.
      * @return This builder instance.
      */
-    public Builder type(String type) {
+    public Builder type(com.sumup.sdk.models.PaymentInstrumentCardType type) {
       this.type = type;
       return this;
     }

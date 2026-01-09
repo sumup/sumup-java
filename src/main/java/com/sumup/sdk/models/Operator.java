@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /** Operator account for a merchant. */
 public record Operator(
-    String accountType,
+    com.sumup.sdk.models.OperatorAccountType accountType,
 
     /** The timestamp of when the operator was created. */
     java.time.OffsetDateTime createdAt,
@@ -30,7 +30,7 @@ public record Operator(
 
   /** Builder for Operator instances. */
   public static final class Builder {
-    private String accountType;
+    private com.sumup.sdk.models.OperatorAccountType accountType;
     private java.time.OffsetDateTime createdAt;
     private Boolean disabled;
     private Integer id;
@@ -47,7 +47,7 @@ public record Operator(
      * @param accountType Value for the accountType field.
      * @return This builder instance.
      */
-    public Builder accountType(String accountType) {
+    public Builder accountType(com.sumup.sdk.models.OperatorAccountType accountType) {
       this.accountType = accountType;
       return this;
     }

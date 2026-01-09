@@ -52,6 +52,29 @@ func camelCase(input string, fallback string) string {
 	return name
 }
 
+// enumConstantName converts an enum value into a valid Java enum constant name.
+func enumConstantName(value string) string {
+	trimmed := strings.TrimSpace(value)
+	if trimmed == "" {
+		return "EMPTY"
+	}
+	words := tokenize(trimmed)
+	if len(words) == 0 {
+		return "VALUE"
+	}
+	for i, word := range words {
+		words[i] = strings.ToUpper(word)
+	}
+	name := strings.Join(words, "_")
+	if name == "" {
+		name = "VALUE"
+	}
+	if len(name) > 0 && unicode.IsDigit([]rune(name)[0]) {
+		name = "VALUE_" + name
+	}
+	return name
+}
+
 // asyncClientClassName returns the asynchronous variant of a generated client.
 func asyncClientClassName(name string) string {
 	if strings.HasSuffix(name, "Client") {

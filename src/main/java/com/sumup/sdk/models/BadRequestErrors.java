@@ -8,7 +8,7 @@ public record BadRequestErrors(
     String detail,
 
     /** Key indicating type of error */
-    String type) {
+    com.sumup.sdk.models.BadRequestErrorsType type) {
   /**
    * Creates a builder for BadRequestErrors.
    *
@@ -21,7 +21,7 @@ public record BadRequestErrors(
   /** Builder for BadRequestErrors instances. */
   public static final class Builder {
     private String detail;
-    private String type;
+    private com.sumup.sdk.models.BadRequestErrorsType type;
 
     private Builder() {}
 
@@ -42,7 +42,7 @@ public record BadRequestErrors(
      * @param type Key indicating type of error
      * @return This builder instance.
      */
-    public Builder type(String type) {
+    public Builder type(com.sumup.sdk.models.BadRequestErrorsType type) {
       this.type = type;
       return this;
     }

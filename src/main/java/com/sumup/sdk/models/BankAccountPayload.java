@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public record BankAccountPayload(
     /** Determines if this bank account is business or personal. */
-    String accountCategory,
+    com.sumup.sdk.models.BankAccountPayloadAccountCategory accountCategory,
 
     /** Account holder name */
     String accountHolderName,
@@ -14,7 +14,7 @@ public record BankAccountPayload(
     String accountNumber,
 
     /** Type of the account. */
-    String accountType,
+    com.sumup.sdk.models.BankAccountPayloadAccountType accountType,
 
     /** Bank code */
     String bankCode,
@@ -32,7 +32,7 @@ public record BankAccountPayload(
     Boolean primary,
 
     /** Determines the bank account status. */
-    String status,
+    com.sumup.sdk.models.BankAccountPayloadStatus status,
 
     /** SWIFT code */
     String swift) {
@@ -47,16 +47,16 @@ public record BankAccountPayload(
 
   /** Builder for BankAccountPayload instances. */
   public static final class Builder {
-    private String accountCategory;
+    private com.sumup.sdk.models.BankAccountPayloadAccountCategory accountCategory;
     private String accountHolderName;
     private String accountNumber;
-    private String accountType;
+    private com.sumup.sdk.models.BankAccountPayloadAccountType accountType;
     private String bankCode;
     private String branchCode;
     private String checkDigit;
     private String iban;
     private Boolean primary;
-    private String status;
+    private com.sumup.sdk.models.BankAccountPayloadStatus status;
     private String swift;
 
     private Builder() {}
@@ -67,7 +67,8 @@ public record BankAccountPayload(
      * @param accountCategory Determines if this bank account is business or personal.
      * @return This builder instance.
      */
-    public Builder accountCategory(String accountCategory) {
+    public Builder accountCategory(
+        com.sumup.sdk.models.BankAccountPayloadAccountCategory accountCategory) {
       this.accountCategory = accountCategory;
       return this;
     }
@@ -100,7 +101,7 @@ public record BankAccountPayload(
      * @param accountType Type of the account.
      * @return This builder instance.
      */
-    public Builder accountType(String accountType) {
+    public Builder accountType(com.sumup.sdk.models.BankAccountPayloadAccountType accountType) {
       this.accountType = accountType;
       return this;
     }
@@ -166,7 +167,7 @@ public record BankAccountPayload(
      * @param status Determines the bank account status.
      * @return This builder instance.
      */
-    public Builder status(String status) {
+    public Builder status(com.sumup.sdk.models.BankAccountPayloadStatus status) {
       this.status = status;
       return this;
     }

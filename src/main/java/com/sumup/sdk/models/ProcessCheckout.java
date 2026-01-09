@@ -18,7 +18,7 @@ public record ProcessCheckout(
     com.sumup.sdk.models.MandatePayload mandate,
 
     /** Describes the payment method used to attempt processing */
-    String paymentType,
+    com.sumup.sdk.models.ProcessCheckoutPaymentType paymentType,
 
     /** Personal details for the customer. */
     com.sumup.sdk.models.PersonalDetails personalDetails,
@@ -43,7 +43,7 @@ public record ProcessCheckout(
     private String customerId;
     private Long installments;
     private com.sumup.sdk.models.MandatePayload mandate;
-    private String paymentType;
+    private com.sumup.sdk.models.ProcessCheckoutPaymentType paymentType;
     private com.sumup.sdk.models.PersonalDetails personalDetails;
     private String token;
 
@@ -100,7 +100,7 @@ public record ProcessCheckout(
      * @param paymentType Describes the payment method used to attempt processing
      * @return This builder instance.
      */
-    public Builder paymentType(String paymentType) {
+    public Builder paymentType(com.sumup.sdk.models.ProcessCheckoutPaymentType paymentType) {
       this.paymentType = paymentType;
       return this;
     }

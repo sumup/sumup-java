@@ -13,7 +13,7 @@ public record MerchantSettings(
     Boolean monthlyPayoutEmail,
 
     /** Whether merchant can make MOTO payments */
-    String motoPayment,
+    com.sumup.sdk.models.MerchantSettingsMotoPayment motoPayment,
 
     /** Payout Instrument */
     String payoutInstrument,
@@ -52,7 +52,7 @@ public record MerchantSettings(
     private Boolean dailyPayoutEmail;
     private Boolean grossSettlement;
     private Boolean monthlyPayoutEmail;
-    private String motoPayment;
+    private com.sumup.sdk.models.MerchantSettingsMotoPayment motoPayment;
     private String payoutInstrument;
     private Boolean payoutOnDemand;
     private Boolean payoutOnDemandAvailable;
@@ -103,7 +103,7 @@ public record MerchantSettings(
      * @param motoPayment Whether merchant can make MOTO payments
      * @return This builder instance.
      */
-    public Builder motoPayment(String motoPayment) {
+    public Builder motoPayment(com.sumup.sdk.models.MerchantSettingsMotoPayment motoPayment) {
       this.motoPayment = motoPayment;
       return this;
     }
