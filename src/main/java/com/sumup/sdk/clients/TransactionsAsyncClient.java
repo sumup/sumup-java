@@ -679,6 +679,18 @@ public final class TransactionsAsyncClient {
     }
 
     /**
+     * Sets the entry_modes[] query parameter.
+     *
+     * @param value Filters the returned results by the specified list of entry modes.
+     * @return This ListTransactionsV21QueryParams instance.
+     */
+    public ListTransactionsV21QueryParams entryModes(
+        java.util.List<com.sumup.sdk.models.EntryModeFilter> value) {
+      this.values.put("entry_modes[]", Objects.requireNonNull(value, "entryModes"));
+      return this;
+    }
+
+    /**
      * Sets the limit query parameter.
      *
      * @param value Specifies the maximum number of results per page. Value must be a positive
