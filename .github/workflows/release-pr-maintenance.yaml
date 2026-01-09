@@ -27,7 +27,6 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const core = require('@actions/core');
             const version = fs.readFileSync('VERSION', 'utf8').trim();
             if (!version) {
               throw new Error('VERSION file is empty');
@@ -36,14 +35,31 @@ jobs:
             const readmePath = 'README.md';
             const original = fs.readFileSync(readmePath, 'utf8');
 
-            const gradlePattern = /(implementation\("com\.sumup:sumup-sdk:)([^"]+)("\))/;
-            let gradleUpdated = false;
-            const afterGradle = original.replace(gradlePattern, (_, prefix, _current, suffix) => {
-              gradleUpdated = true;
-              return `${prefix}${version}${suffix}`;
-            });
-            if (!gradleUpdated) {
-              throw new Error('Gradle dependency snippet not found in README.md');
+            const kotlinGradlePattern = /(implementation\("com\.sumup:sumup:)([^"]+)("\))/;
+            let kotlinGradleUpdated = false;
+            const afterKotlinGradle = original.replace(
+              kotlinGradlePattern,
+              (_, prefix, _current, suffix) => {
+                kotlinGradleUpdated = true;
+                return `${prefix}${version}${suffix}`;
+              }
+            );
+            if (!kotlinGradleUpdated) {
+              throw new Error('Gradle (Kotlin DSL) dependency snippet not found in README.md');
+            }
+
+            const groovyGradlePattern =
+              /(implementation\s+['"]com\.sumup:sumup:)([^'"]+)(['"])/;
+            let groovyGradleUpdated = false;
+            const afterGradle = afterKotlinGradle.replace(
+              groovyGradlePattern,
+              (_, prefix, _current, suffix) => {
+                groovyGradleUpdated = true;
+                return `${prefix}${version}${suffix}`;
+              }
+            );
+            if (!groovyGradleUpdated) {
+              throw new Error('Gradle (Groovy) dependency snippet not found in README.md');
             }
 
             const mavenPattern = /(<version>)([^<]+)(<\/version>)/;

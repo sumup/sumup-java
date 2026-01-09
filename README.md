@@ -2,7 +2,7 @@
 
 # SumUp Java SDK
 
-[![Maven Central Version](https://img.shields.io/maven-central/v/com.sumup/sumup-java?strategy=releaseProperty)](https://mvnrepository.com/artifact/com.sumup/sumup-java)
+[![Maven Central Version](https://img.shields.io/maven-central/v/com.sumup/sumup?strategy=releaseProperty)](https://mvnrepository.com/artifact/com.sumup/sumup)
 [![Documentation][docs-badge]](https://developer.sumup.com)
 [![CI Status](https://github.com/sumup/sumup-java/actions/workflows/ci.yaml/badge.svg)](https://github.com/sumup/sumup-java/actions/workflows/ci.yaml)
 [![License](https://img.shields.io/github/license/sumup/sumup-java)](./LICENSE)
@@ -13,29 +13,41 @@ _**IMPORTANT:** This SDK is under heavy development and subject to breaking chan
 
 The Java SDK for the SumUp [API](https://developer.sumup.com) generated from the canonical OpenAPI specification. Requires Java 17 or newer.
 
-## Getting Started
+## Installation
 
-Add the SDK to your project via Gradle (Kotlin DSL):
+### Gradle (Kotlin DSL)
+
+Add the dependency in your `build.gradle.kts` file:
 
 ```kotlin
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    implementation("com.sumup:sumup-sdk:0.1.0-SNAPSHOT")
+    implementation("com.sumup:sumup:0.0.1")
 }
 ```
 
-or Maven:
+### Gradle (Groovy)
+
+Add the dependency in your `build.gradle` file:
+
+```groovy
+dependencies {
+    implementation 'com.sumup:sumup:0.0.1'
+}
+```
+
+### Maven
+
+Add the dependency in your `pom.xml` file:
 
 ```xml
 <dependency>
   <groupId>com.sumup</groupId>
-  <artifactId>sumup-sdk</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <artifactId>sumup</artifactId>
+  <version>0.0.1</version>
 </dependency>
 ```
+
+## Getting Started
 
 Authenticate with a personal access token before making calls:
 
