@@ -16,6 +16,10 @@ go-test:
 build:
 	JAVA_HOME="${JAVA_HOME:-$(/usr/libexec/java_home -v 21)}" ./gradlew build
 
+# Generate aggregated Javadocs for all modules.
+javadoc:
+	JAVA_HOME="${JAVA_HOME:-$(/usr/libexec/java_home -v 21)}" ./gradlew aggregateJavadoc
+
 # Run the basic example (uses the same Java toolchain helper as build).
 example-basic:
 	JAVA_HOME="${JAVA_HOME:-$(/usr/libexec/java_home -v 21)}" ./gradlew :examples:basic:run

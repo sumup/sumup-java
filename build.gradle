@@ -1,5 +1,8 @@
 import com.diffplug.gradle.spotless.SpotlessExtension
 import org.gradle.api.GradleException
+import org.gradle.api.plugins.JavaPlugin
+import org.gradle.api.tasks.SourceSetContainer
+import org.gradle.api.tasks.javadoc.Javadoc
 import org.gradle.jvm.toolchain.JavaToolchainService
 
 plugins {
@@ -74,6 +77,30 @@ tasks.register('codegen') {
     description = 'Regenerates the OpenAPI client with go -C codegen run . generate.'
     doLast {
         println('Run `go -C codegen run . generate` from the repo root to refresh generated sources.')
+    }
+}
+
+def aggregateJavadocTask = tasks.register('aggregateJavadoc', Javadoc) { task ->
+    group = 'documentation'
+    description = 'Generates Javadoc for all Java subprojects.'
+    destinationDir = layout.buildDirectory.dir('docs/javadoc').get().asFile
+    options.addBooleanOption('Xdoclint:none', true)
+    options.quiet()
+}
+
+gradle.projectsEvaluated {
+    aggregateJavadocTask.configure { task ->
+        def javaProjects = subprojects.findAll { project ->
+            project.plugins.hasPlugin(JavaPlugin)
+        }
+
+        def mainSourceSets = javaProjects.collect { project ->
+            project.extensions.getByType(SourceSetContainer).named('main').get()
+        }
+
+        task.dependsOn(javaProjects.collect { project -> project.tasks.named('javadoc') })
+        task.setSource(mainSourceSets.collect { sourceSet -> sourceSet.allJava })
+        task.setClasspath(task.project.files(mainSourceSets.collect { sourceSet -> sourceSet.compileClasspath }))
     }
 }
 
