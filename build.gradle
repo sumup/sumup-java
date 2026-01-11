@@ -8,7 +8,6 @@ import org.gradle.jvm.toolchain.JavaToolchainService
 plugins {
     id 'base'
     id 'com.diffplug.spotless' version '6.25.0' apply false
-    id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
 }
 
 ext {
@@ -101,15 +100,5 @@ gradle.projectsEvaluated {
         task.dependsOn(javaProjects.collect { project -> project.tasks.named('javadoc') })
         task.setSource(mainSourceSets.collect { sourceSet -> sourceSet.allJava })
         task.setClasspath(task.project.files(mainSourceSets.collect { sourceSet -> sourceSet.compileClasspath }))
-    }
-}
-
-nexusPublishing {
-    packageGroup.set('com.sumup')
-    repositories {
-        sonatype {
-            username.set(providers.environmentVariable('SONATYPE_USERNAME'))
-            password.set(providers.environmentVariable('SONATYPE_PASSWORD'))
-        }
     }
 }

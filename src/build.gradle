@@ -5,6 +5,7 @@ plugins {
     id 'com.diffplug.spotless'
     id 'maven-publish'
     id 'signing'
+    id 'cl.franciscosolis.sonatype-central-upload' version '1.0.3'
 }
 
 base {
@@ -87,17 +88,30 @@ publishing {
     }
 }
 
-def signingKey = providers.environmentVariable('SIGNING_KEY')
-def signingPassword = providers.environmentVariable('SIGNING_PASSWORD')
+sonatypeCentralUpload {
+    username = System.getenv('SONATYPE_USERNAME')
+    password = System.getenv('SONATYPE_PASSWORD')
+
+    archives = files(
+        "$buildDir/libs/sumup-${project.version}.jar",
+        "$buildDir/libs/sumup-${project.version}-sources.jar",
+        "$buildDir/libs/sumup-${project.version}-javadoc.jar"
+    )
+
+    pom = file("$buildDir/publications/mavenJava/pom-default.xml")
+    signingKey = System.getenv('SIGNING_KEY')
+    signingKeyPassphrase = System.getenv('SIGNING_PASSWORD')
+}
 
 signing {
-    required {
-        gradle.taskGraph.hasTask('publishToSonatype') ||
-            gradle.taskGraph.hasTask('closeAndReleaseSonatypeStagingRepository')
+    def signingKey = System.getenv('SIGNING_KEY')
+    def signingPassword = System.getenv('SIGNING_PASSWORD')
+    if (signingKey && signingPassword) {
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign(publishing.publications.mavenJava)
     }
+}
 
-    if (signingKey.isPresent() && signingPassword.isPresent()) {
-        useInMemoryPgpKeys(signingKey.get(), signingPassword.get())
-        sign(publishing.publications)
-    }
+tasks.named('sonatypeCentralUpload') {
+    dependsOn(tasks.named('build'))
 }

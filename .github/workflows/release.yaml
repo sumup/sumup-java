@@ -62,4 +62,4 @@ jobs:
           cache: gradle
 
       - name: Publish artifacts
-        run: ./gradlew :sumup-sdk:publishToSonatype closeAndReleaseSonatypeStagingRepository
+        run: ./gradlew :sumup-sdk:sonatypeCentralUpload
