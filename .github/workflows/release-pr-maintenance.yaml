@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   bump-readme:
-    if: startsWith(github.event.pull_request.head.ref, 'release-please--')
+    if: github.event.pull_request.state == 'open' && startsWith(github.event.pull_request.head.ref, 'release-please--')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout release branch
