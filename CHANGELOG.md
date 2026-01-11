@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.4](https://github.com/sumup/sumup-java/compare/v0.0.3...v0.0.4) (2026-01-11)
+
+
+### Bug Fixes
+
+* **sdk:** sdk name ([0daba9e](https://github.com/sumup/sumup-java/commit/0daba9ebbf982626306e5792774db26251a2381b))
+
 ## [0.0.3](https://github.com/sumup/sumup-java/compare/v0.0.2...v0.0.3) (2026-01-11)
 
 
