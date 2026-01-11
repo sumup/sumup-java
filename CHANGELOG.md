@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.3](https://github.com/sumup/sumup-java/compare/v0.0.2...v0.0.3) (2026-01-11)
+
+
+### Bug Fixes
+
+* **cd:** release process ([c52f531](https://github.com/sumup/sumup-java/commit/c52f5312370cff96ba4cd776d4b44ba7635c9c59))
+* **cd:** run release pr maintenance only before merging ([7fce233](https://github.com/sumup/sumup-java/commit/7fce2336e08550f627108d6c66318994540acb67))
+* **sdk:** javadoc comments ([dfe319b](https://github.com/sumup/sumup-java/commit/dfe319b4818838e8d27f3fc0e8c84cde318ccd70))
+
 ## [0.0.2](https://github.com/sumup/sumup-java/compare/v0.0.1...v0.0.2) (2026-01-10)
 
 
