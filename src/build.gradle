@@ -98,7 +98,7 @@ sonatypeCentralUpload {
         "$buildDir/libs/sumup-${project.version}-javadoc.jar"
     )
 
-    pom = file("$buildDir/publications/mavenJava/pom-default.xml")
+    pom = layout.buildDirectory.file("publications/mavenJava/pom-default.xml").get().asFile
     signingKey = System.getenv('SIGNING_KEY')
     signingKeyPassphrase = System.getenv('SIGNING_PASSWORD')
 }
@@ -114,4 +114,5 @@ signing {
 
 tasks.named('sonatypeCentralUpload') {
     dependsOn(tasks.named('build'))
+    dependsOn(tasks.named('generatePomFileForMavenJavaPublication'))
 }
