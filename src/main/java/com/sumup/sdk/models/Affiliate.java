@@ -4,7 +4,7 @@ package com.sumup.sdk.models;
 import java.util.Objects;
 
 /**
- * Affiliate metadata for the transaction. * It is a field that allow for integrators to track the
+ * Affiliate metadata for the transaction. It is a field that allow for integrators to track the
  * source of the transaction.
  */
 public record Affiliate(

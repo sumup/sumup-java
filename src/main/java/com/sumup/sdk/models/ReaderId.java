@@ -2,7 +2,7 @@
 package com.sumup.sdk.models;
 
 /**
- * Unique identifier of the object. * Note that this identifies the instance of the physical devices
+ * Unique identifier of the object. Note that this identifies the instance of the physical devices
  * pairing with your SumUp account. If you
  * [delete](https://developer.sumup.com/api/readers/delete-reader) a reader, and pair the device
  * again, the ID will be different. Do not use this ID to refer to a physical device.

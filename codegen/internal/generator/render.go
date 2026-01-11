@@ -398,6 +398,12 @@ func loadTemplate(name string) (*template.Template, error) {
 	tmpl, err := template.New(name).Funcs(template.FuncMap{
 		"quote": func(s string) string { return strconvQuote(s) },
 		"join":  func(values []string, sep string) string { return strings.Join(values, sep) },
+		"javadocType": func(s string) string {
+			if strings.ContainsAny(s, "<>") {
+				return "{@code " + s + "}"
+			}
+			return s
+		},
 	}).Parse(string(content))
 	if err != nil {
 		return nil, fmt.Errorf("parse template %s: %w", name, err)

@@ -4,8 +4,8 @@ package com.sumup.sdk.models;
 import java.util.Objects;
 
 /**
- * Amount structure. * The amount is represented as an integer value altogether with the currency
- * and the minor unit. * For example, EUR 1.00 is represented as value 100 with minor unit of 2.
+ * Amount structure. The amount is represented as an integer value altogether with the currency and
+ * the minor unit. For example, EUR 1.00 is represented as value 100 with minor unit of 2.
  */
 public record Money(
     /** Currency ISO 4217 code */

@@ -181,8 +181,8 @@ public final class SubaccountsAsyncClient {
    * <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
    * headers, authorization, query values, or timeouts.
    *
-   * @return CompletableFuture resolved with java.util.List<com.sumup.sdk.models.Operator> parsed
-   *     response.
+   * @return CompletableFuture resolved with {@code java.util.List<com.sumup.sdk.models.Operator>}
+   *     parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<java.util.List<com.sumup.sdk.models.Operator>> listSubAccounts()
@@ -200,8 +200,8 @@ public final class SubaccountsAsyncClient {
    * @param listSubAccounts Optional query parameters for this request.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
-   * @return CompletableFuture resolved with java.util.List<com.sumup.sdk.models.Operator> parsed
-   *     response.
+   * @return CompletableFuture resolved with {@code java.util.List<com.sumup.sdk.models.Operator>}
+   *     parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<java.util.List<com.sumup.sdk.models.Operator>> listSubAccounts(
@@ -219,8 +219,8 @@ public final class SubaccountsAsyncClient {
    * @param listSubAccounts Optional query parameters for this request.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
-   * @return CompletableFuture resolved with java.util.List<com.sumup.sdk.models.Operator> parsed
-   *     response.
+   * @return CompletableFuture resolved with {@code java.util.List<com.sumup.sdk.models.Operator>}
+   *     parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<java.util.List<com.sumup.sdk.models.Operator>> listSubAccounts(

@@ -179,7 +179,7 @@ public final class SubaccountsClient {
    * <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
    * headers, authorization, query values, or timeouts.
    *
-   * @return java.util.List<com.sumup.sdk.models.Operator> parsed response.
+   * @return {@code java.util.List<com.sumup.sdk.models.Operator>} parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public java.util.List<com.sumup.sdk.models.Operator> listSubAccounts() throws ApiException {
@@ -196,7 +196,7 @@ public final class SubaccountsClient {
    * @param listSubAccounts Optional query parameters for this request.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
-   * @return java.util.List<com.sumup.sdk.models.Operator> parsed response.
+   * @return {@code java.util.List<com.sumup.sdk.models.Operator>} parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public java.util.List<com.sumup.sdk.models.Operator> listSubAccounts(
@@ -214,7 +214,7 @@ public final class SubaccountsClient {
    * @param listSubAccounts Optional query parameters for this request.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
-   * @return java.util.List<com.sumup.sdk.models.Operator> parsed response.
+   * @return {@code java.util.List<com.sumup.sdk.models.Operator>} parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public java.util.List<com.sumup.sdk.models.Operator> listSubAccounts(

@@ -263,7 +263,7 @@ public final class CheckoutsClient {
    * <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
    * headers, authorization, query values, or timeouts.
    *
-   * @return java.util.List<com.sumup.sdk.models.CheckoutSuccess> parsed response.
+   * @return {@code java.util.List<com.sumup.sdk.models.CheckoutSuccess>} parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public java.util.List<com.sumup.sdk.models.CheckoutSuccess> listCheckouts() throws ApiException {
@@ -280,7 +280,7 @@ public final class CheckoutsClient {
    * @param listCheckouts Optional query parameters for this request.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
-   * @return java.util.List<com.sumup.sdk.models.CheckoutSuccess> parsed response.
+   * @return {@code java.util.List<com.sumup.sdk.models.CheckoutSuccess>} parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public java.util.List<com.sumup.sdk.models.CheckoutSuccess> listCheckouts(
@@ -298,7 +298,7 @@ public final class CheckoutsClient {
    * @param listCheckouts Optional query parameters for this request.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
-   * @return java.util.List<com.sumup.sdk.models.CheckoutSuccess> parsed response.
+   * @return {@code java.util.List<com.sumup.sdk.models.CheckoutSuccess>} parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public java.util.List<com.sumup.sdk.models.CheckoutSuccess> listCheckouts(

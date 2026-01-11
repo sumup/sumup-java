@@ -4,7 +4,7 @@ package com.sumup.sdk.models;
 import java.util.Objects;
 
 /**
- * A RFC 9457 problem details object. * Additional properties specific to the problem type may be
+ * A RFC 9457 problem details object. Additional properties specific to the problem type may be
  * present.
  */
 public record Problem(

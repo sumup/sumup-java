@@ -175,7 +175,7 @@ public final class CustomersClient {
    * @param customerId Unique ID of the saved customer resource.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
-   * @return java.util.List<com.sumup.sdk.models.PaymentInstrumentResponse> parsed response.
+   * @return {@code java.util.List<com.sumup.sdk.models.PaymentInstrumentResponse>} parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public java.util.List<com.sumup.sdk.models.PaymentInstrumentResponse> listPaymentInstruments(
@@ -193,7 +193,7 @@ public final class CustomersClient {
    * @param customerId Unique ID of the saved customer resource.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
-   * @return java.util.List<com.sumup.sdk.models.PaymentInstrumentResponse> parsed response.
+   * @return {@code java.util.List<com.sumup.sdk.models.PaymentInstrumentResponse>} parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public java.util.List<com.sumup.sdk.models.PaymentInstrumentResponse> listPaymentInstruments(

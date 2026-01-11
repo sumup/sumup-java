@@ -6,7 +6,7 @@ import java.util.Objects;
 /**
  * An address somewhere in the world. The address fields used depend on the country conventions. For
  * example, in Great Britain, `city` is `post_town`. In the United States, the top-level
- * administrative unit used in addresses is `state`, whereas in Chile it's `region`. * Whether an
+ * administrative unit used in addresses is `state`, whereas in Chile it's `region`. Whether an
  * address is valid or not depends on whether the locally required fields are present. Fields not
  * supported in a country will be ignored.
  */

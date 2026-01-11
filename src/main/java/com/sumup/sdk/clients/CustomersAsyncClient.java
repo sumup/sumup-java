@@ -181,8 +181,8 @@ public final class CustomersAsyncClient {
    * @param customerId Unique ID of the saved customer resource.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
-   * @return CompletableFuture resolved with
-   *     java.util.List<com.sumup.sdk.models.PaymentInstrumentResponse> parsed response.
+   * @return CompletableFuture resolved with {@code
+   *     java.util.List<com.sumup.sdk.models.PaymentInstrumentResponse>} parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<java.util.List<com.sumup.sdk.models.PaymentInstrumentResponse>>
@@ -200,8 +200,8 @@ public final class CustomersAsyncClient {
    * @param customerId Unique ID of the saved customer resource.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
-   * @return CompletableFuture resolved with
-   *     java.util.List<com.sumup.sdk.models.PaymentInstrumentResponse> parsed response.
+   * @return CompletableFuture resolved with {@code
+   *     java.util.List<com.sumup.sdk.models.PaymentInstrumentResponse>} parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<java.util.List<com.sumup.sdk.models.PaymentInstrumentResponse>>

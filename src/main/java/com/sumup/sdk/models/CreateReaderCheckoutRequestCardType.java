@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * The card type of the card used for the transaction. * Is is required only for some countries
- * (e.g: Brazil).
+ * The card type of the card used for the transaction. Is is required only for some countries (e.g:
+ * Brazil).
  */
 public enum CreateReaderCheckoutRequestCardType {
   CREDIT("credit"),
