@@ -8,5 +8,5 @@ application {
 }
 
 dependencies {
-    implementation project(':sumup')
+    implementation project(':sumup-sdk')
 }

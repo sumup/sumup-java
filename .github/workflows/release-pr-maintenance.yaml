@@ -35,7 +35,7 @@ jobs:
             const readmePath = 'README.md';
             const original = fs.readFileSync(readmePath, 'utf8');
 
-            const kotlinGradlePattern = /(implementation\("com\.sumup:sumup:)([^"]+)("\))/;
+            const kotlinGradlePattern = /(implementation\("com\.sumup:sumup-sdk:)([^"]+)("\))/;
             let kotlinGradleUpdated = false;
             const afterKotlinGradle = original.replace(
               kotlinGradlePattern,
@@ -49,7 +49,7 @@ jobs:
             }
 
             const groovyGradlePattern =
-              /(implementation\s+['"]com\.sumup:sumup:)([^'"]+)(['"])/;
+              /(implementation\s+['"]com\.sumup:sumup-sdk:)([^'"]+)(['"])/;
             let groovyGradleUpdated = false;
             const afterGradle = afterKotlinGradle.replace(
               groovyGradlePattern,

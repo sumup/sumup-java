@@ -2,7 +2,7 @@
 
 # SumUp Java SDK
 
-[![Maven Central Version](https://img.shields.io/maven-central/v/com.sumup/sumup?strategy=releaseProperty)](https://mvnrepository.com/artifact/com.sumup/sumup)
+[![Maven Central Version](https://img.shields.io/maven-central/v/com.sumup/sumup-sdk?strategy=releaseProperty)](https://mvnrepository.com/artifact/com.sumup/sumup-sdk)
 [![Documentation][docs-badge]](https://developer.sumup.com)
 [![CI Status](https://github.com/sumup/sumup-java/actions/workflows/ci.yaml/badge.svg)](https://github.com/sumup/sumup-java/actions/workflows/ci.yaml)
 [![License](https://img.shields.io/github/license/sumup/sumup-java)](./LICENSE)
@@ -21,7 +21,7 @@ Add the dependency in your `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
-    implementation("com.sumup:sumup:0.0.5")
+    implementation("com.sumup:sumup-sdk:0.0.5")
 }
 ```
 
@@ -31,7 +31,7 @@ Add the dependency in your `build.gradle` file:
 
 ```groovy
 dependencies {
-    implementation 'com.sumup:sumup:0.0.5'
+    implementation 'com.sumup:sumup-sdk:0.0.5'
 }
 ```
 
@@ -42,7 +42,7 @@ Add the dependency in your `pom.xml` file:
 ```xml
 <dependency>
   <groupId>com.sumup</groupId>
-  <artifactId>sumup</artifactId>
+  <artifactId>sumup-sdk</artifactId>
   <version>0.0.5</version>
 </dependency>
 ```
@@ -55,21 +55,25 @@ Authenticate with a personal access token before making calls:
 export SUMUP_API_KEY="my-token"
 ```
 
-Create synchronous and asynchronous clients using the provided builders:
+Create clients using the default constructor (reads `SUMUP_API_KEY`):
 
 ```java
-String apiKey = System.getenv("SUMUP_API_KEY");
+SumUpClient client = new SumUpClient();
+SumUpAsyncClient asyncClient = new SumUpAsyncClient();
+```
 
+Or pass the API key explicitly:
+
+```java
+SumUpClient client = new SumUpClient("api-key");
+```
+
+If you need more configuration, use the builder:
+
+```java
 SumUpClient client =
     SumUpClient.builder()
         .environment(SumUpEnvironment.PRODUCTION)
-        .accessToken(apiKey)
-        .build();
-
-SumUpAsyncClient asyncClient =
-    SumUpAsyncClient.builder()
-        .environment(SumUpEnvironment.PRODUCTION)
-        .accessToken(apiKey)
         .build();
 ```
 
@@ -86,11 +90,9 @@ import com.sumup.sdk.models.CheckoutCreateRequest;
 import com.sumup.sdk.models.Currency;
 import java.util.UUID;
 
-String apiKey = System.getenv("SUMUP_API_KEY");
 SumUpClient client =
     SumUpClient.builder()
         .environment(SumUpEnvironment.PRODUCTION)
-        .accessToken(apiKey)
         .build();
 
 String merchantCode = client.merchant().getMerchantProfile().merchantCode();
@@ -121,11 +123,9 @@ import com.sumup.sdk.models.Currency;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-String apiKey = System.getenv("SUMUP_API_KEY");
 SumUpAsyncClient client =
     SumUpAsyncClient.builder()
         .environment(SumUpEnvironment.PRODUCTION)
-        .accessToken(apiKey)
         .build();
 
 CompletableFuture<Void> checkoutFuture =
@@ -170,13 +170,11 @@ import com.sumup.sdk.models.Money;
 import java.util.Optional;
 import java.util.UUID;
 
-String apiKey = System.getenv("SUMUP_API_KEY");
 String merchantCode = System.getenv("SUMUP_MERCHANT_CODE");
 
 SumUpClient client =
     SumUpClient.builder()
         .environment(SumUpEnvironment.PRODUCTION)
-        .accessToken(apiKey)
         .build();
 
 String readerId =
@@ -215,13 +213,11 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-String apiKey = System.getenv("SUMUP_API_KEY");
 String merchantCode = System.getenv("SUMUP_MERCHANT_CODE");
 
 SumUpAsyncClient client =
     SumUpAsyncClient.builder()
         .environment(SumUpEnvironment.PRODUCTION)
-        .accessToken(apiKey)
         .build();
 
 CompletableFuture<String> readerIdFuture =

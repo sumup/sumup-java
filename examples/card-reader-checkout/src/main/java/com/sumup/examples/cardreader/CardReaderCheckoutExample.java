@@ -1,7 +1,6 @@
 package com.sumup.examples.cardreader;
 
 import com.sumup.sdk.SumUpClient;
-import com.sumup.sdk.SumUpEnvironment;
 import com.sumup.sdk.core.ApiException;
 import com.sumup.sdk.models.CreateReaderCheckoutRequest;
 import com.sumup.sdk.models.Money;
@@ -14,11 +13,9 @@ public final class CardReaderCheckoutExample {
   private CardReaderCheckoutExample() {}
 
   public static void main(String[] args) {
-    String apiKey = requireEnv("SUMUP_API_KEY");
     String merchantCode = requireEnv("SUMUP_MERCHANT_CODE");
 
-    SumUpClient client =
-        SumUpClient.builder().environment(SumUpEnvironment.PRODUCTION).accessToken(apiKey).build();
+    SumUpClient client = new SumUpClient();
 
     Optional<String> readerId =
         client.readers().listReaders(merchantCode).items().stream()

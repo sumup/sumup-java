@@ -1,7 +1,6 @@
 package com.sumup.examples.basic;
 
 import com.sumup.sdk.SumUpClient;
-import com.sumup.sdk.SumUpEnvironment;
 import com.sumup.sdk.core.ApiException;
 import java.util.List;
 
@@ -16,14 +15,7 @@ public final class BasicExample {
   private BasicExample() {}
 
   public static void main(String[] args) {
-    String apiKey = System.getenv("SUMUP_API_KEY");
-    if (apiKey == null || apiKey.isBlank()) {
-      System.err.println("SUMUP_API_KEY environment variable must be set.");
-      return;
-    }
-
-    SumUpClient client =
-        SumUpClient.builder().environment(SumUpEnvironment.PRODUCTION).accessToken(apiKey).build();
+    SumUpClient client = new SumUpClient();
 
     try {
       List<com.sumup.sdk.models.CheckoutSuccess> checkouts = client.checkouts().listCheckouts();

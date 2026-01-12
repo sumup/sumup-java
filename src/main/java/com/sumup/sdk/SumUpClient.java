@@ -37,6 +37,28 @@ public final class SumUpClient {
   private final SubaccountsClient subaccounts;
   private final TransactionsClient transactions;
 
+  /** Creates a SumUpClient using the API key from the SUMUP_API_KEY environment variable. */
+  public SumUpClient() {
+    this(readApiKeyFromEnv());
+  }
+
+  /**
+   * Creates a SumUpClient using the provided API key.
+   *
+   * @param apiKey API key used to authorize requests.
+   */
+  public SumUpClient(String apiKey) {
+    this(ApiClient.builder().accessToken(Objects.requireNonNull(apiKey, "apiKey")).build());
+  }
+
+  private static String readApiKeyFromEnv() {
+    String apiKey = System.getenv("SUMUP_API_KEY");
+    if (apiKey == null || apiKey.isBlank()) {
+      throw new IllegalStateException("SUMUP_API_KEY environment variable is not set");
+    }
+    return apiKey;
+  }
+
   /**
    * Creates a SumUpClient using the provided ApiClient.
    *
