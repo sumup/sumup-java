@@ -278,17 +278,6 @@ public final class SumUpClient {
     }
 
     /**
-     * Configures the API environment (and its base URL).
-     *
-     * @param environment Desired SumUp environment.
-     * @return This builder instance.
-     */
-    public Builder environment(SumUpEnvironment environment) {
-      this.apiClientBuilder.baseUri(environment.getBaseUrl());
-      return this;
-    }
-
-    /**
      * Builds a SumUpClient using the supplied configuration.
      *
      * @return Configured SumUpClient.

@@ -68,12 +68,12 @@ Or pass the API key explicitly:
 SumUpClient client = new SumUpClient("api-key");
 ```
 
-If you need more configuration, use the builder:
+If you need more configuration, use the builder (for example, to override the base URL):
 
 ```java
 SumUpClient client =
     SumUpClient.builder()
-        .environment(SumUpEnvironment.PRODUCTION)
+        .baseUri("https://api.sumup.com")
         .build();
 ```
 
@@ -85,14 +85,12 @@ Synchronous example:
 
 ```java
 import com.sumup.sdk.SumUpClient;
-import com.sumup.sdk.SumUpEnvironment;
 import com.sumup.sdk.models.CheckoutCreateRequest;
 import com.sumup.sdk.models.Currency;
 import java.util.UUID;
 
 SumUpClient client =
     SumUpClient.builder()
-        .environment(SumUpEnvironment.PRODUCTION)
         .build();
 
 String merchantCode = client.merchant().getMerchantProfile().merchantCode();
@@ -117,7 +115,6 @@ Asynchronous example:
 
 ```java
 import com.sumup.sdk.SumUpAsyncClient;
-import com.sumup.sdk.SumUpEnvironment;
 import com.sumup.sdk.models.CheckoutCreateRequest;
 import com.sumup.sdk.models.Currency;
 import java.util.UUID;
@@ -125,7 +122,6 @@ import java.util.concurrent.CompletableFuture;
 
 SumUpAsyncClient client =
     SumUpAsyncClient.builder()
-        .environment(SumUpEnvironment.PRODUCTION)
         .build();
 
 CompletableFuture<Void> checkoutFuture =
@@ -164,7 +160,6 @@ Synchronous example:
 
 ```java
 import com.sumup.sdk.SumUpClient;
-import com.sumup.sdk.SumUpEnvironment;
 import com.sumup.sdk.models.CreateReaderCheckoutRequest;
 import com.sumup.sdk.models.Money;
 import java.util.Optional;
@@ -174,7 +169,6 @@ String merchantCode = System.getenv("SUMUP_MERCHANT_CODE");
 
 SumUpClient client =
     SumUpClient.builder()
-        .environment(SumUpEnvironment.PRODUCTION)
         .build();
 
 String readerId =
@@ -206,7 +200,6 @@ Asynchronous example:
 
 ```java
 import com.sumup.sdk.SumUpAsyncClient;
-import com.sumup.sdk.SumUpEnvironment;
 import com.sumup.sdk.models.CreateReaderCheckoutRequest;
 import com.sumup.sdk.models.Money;
 import java.util.Optional;
@@ -217,7 +210,6 @@ String merchantCode = System.getenv("SUMUP_MERCHANT_CODE");
 
 SumUpAsyncClient client =
     SumUpAsyncClient.builder()
-        .environment(SumUpEnvironment.PRODUCTION)
         .build();
 
 CompletableFuture<String> readerIdFuture =
