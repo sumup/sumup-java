@@ -9,7 +9,7 @@ plugins {
 }
 
 base {
-    archivesName = 'sumup'
+    archivesName = 'sumup-sdk'
 }
 
 java {
@@ -53,7 +53,7 @@ tasks.withType(Javadoc).configureEach {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId = 'sumup'
+            artifactId = 'sumup-sdk'
             from components.java
 
             pom {
@@ -93,9 +93,9 @@ sonatypeCentralUpload {
     password = System.getenv('SONATYPE_PASSWORD')
 
     archives = files(
-        "$buildDir/libs/sumup-${project.version}.jar",
-        "$buildDir/libs/sumup-${project.version}-sources.jar",
-        "$buildDir/libs/sumup-${project.version}-javadoc.jar"
+        "$buildDir/libs/sumup-sdk-${project.version}.jar",
+        "$buildDir/libs/sumup-sdk-${project.version}-sources.jar",
+        "$buildDir/libs/sumup-sdk-${project.version}-javadoc.jar"
     )
 
     pom = layout.buildDirectory.file("publications/mavenJava/pom-default.xml").get().asFile
