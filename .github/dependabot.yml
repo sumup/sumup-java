@@ -6,6 +6,10 @@ updates:
       interval: "weekly"
     cooldown:
       default-days: 7
+    groups:
+      jackson:
+        patterns:
+          - "com.fasterxml.jackson*"
     commit-message:
       prefix: chore
       include: scope
