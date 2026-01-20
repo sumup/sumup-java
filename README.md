@@ -2,7 +2,7 @@
 
 # SumUp Java SDK
 
-[![Maven Central Version](https://img.shields.io/maven-central/v/com.sumup/sumup-sdk?strategy=releaseProperty)](https://mvnrepository.com/artifact/com.sumup/sumup-sdk)
+[![Maven Central](https://img.shields.io/maven-central/v/com.sumup/sumup-sdk)](https://central.sonatype.com/artifact/com.sumup/sumup-sdk)
 [![Documentation][docs-badge]](https://developer.sumup.com)
 [![CI Status](https://github.com/sumup/sumup-java/actions/workflows/ci.yaml/badge.svg)](https://github.com/sumup/sumup-java/actions/workflows/ci.yaml)
 [![License](https://img.shields.io/github/license/sumup/sumup-java)](./LICENSE)
