@@ -75,6 +75,27 @@ final class ApiClientTest {
   }
 
   @Test
+  void defaultRuntimeHeadersAreIncluded() {
+    CapturingHttpClient httpClient = new CapturingHttpClient();
+    ApiClient client = ApiClient.builder().httpClient(httpClient).build();
+
+    client.send(HttpMethod.GET, "/v1/test", null, null, null, null, null);
+
+    HttpHeaders headers = httpClient.lastRequest().headers();
+    assertEquals(SdkMetadata.apiVersion(), headers.firstValue("X-Sumup-Api-Version").orElse(null));
+    assertEquals("java", headers.firstValue("X-Sumup-Lang").orElse(null));
+    assertEquals(SdkMetadata.version(), headers.firstValue("X-Sumup-Package-Version").orElse(null));
+    assertEquals(
+        System.getProperty("os.name", "unknown"), headers.firstValue("X-Sumup-OS").orElse(null));
+    assertEquals(
+        SdkMetadata.runtimeHeaders().get("X-Sumup-Arch"),
+        headers.firstValue("X-Sumup-Arch").orElse(null));
+    assertEquals("java" + Runtime.version(), headers.firstValue("X-Sumup-Runtime").orElse(null));
+    assertEquals(
+        Runtime.version().toString(), headers.firstValue("X-Sumup-Runtime-Version").orElse(null));
+  }
+
+  @Test
   void requestOptionsCanOverrideTimeout() {
     CapturingHttpClient httpClient = new CapturingHttpClient();
     ApiClient client = ApiClient.builder().httpClient(httpClient).build();

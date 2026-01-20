@@ -186,6 +186,7 @@ public final class ApiClient {
       RequestOptions requestOptions) {
     Map<String, String> merged = new LinkedHashMap<>();
     merged.put("User-Agent", SdkMetadata.userAgent());
+    merged.putAll(SdkMetadata.runtimeHeaders());
     if (headerParams != null) {
       headerParams.forEach(
           (name, value) -> {

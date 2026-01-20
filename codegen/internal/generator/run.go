@@ -32,6 +32,11 @@ func Run(ctx context.Context, params Params) error {
 		return err
 	}
 
+	apiVersion := ""
+	if doc.Info != nil {
+		apiVersion = doc.Info.Version
+	}
+
 	slog.Info("Generating SDK", "spec", params.SpecPath)
 	if err := renderClients(model, params); err != nil {
 		return err
@@ -40,6 +45,9 @@ func Run(ctx context.Context, params Params) error {
 		return err
 	}
 	if err := renderSumUpClient(model, params); err != nil {
+		return err
+	}
+	if err := renderApiVersionResource(apiVersion, params); err != nil {
 		return err
 	}
 

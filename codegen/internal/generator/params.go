@@ -12,6 +12,7 @@ import (
 type Params struct {
 	SpecPath    string
 	OutputDir   string
+	ResourceDir string
 	BasePackage string
 }
 
@@ -34,6 +35,12 @@ func (p *Params) normalize() error {
 	if p.OutputDir, err = filepath.Abs(p.OutputDir); err != nil {
 		return fmt.Errorf("resolve output directory: %w", err)
 	}
+	if p.ResourceDir == "" {
+		p.ResourceDir = filepath.Join(filepath.Dir(p.OutputDir), "resources")
+	}
+	if p.ResourceDir, err = filepath.Abs(p.ResourceDir); err != nil {
+		return fmt.Errorf("resolve resource directory: %w", err)
+	}
 	return nil
 }
 
@@ -54,6 +61,18 @@ func (p *Params) validate() error {
 		}
 	} else if !fi.IsDir() {
 		return fmt.Errorf("output directory %s is not a directory", p.OutputDir)
+	}
+	fi, err = os.Stat(p.ResourceDir)
+	if err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			if err := os.MkdirAll(p.ResourceDir, 0o755); err != nil {
+				return fmt.Errorf("create resource directory: %w", err)
+			}
+		} else {
+			return fmt.Errorf("resource directory: %w", err)
+		}
+	} else if !fi.IsDir() {
+		return fmt.Errorf("resource directory %s is not a directory", p.ResourceDir)
 	}
 	return nil
 }

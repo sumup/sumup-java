@@ -21,7 +21,7 @@ sourceSets {
     def emptyDirs = []
     main {
         java.srcDirs = ['main/java']
-        resources.srcDirs = emptyDirs
+        resources.srcDirs = ['main/resources']
     }
     test {
         java.srcDirs = ['test/java']
