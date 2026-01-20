@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.6](https://github.com/sumup/sumup-java/compare/v0.0.5...v0.0.6) (2026-01-20)
+
+
+### Features
+
+* report runtime properties ([#21](https://github.com/sumup/sumup-java/issues/21)) ([0f26bb5](https://github.com/sumup/sumup-java/commit/0f26bb5c0337f72c241b7218bc480d86408a4250))
+
 ## [0.0.5](https://github.com/sumup/sumup-java/compare/v0.0.4...v0.0.5) (2026-01-11)
 
 
