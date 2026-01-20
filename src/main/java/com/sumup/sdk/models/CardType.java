@@ -6,19 +6,29 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Issuing card network of the payment card used for the transaction. */
 public enum CardType {
+  ALELO("ALELO"),
   AMEX("AMEX"),
+  CONECS("CONECS"),
   CUP("CUP"),
   DINERS("DINERS"),
   DISCOVER("DISCOVER"),
+  EFTPOS("EFTPOS"),
   ELO("ELO"),
   ELV("ELV"),
+  GIROCARD("GIROCARD"),
   HIPERCARD("HIPERCARD"),
+  INTERAC("INTERAC"),
   JCB("JCB"),
   MAESTRO("MAESTRO"),
   MASTERCARD("MASTERCARD"),
+  PLUXEE("PLUXEE"),
+  SWILE("SWILE"),
+  TICKET("TICKET"),
   VISA("VISA"),
   VISA_ELECTRON("VISA_ELECTRON"),
   VISA_VPAY("VISA_VPAY"),
+  VPAY("VPAY"),
+  VR("VR"),
   UNKNOWN("UNKNOWN");
 
   private final String value;
