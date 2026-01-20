@@ -90,7 +90,7 @@ final class ApiClientTest {
     assertEquals(
         SdkMetadata.runtimeHeaders().get("X-Sumup-Arch"),
         headers.firstValue("X-Sumup-Arch").orElse(null));
-    assertEquals("java" + Runtime.version(), headers.firstValue("X-Sumup-Runtime").orElse(null));
+    assertEquals("java", headers.firstValue("X-Sumup-Runtime").orElse(null));
     assertEquals(
         Runtime.version().toString(), headers.firstValue("X-Sumup-Runtime-Version").orElse(null));
   }
