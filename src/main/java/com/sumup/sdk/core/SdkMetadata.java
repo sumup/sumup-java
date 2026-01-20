@@ -25,7 +25,7 @@ public final class SdkMetadata {
           "X-Sumup-Package-Version", VERSION,
           "X-Sumup-OS", System.getProperty("os.name", "unknown"),
           "X-Sumup-Arch", runtimeArch(),
-          "X-Sumup-Runtime", runtimeIdentifier(),
+          "X-Sumup-Runtime", LANGUAGE,
           "X-Sumup-Runtime-Version", Runtime.version().toString());
 
   private SdkMetadata() {}
@@ -59,10 +59,6 @@ public final class SdkMetadata {
       case "arm", "armv7", "armv7l" -> "arm";
       default -> arch;
     };
-  }
-
-  private static String runtimeIdentifier() {
-    return LANGUAGE + Runtime.version();
   }
 
   private static String loadResource(String path) {
