@@ -30,10 +30,10 @@ sourceSets {
 }
 
 dependencies {
-    api 'com.fasterxml.jackson.core:jackson-annotations:2.20'
-    api 'com.fasterxml.jackson.core:jackson-core:2.20'
-    api 'com.fasterxml.jackson.core:jackson-databind:2.20'
-    api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.1'
+    api 'com.fasterxml.jackson.core:jackson-annotations:2.21'
+    api 'com.fasterxml.jackson.core:jackson-core:2.21'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.21'
+    api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.21.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
 }
