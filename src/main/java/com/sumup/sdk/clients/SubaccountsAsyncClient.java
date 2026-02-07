@@ -60,8 +60,6 @@ public final class SubaccountsAsyncClient {
     Objects.requireNonNull(operatorId, "operatorId");
     String path = "/v0.1/me/accounts/{operator_id}";
     path = path.replace("{operator_id}", ApiClient.urlEncode(String.valueOf(operatorId)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -109,8 +107,6 @@ public final class SubaccountsAsyncClient {
       throws ApiException {
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/me/accounts";
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.POST,
@@ -158,8 +154,6 @@ public final class SubaccountsAsyncClient {
     Objects.requireNonNull(operatorId, "operatorId");
     String path = "/v0.1/me/accounts/{operator_id}";
     path = path.replace("{operator_id}", ApiClient.urlEncode(String.valueOf(operatorId)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.DELETE,
@@ -231,7 +225,6 @@ public final class SubaccountsAsyncClient {
     if (listSubAccounts != null) {
       queryParams.putAll(listSubAccounts.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -288,8 +281,6 @@ public final class SubaccountsAsyncClient {
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/me/accounts/{operator_id}";
     path = path.replace("{operator_id}", ApiClient.urlEncode(String.valueOf(operatorId)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.PUT,

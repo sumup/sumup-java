@@ -66,8 +66,6 @@ public final class MembersClient {
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/merchants/{merchant_code}/members";
     path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.POST,
@@ -116,8 +114,6 @@ public final class MembersClient {
     String path = "/v0.1/merchants/{merchant_code}/members/{member_id}";
     path = path.replace("{member_id}", ApiClient.urlEncode(String.valueOf(memberId)));
     path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     this.apiClient.send(HttpMethod.DELETE, path, null, null, null, null, requestOptions);
   }
@@ -162,8 +158,6 @@ public final class MembersClient {
     String path = "/v0.1/merchants/{merchant_code}/members/{member_id}";
     path = path.replace("{member_id}", ApiClient.urlEncode(String.valueOf(memberId)));
     path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -238,7 +232,6 @@ public final class MembersClient {
     if (listMerchantMembers != null) {
       queryParams.putAll(listMerchantMembers.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -300,8 +293,6 @@ public final class MembersClient {
     String path = "/v0.1/merchants/{merchant_code}/members/{member_id}";
     path = path.replace("{member_id}", ApiClient.urlEncode(String.valueOf(memberId)));
     path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.PUT,

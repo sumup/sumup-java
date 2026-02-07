@@ -90,7 +90,6 @@ public final class ReceiptsAsyncClient {
     if (getReceipt != null) {
       queryParams.putAll(getReceipt.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,

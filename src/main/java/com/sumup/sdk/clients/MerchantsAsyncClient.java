@@ -85,7 +85,6 @@ public final class MerchantsAsyncClient {
     if (getMerchant != null) {
       queryParams.putAll(getMerchant.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -166,7 +165,6 @@ public final class MerchantsAsyncClient {
     if (getPerson != null) {
       queryParams.putAll(getPerson.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -242,7 +240,6 @@ public final class MerchantsAsyncClient {
     if (listPersons != null) {
       queryParams.putAll(listPersons.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,

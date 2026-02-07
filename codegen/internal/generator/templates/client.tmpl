@@ -169,8 +169,6 @@ public final class {{ .ClassName }} {
             queryParams.putAll({{ .QueryStruct.VarName }}.toMap());
         }
 {{- end }}
-{{- else }}
-        Map<String, Object> queryParams = null;
 {{- end }}
 
 {{- if or .RequiredHeaderParams .HeaderStruct }}
@@ -183,8 +181,6 @@ public final class {{ .ClassName }} {
             headerParams.putAll({{ .HeaderStruct.VarName }}.toMap());
         }
 {{- end }}
-{{- else }}
-        Map<String, String> headerParams = null;
 {{- end }}
 
         {{ if not .ReturnsVoid }}return {{ end }}this.apiClient.send(

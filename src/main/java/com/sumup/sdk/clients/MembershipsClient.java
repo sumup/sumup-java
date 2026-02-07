@@ -79,7 +79,6 @@ public final class MembershipsClient {
     if (listMemberships != null) {
       queryParams.putAll(listMemberships.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,

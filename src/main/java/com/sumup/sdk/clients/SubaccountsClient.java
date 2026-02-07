@@ -58,8 +58,6 @@ public final class SubaccountsClient {
     Objects.requireNonNull(operatorId, "operatorId");
     String path = "/v0.1/me/accounts/{operator_id}";
     path = path.replace("{operator_id}", ApiClient.urlEncode(String.valueOf(operatorId)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -107,8 +105,6 @@ public final class SubaccountsClient {
       throws ApiException {
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/me/accounts";
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.POST,
@@ -156,8 +152,6 @@ public final class SubaccountsClient {
     Objects.requireNonNull(operatorId, "operatorId");
     String path = "/v0.1/me/accounts/{operator_id}";
     path = path.replace("{operator_id}", ApiClient.urlEncode(String.valueOf(operatorId)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.DELETE,
@@ -225,7 +219,6 @@ public final class SubaccountsClient {
     if (listSubAccounts != null) {
       queryParams.putAll(listSubAccounts.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -282,8 +275,6 @@ public final class SubaccountsClient {
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/me/accounts/{operator_id}";
     path = path.replace("{operator_id}", ApiClient.urlEncode(String.valueOf(operatorId)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.PUT,
