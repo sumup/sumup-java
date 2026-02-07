@@ -107,13 +107,10 @@ public record Merchant2(
     private String avatar;
     private com.sumup.sdk.models.BusinessProfile businessProfile;
     private String businessType;
-    private com.sumup.sdk.models.ChangeStatus changeStatus;
     private com.sumup.sdk.models.ClassicMerchantIdentifiers classic;
     private com.sumup.sdk.models.Company company;
     private com.sumup.sdk.models.CountryCode country;
-    private String defaultCurrency;
     private String defaultLocale;
-    private String merchantCode;
     private com.sumup.sdk.models.Meta meta;
     private String organizationId;
     private Boolean sandbox;
@@ -175,21 +172,6 @@ public record Merchant2(
     }
 
     /**
-     * Sets the value for {@code changeStatus}.
-     *
-     * @param changeStatus Reflects the status of changes submitted through the `PATCH` endpoints
-     *     for the merchant or persons. If some changes have not been applied yet, the status will
-     *     be `pending`. If all changes have been applied, the status `done`. The status is only
-     *     returned after write operations or on read endpoints when the `version` query parameter
-     *     is provided.
-     * @return This builder instance.
-     */
-    public Builder changeStatus(com.sumup.sdk.models.ChangeStatus changeStatus) {
-      this.changeStatus = changeStatus;
-      return this;
-    }
-
-    /**
      * Sets the value for {@code classic}.
      *
      * @param classic Value for the classic field.
@@ -226,19 +208,6 @@ public record Merchant2(
     }
 
     /**
-     * Sets the value for {@code defaultCurrency}.
-     *
-     * @param defaultCurrency Three-letter [ISO currency
-     *     code](https://en.wikipedia.org/wiki/ISO_4217) representing the default currency for the
-     *     account.
-     * @return This builder instance.
-     */
-    public Builder defaultCurrency(String defaultCurrency) {
-      this.defaultCurrency = defaultCurrency;
-      return this;
-    }
-
-    /**
      * Sets the value for {@code defaultLocale}.
      *
      * @param defaultLocale Merchant's default locale, represented as a BCP47
@@ -253,17 +222,6 @@ public record Merchant2(
      */
     public Builder defaultLocale(String defaultLocale) {
       this.defaultLocale = defaultLocale;
-      return this;
-    }
-
-    /**
-     * Sets the value for {@code merchantCode}.
-     *
-     * @param merchantCode Short unique identifier for the merchant.
-     * @return This builder instance.
-     */
-    public Builder merchantCode(String merchantCode) {
-      this.merchantCode = merchantCode;
       return this;
     }
 
@@ -326,13 +284,13 @@ public record Merchant2(
           avatar,
           businessProfile,
           businessType,
-          changeStatus,
+          null,
           classic,
           company,
           Objects.requireNonNull(country, "country"),
-          Objects.requireNonNull(defaultCurrency, "defaultCurrency"),
+          null,
           Objects.requireNonNull(defaultLocale, "defaultLocale"),
-          Objects.requireNonNull(merchantCode, "merchantCode"),
+          null,
           meta,
           organizationId,
           sandbox,

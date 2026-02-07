@@ -42,7 +42,6 @@ public record Card(
     private String cvv;
     private com.sumup.sdk.models.CardExpiryMonth expiryMonth;
     private String expiryYear;
-    private String last4Digits;
     private String name;
     private String number;
     private com.sumup.sdk.models.CardType type;
@@ -82,17 +81,6 @@ public record Card(
      */
     public Builder expiryYear(String expiryYear) {
       this.expiryYear = expiryYear;
-      return this;
-    }
-
-    /**
-     * Sets the value for {@code last4Digits}.
-     *
-     * @param last4Digits Last 4 digits of the payment card number.
-     * @return This builder instance.
-     */
-    public Builder last4Digits(String last4Digits) {
-      this.last4Digits = last4Digits;
       return this;
     }
 
@@ -150,7 +138,7 @@ public record Card(
           Objects.requireNonNull(cvv, "cvv"),
           Objects.requireNonNull(expiryMonth, "expiryMonth"),
           Objects.requireNonNull(expiryYear, "expiryYear"),
-          Objects.requireNonNull(last4Digits, "last4Digits"),
+          null,
           Objects.requireNonNull(name, "name"),
           Objects.requireNonNull(number, "number"),
           Objects.requireNonNull(type, "type"),

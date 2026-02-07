@@ -98,6 +98,7 @@ type schemaField struct {
 	Type             string
 	DescriptionLines []string
 	Required         bool
+	ReadOnly         bool
 }
 
 // enumValueModel captures a single enum constant and its wire value.
@@ -583,6 +584,7 @@ func buildSchemaFields(name string, ref *base.SchemaProxy, resolver *typeResolve
 			for _, imp := range javaType.Imports {
 				imports[imp] = struct{}{}
 			}
+			readOnly := isReadOnlySchema(propRef)
 			desc := ""
 			if schemaFromProxy(propRef) != nil {
 				desc = schemaFromProxy(propRef).Description
@@ -592,8 +594,9 @@ func buildSchemaFields(name string, ref *base.SchemaProxy, resolver *typeResolve
 				Type:             javaType.Name,
 				DescriptionLines: splitComment(desc),
 				Required:         required[propName],
+				ReadOnly:         readOnly,
 			})
-			if required[propName] {
+			if required[propName] && !readOnly {
 				hasRequired = true
 			}
 		}
@@ -735,6 +738,12 @@ func schemaHasType(schema *base.Schema, want string) bool {
 		}
 	}
 	return false
+}
+
+// isReadOnlySchema reports whether the schema marks this value as readOnly.
+func isReadOnlySchema(proxy *base.SchemaProxy) bool {
+	schema := schemaFromProxy(proxy)
+	return schema != nil && schema.ReadOnly != nil && *schema.ReadOnly
 }
 
 // sortedImports deterministically orders import strings so rendered files do
