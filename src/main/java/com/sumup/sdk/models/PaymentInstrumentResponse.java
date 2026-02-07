@@ -37,26 +37,12 @@ public record PaymentInstrumentResponse(
 
   /** Builder for PaymentInstrumentResponse instances. */
   public static final class Builder {
-    private Boolean active;
     private com.sumup.sdk.models.PaymentInstrumentResponseCard card;
     private java.time.OffsetDateTime createdAt;
     private com.sumup.sdk.models.MandateResponse mandate;
-    private String token;
     private com.sumup.sdk.models.PaymentInstrumentResponseType type;
 
     private Builder() {}
-
-    /**
-     * Sets the value for {@code active}.
-     *
-     * @param active Indicates whether the payment instrument is active and can be used for
-     *     payments. To deactivate it, send a `DELETE` request to the resource endpoint.
-     * @return This builder instance.
-     */
-    public Builder active(Boolean active) {
-      this.active = active;
-      return this;
-    }
 
     /**
      * Sets the value for {@code card}.
@@ -93,17 +79,6 @@ public record PaymentInstrumentResponse(
     }
 
     /**
-     * Sets the value for {@code token}.
-     *
-     * @param token Unique token identifying the saved payment card for a customer.
-     * @return This builder instance.
-     */
-    public Builder token(String token) {
-      this.token = token;
-      return this;
-    }
-
-    /**
      * Sets the value for {@code type}.
      *
      * @param type Type of the payment instrument.
@@ -120,7 +95,7 @@ public record PaymentInstrumentResponse(
      * @return Immutable PaymentInstrumentResponse.
      */
     public PaymentInstrumentResponse build() {
-      return new PaymentInstrumentResponse(active, card, createdAt, mandate, token, type);
+      return new PaymentInstrumentResponse(null, card, createdAt, mandate, null, type);
     }
   }
 }

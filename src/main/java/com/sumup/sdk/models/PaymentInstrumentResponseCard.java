@@ -19,21 +19,9 @@ public record PaymentInstrumentResponseCard(
 
   /** Builder for PaymentInstrumentResponseCard instances. */
   public static final class Builder {
-    private String last4Digits;
     private com.sumup.sdk.models.CardType type;
 
     private Builder() {}
-
-    /**
-     * Sets the value for {@code last4Digits}.
-     *
-     * @param last4Digits Last 4 digits of the payment card number.
-     * @return This builder instance.
-     */
-    public Builder last4Digits(String last4Digits) {
-      this.last4Digits = last4Digits;
-      return this;
-    }
 
     /**
      * Sets the value for {@code type}.
@@ -52,7 +40,7 @@ public record PaymentInstrumentResponseCard(
      * @return Immutable PaymentInstrumentResponseCard.
      */
     public PaymentInstrumentResponseCard build() {
-      return new PaymentInstrumentResponseCard(last4Digits, type);
+      return new PaymentInstrumentResponseCard(null, type);
     }
   }
 }

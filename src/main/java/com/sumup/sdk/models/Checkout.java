@@ -76,7 +76,6 @@ public record Checkout(
     private String customerId;
     private java.time.OffsetDateTime date;
     private String description;
-    private String id;
     private com.sumup.sdk.models.MandateResponse mandate;
     private String merchantCode;
     private String returnUrl;
@@ -154,17 +153,6 @@ public record Checkout(
      */
     public Builder description(String description) {
       this.description = description;
-      return this;
-    }
-
-    /**
-     * Sets the value for {@code id}.
-     *
-     * @param id Unique ID of the checkout resource.
-     * @return This builder instance.
-     */
-    public Builder id(String id) {
-      this.id = id;
       return this;
     }
 
@@ -250,7 +238,7 @@ public record Checkout(
           customerId,
           date,
           description,
-          id,
+          null,
           mandate,
           merchantCode,
           returnUrl,

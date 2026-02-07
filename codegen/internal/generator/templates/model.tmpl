@@ -77,7 +77,9 @@ public record {{ .ClassName }}(
     public static final class Builder {
 {{- if .Fields }}
 {{- range .Fields }}
+{{- if not .ReadOnly }}
         private {{ .Type }} {{ .Name }};
+{{- end }}
 {{- end }}
 {{- else }}
         private Object value;
@@ -87,6 +89,7 @@ public record {{ .ClassName }}(
 
 {{- if .Fields }}
 {{- range .Fields }}
+{{- if not .ReadOnly }}
         /**
          * Sets the value for {@code {{ .Name }}}.
          *
@@ -97,6 +100,7 @@ public record {{ .ClassName }}(
             this.{{ .Name }} = {{ .Name }};
             return this;
         }
+{{- end }}
 {{- end }}
 {{- else }}
         /**
@@ -121,7 +125,7 @@ public record {{ .ClassName }}(
             return new {{ $.ClassName }}(
 {{- range $index, $field := .Fields }}
 {{- if $index }},
-{{ end }}                {{ if $field.Required }}Objects.requireNonNull({{ $field.Name }}, {{ quote $field.Name }}){{ else }}{{ $field.Name }}{{ end }}
+{{ end }}                {{ if $field.ReadOnly }}null{{ else if $field.Required }}Objects.requireNonNull({{ $field.Name }}, {{ quote $field.Name }}){{ else }}{{ $field.Name }}{{ end }}
 {{- end }}
             );
 {{- else }}

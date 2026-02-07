@@ -86,15 +86,11 @@ public record CheckoutCreateRequest(
     private String checkoutReference;
     private com.sumup.sdk.models.Currency currency;
     private String customerId;
-    private java.time.OffsetDateTime date;
     private String description;
-    private String id;
     private String merchantCode;
     private com.sumup.sdk.models.CheckoutCreateRequestPurpose purpose;
     private String redirectUrl;
     private String returnUrl;
-    private com.sumup.sdk.models.CheckoutCreateRequestStatus status;
-    private java.util.List<com.sumup.sdk.models.TransactionBase> transactions;
     private java.time.OffsetDateTime validUntil;
 
     private Builder() {}
@@ -147,18 +143,6 @@ public record CheckoutCreateRequest(
     }
 
     /**
-     * Sets the value for {@code date}.
-     *
-     * @param date Date and time of the creation of the payment checkout. Response format expressed
-     *     according to [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) code.
-     * @return This builder instance.
-     */
-    public Builder date(java.time.OffsetDateTime date) {
-      this.date = date;
-      return this;
-    }
-
-    /**
      * Sets the value for {@code description}.
      *
      * @param description Short description of the checkout visible in the SumUp dashboard. The
@@ -167,17 +151,6 @@ public record CheckoutCreateRequest(
      */
     public Builder description(String description) {
       this.description = description;
-      return this;
-    }
-
-    /**
-     * Sets the value for {@code id}.
-     *
-     * @param id Unique ID of the checkout resource.
-     * @return This builder instance.
-     */
-    public Builder id(String id) {
-      this.id = id;
       return this;
     }
 
@@ -233,28 +206,6 @@ public record CheckoutCreateRequest(
     }
 
     /**
-     * Sets the value for {@code status}.
-     *
-     * @param status Current status of the checkout.
-     * @return This builder instance.
-     */
-    public Builder status(com.sumup.sdk.models.CheckoutCreateRequestStatus status) {
-      this.status = status;
-      return this;
-    }
-
-    /**
-     * Sets the value for {@code transactions}.
-     *
-     * @param transactions List of transactions related to the payment.
-     * @return This builder instance.
-     */
-    public Builder transactions(java.util.List<com.sumup.sdk.models.TransactionBase> transactions) {
-      this.transactions = transactions;
-      return this;
-    }
-
-    /**
      * Sets the value for {@code validUntil}.
      *
      * @param validUntil Date and time of the checkout expiration before which the client
@@ -278,15 +229,15 @@ public record CheckoutCreateRequest(
           Objects.requireNonNull(checkoutReference, "checkoutReference"),
           Objects.requireNonNull(currency, "currency"),
           customerId,
-          date,
+          null,
           description,
-          id,
+          null,
           Objects.requireNonNull(merchantCode, "merchantCode"),
           purpose,
           redirectUrl,
           returnUrl,
-          status,
-          transactions,
+          null,
+          null,
           validUntil);
     }
   }

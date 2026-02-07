@@ -30,24 +30,10 @@ public record PaymentInstrumentCard(
 
   /** Builder for PaymentInstrumentCard instances. */
   public static final class Builder {
-    private Boolean active;
     private com.sumup.sdk.models.Card card;
-    private String token;
     private com.sumup.sdk.models.PaymentInstrumentCardType type;
 
     private Builder() {}
-
-    /**
-     * Sets the value for {@code active}.
-     *
-     * @param active Indicates whether the payment instrument is active and can be used for
-     *     payments. To deactivate it, send a `DELETE` request to the resource endpoint.
-     * @return This builder instance.
-     */
-    public Builder active(Boolean active) {
-      this.active = active;
-      return this;
-    }
 
     /**
      * Sets the value for {@code card}.
@@ -57,17 +43,6 @@ public record PaymentInstrumentCard(
      */
     public Builder card(com.sumup.sdk.models.Card card) {
       this.card = card;
-      return this;
-    }
-
-    /**
-     * Sets the value for {@code token}.
-     *
-     * @param token Unique token identifying the saved payment card for a customer.
-     * @return This builder instance.
-     */
-    public Builder token(String token) {
-      this.token = token;
       return this;
     }
 
@@ -89,10 +64,7 @@ public record PaymentInstrumentCard(
      */
     public PaymentInstrumentCard build() {
       return new PaymentInstrumentCard(
-          Objects.requireNonNull(active, "active"),
-          Objects.requireNonNull(card, "card"),
-          Objects.requireNonNull(token, "token"),
-          Objects.requireNonNull(type, "type"));
+          null, Objects.requireNonNull(card, "card"), null, Objects.requireNonNull(type, "type"));
     }
   }
 }
