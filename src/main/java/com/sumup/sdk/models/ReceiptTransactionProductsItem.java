@@ -2,20 +2,32 @@
 package com.sumup.sdk.models;
 
 public record ReceiptTransactionProductsItem(
-    /** Product description. */
-    String description,
-
-    /** Product name. */
+    /** Product name */
     String name,
 
-    /** Product price. */
-    Float price,
+    /** Product price */
+    String price,
 
-    /** Product quantity. */
+    /** Product price including VAT */
+    String priceWithVat,
+
+    /** Product quantity */
     Long quantity,
 
-    /** Quantity x product price. */
-    Float totalPrice) {
+    /** VAT amount for a single product */
+    String singleVatAmount,
+
+    /** Quantity x product price */
+    String totalPrice,
+
+    /** Total price including VAT */
+    String totalWithVat,
+
+    /** VAT amount */
+    String vatAmount,
+
+    /** VAT rate */
+    String vatRate) {
   /**
    * Creates a builder for ReceiptTransactionProductsItem.
    *
@@ -27,29 +39,22 @@ public record ReceiptTransactionProductsItem(
 
   /** Builder for ReceiptTransactionProductsItem instances. */
   public static final class Builder {
-    private String description;
     private String name;
-    private Float price;
+    private String price;
+    private String priceWithVat;
     private Long quantity;
-    private Float totalPrice;
+    private String singleVatAmount;
+    private String totalPrice;
+    private String totalWithVat;
+    private String vatAmount;
+    private String vatRate;
 
     private Builder() {}
 
     /**
-     * Sets the value for {@code description}.
-     *
-     * @param description Product description.
-     * @return This builder instance.
-     */
-    public Builder description(String description) {
-      this.description = description;
-      return this;
-    }
-
-    /**
      * Sets the value for {@code name}.
      *
-     * @param name Product name.
+     * @param name Product name
      * @return This builder instance.
      */
     public Builder name(String name) {
@@ -60,18 +65,29 @@ public record ReceiptTransactionProductsItem(
     /**
      * Sets the value for {@code price}.
      *
-     * @param price Product price.
+     * @param price Product price
      * @return This builder instance.
      */
-    public Builder price(Float price) {
+    public Builder price(String price) {
       this.price = price;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code priceWithVat}.
+     *
+     * @param priceWithVat Product price including VAT
+     * @return This builder instance.
+     */
+    public Builder priceWithVat(String priceWithVat) {
+      this.priceWithVat = priceWithVat;
       return this;
     }
 
     /**
      * Sets the value for {@code quantity}.
      *
-     * @param quantity Product quantity.
+     * @param quantity Product quantity
      * @return This builder instance.
      */
     public Builder quantity(Long quantity) {
@@ -80,13 +96,57 @@ public record ReceiptTransactionProductsItem(
     }
 
     /**
-     * Sets the value for {@code totalPrice}.
+     * Sets the value for {@code singleVatAmount}.
      *
-     * @param totalPrice Quantity x product price.
+     * @param singleVatAmount VAT amount for a single product
      * @return This builder instance.
      */
-    public Builder totalPrice(Float totalPrice) {
+    public Builder singleVatAmount(String singleVatAmount) {
+      this.singleVatAmount = singleVatAmount;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code totalPrice}.
+     *
+     * @param totalPrice Quantity x product price
+     * @return This builder instance.
+     */
+    public Builder totalPrice(String totalPrice) {
       this.totalPrice = totalPrice;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code totalWithVat}.
+     *
+     * @param totalWithVat Total price including VAT
+     * @return This builder instance.
+     */
+    public Builder totalWithVat(String totalWithVat) {
+      this.totalWithVat = totalWithVat;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code vatAmount}.
+     *
+     * @param vatAmount VAT amount
+     * @return This builder instance.
+     */
+    public Builder vatAmount(String vatAmount) {
+      this.vatAmount = vatAmount;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code vatRate}.
+     *
+     * @param vatRate VAT rate
+     * @return This builder instance.
+     */
+    public Builder vatRate(String vatRate) {
+      this.vatRate = vatRate;
       return this;
     }
 
@@ -96,7 +156,16 @@ public record ReceiptTransactionProductsItem(
      * @return Immutable ReceiptTransactionProductsItem.
      */
     public ReceiptTransactionProductsItem build() {
-      return new ReceiptTransactionProductsItem(description, name, price, quantity, totalPrice);
+      return new ReceiptTransactionProductsItem(
+          name,
+          price,
+          priceWithVat,
+          quantity,
+          singleVatAmount,
+          totalPrice,
+          totalWithVat,
+          vatAmount,
+          vatRate);
     }
   }
 }

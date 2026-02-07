@@ -4,7 +4,7 @@ package com.sumup.sdk.models;
 /** Details of a transaction event. */
 public record TransactionEvent(
     /** Amount of the event. */
-    com.sumup.sdk.models.AmountEvent amount,
+    Float amount,
 
     /** Date when the transaction event occurred. */
     java.time.LocalDate date,
@@ -28,7 +28,7 @@ public record TransactionEvent(
     com.sumup.sdk.models.EventStatus status,
 
     /** Date and time of the transaction event. */
-    com.sumup.sdk.models.TimestampEvent timestamp) {
+    java.time.OffsetDateTime timestamp) {
   /**
    * Creates a builder for TransactionEvent.
    *
@@ -40,14 +40,14 @@ public record TransactionEvent(
 
   /** Builder for TransactionEvent instances. */
   public static final class Builder {
-    private com.sumup.sdk.models.AmountEvent amount;
+    private Float amount;
     private java.time.LocalDate date;
     private java.time.LocalDate dueDate;
     private com.sumup.sdk.models.EventType eventType;
     private com.sumup.sdk.models.EventId id;
     private Long installmentNumber;
     private com.sumup.sdk.models.EventStatus status;
-    private com.sumup.sdk.models.TimestampEvent timestamp;
+    private java.time.OffsetDateTime timestamp;
 
     private Builder() {}
 
@@ -57,7 +57,7 @@ public record TransactionEvent(
      * @param amount Amount of the event.
      * @return This builder instance.
      */
-    public Builder amount(com.sumup.sdk.models.AmountEvent amount) {
+    public Builder amount(Float amount) {
       this.amount = amount;
       return this;
     }
@@ -135,7 +135,7 @@ public record TransactionEvent(
      * @param timestamp Date and time of the transaction event.
      * @return This builder instance.
      */
-    public Builder timestamp(com.sumup.sdk.models.TimestampEvent timestamp) {
+    public Builder timestamp(java.time.OffsetDateTime timestamp) {
       this.timestamp = timestamp;
       return this;
     }
