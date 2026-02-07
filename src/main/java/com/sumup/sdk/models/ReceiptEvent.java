@@ -3,7 +3,7 @@ package com.sumup.sdk.models;
 
 public record ReceiptEvent(
     /** Amount of the event. */
-    com.sumup.sdk.models.AmountEvent amount,
+    String amount,
 
     /** Unique ID of the transaction event. */
     com.sumup.sdk.models.EventId id,
@@ -13,7 +13,7 @@ public record ReceiptEvent(
     com.sumup.sdk.models.EventStatus status,
 
     /** Date and time of the transaction event. */
-    com.sumup.sdk.models.TimestampEvent timestamp,
+    java.time.OffsetDateTime timestamp,
 
     /** Unique ID of the transaction. */
     com.sumup.sdk.models.TransactionId transactionId,
@@ -31,11 +31,11 @@ public record ReceiptEvent(
 
   /** Builder for ReceiptEvent instances. */
   public static final class Builder {
-    private com.sumup.sdk.models.AmountEvent amount;
+    private String amount;
     private com.sumup.sdk.models.EventId id;
     private String receiptNo;
     private com.sumup.sdk.models.EventStatus status;
-    private com.sumup.sdk.models.TimestampEvent timestamp;
+    private java.time.OffsetDateTime timestamp;
     private com.sumup.sdk.models.TransactionId transactionId;
     private com.sumup.sdk.models.EventType type;
 
@@ -47,7 +47,7 @@ public record ReceiptEvent(
      * @param amount Amount of the event.
      * @return This builder instance.
      */
-    public Builder amount(com.sumup.sdk.models.AmountEvent amount) {
+    public Builder amount(String amount) {
       this.amount = amount;
       return this;
     }
@@ -91,7 +91,7 @@ public record ReceiptEvent(
      * @param timestamp Date and time of the transaction event.
      * @return This builder instance.
      */
-    public Builder timestamp(com.sumup.sdk.models.TimestampEvent timestamp) {
+    public Builder timestamp(java.time.OffsetDateTime timestamp) {
       this.timestamp = timestamp;
       return this;
     }
