@@ -84,7 +84,6 @@ public final class MembershipsAsyncClient {
     if (listMemberships != null) {
       queryParams.putAll(listMemberships.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,

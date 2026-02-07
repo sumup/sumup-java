@@ -6,7 +6,6 @@ import com.sumup.sdk.core.ApiClient;
 import com.sumup.sdk.core.ApiException;
 import com.sumup.sdk.core.HttpMethod;
 import com.sumup.sdk.core.RequestOptions;
-import java.util.Map;
 import java.util.Objects;
 
 /** Client for the "Roles" API group. */
@@ -67,8 +66,6 @@ public final class RolesClient {
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/merchants/{merchant_code}/roles";
     path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.POST,
@@ -117,8 +114,6 @@ public final class RolesClient {
     String path = "/v0.1/merchants/{merchant_code}/roles/{role_id}";
     path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
     path = path.replace("{role_id}", ApiClient.urlEncode(String.valueOf(roleId)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     this.apiClient.send(HttpMethod.DELETE, path, null, null, null, null, requestOptions);
   }
@@ -163,8 +158,6 @@ public final class RolesClient {
     String path = "/v0.1/merchants/{merchant_code}/roles/{role_id}";
     path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
     path = path.replace("{role_id}", ApiClient.urlEncode(String.valueOf(roleId)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -212,8 +205,6 @@ public final class RolesClient {
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v0.1/merchants/{merchant_code}/roles";
     path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -273,8 +264,6 @@ public final class RolesClient {
     String path = "/v0.1/merchants/{merchant_code}/roles/{role_id}";
     path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
     path = path.replace("{role_id}", ApiClient.urlEncode(String.valueOf(roleId)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.PATCH,

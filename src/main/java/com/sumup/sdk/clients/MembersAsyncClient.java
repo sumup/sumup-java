@@ -67,8 +67,6 @@ public final class MembersAsyncClient {
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/merchants/{merchant_code}/members";
     path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.POST,
@@ -120,8 +118,6 @@ public final class MembersAsyncClient {
     String path = "/v0.1/merchants/{merchant_code}/members/{member_id}";
     path = path.replace("{member_id}", ApiClient.urlEncode(String.valueOf(memberId)));
     path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.DELETE, path, null, null, null, null, requestOptions);
@@ -167,8 +163,6 @@ public final class MembersAsyncClient {
     String path = "/v0.1/merchants/{merchant_code}/members/{member_id}";
     path = path.replace("{member_id}", ApiClient.urlEncode(String.valueOf(memberId)));
     path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -246,7 +240,6 @@ public final class MembersAsyncClient {
     if (listMerchantMembers != null) {
       queryParams.putAll(listMerchantMembers.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -308,8 +301,6 @@ public final class MembersAsyncClient {
     String path = "/v0.1/merchants/{merchant_code}/members/{member_id}";
     path = path.replace("{member_id}", ApiClient.urlEncode(String.valueOf(memberId)));
     path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.PUT,

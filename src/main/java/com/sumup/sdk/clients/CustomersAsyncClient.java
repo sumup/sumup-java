@@ -6,7 +6,6 @@ import com.sumup.sdk.core.ApiClient;
 import com.sumup.sdk.core.ApiException;
 import com.sumup.sdk.core.HttpMethod;
 import com.sumup.sdk.core.RequestOptions;
-import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
@@ -60,8 +59,6 @@ public final class CustomersAsyncClient {
       com.sumup.sdk.models.Customer request, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/customers";
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.POST,
@@ -113,8 +110,6 @@ public final class CustomersAsyncClient {
     String path = "/v0.1/customers/{customer_id}/payment-instruments/{token}";
     path = path.replace("{customer_id}", ApiClient.urlEncode(String.valueOf(customerId)));
     path = path.replace("{token}", ApiClient.urlEncode(String.valueOf(token)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.DELETE, path, null, null, null, null, requestOptions);
@@ -158,8 +153,6 @@ public final class CustomersAsyncClient {
     Objects.requireNonNull(customerId, "customerId");
     String path = "/v0.1/customers/{customer_id}";
     path = path.replace("{customer_id}", ApiClient.urlEncode(String.valueOf(customerId)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -209,8 +202,6 @@ public final class CustomersAsyncClient {
     Objects.requireNonNull(customerId, "customerId");
     String path = "/v0.1/customers/{customer_id}/payment-instruments";
     path = path.replace("{customer_id}", ApiClient.urlEncode(String.valueOf(customerId)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -268,8 +259,6 @@ public final class CustomersAsyncClient {
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/customers/{customer_id}";
     path = path.replace("{customer_id}", ApiClient.urlEncode(String.valueOf(customerId)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.PUT,

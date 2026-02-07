@@ -78,7 +78,6 @@ public final class MerchantClient {
     if (getAccount != null) {
       queryParams.putAll(getAccount.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -122,8 +121,6 @@ public final class MerchantClient {
   public com.sumup.sdk.models.DoingBusinessAsLegacy getDoingBusinessAs(
       RequestOptions requestOptions) throws ApiException {
     String path = "/v0.1/me/merchant-profile/doing-business-as";
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -167,8 +164,6 @@ public final class MerchantClient {
   public com.sumup.sdk.models.MerchantProfileLegacy getMerchantProfile(
       RequestOptions requestOptions) throws ApiException {
     String path = "/v0.1/me/merchant-profile";
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -212,8 +207,6 @@ public final class MerchantClient {
   public com.sumup.sdk.models.PersonalProfileLegacy getPersonalProfile(
       RequestOptions requestOptions) throws ApiException {
     String path = "/v0.1/me/personal-profile";
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,

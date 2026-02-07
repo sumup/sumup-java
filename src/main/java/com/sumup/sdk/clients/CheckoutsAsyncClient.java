@@ -66,8 +66,6 @@ public final class CheckoutsAsyncClient {
       throws ApiException {
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/checkouts";
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.POST,
@@ -117,8 +115,6 @@ public final class CheckoutsAsyncClient {
     Objects.requireNonNull(id, "id");
     String path = "/v0.1/checkouts/{id}";
     path = path.replace("{id}", ApiClient.urlEncode(String.valueOf(id)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.DELETE,
@@ -168,8 +164,6 @@ public final class CheckoutsAsyncClient {
     Objects.requireNonNull(id, "id");
     String path = "/v0.1/checkouts/{id}";
     path = path.replace("{id}", ApiClient.urlEncode(String.valueOf(id)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -247,7 +241,6 @@ public final class CheckoutsAsyncClient {
     if (getPaymentMethods != null) {
       queryParams.putAll(getPaymentMethods.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -318,7 +311,6 @@ public final class CheckoutsAsyncClient {
     if (listCheckouts != null) {
       queryParams.putAll(listCheckouts.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -374,8 +366,6 @@ public final class CheckoutsAsyncClient {
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/checkouts/{id}";
     path = path.replace("{id}", ApiClient.urlEncode(String.valueOf(id)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.PUT,

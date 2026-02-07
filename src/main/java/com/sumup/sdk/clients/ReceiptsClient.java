@@ -88,7 +88,6 @@ public final class ReceiptsClient {
     if (getReceipt != null) {
       queryParams.putAll(getReceipt.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,

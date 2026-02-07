@@ -96,7 +96,6 @@ public final class PayoutsAsyncClient {
     if (listPayouts != null) {
       queryParams.putAll(listPayouts.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -188,7 +187,6 @@ public final class PayoutsAsyncClient {
     if (listPayoutsV1 != null) {
       queryParams.putAll(listPayoutsV1.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,

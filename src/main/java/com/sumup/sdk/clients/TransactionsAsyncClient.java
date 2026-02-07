@@ -86,7 +86,6 @@ public final class TransactionsAsyncClient {
     if (getTransaction != null) {
       queryParams.putAll(getTransaction.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -167,7 +166,6 @@ public final class TransactionsAsyncClient {
     if (getTransactionV21 != null) {
       queryParams.putAll(getTransactionV21.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -239,7 +237,6 @@ public final class TransactionsAsyncClient {
     if (listTransactions != null) {
       queryParams.putAll(listTransactions.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -317,7 +314,6 @@ public final class TransactionsAsyncClient {
     if (listTransactionsV21 != null) {
       queryParams.putAll(listTransactionsV21.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -370,8 +366,6 @@ public final class TransactionsAsyncClient {
     Objects.requireNonNull(txnId, "txnId");
     String path = "/v0.1/me/refund/{txn_id}";
     path = path.replace("{txn_id}", ApiClient.urlEncode(String.valueOf(txnId)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.sendAsync(
         HttpMethod.POST, path, null, null, request, null, requestOptions);

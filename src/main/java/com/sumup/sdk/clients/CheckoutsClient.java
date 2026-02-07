@@ -65,8 +65,6 @@ public final class CheckoutsClient {
       throws ApiException {
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/checkouts";
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.POST,
@@ -115,8 +113,6 @@ public final class CheckoutsClient {
     Objects.requireNonNull(id, "id");
     String path = "/v0.1/checkouts/{id}";
     path = path.replace("{id}", ApiClient.urlEncode(String.valueOf(id)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.DELETE,
@@ -165,8 +161,6 @@ public final class CheckoutsClient {
     Objects.requireNonNull(id, "id");
     String path = "/v0.1/checkouts/{id}";
     path = path.replace("{id}", ApiClient.urlEncode(String.valueOf(id)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -241,7 +235,6 @@ public final class CheckoutsClient {
     if (getPaymentMethods != null) {
       queryParams.putAll(getPaymentMethods.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -308,7 +301,6 @@ public final class CheckoutsClient {
     if (listCheckouts != null) {
       queryParams.putAll(listCheckouts.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -364,8 +356,6 @@ public final class CheckoutsClient {
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/checkouts/{id}";
     path = path.replace("{id}", ApiClient.urlEncode(String.valueOf(id)));
-    Map<String, Object> queryParams = null;
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.PUT,

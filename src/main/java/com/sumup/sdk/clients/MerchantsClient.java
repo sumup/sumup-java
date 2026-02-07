@@ -83,7 +83,6 @@ public final class MerchantsClient {
     if (getMerchant != null) {
       queryParams.putAll(getMerchant.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -164,7 +163,6 @@ public final class MerchantsClient {
     if (getPerson != null) {
       queryParams.putAll(getPerson.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -237,7 +235,6 @@ public final class MerchantsClient {
     if (listPersons != null) {
       queryParams.putAll(listPersons.toMap());
     }
-    Map<String, String> headerParams = null;
 
     return this.apiClient.send(
         HttpMethod.GET,
