@@ -47,6 +47,9 @@ public enum {{ .ClassName }} {
     }
 }
 {{- else }}
+{{- if .AdditionalProps }}
+@JsonDeserialize(builder = {{ .ClassName }}.Builder.class)
+{{- end }}
 public record {{ .ClassName }}(
 {{- if .Fields }}
 {{- range $index, $field := .Fields }}{{ if $index }},
@@ -62,6 +65,19 @@ public record {{ .ClassName }}(
     Object value
 {{- end }}
 ) {
+{{- if .AdditionalProps }}
+    public {{ .ClassName }} {
+        additionalProperties = additionalProperties == null
+                ? java.util.Map.of()
+                : java.util.Map.copyOf(additionalProperties);
+    }
+
+    @JsonAnyGetter
+    public {{ .AdditionalProps.Type }} additionalProperties() {
+        return additionalProperties;
+    }
+
+{{- end }}
     /**
      * Creates a builder for {{ .ClassName }}.
      *
@@ -74,11 +90,18 @@ public record {{ .ClassName }}(
     /**
      * Builder for {{ .ClassName }} instances.
      */
+{{- if .AdditionalProps }}
+    @JsonPOJOBuilder(withPrefix = "")
+{{- end }}
     public static final class Builder {
 {{- if .Fields }}
 {{- range .Fields }}
 {{- if not .ReadOnly }}
+{{- if and $.AdditionalProps (eq .Name $.AdditionalProps.FieldName) }}
+        private {{ .Type }} {{ .Name }} = new java.util.LinkedHashMap<>();
+{{- else }}
         private {{ .Type }} {{ .Name }};
+{{- end }}
 {{- end }}
 {{- end }}
 {{- else }}
@@ -111,6 +134,14 @@ public record {{ .ClassName }}(
          */
         public Builder value(Object value) {
             this.value = value;
+            return this;
+        }
+{{- end }}
+{{- if .AdditionalProps }}
+
+        @JsonAnySetter
+        public Builder additionalProperty(String name, {{ .AdditionalProps.ValueType }} value) {
+            this.additionalProperties.put(name, value);
             return this;
         }
 {{- end }}

@@ -345,7 +345,10 @@ func (r *typeResolver) inlineSchemaModels(params Params) []schemaModel {
 				added = true
 				continue
 			}
-			fields, imports, hasRequired := buildSchemaFields(info.className, base.CreateSchemaProxy(info.schema), r)
+			fields, additionalProps, imports, hasRequired := buildSchemaFields(info.className, base.CreateSchemaProxy(info.schema), r)
+			if additionalProps != nil {
+				imports = withAdditionalPropertiesImports(imports)
+			}
 			if hasRequired {
 				imports = uniqueStrings(append(imports, "java.util.Objects"))
 			}
@@ -355,6 +358,7 @@ func (r *typeResolver) inlineSchemaModels(params Params) []schemaModel {
 				Package:          params.modelPackage(),
 				DescriptionLines: splitComment(info.description),
 				Fields:           fields,
+				AdditionalProps:  additionalProps,
 				Imports:          imports,
 				HasRequired:      hasRequired,
 			})
