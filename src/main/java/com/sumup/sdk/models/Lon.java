@@ -5,40 +5,4 @@ package com.sumup.sdk.models;
  * Longitude value from the coordinates of the payment location (as received from the payment
  * terminal reader).
  */
-public record Lon(Float value) {
-  /**
-   * Creates a builder for Lon.
-   *
-   * @return Builder that constructs immutable Lon instances.
-   */
-  public static Builder builder() {
-    return new Builder();
-  }
-
-  /** Builder for Lon instances. */
-  public static final class Builder {
-    private Float value;
-
-    private Builder() {}
-
-    /**
-     * Sets the value for {@code value}.
-     *
-     * @param value Value for the value field.
-     * @return This builder instance.
-     */
-    public Builder value(Float value) {
-      this.value = value;
-      return this;
-    }
-
-    /**
-     * Builds an immutable Lon instance.
-     *
-     * @return Immutable Lon.
-     */
-    public Lon build() {
-      return new Lon(value);
-    }
-  }
-}
+public record Lon(Float value) {}

@@ -89,6 +89,7 @@ type schemaModel struct {
 	AdditionalProps  *additionalPropertiesModel
 	Imports          []string
 	HasRequired      bool
+	HasBuilder       bool
 	IsEnum           bool
 	EnumValues       []enumValueModel
 }
@@ -547,7 +548,8 @@ func buildSchemas(doc *v3.Document, params Params, resolver *typeResolver) []sch
 		if additionalProps != nil {
 			imports = withAdditionalPropertiesImports(imports)
 		}
-		if hasRequired {
+		hasBuilder := shouldGenerateBuilder(fields, additionalProps)
+		if hasRequired && hasBuilder {
 			imports = uniqueStrings(append(imports, "java.util.Objects"))
 		}
 		model := schemaModel{
@@ -559,10 +561,21 @@ func buildSchemas(doc *v3.Document, params Params, resolver *typeResolver) []sch
 			AdditionalProps:  additionalProps,
 			Imports:          imports,
 			HasRequired:      hasRequired,
+			HasBuilder:       hasBuilder,
 		}
 		result = append(result, model)
 	}
 	return result
+}
+
+// shouldGenerateBuilder reports whether the model should expose a builder.
+// Single-field wrapper records (for example Lon/Lat/Meta-style aliases) don't
+// benefit from a builder and should use the canonical record constructor.
+func shouldGenerateBuilder(fields []schemaField, additionalProps *additionalPropertiesModel) bool {
+	if additionalProps != nil {
+		return true
+	}
+	return !(len(fields) == 1 && fields[0].Name == "value")
 }
 
 // buildSchemaFields inspects a schema proxy and returns the fields, required

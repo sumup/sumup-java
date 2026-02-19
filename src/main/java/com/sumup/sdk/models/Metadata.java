@@ -5,40 +5,4 @@ package com.sumup.sdk.models;
  * Set of user-defined key-value pairs attached to the object. Partial updates are not supported.
  * When updating, always submit whole metadata. Maximum of 64 parameters are allowed in the object.
  */
-public record Metadata(java.util.Map<String, Object> value) {
-  /**
-   * Creates a builder for Metadata.
-   *
-   * @return Builder that constructs immutable Metadata instances.
-   */
-  public static Builder builder() {
-    return new Builder();
-  }
-
-  /** Builder for Metadata instances. */
-  public static final class Builder {
-    private java.util.Map<String, Object> value;
-
-    private Builder() {}
-
-    /**
-     * Sets the value for {@code value}.
-     *
-     * @param value Value for the value field.
-     * @return This builder instance.
-     */
-    public Builder value(java.util.Map<String, Object> value) {
-      this.value = value;
-      return this;
-    }
-
-    /**
-     * Builds an immutable Metadata instance.
-     *
-     * @return Immutable Metadata.
-     */
-    public Metadata build() {
-      return new Metadata(value);
-    }
-  }
-}
+public record Metadata(java.util.Map<String, Object> value) {}

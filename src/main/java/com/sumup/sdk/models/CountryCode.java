@@ -6,40 +6,4 @@ package com.sumup.sdk.models;
  * definition users `oneOf` with a two-character string type to allow for support of future
  * countries in client code.
  */
-public record CountryCode(String value) {
-  /**
-   * Creates a builder for CountryCode.
-   *
-   * @return Builder that constructs immutable CountryCode instances.
-   */
-  public static Builder builder() {
-    return new Builder();
-  }
-
-  /** Builder for CountryCode instances. */
-  public static final class Builder {
-    private String value;
-
-    private Builder() {}
-
-    /**
-     * Sets the value for {@code value}.
-     *
-     * @param value Value for the value field.
-     * @return This builder instance.
-     */
-    public Builder value(String value) {
-      this.value = value;
-      return this;
-    }
-
-    /**
-     * Builds an immutable CountryCode instance.
-     *
-     * @return Immutable CountryCode.
-     */
-    public CountryCode build() {
-      return new CountryCode(value);
-    }
-  }
-}
+public record CountryCode(String value) {}

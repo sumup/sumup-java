@@ -2,40 +2,4 @@
 package com.sumup.sdk.models;
 
 /** Custom human-readable, user-defined name for easier identification of the reader. */
-public record ReaderName(String value) {
-  /**
-   * Creates a builder for ReaderName.
-   *
-   * @return Builder that constructs immutable ReaderName instances.
-   */
-  public static Builder builder() {
-    return new Builder();
-  }
-
-  /** Builder for ReaderName instances. */
-  public static final class Builder {
-    private String value;
-
-    private Builder() {}
-
-    /**
-     * Sets the value for {@code value}.
-     *
-     * @param value Value for the value field.
-     * @return This builder instance.
-     */
-    public Builder value(String value) {
-      this.value = value;
-      return this;
-    }
-
-    /**
-     * Builds an immutable ReaderName instance.
-     *
-     * @return Immutable ReaderName.
-     */
-    public ReaderName build() {
-      return new ReaderName(value);
-    }
-  }
-}
+public record ReaderName(String value) {}

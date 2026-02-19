@@ -6,40 +6,4 @@ package com.sumup.sdk.models;
  * additional information about the object in a structured format. **Warning**: Updating Meta will
  * overwrite the existing data. Make sure to always include the complete JSON object.
  */
-public record Meta(java.util.Map<String, Object> value) {
-  /**
-   * Creates a builder for Meta.
-   *
-   * @return Builder that constructs immutable Meta instances.
-   */
-  public static Builder builder() {
-    return new Builder();
-  }
-
-  /** Builder for Meta instances. */
-  public static final class Builder {
-    private java.util.Map<String, Object> value;
-
-    private Builder() {}
-
-    /**
-     * Sets the value for {@code value}.
-     *
-     * @param value Value for the value field.
-     * @return This builder instance.
-     */
-    public Builder value(java.util.Map<String, Object> value) {
-      this.value = value;
-      return this;
-    }
-
-    /**
-     * Builds an immutable Meta instance.
-     *
-     * @return Immutable Meta.
-     */
-    public Meta build() {
-      return new Meta(value);
-    }
-  }
-}
+public record Meta(java.util.Map<String, Object> value) {}

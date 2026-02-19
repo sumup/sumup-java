@@ -78,6 +78,7 @@ public record {{ .ClassName }}(
     }
 
 {{- end }}
+{{- if .HasBuilder }}
     /**
      * Creates a builder for {{ .ClassName }}.
      *
@@ -164,5 +165,6 @@ public record {{ .ClassName }}(
 {{- end }}
         }
     }
+{{- end }}
 }
 {{- end }}

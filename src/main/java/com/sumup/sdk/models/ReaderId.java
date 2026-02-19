@@ -7,40 +7,4 @@ package com.sumup.sdk.models;
  * [delete](https://developer.sumup.com/api/readers/delete-reader) a reader, and pair the device
  * again, the ID will be different. Do not use this ID to refer to a physical device.
  */
-public record ReaderId(String value) {
-  /**
-   * Creates a builder for ReaderId.
-   *
-   * @return Builder that constructs immutable ReaderId instances.
-   */
-  public static Builder builder() {
-    return new Builder();
-  }
-
-  /** Builder for ReaderId instances. */
-  public static final class Builder {
-    private String value;
-
-    private Builder() {}
-
-    /**
-     * Sets the value for {@code value}.
-     *
-     * @param value Value for the value field.
-     * @return This builder instance.
-     */
-    public Builder value(String value) {
-      this.value = value;
-      return this;
-    }
-
-    /**
-     * Builds an immutable ReaderId instance.
-     *
-     * @return Immutable ReaderId.
-     */
-    public ReaderId build() {
-      return new ReaderId(value);
-    }
-  }
-}
+public record ReaderId(String value) {}
