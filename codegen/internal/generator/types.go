@@ -349,7 +349,8 @@ func (r *typeResolver) inlineSchemaModels(params Params) []schemaModel {
 			if additionalProps != nil {
 				imports = withAdditionalPropertiesImports(imports)
 			}
-			if hasRequired {
+			hasBuilder := shouldGenerateBuilder(fields, additionalProps)
+			if hasRequired && hasBuilder {
 				imports = uniqueStrings(append(imports, "java.util.Objects"))
 			}
 			models = append(models, schemaModel{
@@ -361,6 +362,7 @@ func (r *typeResolver) inlineSchemaModels(params Params) []schemaModel {
 				AdditionalProps:  additionalProps,
 				Imports:          imports,
 				HasRequired:      hasRequired,
+				HasBuilder:       hasBuilder,
 			})
 			info.processed = true
 			added = true

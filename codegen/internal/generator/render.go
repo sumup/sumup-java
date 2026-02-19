@@ -371,6 +371,7 @@ func prepareModelTemplateData(schema schemaModel) map[string]any {
 		"Fields":           schema.Fields,
 		"AdditionalProps":  schema.AdditionalProps,
 		"HasRequired":      schema.HasRequired,
+		"HasBuilder":       schema.HasBuilder,
 		"IsEnum":           schema.IsEnum,
 		"EnumValues":       schema.EnumValues,
 	}

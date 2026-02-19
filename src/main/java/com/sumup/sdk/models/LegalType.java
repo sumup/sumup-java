@@ -6,40 +6,4 @@ package com.sumup.sdk.models;
  * other services. Consumers of this API are expected to use the country SDK to map to any other
  * IDs, translation keys, or descriptions.
  */
-public record LegalType(String value) {
-  /**
-   * Creates a builder for LegalType.
-   *
-   * @return Builder that constructs immutable LegalType instances.
-   */
-  public static Builder builder() {
-    return new Builder();
-  }
-
-  /** Builder for LegalType instances. */
-  public static final class Builder {
-    private String value;
-
-    private Builder() {}
-
-    /**
-     * Sets the value for {@code value}.
-     *
-     * @param value Value for the value field.
-     * @return This builder instance.
-     */
-    public Builder value(String value) {
-      this.value = value;
-      return this;
-    }
-
-    /**
-     * Builds an immutable LegalType instance.
-     *
-     * @return Immutable LegalType.
-     */
-    public LegalType build() {
-      return new LegalType(value);
-    }
-  }
-}
+public record LegalType(String value) {}

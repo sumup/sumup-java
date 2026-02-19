@@ -2,40 +2,4 @@
 package com.sumup.sdk.models;
 
 /** Unique ID of the transaction event. */
-public record EventId(Long value) {
-  /**
-   * Creates a builder for EventId.
-   *
-   * @return Builder that constructs immutable EventId instances.
-   */
-  public static Builder builder() {
-    return new Builder();
-  }
-
-  /** Builder for EventId instances. */
-  public static final class Builder {
-    private Long value;
-
-    private Builder() {}
-
-    /**
-     * Sets the value for {@code value}.
-     *
-     * @param value Value for the value field.
-     * @return This builder instance.
-     */
-    public Builder value(Long value) {
-      this.value = value;
-      return this;
-    }
-
-    /**
-     * Builds an immutable EventId instance.
-     *
-     * @return Immutable EventId.
-     */
-    public EventId build() {
-      return new EventId(value);
-    }
-  }
-}
+public record EventId(Long value) {}

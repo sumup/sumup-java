@@ -5,40 +5,4 @@ package com.sumup.sdk.models;
  * The type of the membership resource. Possible values are: * `merchant` - merchant account(s) *
  * `organization` - organization(s)
  */
-public record ResourceType(String value) {
-  /**
-   * Creates a builder for ResourceType.
-   *
-   * @return Builder that constructs immutable ResourceType instances.
-   */
-  public static Builder builder() {
-    return new Builder();
-  }
-
-  /** Builder for ResourceType instances. */
-  public static final class Builder {
-    private String value;
-
-    private Builder() {}
-
-    /**
-     * Sets the value for {@code value}.
-     *
-     * @param value Value for the value field.
-     * @return This builder instance.
-     */
-    public Builder value(String value) {
-      this.value = value;
-      return this;
-    }
-
-    /**
-     * Builds an immutable ResourceType instance.
-     *
-     * @return Immutable ResourceType.
-     */
-    public ResourceType build() {
-      return new ResourceType(value);
-    }
-  }
-}
+public record ResourceType(String value) {}

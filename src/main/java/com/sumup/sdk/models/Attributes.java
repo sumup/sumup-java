@@ -2,40 +2,4 @@
 package com.sumup.sdk.models;
 
 /** Object attributes that are modifiable only by SumUp applications. */
-public record Attributes(java.util.Map<String, Object> value) {
-  /**
-   * Creates a builder for Attributes.
-   *
-   * @return Builder that constructs immutable Attributes instances.
-   */
-  public static Builder builder() {
-    return new Builder();
-  }
-
-  /** Builder for Attributes instances. */
-  public static final class Builder {
-    private java.util.Map<String, Object> value;
-
-    private Builder() {}
-
-    /**
-     * Sets the value for {@code value}.
-     *
-     * @param value Value for the value field.
-     * @return This builder instance.
-     */
-    public Builder value(java.util.Map<String, Object> value) {
-      this.value = value;
-      return this;
-    }
-
-    /**
-     * Builds an immutable Attributes instance.
-     *
-     * @return Immutable Attributes.
-     */
-    public Attributes build() {
-      return new Attributes(value);
-    }
-  }
-}
+public record Attributes(java.util.Map<String, Object> value) {}

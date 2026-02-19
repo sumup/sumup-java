@@ -5,40 +5,4 @@ package com.sumup.sdk.models;
  * Latitude value from the coordinates of the payment location (as received from the payment
  * terminal reader).
  */
-public record Lat(Float value) {
-  /**
-   * Creates a builder for Lat.
-   *
-   * @return Builder that constructs immutable Lat instances.
-   */
-  public static Builder builder() {
-    return new Builder();
-  }
-
-  /** Builder for Lat instances. */
-  public static final class Builder {
-    private Float value;
-
-    private Builder() {}
-
-    /**
-     * Sets the value for {@code value}.
-     *
-     * @param value Value for the value field.
-     * @return This builder instance.
-     */
-    public Builder value(Float value) {
-      this.value = value;
-      return this;
-    }
-
-    /**
-     * Builds an immutable Lat instance.
-     *
-     * @return Immutable Lat.
-     */
-    public Lat build() {
-      return new Lat(value);
-    }
-  }
-}
+public record Lat(Float value) {}
