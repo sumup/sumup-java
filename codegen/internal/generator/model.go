@@ -86,6 +86,7 @@ type schemaModel struct {
 	Package          string
 	DescriptionLines []string
 	Fields           []schemaField
+	AdditionalProps  *additionalPropertiesModel
 	Imports          []string
 	HasRequired      bool
 	IsEnum           bool
@@ -99,6 +100,15 @@ type schemaField struct {
 	DescriptionLines []string
 	Required         bool
 	ReadOnly         bool
+}
+
+// additionalPropertiesModel describes synthetic map storage used when object
+// schemas define both fixed properties and additionalProperties.
+type additionalPropertiesModel struct {
+	FieldName        string
+	Type             string
+	ValueType        string
+	DescriptionLines []string
 }
 
 // enumValueModel captures a single enum constant and its wire value.
@@ -533,7 +543,10 @@ func buildSchemas(doc *v3.Document, params Params, resolver *typeResolver) []sch
 			})
 			continue
 		}
-		fields, imports, hasRequired := buildSchemaFields(name, ref, resolver)
+		fields, additionalProps, imports, hasRequired := buildSchemaFields(name, ref, resolver)
+		if additionalProps != nil {
+			imports = withAdditionalPropertiesImports(imports)
+		}
 		if hasRequired {
 			imports = uniqueStrings(append(imports, "java.util.Objects"))
 		}
@@ -543,6 +556,7 @@ func buildSchemas(doc *v3.Document, params Params, resolver *typeResolver) []sch
 			Package:          params.modelPackage(),
 			DescriptionLines: splitComment(description),
 			Fields:           fields,
+			AdditionalProps:  additionalProps,
 			Imports:          imports,
 			HasRequired:      hasRequired,
 		}
@@ -553,23 +567,24 @@ func buildSchemas(doc *v3.Document, params Params, resolver *typeResolver) []sch
 
 // buildSchemaFields inspects a schema proxy and returns the fields, required
 // imports, and a flag indicating whether any required properties exist.
-func buildSchemaFields(name string, ref *base.SchemaProxy, resolver *typeResolver) ([]schemaField, []string, bool) {
+func buildSchemaFields(name string, ref *base.SchemaProxy, resolver *typeResolver) ([]schemaField, *additionalPropertiesModel, []string, bool) {
 	imports := map[string]struct{}{}
 	var fields []schemaField
+	var additionalProps *additionalPropertiesModel
 	hasRequired := false
 
 	if ref == nil {
-		return []schemaField{{Name: "value", Type: "Object"}}, nil, false
+		return []schemaField{{Name: "value", Type: "Object"}}, nil, nil, false
 	}
 
 	schema := ref.Schema()
 	if schema == nil {
-		return []schemaField{{Name: "value", Type: "Object"}}, nil, false
+		return []schemaField{{Name: "value", Type: "Object"}}, nil, nil, false
 	}
 	if schemaHasType(schema, "object") {
 		props := collectProperties(schema)
 		if len(props) == 0 {
-			return []schemaField{{Name: "value", Type: "java.util.Map<String, Object>"}}, []string{"java.util.Map"}, false
+			return []schemaField{{Name: "value", Type: "java.util.Map<String, Object>"}}, nil, []string{"java.util.Map"}, false
 		}
 		required := collectRequired(schema)
 		fields = make([]schemaField, 0, len(props))
@@ -600,6 +615,23 @@ func buildSchemaFields(name string, ref *base.SchemaProxy, resolver *typeResolve
 				hasRequired = true
 			}
 		}
+		additionalProps = resolveAdditionalProperties(schema, resolver, name)
+		if additionalProps != nil {
+			imports["java.util.Map"] = struct{}{}
+			valueTypeRef := additionalPropertiesTypedSchema(schema)
+			if valueTypeRef != nil {
+				valueJavaType := resolver.javaType(valueTypeRef, name, "AdditionalProperty")
+				for _, imp := range valueJavaType.Imports {
+					imports[imp] = struct{}{}
+				}
+			}
+			fields = append(fields, schemaField{
+				Name:             additionalProps.FieldName,
+				Type:             additionalProps.Type,
+				DescriptionLines: additionalProps.DescriptionLines,
+				Required:         false,
+			})
+		}
 	} else {
 		javaType := resolver.javaType(ref, name)
 		for _, imp := range javaType.Imports {
@@ -611,7 +643,68 @@ func buildSchemaFields(name string, ref *base.SchemaProxy, resolver *typeResolve
 		}}
 	}
 
-	return fields, sortedImports(imports), hasRequired
+	return fields, additionalProps, sortedImports(imports), hasRequired
+}
+
+// resolveAdditionalProperties returns metadata for schemas that allow
+// additional fields alongside declared properties.
+func resolveAdditionalProperties(schema *base.Schema, resolver *typeResolver, context ...string) *additionalPropertiesModel {
+	valueType, ok := additionalPropertiesValueType(schema, resolver, context...)
+	if !ok {
+		return nil
+	}
+	return &additionalPropertiesModel{
+		FieldName:        "additionalProperties",
+		Type:             fmt.Sprintf("java.util.Map<String, %s>", valueType),
+		ValueType:        valueType,
+		DescriptionLines: splitComment("Additional fields not described by the fixed schema properties."),
+	}
+}
+
+// additionalPropertiesValueType reports whether additionalProperties is enabled
+// and, when enabled, the expected Java value type.
+func additionalPropertiesValueType(schema *base.Schema, resolver *typeResolver, context ...string) (string, bool) {
+	if schema == nil {
+		return "", false
+	}
+	if schema.AdditionalProperties != nil {
+		if schema.AdditionalProperties.IsA() && schema.AdditionalProperties.A != nil {
+			valueJavaType := resolver.javaType(schema.AdditionalProperties.A, append(context, "AdditionalProperty")...)
+			return valueJavaType.Name, true
+		}
+		if schema.AdditionalProperties.IsB() && schema.AdditionalProperties.B {
+			return "Object", true
+		}
+	}
+	for _, item := range schema.AllOf {
+		if item == nil {
+			continue
+		}
+		if valueType, ok := additionalPropertiesValueType(item.Schema(), resolver, context...); ok {
+			return valueType, true
+		}
+	}
+	return "", false
+}
+
+// additionalPropertiesTypedSchema returns a schema reference when
+// additionalProperties defines a concrete value schema.
+func additionalPropertiesTypedSchema(schema *base.Schema) *base.SchemaProxy {
+	if schema == nil {
+		return nil
+	}
+	if schema.AdditionalProperties != nil && schema.AdditionalProperties.IsA() && schema.AdditionalProperties.A != nil {
+		return schema.AdditionalProperties.A
+	}
+	for _, item := range schema.AllOf {
+		if item == nil {
+			continue
+		}
+		if nested := additionalPropertiesTypedSchema(item.Schema()); nested != nil {
+			return nested
+		}
+	}
+	return nil
 }
 
 // enumValuesForSchema extracts enum values for string schemas.
@@ -758,4 +851,16 @@ func sortedImports(set map[string]struct{}) []string {
 	}
 	sort.Strings(values)
 	return values
+}
+
+// withAdditionalPropertiesImports ensures generated models that capture extra
+// JSON fields include the Jackson and collection types used by the template.
+func withAdditionalPropertiesImports(imports []string) []string {
+	return uniqueStrings(append(imports,
+		"com.fasterxml.jackson.annotation.JsonAnyGetter",
+		"com.fasterxml.jackson.annotation.JsonAnySetter",
+		"com.fasterxml.jackson.databind.annotation.JsonDeserialize",
+		"com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder",
+		"java.util.LinkedHashMap",
+	))
 }
