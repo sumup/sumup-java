@@ -30,6 +30,12 @@ public record Reader(
     com.sumup.sdk.models.ReaderName name,
 
     /**
+     * Identifier of the system-managed service account associated with this reader. Present only
+     * for readers that are already paired. This field is currently in beta and may change.
+     */
+    java.util.UUID serviceAccountId,
+
+    /**
      * The status of the reader object gives information about the current state of the reader.
      * Possible values: - `unknown` - The reader status is unknown. - `processing` - The reader is
      * created and waits for the physical device to confirm the pairing. - `paired` - The reader is
@@ -56,6 +62,7 @@ public record Reader(
     private com.sumup.sdk.models.ReaderId id;
     private com.sumup.sdk.models.Metadata metadata;
     private com.sumup.sdk.models.ReaderName name;
+    private java.util.UUID serviceAccountId;
     private com.sumup.sdk.models.ReaderStatus status;
     private java.time.OffsetDateTime updatedAt;
 
@@ -122,6 +129,19 @@ public record Reader(
     }
 
     /**
+     * Sets the value for {@code serviceAccountId}.
+     *
+     * @param serviceAccountId Identifier of the system-managed service account associated with this
+     *     reader. Present only for readers that are already paired. This field is currently in beta
+     *     and may change.
+     * @return This builder instance.
+     */
+    public Builder serviceAccountId(java.util.UUID serviceAccountId) {
+      this.serviceAccountId = serviceAccountId;
+      return this;
+    }
+
+    /**
      * Sets the value for {@code status}.
      *
      * @param status The status of the reader object gives information about the current state of
@@ -160,6 +180,7 @@ public record Reader(
           Objects.requireNonNull(id, "id"),
           metadata,
           Objects.requireNonNull(name, "name"),
+          serviceAccountId,
           Objects.requireNonNull(status, "status"),
           Objects.requireNonNull(updatedAt, "updatedAt"));
     }
