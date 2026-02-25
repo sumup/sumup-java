@@ -4,7 +4,7 @@ package com.sumup.sdk.models;
 /** Details of a transaction event. */
 public record TransactionEvent(
     /** Amount of the event. */
-    Float amount,
+    Double amount,
 
     /** Date when the transaction event occurred. */
     java.time.LocalDate date,
@@ -40,7 +40,7 @@ public record TransactionEvent(
 
   /** Builder for TransactionEvent instances. */
   public static final class Builder {
-    private Float amount;
+    private Double amount;
     private java.time.LocalDate date;
     private java.time.LocalDate dueDate;
     private com.sumup.sdk.models.EventType eventType;
@@ -57,7 +57,7 @@ public record TransactionEvent(
      * @param amount Amount of the event.
      * @return This builder instance.
      */
-    public Builder amount(Float amount) {
+    public Builder amount(Double amount) {
       this.amount = amount;
       return this;
     }
