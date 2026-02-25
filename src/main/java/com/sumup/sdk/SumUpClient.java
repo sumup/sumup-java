@@ -5,7 +5,6 @@ import com.sumup.sdk.clients.CheckoutsClient;
 import com.sumup.sdk.clients.CustomersClient;
 import com.sumup.sdk.clients.MembersClient;
 import com.sumup.sdk.clients.MembershipsClient;
-import com.sumup.sdk.clients.MerchantClient;
 import com.sumup.sdk.clients.MerchantsClient;
 import com.sumup.sdk.clients.PayoutsClient;
 import com.sumup.sdk.clients.ReadersClient;
@@ -28,7 +27,6 @@ public final class SumUpClient {
   private final CustomersClient customers;
   private final MembersClient members;
   private final MembershipsClient memberships;
-  private final MerchantClient merchant;
   private final MerchantsClient merchants;
   private final PayoutsClient payouts;
   private final ReadersClient readers;
@@ -70,7 +68,6 @@ public final class SumUpClient {
     this.customers = new CustomersClient(this.apiClient);
     this.members = new MembersClient(this.apiClient);
     this.memberships = new MembershipsClient(this.apiClient);
-    this.merchant = new MerchantClient(this.apiClient);
     this.merchants = new MerchantsClient(this.apiClient);
     this.payouts = new PayoutsClient(this.apiClient);
     this.readers = new ReadersClient(this.apiClient);
@@ -132,15 +129,6 @@ public final class SumUpClient {
    */
   public MembershipsClient memberships() {
     return memberships;
-  }
-
-  /**
-   * Returns the MerchantClient client exposing endpoints tagged with "Merchant".
-   *
-   * @return Client for the associated API group.
-   */
-  public MerchantClient merchant() {
-    return merchant;
   }
 
   /**

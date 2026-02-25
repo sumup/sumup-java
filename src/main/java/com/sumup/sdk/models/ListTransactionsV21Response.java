@@ -3,7 +3,7 @@ package com.sumup.sdk.models;
 
 public record ListTransactionsV21Response(
     java.util.List<com.sumup.sdk.models.TransactionHistory> items,
-    java.util.List<com.sumup.sdk.models.Link> links) {
+    java.util.List<com.sumup.sdk.models.TransactionsHistoryLink> links) {
   /**
    * Creates a builder for ListTransactionsV21Response.
    *
@@ -16,7 +16,7 @@ public record ListTransactionsV21Response(
   /** Builder for ListTransactionsV21Response instances. */
   public static final class Builder {
     private java.util.List<com.sumup.sdk.models.TransactionHistory> items;
-    private java.util.List<com.sumup.sdk.models.Link> links;
+    private java.util.List<com.sumup.sdk.models.TransactionsHistoryLink> links;
 
     private Builder() {}
 
@@ -37,7 +37,7 @@ public record ListTransactionsV21Response(
      * @param links Value for the links field.
      * @return This builder instance.
      */
-    public Builder links(java.util.List<com.sumup.sdk.models.Link> links) {
+    public Builder links(java.util.List<com.sumup.sdk.models.TransactionsHistoryLink> links) {
       this.links = links;
       return this;
     }

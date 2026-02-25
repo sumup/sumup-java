@@ -5,7 +5,6 @@ import com.sumup.sdk.clients.CheckoutsAsyncClient;
 import com.sumup.sdk.clients.CustomersAsyncClient;
 import com.sumup.sdk.clients.MembersAsyncClient;
 import com.sumup.sdk.clients.MembershipsAsyncClient;
-import com.sumup.sdk.clients.MerchantAsyncClient;
 import com.sumup.sdk.clients.MerchantsAsyncClient;
 import com.sumup.sdk.clients.PayoutsAsyncClient;
 import com.sumup.sdk.clients.ReadersAsyncClient;
@@ -28,7 +27,6 @@ public final class SumUpAsyncClient {
   private final CustomersAsyncClient customers;
   private final MembersAsyncClient members;
   private final MembershipsAsyncClient memberships;
-  private final MerchantAsyncClient merchant;
   private final MerchantsAsyncClient merchants;
   private final PayoutsAsyncClient payouts;
   private final ReadersAsyncClient readers;
@@ -70,7 +68,6 @@ public final class SumUpAsyncClient {
     this.customers = new CustomersAsyncClient(this.apiClient);
     this.members = new MembersAsyncClient(this.apiClient);
     this.memberships = new MembershipsAsyncClient(this.apiClient);
-    this.merchant = new MerchantAsyncClient(this.apiClient);
     this.merchants = new MerchantsAsyncClient(this.apiClient);
     this.payouts = new PayoutsAsyncClient(this.apiClient);
     this.readers = new ReadersAsyncClient(this.apiClient);
@@ -132,15 +129,6 @@ public final class SumUpAsyncClient {
    */
   public MembershipsAsyncClient memberships() {
     return memberships;
-  }
-
-  /**
-   * Returns the MerchantAsyncClient client exposing endpoints tagged with "Merchant".
-   *
-   * @return Client for the associated API group.
-   */
-  public MerchantAsyncClient merchant() {
-    return merchant;
   }
 
   /**

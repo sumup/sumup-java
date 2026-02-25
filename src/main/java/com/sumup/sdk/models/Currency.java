@@ -13,6 +13,7 @@ public enum Currency {
   BRL("BRL"),
   CHF("CHF"),
   CLP("CLP"),
+  COP("COP"),
   CZK("CZK"),
   DKK("DKK"),
   EUR("EUR"),
