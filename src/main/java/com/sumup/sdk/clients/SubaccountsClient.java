@@ -117,53 +117,6 @@ public final class SubaccountsClient {
   }
 
   /**
-   * Disable an operator.
-   *
-   * <p>Disable the specified operator for the merchant account.
-   *
-   * <p>Operation ID: DeactivateSubAccount
-   *
-   * @param operatorId The unique identifier for the operator.
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @return com.sumup.sdk.models.Operator parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public com.sumup.sdk.models.Operator deactivateSubAccount(Integer operatorId)
-      throws ApiException {
-    return deactivateSubAccount(operatorId, null);
-  }
-
-  /**
-   * Disable an operator.
-   *
-   * <p>Disable the specified operator for the merchant account.
-   *
-   * <p>Operation ID: DeactivateSubAccount
-   *
-   * @param operatorId The unique identifier for the operator.
-   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
-   *     {@code null} to use client defaults.
-   * @return com.sumup.sdk.models.Operator parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public com.sumup.sdk.models.Operator deactivateSubAccount(
-      Integer operatorId, RequestOptions requestOptions) throws ApiException {
-    Objects.requireNonNull(operatorId, "operatorId");
-    String path = "/v0.1/me/accounts/{operator_id}";
-    path = path.replace("{operator_id}", ApiClient.urlEncode(String.valueOf(operatorId)));
-
-    return this.apiClient.send(
-        HttpMethod.DELETE,
-        path,
-        null,
-        null,
-        null,
-        new TypeReference<com.sumup.sdk.models.Operator>() {},
-        requestOptions);
-  }
-
-  /**
    * List operators
    *
    * <p>Returns list of operators for currently authorized user's merchant.
