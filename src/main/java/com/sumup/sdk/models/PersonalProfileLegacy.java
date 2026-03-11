@@ -5,6 +5,8 @@ package com.sumup.sdk.models;
 public record PersonalProfileLegacy(
     /** Details of the registered address. */
     com.sumup.sdk.models.AddressWithDetails address,
+
+    /** Indicates whether the profile data is complete. */
     Boolean complete,
 
     /** Date of birth */
@@ -52,7 +54,7 @@ public record PersonalProfileLegacy(
     /**
      * Sets the value for {@code complete}.
      *
-     * @param complete Value for the complete field.
+     * @param complete Indicates whether the profile data is complete.
      * @return This builder instance.
      */
     public Builder complete(Boolean complete) {

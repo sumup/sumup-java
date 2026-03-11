@@ -34,7 +34,7 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Operation ID: CreateCheckout
    *
-   * @param request Request body payload.
+   * @param request Details for creating a checkout resource.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @return CompletableFuture resolved with com.sumup.sdk.models.Checkout parsed response.
@@ -55,7 +55,7 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Operation ID: CreateCheckout
    *
-   * @param request Request body payload.
+   * @param request Details for creating a checkout resource.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return CompletableFuture resolved with com.sumup.sdk.models.Checkout parsed response.
@@ -385,7 +385,6 @@ public final class CheckoutsAsyncClient {
      * Sets the amount query parameter.
      *
      * @param value The amount for which the payment methods should be eligible, in major units.
-     *     Note that currency must also be provided when filtering by amount.
      * @return This GetPaymentMethodsQueryParams instance.
      */
     public GetPaymentMethodsQueryParams amount(Double value) {

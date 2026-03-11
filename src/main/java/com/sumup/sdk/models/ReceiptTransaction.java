@@ -5,6 +5,8 @@ package com.sumup.sdk.models;
 public record ReceiptTransaction(
     /** Transaction amount. */
     String amount,
+
+    /** Payment card details displayed on the receipt. */
     com.sumup.sdk.models.ReceiptCard card,
 
     /** Transaction currency. */
@@ -92,7 +94,7 @@ public record ReceiptTransaction(
     /**
      * Sets the value for {@code card}.
      *
-     * @param card Value for the card field.
+     * @param card Payment card details displayed on the receipt.
      * @return This builder instance.
      */
     public Builder card(com.sumup.sdk.models.ReceiptCard card) {

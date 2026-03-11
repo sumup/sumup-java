@@ -7,7 +7,10 @@ public record UnauthorizedErrors(
     /** Fuller message giving context to error */
     String detail,
 
-    /** Key indicating type of error */
+    /**
+     * Key indicating type of error. Present only for typed 401 responses (e.g. invalid token,
+     * invalid password). Absent for generic unauthorized responses.
+     */
     com.sumup.sdk.models.UnauthorizedErrorsType type) {
   /**
    * Creates a builder for UnauthorizedErrors.
@@ -39,7 +42,8 @@ public record UnauthorizedErrors(
     /**
      * Sets the value for {@code type}.
      *
-     * @param type Key indicating type of error
+     * @param type Key indicating type of error. Present only for typed 401 responses (e.g. invalid
+     *     token, invalid password). Absent for generic unauthorized responses.
      * @return This builder instance.
      */
     public Builder type(com.sumup.sdk.models.UnauthorizedErrorsType type) {
@@ -53,7 +57,7 @@ public record UnauthorizedErrors(
      * @return Immutable UnauthorizedErrors.
      */
     public UnauthorizedErrors build() {
-      return new UnauthorizedErrors(detail, Objects.requireNonNull(type, "type"));
+      return new UnauthorizedErrors(Objects.requireNonNull(detail, "detail"), type);
     }
   }
 }

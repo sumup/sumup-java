@@ -324,7 +324,7 @@ public final class TransactionsClient {
    * <p>Operation ID: RefundTransaction
    *
    * @param txnId Unique ID of the transaction.
-   * @param request Request body payload.
+   * @param request Optional amount for partial refunds.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @throws ApiException if the SumUp API returns an error.
@@ -342,7 +342,7 @@ public final class TransactionsClient {
    * <p>Operation ID: RefundTransaction
    *
    * @param txnId Unique ID of the transaction.
-   * @param request Request body payload.
+   * @param request Optional amount for partial refunds.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @throws ApiException if the SumUp API returns an error.
@@ -587,7 +587,7 @@ public final class TransactionsClient {
     }
 
     /**
-     * Sets the statuses query parameter.
+     * Sets the statuses[] query parameter.
      *
      * @param value Filters the returned results by the specified list of final statuses of the
      *     transactions.
@@ -595,7 +595,7 @@ public final class TransactionsClient {
      */
     public ListTransactionsQueryParams statuses(
         java.util.List<com.sumup.sdk.models.StatusesItem2> value) {
-      this.values.put("statuses", Objects.requireNonNull(value, "statuses"));
+      this.values.put("statuses[]", Objects.requireNonNull(value, "statuses"));
       return this;
     }
 
@@ -761,7 +761,7 @@ public final class TransactionsClient {
     }
 
     /**
-     * Sets the statuses query parameter.
+     * Sets the statuses[] query parameter.
      *
      * @param value Filters the returned results by the specified list of final statuses of the
      *     transactions.
@@ -769,7 +769,7 @@ public final class TransactionsClient {
      */
     public ListTransactionsV21QueryParams statuses(
         java.util.List<com.sumup.sdk.models.StatusesItem> value) {
-      this.values.put("statuses", Objects.requireNonNull(value, "statuses"));
+      this.values.put("statuses[]", Objects.requireNonNull(value, "statuses"));
       return this;
     }
 

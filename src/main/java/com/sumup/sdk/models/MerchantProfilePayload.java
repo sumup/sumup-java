@@ -16,6 +16,8 @@ public record MerchantProfilePayload(
 
     /** Company registration number */
     String companyRegistrationNumber,
+
+    /** Doing-business-as details associated with the merchant profile. */
     com.sumup.sdk.models.MerchantProfilePayloadDoingBusinessAs doingBusinessAs,
 
     /** Defines if the profile nature is for testing */
@@ -118,7 +120,7 @@ public record MerchantProfilePayload(
     /**
      * Sets the value for {@code doingBusinessAs}.
      *
-     * @param doingBusinessAs Value for the doingBusinessAs field.
+     * @param doingBusinessAs Doing-business-as details associated with the merchant profile.
      * @return This builder instance.
      */
     public Builder doingBusinessAs(
