@@ -3,8 +3,11 @@ package com.sumup.sdk.models;
 
 /** Receipt merchant data */
 public record ReceiptMerchantData(
-    String locale, com.sumup.sdk.models.ReceiptMerchantDataMerchantProfile merchantProfile) {
+    /** Locale used for rendering localized receipt fields. */
+    String locale,
 
+    /** Merchant profile details displayed on the receipt. */
+    com.sumup.sdk.models.ReceiptMerchantDataMerchantProfile merchantProfile) {
   /**
    * Creates a builder for ReceiptMerchantData.
    *
@@ -24,7 +27,7 @@ public record ReceiptMerchantData(
     /**
      * Sets the value for {@code locale}.
      *
-     * @param locale Value for the locale field.
+     * @param locale Locale used for rendering localized receipt fields.
      * @return This builder instance.
      */
     public Builder locale(String locale) {
@@ -35,7 +38,7 @@ public record ReceiptMerchantData(
     /**
      * Sets the value for {@code merchantProfile}.
      *
-     * @param merchantProfile Value for the merchantProfile field.
+     * @param merchantProfile Merchant profile details displayed on the receipt.
      * @return This builder instance.
      */
     public Builder merchantProfile(

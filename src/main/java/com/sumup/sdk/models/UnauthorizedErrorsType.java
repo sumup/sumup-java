@@ -4,7 +4,10 @@ package com.sumup.sdk.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Key indicating type of error */
+/**
+ * Key indicating type of error. Present only for typed 401 responses (e.g. invalid token, invalid
+ * password). Absent for generic unauthorized responses.
+ */
 public enum UnauthorizedErrorsType {
   INVALID_ACCESS_TOKEN("INVALID_ACCESS_TOKEN"),
   INVALID_PASSWORD("INVALID_PASSWORD");

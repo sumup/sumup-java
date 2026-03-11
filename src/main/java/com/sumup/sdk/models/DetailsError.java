@@ -5,6 +5,8 @@ package com.sumup.sdk.models;
 public record DetailsError(
     /** Details of the error. */
     String details,
+
+    /** List of violated validation constraints. */
     java.util.List<com.sumup.sdk.models.DetailsErrorFailedConstraintsItem> failedConstraints,
 
     /** The status code. */
@@ -45,7 +47,7 @@ public record DetailsError(
     /**
      * Sets the value for {@code failedConstraints}.
      *
-     * @param failedConstraints Value for the failedConstraints field.
+     * @param failedConstraints List of violated validation constraints.
      * @return This builder instance.
      */
     public Builder failedConstraints(

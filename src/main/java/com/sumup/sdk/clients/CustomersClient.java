@@ -215,7 +215,7 @@ public final class CustomersClient {
    * <p>Operation ID: UpdateCustomer
    *
    * @param customerId Unique ID of the saved customer resource.
-   * @param request Request body payload.
+   * @param request Customer fields to update.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @return com.sumup.sdk.models.Customer parsed response.
@@ -236,7 +236,7 @@ public final class CustomersClient {
    * <p>Operation ID: UpdateCustomer
    *
    * @param customerId Unique ID of the saved customer resource.
-   * @param request Request body payload.
+   * @param request Customer fields to update.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return com.sumup.sdk.models.Customer parsed response.

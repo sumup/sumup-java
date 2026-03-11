@@ -3,6 +3,7 @@ package com.sumup.sdk.models;
 
 import java.util.Objects;
 
+/** Bank account details used when creating or updating a payout account. */
 public record BankAccountPayload(
     /** Determines if this bank account is business or personal. */
     com.sumup.sdk.models.BankAccountPayloadAccountCategory accountCategory,

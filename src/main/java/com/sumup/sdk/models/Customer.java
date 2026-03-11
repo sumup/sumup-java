@@ -3,6 +3,7 @@ package com.sumup.sdk.models;
 
 import java.util.Objects;
 
+/** Saved customer details. */
 public record Customer(
     /** Unique ID of the customer. */
     String customerId,

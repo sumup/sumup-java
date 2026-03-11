@@ -3,6 +3,7 @@ package com.sumup.sdk.models;
 
 import java.util.Objects;
 
+/** Hypermedia link used for transaction history pagination. */
 public record TransactionsHistoryLink(
     /** Location. */
     String href,
