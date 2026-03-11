@@ -7,7 +7,7 @@ import org.gradle.jvm.toolchain.JavaToolchainService
 
 plugins {
     id 'base'
-    id 'com.diffplug.spotless' version '8.2.1' apply false
+    id 'com.diffplug.spotless' version '8.3.0' apply false
 }
 
 ext {
