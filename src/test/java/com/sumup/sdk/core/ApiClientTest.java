@@ -93,6 +93,9 @@ final class ApiClientTest {
     assertEquals("java", headers.firstValue("X-Sumup-Runtime").orElse(null));
     assertEquals(
         Runtime.version().toString(), headers.firstValue("X-Sumup-Runtime-Version").orElse(null));
+    assertEquals(
+        "application/problem+json, application/json",
+        headers.firstValue("Accept").orElse(null));
   }
 
   @Test

@@ -132,7 +132,7 @@ public final class ApiClient {
     HttpRequest.Builder requestBuilder = HttpRequest.newBuilder();
     requestBuilder.uri(resolveUri(path, queryParams));
     requestBuilder.timeout(effectiveTimeout(requestOptions));
-    requestBuilder.header("Accept", "application/json");
+    requestBuilder.header("Accept", "application/problem+json, application/json");
     applyAuthorization(requestBuilder, requestOptions);
     applyHeaders(requestBuilder, headerParams, requestOptions);
 
