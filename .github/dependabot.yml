@@ -10,24 +10,15 @@ updates:
       jackson:
         patterns:
           - "com.fasterxml.jackson*"
-    commit-message:
-      prefix: chore
-      include: scope
   - package-ecosystem: "gomod"
     directory: "/codegen"
     schedule:
       interval: "weekly"
     cooldown:
       default-days: 7
-    commit-message:
-      prefix: chore
-      include: scope
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
     cooldown:
       default-days: 7
-    commit-message:
-      prefix: chore
-      include: scope
