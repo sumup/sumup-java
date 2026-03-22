@@ -5,17 +5,8 @@ import java.util.Objects;
 
 /** Details of the payment card that is saved as a payment instrument. */
 public record PaymentInstrumentCard(
-    /**
-     * Indicates whether the payment instrument is active and can be used for payments. To
-     * deactivate it, send a `DELETE` request to the resource endpoint.
-     */
-    Boolean active,
-
     /** __Required when payment type is `card`.__ Details of the payment card. */
     com.sumup.sdk.models.Card card,
-
-    /** Unique token identifying the saved payment card for a customer. */
-    String token,
 
     /** Type of the payment instrument. */
     com.sumup.sdk.models.PaymentInstrumentCardType type) {
@@ -64,7 +55,7 @@ public record PaymentInstrumentCard(
      */
     public PaymentInstrumentCard build() {
       return new PaymentInstrumentCard(
-          null, Objects.requireNonNull(card, "card"), null, Objects.requireNonNull(type, "type"));
+          Objects.requireNonNull(card, "card"), Objects.requireNonNull(type, "type"));
     }
   }
 }

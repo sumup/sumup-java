@@ -14,9 +14,6 @@ public record Card(
     /** Year from the expiration time of the payment card. Accepted formats are `YY` and `YYYY`. */
     String expiryYear,
 
-    /** Last 4 digits of the payment card number. */
-    String last4Digits,
-
     /** Name of the cardholder as it appears on the payment card. */
     String name,
 
@@ -138,7 +135,6 @@ public record Card(
           Objects.requireNonNull(cvv, "cvv"),
           Objects.requireNonNull(expiryMonth, "expiryMonth"),
           Objects.requireNonNull(expiryYear, "expiryYear"),
-          null,
           Objects.requireNonNull(name, "name"),
           Objects.requireNonNull(number, "number"),
           Objects.requireNonNull(type, "type"),
