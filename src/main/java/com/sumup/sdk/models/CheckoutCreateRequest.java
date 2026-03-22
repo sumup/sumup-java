@@ -27,19 +27,10 @@ public record CheckoutCreateRequest(
     String customerId,
 
     /**
-     * Date and time of the creation of the payment checkout. Response format expressed according to
-     * [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) code.
-     */
-    java.time.OffsetDateTime date,
-
-    /**
      * Short description of the checkout visible in the SumUp dashboard. The description can
      * contribute to reporting, allowing easier identification of a checkout.
      */
     String description,
-
-    /** Unique ID of the checkout resource. */
-    String id,
 
     /** Unique identifying code of the merchant profile. */
     String merchantCode,
@@ -59,12 +50,6 @@ public record CheckoutCreateRequest(
 
     /** URL to which the SumUp platform sends the processing status of the payment checkout. */
     String returnUrl,
-
-    /** Current status of the checkout. */
-    com.sumup.sdk.models.CheckoutCreateRequestStatus status,
-
-    /** List of transactions related to the payment. */
-    java.util.List<com.sumup.sdk.models.TransactionBase> transactions,
 
     /**
      * Date and time of the checkout expiration before which the client application needs to send a
@@ -229,15 +214,11 @@ public record CheckoutCreateRequest(
           Objects.requireNonNull(checkoutReference, "checkoutReference"),
           Objects.requireNonNull(currency, "currency"),
           customerId,
-          null,
           description,
-          null,
           Objects.requireNonNull(merchantCode, "merchantCode"),
           purpose,
           redirectUrl,
           returnUrl,
-          null,
-          null,
           validUntil);
     }
   }
