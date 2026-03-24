@@ -31,6 +31,7 @@ public enum EntryMode {
   APPLE_PAY("apple pay"),
   GOOGLE_PAY("google pay"),
   PAYPAL("paypal"),
+  TWINT("twint"),
   NA("na");
 
   private final String value;
