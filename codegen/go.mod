@@ -1,10 +1,10 @@
 module github.com/sumup/sumup-java/codegen
 
-go 1.25
+go 1.25.0
 
 require (
 	github.com/lmittmann/tint v1.1.3
-	github.com/pb33f/libopenapi v0.34.2
+	github.com/pb33f/libopenapi v0.34.3
 	github.com/urfave/cli/v2 v2.27.7
 )
 
@@ -17,5 +17,5 @@ require (
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/xrash/smetrics v0.0.0-20240521201337-686a1a2994c1 // indirect
 	go.yaml.in/yaml/v4 v4.0.0-rc.4 // indirect
-	golang.org/x/sync v0.19.0 // indirect
+	golang.org/x/sync v0.20.0 // indirect
 )
