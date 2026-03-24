@@ -21,6 +21,7 @@ public enum EntryModeFilter {
   APPLE_PAY("APPLE_PAY"),
   GOOGLE_PAY("GOOGLE_PAY"),
   PAYPAL("PAYPAL"),
+  TWINT("TWINT"),
   NONE("NONE"),
   CHIP("CHIP"),
   MANUAL_ENTRY("MANUAL_ENTRY"),

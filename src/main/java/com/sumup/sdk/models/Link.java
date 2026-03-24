@@ -6,6 +6,12 @@ public record Link(
     /** URL for accessing the related resource. */
     String href,
 
+    /** Maximum allowed amount for the refund. */
+    Float maxAmount,
+
+    /** Minimum allowed amount for the refund. */
+    Float minAmount,
+
     /** Specifies the relation to the current resource. */
     String rel,
 
@@ -23,6 +29,8 @@ public record Link(
   /** Builder for Link instances. */
   public static final class Builder {
     private String href;
+    private Float maxAmount;
+    private Float minAmount;
     private String rel;
     private String type;
 
@@ -36,6 +44,28 @@ public record Link(
      */
     public Builder href(String href) {
       this.href = href;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code maxAmount}.
+     *
+     * @param maxAmount Maximum allowed amount for the refund.
+     * @return This builder instance.
+     */
+    public Builder maxAmount(Float maxAmount) {
+      this.maxAmount = maxAmount;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code minAmount}.
+     *
+     * @param minAmount Minimum allowed amount for the refund.
+     * @return This builder instance.
+     */
+    public Builder minAmount(Float minAmount) {
+      this.minAmount = minAmount;
       return this;
     }
 
@@ -67,7 +97,7 @@ public record Link(
      * @return Immutable Link.
      */
     public Link build() {
-      return new Link(href, rel, type);
+      return new Link(href, maxAmount, minAmount, rel, type);
     }
   }
 }
