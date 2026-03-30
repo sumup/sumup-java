@@ -679,7 +679,7 @@ public final class TransactionsAsyncClient {
      * @return This ListTransactionsV21QueryParams instance.
      */
     public ListTransactionsV21QueryParams entryModes(
-        java.util.List<com.sumup.sdk.models.EntryModeFilter> value) {
+        java.util.List<com.sumup.sdk.models.EntryMode> value) {
       this.values.put("entry_modes[]", Objects.requireNonNull(value, "entryModes"));
       return this;
     }

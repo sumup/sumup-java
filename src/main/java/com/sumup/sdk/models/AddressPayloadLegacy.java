@@ -32,9 +32,6 @@ public record AddressPayloadLegacy(
     /** Postal code */
     String postCode,
 
-    /** Country region id */
-    Double regionId,
-
     /** Country region name */
     String regionName) {
   /**
@@ -57,7 +54,6 @@ public record AddressPayloadLegacy(
     private String landline;
     private String lastName;
     private String postCode;
-    private Double regionId;
     private String regionName;
 
     private Builder() {}
@@ -162,17 +158,6 @@ public record AddressPayloadLegacy(
     }
 
     /**
-     * Sets the value for {@code regionId}.
-     *
-     * @param regionId Country region id
-     * @return This builder instance.
-     */
-    public Builder regionId(Double regionId) {
-      this.regionId = regionId;
-      return this;
-    }
-
-    /**
      * Sets the value for {@code regionName}.
      *
      * @param regionName Country region name
@@ -199,7 +184,6 @@ public record AddressPayloadLegacy(
           landline,
           lastName,
           Objects.requireNonNull(postCode, "postCode"),
-          regionId,
           regionName);
     }
   }

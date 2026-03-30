@@ -2,6 +2,9 @@
 package com.sumup.sdk.models;
 
 public record ReceiptTransactionProductsItem(
+    /** Product description */
+    String description,
+
     /** Product name */
     String name,
 
@@ -39,6 +42,7 @@ public record ReceiptTransactionProductsItem(
 
   /** Builder for ReceiptTransactionProductsItem instances. */
   public static final class Builder {
+    private String description;
     private String name;
     private String price;
     private String priceWithVat;
@@ -50,6 +54,17 @@ public record ReceiptTransactionProductsItem(
     private String vatRate;
 
     private Builder() {}
+
+    /**
+     * Sets the value for {@code description}.
+     *
+     * @param description Product description
+     * @return This builder instance.
+     */
+    public Builder description(String description) {
+      this.description = description;
+      return this;
+    }
 
     /**
      * Sets the value for {@code name}.
@@ -157,6 +172,7 @@ public record ReceiptTransactionProductsItem(
      */
     public ReceiptTransactionProductsItem build() {
       return new ReceiptTransactionProductsItem(
+          description,
           name,
           price,
           priceWithVat,

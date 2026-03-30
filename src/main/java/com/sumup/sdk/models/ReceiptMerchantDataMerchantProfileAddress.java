@@ -3,12 +3,14 @@ package com.sumup.sdk.models;
 
 public record ReceiptMerchantDataMerchantProfileAddress(
     String addressLine1,
+    String addressLine2,
     String city,
     String country,
     String countryEnName,
     String countryNativeName,
     String landline,
-    String postCode) {
+    String postCode,
+    String regionName) {
   /**
    * Creates a builder for ReceiptMerchantDataMerchantProfileAddress.
    *
@@ -21,12 +23,14 @@ public record ReceiptMerchantDataMerchantProfileAddress(
   /** Builder for ReceiptMerchantDataMerchantProfileAddress instances. */
   public static final class Builder {
     private String addressLine1;
+    private String addressLine2;
     private String city;
     private String country;
     private String countryEnName;
     private String countryNativeName;
     private String landline;
     private String postCode;
+    private String regionName;
 
     private Builder() {}
 
@@ -38,6 +42,17 @@ public record ReceiptMerchantDataMerchantProfileAddress(
      */
     public Builder addressLine1(String addressLine1) {
       this.addressLine1 = addressLine1;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code addressLine2}.
+     *
+     * @param addressLine2 Value for the addressLine2 field.
+     * @return This builder instance.
+     */
+    public Builder addressLine2(String addressLine2) {
+      this.addressLine2 = addressLine2;
       return this;
     }
 
@@ -108,13 +123,32 @@ public record ReceiptMerchantDataMerchantProfileAddress(
     }
 
     /**
+     * Sets the value for {@code regionName}.
+     *
+     * @param regionName Value for the regionName field.
+     * @return This builder instance.
+     */
+    public Builder regionName(String regionName) {
+      this.regionName = regionName;
+      return this;
+    }
+
+    /**
      * Builds an immutable ReceiptMerchantDataMerchantProfileAddress instance.
      *
      * @return Immutable ReceiptMerchantDataMerchantProfileAddress.
      */
     public ReceiptMerchantDataMerchantProfileAddress build() {
       return new ReceiptMerchantDataMerchantProfileAddress(
-          addressLine1, city, country, countryEnName, countryNativeName, landline, postCode);
+          addressLine1,
+          addressLine2,
+          city,
+          country,
+          countryEnName,
+          countryNativeName,
+          landline,
+          postCode,
+          regionName);
     }
   }
 }
