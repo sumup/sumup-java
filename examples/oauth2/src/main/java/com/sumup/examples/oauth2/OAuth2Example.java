@@ -1,13 +1,24 @@
 package com.sumup.examples.oauth2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.scribejava.core.builder.ServiceBuilder;
-import com.github.scribejava.core.builder.api.DefaultApi20;
-import com.github.scribejava.core.oauth.AccessTokenRequestParams;
-import com.github.scribejava.core.oauth.AuthorizationUrlBuilder;
-import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.github.scribejava.core.oauth.OAuth20Service;
-import com.github.scribejava.core.pkce.PKCE;
+import com.nimbusds.oauth2.sdk.AccessTokenResponse;
+import com.nimbusds.oauth2.sdk.AuthorizationCode;
+import com.nimbusds.oauth2.sdk.AuthorizationCodeGrant;
+import com.nimbusds.oauth2.sdk.AuthorizationRequest;
+import com.nimbusds.oauth2.sdk.ParseException;
+import com.nimbusds.oauth2.sdk.ResponseType;
+import com.nimbusds.oauth2.sdk.Scope;
+import com.nimbusds.oauth2.sdk.TokenErrorResponse;
+import com.nimbusds.oauth2.sdk.TokenRequest;
+import com.nimbusds.oauth2.sdk.TokenResponse;
+import com.nimbusds.oauth2.sdk.auth.ClientSecretBasic;
+import com.nimbusds.oauth2.sdk.auth.Secret;
+import com.nimbusds.oauth2.sdk.http.HTTPRequest;
+import com.nimbusds.oauth2.sdk.http.HTTPResponse;
+import com.nimbusds.oauth2.sdk.id.ClientID;
+import com.nimbusds.oauth2.sdk.id.State;
+import com.nimbusds.oauth2.sdk.pkce.CodeChallengeMethod;
+import com.nimbusds.oauth2.sdk.pkce.CodeVerifier;
 import com.sumup.sdk.SumUpClient;
 import com.sumup.sdk.core.ApiException;
 import com.sumup.sdk.models.Merchant;
@@ -18,8 +29,6 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.security.SecureRandom;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,16 +37,17 @@ import java.util.StringJoiner;
 /**
  * OAuth 2.0 Authorization Code flow with SumUp.
  *
- * <p>This example uses ScribeJava to handle the OAuth2 Authorization Code flow with PKCE. Set
- * {@code CLIENT_ID}, {@code CLIENT_SECRET}, and {@code REDIRECT_URI}, then run
- * {@code ./gradlew :examples:oauth2:run}.
+ * <p>This example uses Nimbus OAuth 2.0 SDK to handle the OAuth2 Authorization Code flow with PKCE.
+ * Set {@code CLIENT_ID}, {@code CLIENT_SECRET}, and {@code REDIRECT_URI}, then run {@code ./gradlew
+ * :examples:oauth2:run}.
  */
 public final class OAuth2Example {
   private static final String STATE_COOKIE_NAME = "oauth_state";
   private static final String PKCE_COOKIE_NAME = "oauth_pkce";
-  private static final String SCOPES = "email profile";
+  private static final Scope SCOPES = new Scope("email", "profile");
+  private static final URI AUTHORIZATION_ENDPOINT = URI.create("https://api.sumup.com/authorize");
+  private static final URI TOKEN_ENDPOINT = URI.create("https://api.sumup.com/token");
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-  private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
   private OAuth2Example() {}
 
@@ -52,13 +62,6 @@ public final class OAuth2Example {
       callbackPath = "/callback";
     }
 
-    OAuth20Service oauthService =
-        new ServiceBuilder(clientId)
-            .apiSecret(clientSecret)
-            .defaultScope(SCOPES)
-            .callback(redirectUri)
-            .build(new SumUpOAuthApi());
-
     int listenPort = redirect.getPort() == -1 ? 8080 : redirect.getPort();
     HttpServer server = HttpServer.create(new InetSocketAddress(listenPort), 0);
 
@@ -70,19 +73,26 @@ public final class OAuth2Example {
             return;
           }
 
-          String state = randomUrlSafeString(32);
-          AuthorizationUrlBuilder authorizationUrlBuilder =
-              oauthService.createAuthorizationUrlBuilder().state(state).initPKCE();
-          PKCE pkce = authorizationUrlBuilder.getPkce();
+          State state = new State();
+          CodeVerifier codeVerifier = new CodeVerifier();
+          AuthorizationRequest authorizationRequest =
+              new AuthorizationRequest.Builder(
+                      new ResponseType(ResponseType.Value.CODE), new ClientID(clientId))
+                  .endpointURI(AUTHORIZATION_ENDPOINT)
+                  .redirectionURI(redirect)
+                  .scope(SCOPES)
+                  .state(state)
+                  .codeChallenge(codeVerifier, CodeChallengeMethod.S256)
+                  .build();
 
-          exchange.getResponseHeaders()
-              .add("Set-Cookie", buildCookie(STATE_COOKIE_NAME, state));
-          exchange.getResponseHeaders()
-              .add("Set-Cookie", buildCookie(PKCE_COOKIE_NAME, pkce.getCodeVerifier()));
+          exchange
+              .getResponseHeaders()
+              .add("Set-Cookie", buildCookie(STATE_COOKIE_NAME, state.getValue()));
+          exchange
+              .getResponseHeaders()
+              .add("Set-Cookie", buildCookie(PKCE_COOKIE_NAME, codeVerifier.getValue()));
 
-          String authorizationUrl = authorizationUrlBuilder.build();
-
-          exchange.getResponseHeaders().add("Location", authorizationUrl);
+          exchange.getResponseHeaders().add("Location", authorizationRequest.toURI().toString());
           exchange.sendResponseHeaders(302, -1);
           exchange.close();
         });
@@ -96,7 +106,7 @@ public final class OAuth2Example {
           }
 
           try {
-            handleCallback(exchange, oauthService);
+            handleCallback(exchange, clientId, clientSecret, redirect);
           } catch (Exception ex) {
             sendText(exchange, 500, "OAuth2 error: " + ex.getMessage());
           }
@@ -110,7 +120,7 @@ public final class OAuth2Example {
               <html>
                 <body>
                   <h1>SumUp OAuth2 Example</h1>
-                  <p>This example uses ScribeJava for the OAuth2 Authorization Code flow with PKCE.</p>
+                  <p>This example uses Nimbus OAuth 2.0 SDK for the OAuth2 Authorization Code flow with PKCE.</p>
                   <p><a href="/login">Start OAuth2 Flow</a></p>
                 </body>
               </html>
@@ -123,7 +133,8 @@ public final class OAuth2Example {
     System.out.printf("Server is running at %s%n", redirectUri);
   }
 
-  private static void handleCallback(HttpExchange exchange, OAuth20Service oauthService)
+  private static void handleCallback(
+      HttpExchange exchange, String clientId, String clientSecret, URI redirectUri)
       throws Exception {
     Map<String, String> queryParams = parseQuery(exchange.getRequestURI().getRawQuery());
     String expectedState = readCookie(exchange, STATE_COOKIE_NAME);
@@ -152,10 +163,10 @@ public final class OAuth2Example {
       return;
     }
 
-    OAuth2AccessToken accessToken =
-        oauthService.getAccessToken(
-            AccessTokenRequestParams.create(code).pkceCodeVerifier(codeVerifier));
-    SumUpClient client = new SumUpClient(accessToken.getAccessToken());
+    AccessTokenResponse accessTokenResponse =
+        exchangeAccessToken(clientId, clientSecret, redirectUri, code, codeVerifier);
+    SumUpClient client =
+        new SumUpClient(accessTokenResponse.getTokens().getAccessToken().getValue());
 
     try {
       Merchant merchant = client.merchants().getMerchant(merchantCode);
@@ -170,10 +181,33 @@ public final class OAuth2Example {
     }
   }
 
-  private static String randomUrlSafeString(int byteCount) {
-    byte[] bytes = new byte[byteCount];
-    SECURE_RANDOM.nextBytes(bytes);
-    return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
+  private static AccessTokenResponse exchangeAccessToken(
+      String clientId, String clientSecret, URI redirectUri, String code, String codeVerifier)
+      throws IOException, ParseException {
+    AuthorizationCodeGrant codeGrant =
+        new AuthorizationCodeGrant(
+            new AuthorizationCode(code), redirectUri, new CodeVerifier(codeVerifier));
+    TokenRequest tokenRequest =
+        new TokenRequest(
+            TOKEN_ENDPOINT,
+            new ClientSecretBasic(new ClientID(clientId), new Secret(clientSecret)),
+            codeGrant,
+            null);
+    HTTPRequest httpRequest = tokenRequest.toHTTPRequest();
+    HTTPResponse httpResponse = httpRequest.send();
+    TokenResponse tokenResponse = TokenResponse.parse(httpResponse);
+
+    if (!tokenResponse.indicatesSuccess()) {
+      TokenErrorResponse errorResponse = tokenResponse.toErrorResponse();
+      String description = errorResponse.getErrorObject().getDescription();
+      String message =
+          description == null || description.isBlank()
+              ? errorResponse.getErrorObject().getCode()
+              : errorResponse.getErrorObject().getCode() + ": " + description;
+      throw new IOException("Failed to exchange authorization code: " + message);
+    }
+
+    return tokenResponse.toSuccessResponse();
   }
 
   private static Map<String, String> parseQuery(String rawQuery) {
@@ -251,17 +285,5 @@ public final class OAuth2Example {
       throw new IllegalStateException(name + " environment variable must be set");
     }
     return value;
-  }
-
-  private static final class SumUpOAuthApi extends DefaultApi20 {
-    @Override
-    public String getAccessTokenEndpoint() {
-      return "https://api.sumup.com/token";
-    }
-
-    @Override
-    protected String getAuthorizationBaseUrl() {
-      return "https://api.sumup.com/authorize";
-    }
   }
 }

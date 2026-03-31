@@ -9,5 +9,5 @@ application {
 
 dependencies {
     implementation project(':sumup-sdk')
-    implementation 'com.github.scribejava:scribejava-core:8.3.3'
+    implementation 'com.nimbusds:oauth2-oidc-sdk:11.34'
 }

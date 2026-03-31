@@ -260,7 +260,7 @@ readerIdFuture
 
 - `examples/basic` – lists recent checkouts to verify that your API token works.
 - `examples/card-reader-checkout` – lists paired readers and creates a €10 checkout on the first available device.
-- `examples/oauth2` – uses ScribeJava to run a local OAuth 2.0 Authorization Code flow with PKCE, exchanges the callback code for an access token, and fetches merchant information using the returned `merchant_code`.
+- `examples/oauth2` – uses Nimbus OAuth 2.0 SDK to run a local OAuth 2.0 Authorization Code flow with PKCE, exchanges the callback code for an access token, and fetches merchant information using the returned `merchant_code`.
 
 To run the card reader example locally:
 
