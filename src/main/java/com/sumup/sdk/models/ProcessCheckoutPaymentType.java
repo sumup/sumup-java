@@ -10,7 +10,9 @@ public enum ProcessCheckoutPaymentType {
   BOLETO("boleto"),
   IDEAL("ideal"),
   BLIK("blik"),
-  BANCONTACT("bancontact");
+  BANCONTACT("bancontact"),
+  GOOGLE_PAY("google_pay"),
+  APPLE_PAY("apple_pay");
 
   private final String value;
 
