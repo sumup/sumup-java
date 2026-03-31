@@ -260,6 +260,7 @@ readerIdFuture
 
 - `examples/basic` – lists recent checkouts to verify that your API token works.
 - `examples/card-reader-checkout` – lists paired readers and creates a €10 checkout on the first available device.
+- `examples/oauth2` – uses ScribeJava to run a local OAuth 2.0 Authorization Code flow with PKCE, exchanges the callback code for an access token, and fetches merchant information using the returned `merchant_code`.
 
 To run the card reader example locally:
 
@@ -269,6 +270,15 @@ export SUMUP_MERCHANT_CODE="your_merchant_code"
 # Optional: pick a concrete reader instead of taking the first
 # export SUMUP_READER_ID="your_reader_id"
 ./gradlew :examples:card-reader-checkout:run
+```
+
+To run the OAuth2 example locally:
+
+```bash
+export CLIENT_ID="your_client_id"
+export CLIENT_SECRET="your_client_secret"
+export REDIRECT_URI="http://localhost:8080/callback"
+./gradlew :examples:oauth2:run
 ```
 
 ## Generating Javadoc
