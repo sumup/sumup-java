@@ -5,8 +5,12 @@ package com.sumup.sdk.models;
 public record ReceiptMerchantDataMerchantProfile(
     com.sumup.sdk.models.ReceiptMerchantDataMerchantProfileAddress address,
     String businessName,
+    String companyRegistrationNumber,
     String email,
-    String merchantCode) {
+    String language,
+    String merchantCode,
+    String vatId,
+    String website) {
   /**
    * Creates a builder for ReceiptMerchantDataMerchantProfile.
    *
@@ -20,8 +24,12 @@ public record ReceiptMerchantDataMerchantProfile(
   public static final class Builder {
     private com.sumup.sdk.models.ReceiptMerchantDataMerchantProfileAddress address;
     private String businessName;
+    private String companyRegistrationNumber;
     private String email;
+    private String language;
     private String merchantCode;
+    private String vatId;
+    private String website;
 
     private Builder() {}
 
@@ -48,6 +56,17 @@ public record ReceiptMerchantDataMerchantProfile(
     }
 
     /**
+     * Sets the value for {@code companyRegistrationNumber}.
+     *
+     * @param companyRegistrationNumber Value for the companyRegistrationNumber field.
+     * @return This builder instance.
+     */
+    public Builder companyRegistrationNumber(String companyRegistrationNumber) {
+      this.companyRegistrationNumber = companyRegistrationNumber;
+      return this;
+    }
+
+    /**
      * Sets the value for {@code email}.
      *
      * @param email Value for the email field.
@@ -55,6 +74,17 @@ public record ReceiptMerchantDataMerchantProfile(
      */
     public Builder email(String email) {
       this.email = email;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code language}.
+     *
+     * @param language Value for the language field.
+     * @return This builder instance.
+     */
+    public Builder language(String language) {
+      this.language = language;
       return this;
     }
 
@@ -70,12 +100,42 @@ public record ReceiptMerchantDataMerchantProfile(
     }
 
     /**
+     * Sets the value for {@code vatId}.
+     *
+     * @param vatId Value for the vatId field.
+     * @return This builder instance.
+     */
+    public Builder vatId(String vatId) {
+      this.vatId = vatId;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code website}.
+     *
+     * @param website Value for the website field.
+     * @return This builder instance.
+     */
+    public Builder website(String website) {
+      this.website = website;
+      return this;
+    }
+
+    /**
      * Builds an immutable ReceiptMerchantDataMerchantProfile instance.
      *
      * @return Immutable ReceiptMerchantDataMerchantProfile.
      */
     public ReceiptMerchantDataMerchantProfile build() {
-      return new ReceiptMerchantDataMerchantProfile(address, businessName, email, merchantCode);
+      return new ReceiptMerchantDataMerchantProfile(
+          address,
+          businessName,
+          companyRegistrationNumber,
+          email,
+          language,
+          merchantCode,
+          vatId,
+          website);
     }
   }
 }

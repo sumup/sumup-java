@@ -9,6 +9,9 @@ public record ReceiptTransaction(
     /** Payment card details displayed on the receipt. */
     com.sumup.sdk.models.ReceiptCard card,
 
+    /** Card reader details displayed on the receipt. */
+    com.sumup.sdk.models.ReceiptReader cardReader,
+
     /** Transaction currency. */
     String currency,
 
@@ -21,8 +24,14 @@ public record ReceiptTransaction(
     /** Number of installments. */
     Long installmentsCount,
 
+    /** Merchant code. */
+    String merchantCode,
+
     /** Transaction type. */
     String paymentType,
+
+    /** Debit/Credit. */
+    com.sumup.sdk.models.ReceiptTransactionProcessAs processAs,
 
     /** Products */
     java.util.List<com.sumup.sdk.models.ReceiptTransactionProductsItem> products,
@@ -41,6 +50,9 @@ public record ReceiptTransaction(
 
     /** Transaction code. */
     String transactionCode,
+
+    /** Unique ID of the transaction. */
+    com.sumup.sdk.models.TransactionId transactionId,
 
     /** Transaction VAT amount. */
     String vatAmount,
@@ -63,17 +75,21 @@ public record ReceiptTransaction(
   public static final class Builder {
     private String amount;
     private com.sumup.sdk.models.ReceiptCard card;
+    private com.sumup.sdk.models.ReceiptReader cardReader;
     private String currency;
     private String entryMode;
     private java.util.List<com.sumup.sdk.models.ReceiptEvent> events;
     private Long installmentsCount;
+    private String merchantCode;
     private String paymentType;
+    private com.sumup.sdk.models.ReceiptTransactionProcessAs processAs;
     private java.util.List<com.sumup.sdk.models.ReceiptTransactionProductsItem> products;
     private String receiptNo;
     private String status;
     private java.time.OffsetDateTime timestamp;
     private String tipAmount;
     private String transactionCode;
+    private com.sumup.sdk.models.TransactionId transactionId;
     private String vatAmount;
     private java.util.List<com.sumup.sdk.models.ReceiptTransactionVatRatesItem> vatRates;
     private String verificationMethod;
@@ -99,6 +115,17 @@ public record ReceiptTransaction(
      */
     public Builder card(com.sumup.sdk.models.ReceiptCard card) {
       this.card = card;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code cardReader}.
+     *
+     * @param cardReader Card reader details displayed on the receipt.
+     * @return This builder instance.
+     */
+    public Builder cardReader(com.sumup.sdk.models.ReceiptReader cardReader) {
+      this.cardReader = cardReader;
       return this;
     }
 
@@ -147,6 +174,17 @@ public record ReceiptTransaction(
     }
 
     /**
+     * Sets the value for {@code merchantCode}.
+     *
+     * @param merchantCode Merchant code.
+     * @return This builder instance.
+     */
+    public Builder merchantCode(String merchantCode) {
+      this.merchantCode = merchantCode;
+      return this;
+    }
+
+    /**
      * Sets the value for {@code paymentType}.
      *
      * @param paymentType Transaction type.
@@ -154,6 +192,17 @@ public record ReceiptTransaction(
      */
     public Builder paymentType(String paymentType) {
       this.paymentType = paymentType;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code processAs}.
+     *
+     * @param processAs Debit/Credit.
+     * @return This builder instance.
+     */
+    public Builder processAs(com.sumup.sdk.models.ReceiptTransactionProcessAs processAs) {
+      this.processAs = processAs;
       return this;
     }
 
@@ -225,6 +274,17 @@ public record ReceiptTransaction(
     }
 
     /**
+     * Sets the value for {@code transactionId}.
+     *
+     * @param transactionId Unique ID of the transaction.
+     * @return This builder instance.
+     */
+    public Builder transactionId(com.sumup.sdk.models.TransactionId transactionId) {
+      this.transactionId = transactionId;
+      return this;
+    }
+
+    /**
      * Sets the value for {@code vatAmount}.
      *
      * @param vatAmount Transaction VAT amount.
@@ -267,17 +327,21 @@ public record ReceiptTransaction(
       return new ReceiptTransaction(
           amount,
           card,
+          cardReader,
           currency,
           entryMode,
           events,
           installmentsCount,
+          merchantCode,
           paymentType,
+          processAs,
           products,
           receiptNo,
           status,
           timestamp,
           tipAmount,
           transactionCode,
+          transactionId,
           vatAmount,
           vatRates,
           verificationMethod);

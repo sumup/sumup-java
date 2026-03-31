@@ -36,9 +36,6 @@ public record AddressWithDetails(
     /** Region code */
     String regionCode,
 
-    /** Country region id */
-    Double regionId,
-
     /** Region name */
     String regionName,
 
@@ -69,7 +66,6 @@ public record AddressWithDetails(
     private String lastName;
     private String postCode;
     private String regionCode;
-    private Double regionId;
     private String regionName;
     private String stateId;
     private com.sumup.sdk.models.TimeoffsetDetails timeoffsetDetails;
@@ -198,17 +194,6 @@ public record AddressWithDetails(
     }
 
     /**
-     * Sets the value for {@code regionId}.
-     *
-     * @param regionId Country region id
-     * @return This builder instance.
-     */
-    public Builder regionId(Double regionId) {
-      this.regionId = regionId;
-      return this;
-    }
-
-    /**
      * Sets the value for {@code regionName}.
      *
      * @param regionName Region name
@@ -259,7 +244,6 @@ public record AddressWithDetails(
           lastName,
           postCode,
           regionCode,
-          regionId,
           regionName,
           stateId,
           timeoffsetDetails);
