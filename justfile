@@ -7,6 +7,7 @@ default:
 # Regenerate the OpenAPI output using the Go-based wrapper.
 generate:
 	go -C codegen run . generate --spec ../openapi.json
+	just format
 
 # Run unit tests for the Go generator code.
 go-test:

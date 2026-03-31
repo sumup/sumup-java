@@ -65,7 +65,7 @@ subprojects {
             spotless.java { javaExt ->
                 javaExt.target('**/java/**/*.java')
                 javaExt.targetExclude('build/**')
-                javaExt.googleJavaFormat('1.21.0')
+                javaExt.googleJavaFormat('1.35.0')
             }
         }
     }
