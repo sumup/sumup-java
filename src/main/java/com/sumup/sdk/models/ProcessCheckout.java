@@ -5,11 +5,22 @@ import java.util.Objects;
 
 /** Details of the payment instrument for processing the checkout. */
 public record ProcessCheckout(
+    /**
+     * Raw payment token object received from Apple Pay. Send the Apple Pay response payload as-is.
+     */
+    java.util.Map<String, Object> applePay,
+
     /** __Required when payment type is `card`.__ Details of the payment card. */
     com.sumup.sdk.models.Card card,
 
     /** __Required when `token` is provided.__ Unique ID of the customer. */
     String customerId,
+
+    /**
+     * Raw `PaymentData` object received from Google Pay. Send the Google Pay response payload
+     * as-is.
+     */
+    java.util.Map<String, Object> googlePay,
 
     /** Number of installments for deferred payments. Available only to merchant users in Brazil. */
     Long installments,
@@ -39,8 +50,10 @@ public record ProcessCheckout(
 
   /** Builder for ProcessCheckout instances. */
   public static final class Builder {
+    private java.util.Map<String, Object> applePay;
     private com.sumup.sdk.models.Card card;
     private String customerId;
+    private java.util.Map<String, Object> googlePay;
     private Long installments;
     private com.sumup.sdk.models.MandatePayload mandate;
     private com.sumup.sdk.models.ProcessCheckoutPaymentType paymentType;
@@ -48,6 +61,18 @@ public record ProcessCheckout(
     private String token;
 
     private Builder() {}
+
+    /**
+     * Sets the value for {@code applePay}.
+     *
+     * @param applePay Raw payment token object received from Apple Pay. Send the Apple Pay response
+     *     payload as-is.
+     * @return This builder instance.
+     */
+    public Builder applePay(java.util.Map<String, Object> applePay) {
+      this.applePay = applePay;
+      return this;
+    }
 
     /**
      * Sets the value for {@code card}.
@@ -68,6 +93,18 @@ public record ProcessCheckout(
      */
     public Builder customerId(String customerId) {
       this.customerId = customerId;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code googlePay}.
+     *
+     * @param googlePay Raw `PaymentData` object received from Google Pay. Send the Google Pay
+     *     response payload as-is.
+     * @return This builder instance.
+     */
+    public Builder googlePay(java.util.Map<String, Object> googlePay) {
+      this.googlePay = googlePay;
       return this;
     }
 
@@ -135,8 +172,10 @@ public record ProcessCheckout(
      */
     public ProcessCheckout build() {
       return new ProcessCheckout(
+          applePay,
           card,
           customerId,
+          googlePay,
           installments,
           mandate,
           Objects.requireNonNull(paymentType, "paymentType"),
