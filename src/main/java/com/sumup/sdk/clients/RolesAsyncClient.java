@@ -9,7 +9,13 @@ import com.sumup.sdk.core.RequestOptions;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-/** Client for the "Roles" API group. */
+/**
+ * Client for the "Roles" API group.
+ *
+ * <p>Endpoints to manage custom roles. Custom roles allow you to tailor roles from individual
+ * permissions to match your needs. Once created, you can assign your custom roles to your merchant
+ * account members using the memberships.
+ */
 public final class RolesAsyncClient {
   private final ApiClient apiClient;
 

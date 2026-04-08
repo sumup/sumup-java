@@ -10,7 +10,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-/** Client for the "Payouts" API group. */
+/**
+ * Client for the "Payouts" API group.
+ *
+ * <p>The Payouts model will allow you to track funds you’ve received from SumUp. You can receive a
+ * detailed payouts list with information like dates, fees, references and statuses, using the `List
+ * payouts` endpoint.
+ */
 public final class PayoutsClient {
   private final ApiClient apiClient;
 

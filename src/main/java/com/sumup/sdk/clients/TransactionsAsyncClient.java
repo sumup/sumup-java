@@ -11,7 +11,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-/** Client for the "Transactions" API group. */
+/**
+ * Client for the "Transactions" API group.
+ *
+ * <p>Retrieve details for a specific transaction by it’s `id` or any other required query
+ * parameter, or list all transactions related to the merchant account.
+ */
 public final class TransactionsAsyncClient {
   private final ApiClient apiClient;
 

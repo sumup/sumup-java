@@ -11,7 +11,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-/** Client for the "Checkouts" API group. */
+/**
+ * Client for the "Checkouts" API group.
+ *
+ * <p>Accept payments from your end users by adding the Checkouts model to your platform. SumUp
+ * supports standard and single payment 3DS checkout flows. The Checkout model allows creating,
+ * listing, retrieving, processing and deactivating checkouts. A payment is completed by creating a
+ * checkout and then processing the checkout.
+ */
 public final class CheckoutsAsyncClient {
   private final ApiClient apiClient;
 

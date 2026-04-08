@@ -168,6 +168,7 @@ type clientTemplateData struct {
 	Package       string
 	ClassName     string
 	TagName       string
+	TagDescriptionLines []string
 	Imports       []string
 	Operations    []operationTemplateData
 	QueryStructs  []*parameterGroupModel
@@ -320,13 +321,14 @@ func prepareClientTemplateData(client clientModel, className string, async bool)
 	sort.Strings(imports)
 
 	return clientTemplateData{
-		Package:       client.Package,
-		ClassName:     className,
-		TagName:       client.TagName,
-		Imports:       imports,
-		Operations:    operations,
-		QueryStructs:  queryStructs,
-		HeaderStructs: headerStructs,
+		Package:             client.Package,
+		ClassName:           className,
+		TagName:             client.TagName,
+		TagDescriptionLines: client.TagDescriptionLines,
+		Imports:             imports,
+		Operations:          operations,
+		QueryStructs:        queryStructs,
+		HeaderStructs:       headerStructs,
 	}
 }
 

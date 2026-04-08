@@ -11,7 +11,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-/** Client for the "Subaccounts" API group. */
+/**
+ * Client for the "Subaccounts" API group.
+ *
+ * <p>Endpoints for managing merchant sub-accounts (operators).
+ */
 public final class SubaccountsAsyncClient {
   private final ApiClient apiClient;
 

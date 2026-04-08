@@ -10,7 +10,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-/** Client for the "Merchants" API group. */
+/**
+ * Client for the "Merchants" API group.
+ *
+ * <p>Merchant account represents a single business entity at SumUp.
+ */
 public final class MerchantsClient {
   private final ApiClient apiClient;
 
