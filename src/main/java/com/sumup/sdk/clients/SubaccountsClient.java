@@ -10,7 +10,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-/** Client for the "Subaccounts" API group. */
+/**
+ * Client for the "Subaccounts" API group.
+ *
+ * <p>Endpoints for managing merchant sub-accounts (operators).
+ */
 public final class SubaccountsClient {
   private final ApiClient apiClient;
 

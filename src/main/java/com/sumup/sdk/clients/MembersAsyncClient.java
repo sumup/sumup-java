@@ -11,7 +11,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-/** Client for the "Members" API group. */
+/**
+ * Client for the "Members" API group.
+ *
+ * <p>Endpoints to manage account members. Members are users that have membership within merchant
+ * accounts.
+ */
 public final class MembersAsyncClient {
   private final ApiClient apiClient;
 

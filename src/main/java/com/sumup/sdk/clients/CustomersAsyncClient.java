@@ -9,7 +9,14 @@ import com.sumup.sdk.core.RequestOptions;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-/** Client for the "Customers" API group. */
+/**
+ * Client for the "Customers" API group.
+ *
+ * <p>Allow your regular customers to save their information with the Customers model. This will
+ * prevent re-entering payment instrument information for recurring payments on your platform.
+ * Depending on the needs you can allow, creating, listing or deactivating payment instruments &
+ * creating, retrieving and updating customers.
+ */
 public final class CustomersAsyncClient {
   private final ApiClient apiClient;
 

@@ -70,7 +70,7 @@ public final class {{ .ClassName }} {
 
 {{- range .Clients }}
     /**
-     * Returns the {{ .ClassName }} client exposing endpoints tagged with "{{ .TagName }}".
+     * Returns the {{ .ClassName }} client for the "{{ .TagName }}" API group.
      *
      * @return Client for the associated API group.
      */

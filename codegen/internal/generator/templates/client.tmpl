@@ -6,6 +6,12 @@ import {{ . }};
 
 /**
  * Client for the "{{ .TagName }}" API group.
+{{- if .TagDescriptionLines }}
+ *
+{{- range .TagDescriptionLines }}
+ * {{ . }}
+{{- end }}
+{{- end }}
  */
 public final class {{ .ClassName }} {
     private final ApiClient apiClient;

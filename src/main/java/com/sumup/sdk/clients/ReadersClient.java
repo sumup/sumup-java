@@ -10,7 +10,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-/** Client for the "Readers" API group. */
+/**
+ * Client for the "Readers" API group.
+ *
+ * <p>A reader represents a device that accepts payments. You can use the SumUp Solo to accept
+ * in-person payments.
+ */
 public final class ReadersClient {
   private final ApiClient apiClient;
 

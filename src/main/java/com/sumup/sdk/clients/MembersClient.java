@@ -10,7 +10,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-/** Client for the "Members" API group. */
+/**
+ * Client for the "Members" API group.
+ *
+ * <p>Endpoints to manage account members. Members are users that have membership within merchant
+ * accounts.
+ */
 public final class MembersClient {
   private final ApiClient apiClient;
 

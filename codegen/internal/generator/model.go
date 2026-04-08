@@ -22,6 +22,7 @@ type sdkModel struct {
 // clientModel encapsulates the data necessary to render a Java API client.
 type clientModel struct {
 	TagName      string
+	TagDescriptionLines []string
 	ClassName    string
 	AccessorName string
 	FieldName    string
@@ -128,6 +129,15 @@ const (
 // used by renderers to generate source files.
 func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
 	resolver := newTypeResolver(doc, params)
+	tagDescriptions := map[string][]string{}
+	if doc.Tags != nil {
+		for _, tag := range doc.Tags {
+			if tag == nil {
+				continue
+			}
+			tagDescriptions[firstTag([]string{tag.Name})] = splitComment(strings.TrimSpace(tag.Description))
+		}
+	}
 	groups := map[string][]operationModel{}
 	if doc.Paths != nil && doc.Paths.PathItems != nil && doc.Paths.PathItems.Len() > 0 {
 		for path, item := range doc.Paths.PathItems.FromOldest() {
@@ -181,12 +191,13 @@ func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
 		}
 
 		clients = append(clients, clientModel{
-			TagName:      tag,
-			ClassName:    className,
-			AccessorName: accessor,
-			FieldName:    fieldName,
-			Package:      params.clientPackage(),
-			Methods:      ops,
+			TagName:             tag,
+			TagDescriptionLines: tagDescriptions[tag],
+			ClassName:           className,
+			AccessorName:        accessor,
+			FieldName:           fieldName,
+			Package:             params.clientPackage(),
+			Methods:             ops,
 		})
 	}
 

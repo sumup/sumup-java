@@ -10,7 +10,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-/** Client for the "Transactions" API group. */
+/**
+ * Client for the "Transactions" API group.
+ *
+ * <p>Retrieve details for a specific transaction by it’s `id` or any other required query
+ * parameter, or list all transactions related to the merchant account.
+ */
 public final class TransactionsClient {
   private final ApiClient apiClient;
 

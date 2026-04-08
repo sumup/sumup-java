@@ -96,7 +96,7 @@ public final class SumUpClient {
   }
 
   /**
-   * Returns the CheckoutsClient client exposing endpoints tagged with "Checkouts".
+   * Returns the CheckoutsClient client for the "Checkouts" API group.
    *
    * @return Client for the associated API group.
    */
@@ -105,7 +105,7 @@ public final class SumUpClient {
   }
 
   /**
-   * Returns the CustomersClient client exposing endpoints tagged with "Customers".
+   * Returns the CustomersClient client for the "Customers" API group.
    *
    * @return Client for the associated API group.
    */
@@ -114,7 +114,7 @@ public final class SumUpClient {
   }
 
   /**
-   * Returns the MembersClient client exposing endpoints tagged with "Members".
+   * Returns the MembersClient client for the "Members" API group.
    *
    * @return Client for the associated API group.
    */
@@ -123,7 +123,7 @@ public final class SumUpClient {
   }
 
   /**
-   * Returns the MembershipsClient client exposing endpoints tagged with "Memberships".
+   * Returns the MembershipsClient client for the "Memberships" API group.
    *
    * @return Client for the associated API group.
    */
@@ -132,7 +132,7 @@ public final class SumUpClient {
   }
 
   /**
-   * Returns the MerchantsClient client exposing endpoints tagged with "Merchants".
+   * Returns the MerchantsClient client for the "Merchants" API group.
    *
    * @return Client for the associated API group.
    */
@@ -141,7 +141,7 @@ public final class SumUpClient {
   }
 
   /**
-   * Returns the PayoutsClient client exposing endpoints tagged with "Payouts".
+   * Returns the PayoutsClient client for the "Payouts" API group.
    *
    * @return Client for the associated API group.
    */
@@ -150,7 +150,7 @@ public final class SumUpClient {
   }
 
   /**
-   * Returns the ReadersClient client exposing endpoints tagged with "Readers".
+   * Returns the ReadersClient client for the "Readers" API group.
    *
    * @return Client for the associated API group.
    */
@@ -159,7 +159,7 @@ public final class SumUpClient {
   }
 
   /**
-   * Returns the ReceiptsClient client exposing endpoints tagged with "Receipts".
+   * Returns the ReceiptsClient client for the "Receipts" API group.
    *
    * @return Client for the associated API group.
    */
@@ -168,7 +168,7 @@ public final class SumUpClient {
   }
 
   /**
-   * Returns the RolesClient client exposing endpoints tagged with "Roles".
+   * Returns the RolesClient client for the "Roles" API group.
    *
    * @return Client for the associated API group.
    */
@@ -177,7 +177,7 @@ public final class SumUpClient {
   }
 
   /**
-   * Returns the SubaccountsClient client exposing endpoints tagged with "Subaccounts".
+   * Returns the SubaccountsClient client for the "Subaccounts" API group.
    *
    * @return Client for the associated API group.
    */
@@ -186,7 +186,7 @@ public final class SumUpClient {
   }
 
   /**
-   * Returns the TransactionsClient client exposing endpoints tagged with "Transactions".
+   * Returns the TransactionsClient client for the "Transactions" API group.
    *
    * @return Client for the associated API group.
    */

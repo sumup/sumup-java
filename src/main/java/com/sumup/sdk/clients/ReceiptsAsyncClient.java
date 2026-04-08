@@ -11,7 +11,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-/** Client for the "Receipts" API group. */
+/**
+ * Client for the "Receipts" API group.
+ *
+ * <p>The Receipts model obtains receipt-like details for specific transactions.
+ */
 public final class ReceiptsAsyncClient {
   private final ApiClient apiClient;
 
