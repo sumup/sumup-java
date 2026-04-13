@@ -14,8 +14,22 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Client for the "Transactions" API group.
  *
- * <p>Retrieve details for a specific transaction by it’s `id` or any other required query
- * parameter, or list all transactions related to the merchant account.
+ * <p>Transactions represent completed or attempted payment operations processed for a merchant
+ * account. A transaction contains the core payment result, such as the amount, currency, payment
+ * method, creation time, and current high-level status. In addition to the main payment outcome, a
+ * transaction can contain related events that describe what happened after the original payment
+ * attempt. These events provide visibility into the financial lifecycle of the transaction, for
+ * example: - `PAYOUT`: the payment being prepared for payout or included in a payout to the
+ * merchant - `REFUND`: money returned to the payer - `CHARGE_BACK`: money reversed after the
+ * original payment - `PAYOUT_DEDUCTION`: an amount deducted from a payout to cover a refund or
+ * chargeback From an integrator's perspective, transactions are the authoritative record of payment
+ * outcomes. Use this tag to: - list transactions for reporting, reconciliation, and customer
+ * support workflows - retrieve a single transaction when you need the latest payment details -
+ * inspect `simple_status` for the current merchant-facing outcome of the payment - inspect `events`
+ * or `transaction_events` when you need refund, payout, or chargeback history Typical workflow: -
+ * create and process payments through the Checkouts endpoints - use the Transactions endpoints to
+ * read the resulting payment records - use the returned statuses and events to update your own
+ * order, accounting, or support systems
  */
 public final class TransactionsAsyncClient {
   private final ApiClient apiClient;
@@ -33,8 +47,8 @@ public final class TransactionsAsyncClient {
    * Retrieve a transaction
    *
    * <p>Retrieves the full details of an identified transaction. The transaction resource is
-   * identified by a query parameter and *one* of following parameters is required: * `id` *
-   * `internal_id` * `transaction_code` * `foreign_transaction_id` * `client_transaction_id`
+   * identified by a query parameter and *one* of following parameters is required: - `id` -
+   * `internal_id` - `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
    *
    * <p>Operation ID: GetTransaction
    *
@@ -53,8 +67,8 @@ public final class TransactionsAsyncClient {
    * Retrieve a transaction
    *
    * <p>Retrieves the full details of an identified transaction. The transaction resource is
-   * identified by a query parameter and *one* of following parameters is required: * `id` *
-   * `internal_id` * `transaction_code` * `foreign_transaction_id` * `client_transaction_id`
+   * identified by a query parameter and *one* of following parameters is required: - `id` -
+   * `internal_id` - `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
    *
    * <p>Operation ID: GetTransaction
    *
@@ -73,8 +87,8 @@ public final class TransactionsAsyncClient {
    * Retrieve a transaction
    *
    * <p>Retrieves the full details of an identified transaction. The transaction resource is
-   * identified by a query parameter and *one* of following parameters is required: * `id` *
-   * `internal_id` * `transaction_code` * `foreign_transaction_id` * `client_transaction_id`
+   * identified by a query parameter and *one* of following parameters is required: - `id` -
+   * `internal_id` - `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
    *
    * <p>Operation ID: GetTransaction
    *
@@ -106,12 +120,12 @@ public final class TransactionsAsyncClient {
    * Retrieve a transaction
    *
    * <p>Retrieves the full details of an identified transaction. The transaction resource is
-   * identified by a query parameter and *one* of following parameters is required: * `id` *
-   * `internal_id` * `transaction_code` * `foreign_transaction_id` * `client_transaction_id`
+   * identified by a query parameter and *one* of following parameters is required: - `id` -
+   * `internal_id` - `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
    *
    * <p>Operation ID: GetTransactionV2.1
    *
-   * @param merchantCode Path parameter.
+   * @param merchantCode Merchant code of the account whose transaction should be retrieved.
    *     <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
    *     headers, authorization, query values, or timeouts.
    * @return CompletableFuture resolved with com.sumup.sdk.models.TransactionFull parsed response.
@@ -126,12 +140,12 @@ public final class TransactionsAsyncClient {
    * Retrieve a transaction
    *
    * <p>Retrieves the full details of an identified transaction. The transaction resource is
-   * identified by a query parameter and *one* of following parameters is required: * `id` *
-   * `internal_id` * `transaction_code` * `foreign_transaction_id` * `client_transaction_id`
+   * identified by a query parameter and *one* of following parameters is required: - `id` -
+   * `internal_id` - `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
    *
    * <p>Operation ID: GetTransactionV2.1
    *
-   * @param merchantCode Path parameter.
+   * @param merchantCode Merchant code of the account whose transaction should be retrieved.
    * @param getTransactionV21 Optional query parameters for this request.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -147,12 +161,12 @@ public final class TransactionsAsyncClient {
    * Retrieve a transaction
    *
    * <p>Retrieves the full details of an identified transaction. The transaction resource is
-   * identified by a query parameter and *one* of following parameters is required: * `id` *
-   * `internal_id` * `transaction_code` * `foreign_transaction_id` * `client_transaction_id`
+   * identified by a query parameter and *one* of following parameters is required: - `id` -
+   * `internal_id` - `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
    *
    * <p>Operation ID: GetTransactionV2.1
    *
-   * @param merchantCode Path parameter.
+   * @param merchantCode Merchant code of the account whose transaction should be retrieved.
    * @param getTransactionV21 Optional query parameters for this request.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -260,7 +274,7 @@ public final class TransactionsAsyncClient {
    *
    * <p>Operation ID: ListTransactionsV2.1
    *
-   * @param merchantCode Path parameter.
+   * @param merchantCode Merchant code of the account whose transaction history should be listed.
    *     <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
    *     headers, authorization, query values, or timeouts.
    * @return CompletableFuture resolved with com.sumup.sdk.models.ListTransactionsV21Response parsed
@@ -279,7 +293,7 @@ public final class TransactionsAsyncClient {
    *
    * <p>Operation ID: ListTransactionsV2.1
    *
-   * @param merchantCode Path parameter.
+   * @param merchantCode Merchant code of the account whose transaction history should be listed.
    * @param listTransactionsV21 Optional query parameters for this request.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -299,7 +313,7 @@ public final class TransactionsAsyncClient {
    *
    * <p>Operation ID: ListTransactionsV2.1
    *
-   * @param merchantCode Path parameter.
+   * @param merchantCode Merchant code of the account whose transaction history should be listed.
    * @param listTransactionsV21 Optional query parameters for this request.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.

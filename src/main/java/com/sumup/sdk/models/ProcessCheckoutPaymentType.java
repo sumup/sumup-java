@@ -4,7 +4,10 @@ package com.sumup.sdk.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Describes the payment method used to attempt processing */
+/**
+ * Payment method used for this processing attempt. It determines which additional request fields
+ * are required.
+ */
 public enum ProcessCheckoutPaymentType {
   CARD("card"),
   BOLETO("boleto"),

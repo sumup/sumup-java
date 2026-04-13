@@ -3,7 +3,11 @@ package com.sumup.sdk.models;
 
 import java.util.Objects;
 
-/** Details of the payment instrument for processing the checkout. */
+/**
+ * Request body for attempting payment on an existing checkout. The required companion fields depend
+ * on the selected `payment_type`, for example card details, saved-card data, or payer information
+ * required by a specific payment method.
+ */
 public record ProcessCheckout(
     /**
      * Raw payment token object received from Apple Pay. Send the Apple Pay response payload as-is.
@@ -13,7 +17,10 @@ public record ProcessCheckout(
     /** __Required when payment type is `card`.__ Details of the payment card. */
     com.sumup.sdk.models.Card card,
 
-    /** __Required when `token` is provided.__ Unique ID of the customer. */
+    /**
+     * Customer identifier associated with the saved payment instrument. Required when `token` is
+     * provided.
+     */
     String customerId,
 
     /**
@@ -25,18 +32,24 @@ public record ProcessCheckout(
     /** Number of installments for deferred payments. Available only to merchant users in Brazil. */
     Long installments,
 
-    /** Mandate is passed when a card is to be tokenized */
+    /**
+     * Mandate details used when a checkout should create a reusable card token for future recurring
+     * or merchant-initiated payments.
+     */
     com.sumup.sdk.models.MandatePayload mandate,
 
-    /** Describes the payment method used to attempt processing */
+    /**
+     * Payment method used for this processing attempt. It determines which additional request
+     * fields are required.
+     */
     com.sumup.sdk.models.ProcessCheckoutPaymentType paymentType,
 
     /** Personal details for the customer. */
     com.sumup.sdk.models.PersonalDetails personalDetails,
 
     /**
-     * __Required when using a tokenized card to process a checkout.__ Unique token identifying the
-     * saved payment card for a customer.
+     * Saved-card token to use instead of raw card details when processing with a previously stored
+     * payment instrument.
      */
     String token) {
   /**
@@ -88,7 +101,8 @@ public record ProcessCheckout(
     /**
      * Sets the value for {@code customerId}.
      *
-     * @param customerId __Required when `token` is provided.__ Unique ID of the customer.
+     * @param customerId Customer identifier associated with the saved payment instrument. Required
+     *     when `token` is provided.
      * @return This builder instance.
      */
     public Builder customerId(String customerId) {
@@ -123,7 +137,8 @@ public record ProcessCheckout(
     /**
      * Sets the value for {@code mandate}.
      *
-     * @param mandate Mandate is passed when a card is to be tokenized
+     * @param mandate Mandate details used when a checkout should create a reusable card token for
+     *     future recurring or merchant-initiated payments.
      * @return This builder instance.
      */
     public Builder mandate(com.sumup.sdk.models.MandatePayload mandate) {
@@ -134,7 +149,8 @@ public record ProcessCheckout(
     /**
      * Sets the value for {@code paymentType}.
      *
-     * @param paymentType Describes the payment method used to attempt processing
+     * @param paymentType Payment method used for this processing attempt. It determines which
+     *     additional request fields are required.
      * @return This builder instance.
      */
     public Builder paymentType(com.sumup.sdk.models.ProcessCheckoutPaymentType paymentType) {
@@ -156,8 +172,8 @@ public record ProcessCheckout(
     /**
      * Sets the value for {@code token}.
      *
-     * @param token __Required when using a tokenized card to process a checkout.__ Unique token
-     *     identifying the saved payment card for a customer.
+     * @param token Saved-card token to use instead of raw card details when processing with a
+     *     previously stored payment instrument.
      * @return This builder instance.
      */
     public Builder token(String token) {

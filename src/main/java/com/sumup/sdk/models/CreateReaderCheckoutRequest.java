@@ -6,6 +6,14 @@ import java.util.Objects;
 /** Reader Checkout */
 public record CreateReaderCheckoutRequest(
     /**
+     * Optional object containing data for transactions from ERP integrators in Greece that comply
+     * with the AADE 1155 protocol. When such regulatory/business requirements apply, this object
+     * must be provided and contains the data needed to validate the transaction with the AADE
+     * signature provider.
+     */
+    com.sumup.sdk.models.CreateReaderCheckoutRequestAade aade,
+
+    /**
      * Affiliate metadata for the transaction. It is a field that allow for integrators to track the
      * source of the transaction.
      */
@@ -59,6 +67,7 @@ public record CreateReaderCheckoutRequest(
 
   /** Builder for CreateReaderCheckoutRequest instances. */
   public static final class Builder {
+    private com.sumup.sdk.models.CreateReaderCheckoutRequestAade aade;
     private com.sumup.sdk.models.Affiliate affiliate;
     private com.sumup.sdk.models.CreateReaderCheckoutRequestCardType cardType;
     private String description;
@@ -69,6 +78,20 @@ public record CreateReaderCheckoutRequest(
     private com.sumup.sdk.models.Money totalAmount;
 
     private Builder() {}
+
+    /**
+     * Sets the value for {@code aade}.
+     *
+     * @param aade Optional object containing data for transactions from ERP integrators in Greece
+     *     that comply with the AADE 1155 protocol. When such regulatory/business requirements
+     *     apply, this object must be provided and contains the data needed to validate the
+     *     transaction with the AADE signature provider.
+     * @return This builder instance.
+     */
+    public Builder aade(com.sumup.sdk.models.CreateReaderCheckoutRequestAade aade) {
+      this.aade = aade;
+      return this;
+    }
 
     /**
      * Sets the value for {@code affiliate}.
@@ -177,6 +200,7 @@ public record CreateReaderCheckoutRequest(
      */
     public CreateReaderCheckoutRequest build() {
       return new CreateReaderCheckoutRequest(
+          aade,
           affiliate,
           cardType,
           description,

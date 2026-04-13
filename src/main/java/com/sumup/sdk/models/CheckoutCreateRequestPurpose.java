@@ -4,7 +4,11 @@ package com.sumup.sdk.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Purpose of the checkout. */
+/**
+ * Business purpose of the checkout. Use `CHECKOUT` for a standard payment and
+ * `SETUP_RECURRING_PAYMENT` when collecting consent and payment details for future recurring
+ * charges.
+ */
 public enum CheckoutCreateRequestPurpose {
   CHECKOUT("CHECKOUT"),
   SETUP_RECURRING_PAYMENT("SETUP_RECURRING_PAYMENT");

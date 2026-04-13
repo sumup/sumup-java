@@ -3,14 +3,17 @@ package com.sumup.sdk.models;
 
 import java.util.Objects;
 
-/** Details of the payment checkout. */
+/**
+ * Request body for creating a checkout before processing payment. Define the payment amount,
+ * currency, merchant, and optional customer or redirect behavior here.
+ */
 public record CheckoutCreateRequest(
-    /** Amount of the payment. */
+    /** Amount to be charged to the payer, expressed in major units. */
     Float amount,
 
     /**
-     * Unique ID of the payment checkout specified by the client application when creating the
-     * checkout resource.
+     * Merchant-defined reference for the new checkout. It should be unique enough for you to
+     * identify the payment attempt in your own systems.
      */
     String checkoutReference,
 
@@ -21,39 +24,46 @@ public record CheckoutCreateRequest(
     com.sumup.sdk.models.Currency currency,
 
     /**
-     * Unique identification of a customer. If specified, the checkout session and payment
-     * instrument are associated with the referenced customer.
+     * Merchant-scoped customer identifier. Required when setting up recurring payments and useful
+     * when the checkout should be linked to a returning payer.
      */
     String customerId,
 
     /**
-     * Short description of the checkout visible in the SumUp dashboard. The description can
-     * contribute to reporting, allowing easier identification of a checkout.
+     * Short merchant-defined description shown in SumUp tools and reporting for easier
+     * identification of the checkout.
      */
     String description,
 
-    /** Unique identifying code of the merchant profile. */
+    /** Merchant account that should receive the payment. */
     String merchantCode,
 
-    /** Purpose of the checkout. */
+    /**
+     * Business purpose of the checkout. Use `CHECKOUT` for a standard payment and
+     * `SETUP_RECURRING_PAYMENT` when collecting consent and payment details for future recurring
+     * charges.
+     */
     com.sumup.sdk.models.CheckoutCreateRequestPurpose purpose,
 
     /**
-     * __Required__ for [APMs](https://developer.sumup.com/online-payments/apm/introduction) and
-     * __recommended__ for card payments. Refers to a url where the end user is redirected once the
-     * payment processing completes. If not specified, the [Payment
-     * Widget](https://developer.sumup.com/online-payments/tools/card-widget) renders [3DS
-     * challenge](https://developer.sumup.com/online-payments/features/3ds) within an iframe instead
-     * of performing a full-page redirect.
+     * URL where the payer should be sent after a redirect-based payment or SCA flow completes. This
+     * is required for [APMs](https://developer.sumup.com/online-payments/apm/introduction) and
+     * recommended for card checkouts that may require
+     * [3DS](https://developer.sumup.com/online-payments/features/3ds). If it is omitted, the
+     * [Payment Widget](https://developer.sumup.com/online-payments/checkouts) can render the
+     * challenge in an iframe instead of using a full-page redirect.
      */
     String redirectUrl,
 
-    /** URL to which the SumUp platform sends the processing status of the payment checkout. */
+    /**
+     * Optional backend callback URL used by SumUp to notify your platform about processing updates
+     * for the checkout.
+     */
     String returnUrl,
 
     /**
-     * Date and time of the checkout expiration before which the client application needs to send a
-     * processing request. If no value is present, the checkout does not have an expiration time.
+     * Optional expiration timestamp. The checkout must be processed before this moment, otherwise
+     * it becomes unusable. If omitted, the checkout does not have an explicit expiry time.
      */
     java.time.OffsetDateTime validUntil) {
   /**
@@ -83,7 +93,7 @@ public record CheckoutCreateRequest(
     /**
      * Sets the value for {@code amount}.
      *
-     * @param amount Amount of the payment.
+     * @param amount Amount to be charged to the payer, expressed in major units.
      * @return This builder instance.
      */
     public Builder amount(Float amount) {
@@ -94,8 +104,8 @@ public record CheckoutCreateRequest(
     /**
      * Sets the value for {@code checkoutReference}.
      *
-     * @param checkoutReference Unique ID of the payment checkout specified by the client
-     *     application when creating the checkout resource.
+     * @param checkoutReference Merchant-defined reference for the new checkout. It should be unique
+     *     enough for you to identify the payment attempt in your own systems.
      * @return This builder instance.
      */
     public Builder checkoutReference(String checkoutReference) {
@@ -118,8 +128,8 @@ public record CheckoutCreateRequest(
     /**
      * Sets the value for {@code customerId}.
      *
-     * @param customerId Unique identification of a customer. If specified, the checkout session and
-     *     payment instrument are associated with the referenced customer.
+     * @param customerId Merchant-scoped customer identifier. Required when setting up recurring
+     *     payments and useful when the checkout should be linked to a returning payer.
      * @return This builder instance.
      */
     public Builder customerId(String customerId) {
@@ -130,8 +140,8 @@ public record CheckoutCreateRequest(
     /**
      * Sets the value for {@code description}.
      *
-     * @param description Short description of the checkout visible in the SumUp dashboard. The
-     *     description can contribute to reporting, allowing easier identification of a checkout.
+     * @param description Short merchant-defined description shown in SumUp tools and reporting for
+     *     easier identification of the checkout.
      * @return This builder instance.
      */
     public Builder description(String description) {
@@ -142,7 +152,7 @@ public record CheckoutCreateRequest(
     /**
      * Sets the value for {@code merchantCode}.
      *
-     * @param merchantCode Unique identifying code of the merchant profile.
+     * @param merchantCode Merchant account that should receive the payment.
      * @return This builder instance.
      */
     public Builder merchantCode(String merchantCode) {
@@ -153,7 +163,9 @@ public record CheckoutCreateRequest(
     /**
      * Sets the value for {@code purpose}.
      *
-     * @param purpose Purpose of the checkout.
+     * @param purpose Business purpose of the checkout. Use `CHECKOUT` for a standard payment and
+     *     `SETUP_RECURRING_PAYMENT` when collecting consent and payment details for future
+     *     recurring charges.
      * @return This builder instance.
      */
     public Builder purpose(com.sumup.sdk.models.CheckoutCreateRequestPurpose purpose) {
@@ -164,13 +176,13 @@ public record CheckoutCreateRequest(
     /**
      * Sets the value for {@code redirectUrl}.
      *
-     * @param redirectUrl __Required__ for
-     *     [APMs](https://developer.sumup.com/online-payments/apm/introduction) and __recommended__
-     *     for card payments. Refers to a url where the end user is redirected once the payment
-     *     processing completes. If not specified, the [Payment
-     *     Widget](https://developer.sumup.com/online-payments/tools/card-widget) renders [3DS
-     *     challenge](https://developer.sumup.com/online-payments/features/3ds) within an iframe
-     *     instead of performing a full-page redirect.
+     * @param redirectUrl URL where the payer should be sent after a redirect-based payment or SCA
+     *     flow completes. This is required for
+     *     [APMs](https://developer.sumup.com/online-payments/apm/introduction) and recommended for
+     *     card checkouts that may require
+     *     [3DS](https://developer.sumup.com/online-payments/features/3ds). If it is omitted, the
+     *     [Payment Widget](https://developer.sumup.com/online-payments/checkouts) can render the
+     *     challenge in an iframe instead of using a full-page redirect.
      * @return This builder instance.
      */
     public Builder redirectUrl(String redirectUrl) {
@@ -181,8 +193,8 @@ public record CheckoutCreateRequest(
     /**
      * Sets the value for {@code returnUrl}.
      *
-     * @param returnUrl URL to which the SumUp platform sends the processing status of the payment
-     *     checkout.
+     * @param returnUrl Optional backend callback URL used by SumUp to notify your platform about
+     *     processing updates for the checkout.
      * @return This builder instance.
      */
     public Builder returnUrl(String returnUrl) {
@@ -193,9 +205,9 @@ public record CheckoutCreateRequest(
     /**
      * Sets the value for {@code validUntil}.
      *
-     * @param validUntil Date and time of the checkout expiration before which the client
-     *     application needs to send a processing request. If no value is present, the checkout does
-     *     not have an expiration time.
+     * @param validUntil Optional expiration timestamp. The checkout must be processed before this
+     *     moment, otherwise it becomes unusable. If omitted, the checkout does not have an explicit
+     *     expiry time.
      * @return This builder instance.
      */
     public Builder validUntil(java.time.OffsetDateTime validUntil) {

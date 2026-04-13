@@ -4,7 +4,7 @@ package com.sumup.sdk.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Indicates the mandate type */
+/** Type of mandate to create for the saved payment instrument. */
 public enum MandatePayloadType {
   RECURRENT("recurrent");
 
