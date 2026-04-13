@@ -4,14 +4,14 @@ package com.sumup.sdk.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Type of the account. */
-public enum BankAccountPayloadAccountType {
-  CURRENT("CURRENT"),
-  SAVINGS("SAVINGS");
+/** Current lifecycle status of the mandate. */
+public enum MandateResponseStatus {
+  ACTIVE("active"),
+  INACTIVE("inactive");
 
   private final String value;
 
-  BankAccountPayloadAccountType(String value) {
+  MandateResponseStatus(String value) {
     this.value = value;
   }
 
@@ -26,15 +26,15 @@ public enum BankAccountPayloadAccountType {
   }
 
   @JsonCreator
-  public static BankAccountPayloadAccountType fromValue(String value) {
+  public static MandateResponseStatus fromValue(String value) {
     if (value == null) {
       return null;
     }
-    for (BankAccountPayloadAccountType entry : values()) {
+    for (MandateResponseStatus entry : values()) {
       if (entry.value.equals(value)) {
         return entry;
       }
     }
-    throw new IllegalArgumentException("Unknown BankAccountPayloadAccountType value: " + value);
+    throw new IllegalArgumentException("Unknown MandateResponseStatus value: " + value);
   }
 }

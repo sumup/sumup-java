@@ -14,10 +14,19 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Client for the "Checkouts" API group.
  *
- * <p>Accept payments from your end users by adding the Checkouts model to your platform. SumUp
- * supports standard and single payment 3DS checkout flows. The Checkout model allows creating,
- * listing, retrieving, processing and deactivating checkouts. A payment is completed by creating a
- * checkout and then processing the checkout.
+ * <p>Checkouts represent online payment sessions that you create before attempting to charge a
+ * payer. A checkout captures the payment intent, such as the amount, currency, merchant, and
+ * optional customer or redirect settings, and then moves through its lifecycle as you process it.
+ * Use this tag to: - create a checkout before collecting or confirming payment details - process
+ * the checkout with a card, saved card, wallet, or supported alternative payment method - retrieve
+ * or list checkouts to inspect their current state and associated payment attempts - deactivate a
+ * checkout that should no longer be used Typical workflow: - create a checkout with the order
+ * amount, currency, and merchant information - process the checkout through SumUp client tools such
+ * as the [Payment Widget and Swift Checkout
+ * SDK](https://developer.sumup.com/online-payments/checkouts) - retrieve the checkout or use the
+ * Transactions endpoints to inspect the resulting payment record Checkouts are used to initiate and
+ * orchestrate online payments. Transactions remain the authoritative record of the resulting
+ * payment outcome.
  */
 public final class CheckoutsAsyncClient {
   private final ApiClient apiClient;
@@ -29,6 +38,66 @@ public final class CheckoutsAsyncClient {
    */
   public CheckoutsAsyncClient(ApiClient apiClient) {
     this.apiClient = Objects.requireNonNull(apiClient, "apiClient");
+  }
+
+  /**
+   * Create an Apple Pay session
+   *
+   * <p>Creates an Apple Pay merchant session for the specified checkout. Use this endpoint after
+   * the customer selects Apple Pay and before calling
+   * `ApplePaySession.completeMerchantValidation(...)` in the browser. SumUp validates the merchant
+   * session request and returns the Apple Pay session object that your frontend should pass to
+   * Apple's JavaScript API.
+   *
+   * <p>Operation ID: CreateApplePaySession
+   *
+   * @param id Unique ID of the checkout resource.
+   * @param request The data needed to create an apple pay session for a checkout.
+   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
+   *     request timeout.
+   * @return CompletableFuture resolved with {@code java.util.Map<String, Object>} parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public CompletableFuture<java.util.Map<String, Object>> createApplePaySession(
+      String id, com.sumup.sdk.models.CreateApplePaySessionRequest request) throws ApiException {
+    return createApplePaySession(id, request, null);
+  }
+
+  /**
+   * Create an Apple Pay session
+   *
+   * <p>Creates an Apple Pay merchant session for the specified checkout. Use this endpoint after
+   * the customer selects Apple Pay and before calling
+   * `ApplePaySession.completeMerchantValidation(...)` in the browser. SumUp validates the merchant
+   * session request and returns the Apple Pay session object that your frontend should pass to
+   * Apple's JavaScript API.
+   *
+   * <p>Operation ID: CreateApplePaySession
+   *
+   * @param id Unique ID of the checkout resource.
+   * @param request The data needed to create an apple pay session for a checkout.
+   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
+   *     {@code null} to use client defaults.
+   * @return CompletableFuture resolved with {@code java.util.Map<String, Object>} parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public CompletableFuture<java.util.Map<String, Object>> createApplePaySession(
+      String id,
+      com.sumup.sdk.models.CreateApplePaySessionRequest request,
+      RequestOptions requestOptions)
+      throws ApiException {
+    Objects.requireNonNull(id, "id");
+    String path = "/v0.2/checkouts/{id}/apple-pay-session";
+    path = path.replace("{id}", ApiClient.urlEncode(String.valueOf(id)));
+
+    return this.apiClient.sendAsync(
+        HttpMethod.PUT,
+        path,
+        null,
+        null,
+        request,
+        new TypeReference<java.util.Map<String, Object>>() {},
+        requestOptions);
   }
 
   /**

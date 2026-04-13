@@ -32,7 +32,7 @@ public final class PayoutsClient {
   /**
    * List payouts
    *
-   * <p>Lists ordered payouts for the merchant profile.
+   * <p>Lists ordered payouts for the merchant account.
    *
    * <p>Operation ID: ListPayouts
    *
@@ -51,7 +51,7 @@ public final class PayoutsClient {
   /**
    * List payouts
    *
-   * <p>Lists ordered payouts for the merchant profile.
+   * <p>Lists ordered payouts for the merchant account.
    *
    * <p>Operation ID: ListPayouts
    *
@@ -74,7 +74,7 @@ public final class PayoutsClient {
   /**
    * List payouts
    *
-   * <p>Lists ordered payouts for the merchant profile.
+   * <p>Lists ordered payouts for the merchant account.
    *
    * <p>Operation ID: ListPayouts
    *
@@ -115,11 +115,11 @@ public final class PayoutsClient {
   /**
    * List payouts
    *
-   * <p>Lists ordered payouts for the merchant profile.
+   * <p>Lists ordered payouts for the merchant account.
    *
    * <p>Operation ID: ListPayoutsV1
    *
-   * @param merchantCode Path parameter.
+   * @param merchantCode Merchant code of the account whose payouts should be listed.
    * @param endDate End date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
    * @param startDate Start date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
    *     <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
@@ -136,11 +136,11 @@ public final class PayoutsClient {
   /**
    * List payouts
    *
-   * <p>Lists ordered payouts for the merchant profile.
+   * <p>Lists ordered payouts for the merchant account.
    *
    * <p>Operation ID: ListPayoutsV1
    *
-   * @param merchantCode Path parameter.
+   * @param merchantCode Merchant code of the account whose payouts should be listed.
    * @param endDate End date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
    * @param startDate Start date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
    * @param listPayoutsV1 Optional query parameters for this request.
@@ -161,11 +161,11 @@ public final class PayoutsClient {
   /**
    * List payouts
    *
-   * <p>Lists ordered payouts for the merchant profile.
+   * <p>Lists ordered payouts for the merchant account.
    *
    * <p>Operation ID: ListPayoutsV1
    *
-   * @param merchantCode Path parameter.
+   * @param merchantCode Merchant code of the account whose payouts should be listed.
    * @param endDate End date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
    * @param startDate Start date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
    * @param listPayoutsV1 Optional query parameters for this request.
@@ -210,7 +210,7 @@ public final class PayoutsClient {
     /**
      * Sets the format query parameter.
      *
-     * @param value Query parameter value.
+     * @param value Response format for the payout list.
      * @return This ListPayoutsQueryParams instance.
      */
     public ListPayoutsQueryParams format(com.sumup.sdk.models.Format2 value) {
@@ -221,7 +221,7 @@ public final class PayoutsClient {
     /**
      * Sets the limit query parameter.
      *
-     * @param value Query parameter value.
+     * @param value Maximum number of payout records to return.
      * @return This ListPayoutsQueryParams instance.
      */
     public ListPayoutsQueryParams limit(Long value) {
@@ -232,7 +232,7 @@ public final class PayoutsClient {
     /**
      * Sets the order query parameter.
      *
-     * @param value Query parameter value.
+     * @param value Sort direction for the returned payouts.
      * @return This ListPayoutsQueryParams instance.
      */
     public ListPayoutsQueryParams order(com.sumup.sdk.models.Order2 value) {
@@ -257,7 +257,7 @@ public final class PayoutsClient {
     /**
      * Sets the format query parameter.
      *
-     * @param value Query parameter value.
+     * @param value Response format for the payout list.
      * @return This ListPayoutsV1QueryParams instance.
      */
     public ListPayoutsV1QueryParams format(com.sumup.sdk.models.Format value) {
@@ -268,7 +268,7 @@ public final class PayoutsClient {
     /**
      * Sets the limit query parameter.
      *
-     * @param value Query parameter value.
+     * @param value Maximum number of payout records to return.
      * @return This ListPayoutsV1QueryParams instance.
      */
     public ListPayoutsV1QueryParams limit(Long value) {
@@ -279,7 +279,7 @@ public final class PayoutsClient {
     /**
      * Sets the order query parameter.
      *
-     * @param value Query parameter value.
+     * @param value Sort direction for the returned payouts.
      * @return This ListPayoutsV1QueryParams instance.
      */
     public ListPayoutsV1QueryParams order(com.sumup.sdk.models.Order2 value) {

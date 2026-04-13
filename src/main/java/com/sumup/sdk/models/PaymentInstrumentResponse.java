@@ -18,7 +18,7 @@ public record PaymentInstrumentResponse(
      */
     java.time.OffsetDateTime createdAt,
 
-    /** Created mandate */
+    /** Details of the mandate linked to the saved payment instrument. */
     com.sumup.sdk.models.MandateResponse mandate,
 
     /** Unique token identifying the saved payment card for a customer. */
@@ -70,7 +70,7 @@ public record PaymentInstrumentResponse(
     /**
      * Sets the value for {@code mandate}.
      *
-     * @param mandate Created mandate
+     * @param mandate Details of the mandate linked to the saved payment instrument.
      * @return This builder instance.
      */
     public Builder mandate(com.sumup.sdk.models.MandateResponse mandate) {

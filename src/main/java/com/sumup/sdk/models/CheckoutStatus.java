@@ -4,7 +4,11 @@ package com.sumup.sdk.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Current status of the checkout. */
+/**
+ * Current high-level state of the checkout. `PENDING` means the checkout exists but is not yet
+ * completed, `PAID` means a payment succeeded, `FAILED` means the latest processing attempt failed,
+ * and `EXPIRED` means the checkout can no longer be processed.
+ */
 public enum CheckoutStatus {
   PENDING("PENDING"),
   FAILED("FAILED"),

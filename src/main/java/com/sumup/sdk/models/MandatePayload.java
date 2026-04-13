@@ -3,15 +3,18 @@ package com.sumup.sdk.models;
 
 import java.util.Objects;
 
-/** Mandate is passed when a card is to be tokenized */
+/**
+ * Mandate details used when a checkout should create a reusable card token for future recurring or
+ * merchant-initiated payments.
+ */
 public record MandatePayload(
-    /** Indicates the mandate type */
+    /** Type of mandate to create for the saved payment instrument. */
     com.sumup.sdk.models.MandatePayloadType type,
 
-    /** Operating system and web client used by the end-user */
+    /** Browser or client user agent observed when consent was collected. */
     String userAgent,
 
-    /** IP address of the end user. Supports IPv4 and IPv6 */
+    /** IP address of the payer when the mandate was accepted. */
     String userIp) {
   /**
    * Creates a builder for MandatePayload.
@@ -33,7 +36,7 @@ public record MandatePayload(
     /**
      * Sets the value for {@code type}.
      *
-     * @param type Indicates the mandate type
+     * @param type Type of mandate to create for the saved payment instrument.
      * @return This builder instance.
      */
     public Builder type(com.sumup.sdk.models.MandatePayloadType type) {
@@ -44,7 +47,7 @@ public record MandatePayload(
     /**
      * Sets the value for {@code userAgent}.
      *
-     * @param userAgent Operating system and web client used by the end-user
+     * @param userAgent Browser or client user agent observed when consent was collected.
      * @return This builder instance.
      */
     public Builder userAgent(String userAgent) {
@@ -55,7 +58,7 @@ public record MandatePayload(
     /**
      * Sets the value for {@code userIp}.
      *
-     * @param userIp IP address of the end user. Supports IPv4 and IPv6
+     * @param userIp IP address of the payer when the mandate was accepted.
      * @return This builder instance.
      */
     public Builder userIp(String userIp) {
