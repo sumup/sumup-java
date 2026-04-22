@@ -48,7 +48,7 @@ public final class TransactionsAsyncClient {
    *
    * <p>Retrieves the full details of an identified transaction. The transaction resource is
    * identified by a query parameter and *one* of following parameters is required: - `id` -
-   * `internal_id` - `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
+   * `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
    *
    * <p>Operation ID: GetTransaction
    *
@@ -68,7 +68,7 @@ public final class TransactionsAsyncClient {
    *
    * <p>Retrieves the full details of an identified transaction. The transaction resource is
    * identified by a query parameter and *one* of following parameters is required: - `id` -
-   * `internal_id` - `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
+   * `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
    *
    * <p>Operation ID: GetTransaction
    *
@@ -88,7 +88,7 @@ public final class TransactionsAsyncClient {
    *
    * <p>Retrieves the full details of an identified transaction. The transaction resource is
    * identified by a query parameter and *one* of following parameters is required: - `id` -
-   * `internal_id` - `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
+   * `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
    *
    * <p>Operation ID: GetTransaction
    *
@@ -121,7 +121,7 @@ public final class TransactionsAsyncClient {
    *
    * <p>Retrieves the full details of an identified transaction. The transaction resource is
    * identified by a query parameter and *one* of following parameters is required: - `id` -
-   * `internal_id` - `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
+   * `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
    *
    * <p>Operation ID: GetTransactionV2.1
    *
@@ -141,7 +141,7 @@ public final class TransactionsAsyncClient {
    *
    * <p>Retrieves the full details of an identified transaction. The transaction resource is
    * identified by a query parameter and *one* of following parameters is required: - `id` -
-   * `internal_id` - `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
+   * `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
    *
    * <p>Operation ID: GetTransactionV2.1
    *
@@ -162,7 +162,7 @@ public final class TransactionsAsyncClient {
    *
    * <p>Retrieves the full details of an identified transaction. The transaction resource is
    * identified by a query parameter and *one* of following parameters is required: - `id` -
-   * `internal_id` - `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
+   * `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
    *
    * <p>Operation ID: GetTransactionV2.1
    *
@@ -407,18 +407,6 @@ public final class TransactionsAsyncClient {
     }
 
     /**
-     * Sets the internal_id query parameter.
-     *
-     * @param value Retrieves the transaction resource with the specified internal transaction ID
-     *     (the `internal_id` parameter in the transaction resource).
-     * @return This GetTransactionQueryParams instance.
-     */
-    public GetTransactionQueryParams internalId(String value) {
-      this.values.put("internal_id", Objects.requireNonNull(value, "internalId"));
-      return this;
-    }
-
-    /**
      * Sets the transaction_code query parameter.
      *
      * @param value Retrieves the transaction resource with the specified transaction code.
@@ -476,18 +464,6 @@ public final class TransactionsAsyncClient {
      */
     public GetTransactionV21QueryParams id(String value) {
       this.values.put("id", Objects.requireNonNull(value, "id"));
-      return this;
-    }
-
-    /**
-     * Sets the internal_id query parameter.
-     *
-     * @param value Retrieves the transaction resource with the specified internal transaction ID
-     *     (the `internal_id` parameter in the transaction resource).
-     * @return This GetTransactionV21QueryParams instance.
-     */
-    public GetTransactionV21QueryParams internalId(String value) {
-      this.values.put("internal_id", Objects.requireNonNull(value, "internalId"));
       return this;
     }
 
