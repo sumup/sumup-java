@@ -12,9 +12,6 @@ public record TransactionCheckoutInfo(
     /** Entry mode of the payment details. */
     com.sumup.sdk.models.EntryMode entryMode,
 
-    /** Internal unique ID of the transaction on the SumUp platform. */
-    Long internalId,
-
     /** Unique code of the registered merchant to whom the payment is made. */
     String merchantCode,
 
@@ -36,7 +33,6 @@ public record TransactionCheckoutInfo(
   public static final class Builder {
     private String authCode;
     private com.sumup.sdk.models.EntryMode entryMode;
-    private Long internalId;
     private String merchantCode;
     private Float tipAmount;
     private Float vatAmount;
@@ -63,17 +59,6 @@ public record TransactionCheckoutInfo(
      */
     public Builder entryMode(com.sumup.sdk.models.EntryMode entryMode) {
       this.entryMode = entryMode;
-      return this;
-    }
-
-    /**
-     * Sets the value for {@code internalId}.
-     *
-     * @param internalId Internal unique ID of the transaction on the SumUp platform.
-     * @return This builder instance.
-     */
-    public Builder internalId(Long internalId) {
-      this.internalId = internalId;
       return this;
     }
 
@@ -116,8 +101,7 @@ public record TransactionCheckoutInfo(
      * @return Immutable TransactionCheckoutInfo.
      */
     public TransactionCheckoutInfo build() {
-      return new TransactionCheckoutInfo(
-          authCode, entryMode, internalId, merchantCode, tipAmount, vatAmount);
+      return new TransactionCheckoutInfo(authCode, entryMode, merchantCode, tipAmount, vatAmount);
     }
   }
 }
