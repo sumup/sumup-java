@@ -3,17 +3,31 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** Payout plan of the registered user at the time when the transaction was made. */
-public enum TransactionMixinHistoryPayoutPlan {
-  SINGLE_PAYMENT("SINGLE_PAYMENT"),
-  TRUE_INSTALLMENT("TRUE_INSTALLMENT"),
-  ACCELERATED_INSTALLMENT("ACCELERATED_INSTALLMENT");
+public final class TransactionMixinHistoryPayoutPlan {
+  public static final TransactionMixinHistoryPayoutPlan SINGLE_PAYMENT =
+      new TransactionMixinHistoryPayoutPlan("SINGLE_PAYMENT");
+  public static final TransactionMixinHistoryPayoutPlan TRUE_INSTALLMENT =
+      new TransactionMixinHistoryPayoutPlan("TRUE_INSTALLMENT");
+  public static final TransactionMixinHistoryPayoutPlan ACCELERATED_INSTALLMENT =
+      new TransactionMixinHistoryPayoutPlan("ACCELERATED_INSTALLMENT");
 
   private final String value;
 
-  TransactionMixinHistoryPayoutPlan(String value) {
-    this.value = value;
+  private TransactionMixinHistoryPayoutPlan(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a TransactionMixinHistoryPayoutPlan for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static TransactionMixinHistoryPayoutPlan of(String value) {
+    return new TransactionMixinHistoryPayoutPlan(value);
   }
 
   @JsonValue
@@ -28,14 +42,18 @@ public enum TransactionMixinHistoryPayoutPlan {
 
   @JsonCreator
   public static TransactionMixinHistoryPayoutPlan fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (TransactionMixinHistoryPayoutPlan entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown TransactionMixinHistoryPayoutPlan value: " + value);
+    return value == null ? null : new TransactionMixinHistoryPayoutPlan(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof TransactionMixinHistoryPayoutPlan that
+            && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

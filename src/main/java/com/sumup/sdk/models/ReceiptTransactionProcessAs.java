@@ -3,16 +3,28 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** Debit/Credit. */
-public enum ReceiptTransactionProcessAs {
-  CREDIT("CREDIT"),
-  DEBIT("DEBIT");
+public final class ReceiptTransactionProcessAs {
+  public static final ReceiptTransactionProcessAs CREDIT =
+      new ReceiptTransactionProcessAs("CREDIT");
+  public static final ReceiptTransactionProcessAs DEBIT = new ReceiptTransactionProcessAs("DEBIT");
 
   private final String value;
 
-  ReceiptTransactionProcessAs(String value) {
-    this.value = value;
+  private ReceiptTransactionProcessAs(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a ReceiptTransactionProcessAs for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static ReceiptTransactionProcessAs of(String value) {
+    return new ReceiptTransactionProcessAs(value);
   }
 
   @JsonValue
@@ -27,14 +39,17 @@ public enum ReceiptTransactionProcessAs {
 
   @JsonCreator
   public static ReceiptTransactionProcessAs fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (ReceiptTransactionProcessAs entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown ReceiptTransactionProcessAs value: " + value);
+    return value == null ? null : new ReceiptTransactionProcessAs(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof ReceiptTransactionProcessAs that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

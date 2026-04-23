@@ -3,6 +3,7 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /**
  * Status of the transaction event. Not every value is used for every event type. - `PENDING`: The
@@ -19,19 +20,29 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * as `PAID_OUT` or `REFUNDED`. - `FAILED`: The event could not be completed. Typical examples are a
  * payout that could not be executed or an event that was rejected during processing.
  */
-public enum EventStatus {
-  FAILED("FAILED"),
-  PAID_OUT("PAID_OUT"),
-  PENDING("PENDING"),
-  RECONCILED("RECONCILED"),
-  REFUNDED("REFUNDED"),
-  SCHEDULED("SCHEDULED"),
-  SUCCESSFUL("SUCCESSFUL");
+public final class EventStatus {
+  public static final EventStatus FAILED = new EventStatus("FAILED");
+  public static final EventStatus PAID_OUT = new EventStatus("PAID_OUT");
+  public static final EventStatus PENDING = new EventStatus("PENDING");
+  public static final EventStatus RECONCILED = new EventStatus("RECONCILED");
+  public static final EventStatus REFUNDED = new EventStatus("REFUNDED");
+  public static final EventStatus SCHEDULED = new EventStatus("SCHEDULED");
+  public static final EventStatus SUCCESSFUL = new EventStatus("SUCCESSFUL");
 
   private final String value;
 
-  EventStatus(String value) {
-    this.value = value;
+  private EventStatus(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a EventStatus for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static EventStatus of(String value) {
+    return new EventStatus(value);
   }
 
   @JsonValue
@@ -46,14 +57,16 @@ public enum EventStatus {
 
   @JsonCreator
   public static EventStatus fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (EventStatus entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown EventStatus value: " + value);
+    return value == null ? null : new EventStatus(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other || (other instanceof EventStatus that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

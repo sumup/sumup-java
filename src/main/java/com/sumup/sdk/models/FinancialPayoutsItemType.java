@@ -3,18 +3,33 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
-public enum FinancialPayoutsItemType {
-  PAYOUT("PAYOUT"),
-  CHARGE_BACK_DEDUCTION("CHARGE_BACK_DEDUCTION"),
-  REFUND_DEDUCTION("REFUND_DEDUCTION"),
-  DD_RETURN_DEDUCTION("DD_RETURN_DEDUCTION"),
-  BALANCE_DEDUCTION("BALANCE_DEDUCTION");
+public final class FinancialPayoutsItemType {
+  public static final FinancialPayoutsItemType PAYOUT = new FinancialPayoutsItemType("PAYOUT");
+  public static final FinancialPayoutsItemType CHARGE_BACK_DEDUCTION =
+      new FinancialPayoutsItemType("CHARGE_BACK_DEDUCTION");
+  public static final FinancialPayoutsItemType REFUND_DEDUCTION =
+      new FinancialPayoutsItemType("REFUND_DEDUCTION");
+  public static final FinancialPayoutsItemType DD_RETURN_DEDUCTION =
+      new FinancialPayoutsItemType("DD_RETURN_DEDUCTION");
+  public static final FinancialPayoutsItemType BALANCE_DEDUCTION =
+      new FinancialPayoutsItemType("BALANCE_DEDUCTION");
 
   private final String value;
 
-  FinancialPayoutsItemType(String value) {
-    this.value = value;
+  private FinancialPayoutsItemType(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a FinancialPayoutsItemType for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static FinancialPayoutsItemType of(String value) {
+    return new FinancialPayoutsItemType(value);
   }
 
   @JsonValue
@@ -29,14 +44,17 @@ public enum FinancialPayoutsItemType {
 
   @JsonCreator
   public static FinancialPayoutsItemType fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (FinancialPayoutsItemType entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown FinancialPayoutsItemType value: " + value);
+    return value == null ? null : new FinancialPayoutsItemType(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof FinancialPayoutsItemType that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

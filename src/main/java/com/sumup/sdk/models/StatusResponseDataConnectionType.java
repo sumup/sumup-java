@@ -3,21 +3,39 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** Type of connection used by the device */
-public enum StatusResponseDataConnectionType {
-  BTLE("btle"),
-  EDGE("edge"),
-  GPRS("gprs"),
-  LTE("lte"),
-  UMTS("umts"),
-  USB("usb"),
-  WI_FI("Wi-Fi");
+public final class StatusResponseDataConnectionType {
+  public static final StatusResponseDataConnectionType BTLE =
+      new StatusResponseDataConnectionType("btle");
+  public static final StatusResponseDataConnectionType EDGE =
+      new StatusResponseDataConnectionType("edge");
+  public static final StatusResponseDataConnectionType GPRS =
+      new StatusResponseDataConnectionType("gprs");
+  public static final StatusResponseDataConnectionType LTE =
+      new StatusResponseDataConnectionType("lte");
+  public static final StatusResponseDataConnectionType UMTS =
+      new StatusResponseDataConnectionType("umts");
+  public static final StatusResponseDataConnectionType USB =
+      new StatusResponseDataConnectionType("usb");
+  public static final StatusResponseDataConnectionType WI_FI =
+      new StatusResponseDataConnectionType("Wi-Fi");
 
   private final String value;
 
-  StatusResponseDataConnectionType(String value) {
-    this.value = value;
+  private StatusResponseDataConnectionType(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a StatusResponseDataConnectionType for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static StatusResponseDataConnectionType of(String value) {
+    return new StatusResponseDataConnectionType(value);
   }
 
   @JsonValue
@@ -32,14 +50,18 @@ public enum StatusResponseDataConnectionType {
 
   @JsonCreator
   public static StatusResponseDataConnectionType fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (StatusResponseDataConnectionType entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown StatusResponseDataConnectionType value: " + value);
+    return value == null ? null : new StatusResponseDataConnectionType(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof StatusResponseDataConnectionType that
+            && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

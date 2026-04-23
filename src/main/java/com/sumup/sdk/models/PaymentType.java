@@ -3,25 +3,36 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** Payment type used for the transaction. */
-public enum PaymentType {
-  CASH("CASH"),
-  POS("POS"),
-  ECOM("ECOM"),
-  RECURRING("RECURRING"),
-  BITCOIN("BITCOIN"),
-  BALANCE("BALANCE"),
-  MOTO("MOTO"),
-  BOLETO("BOLETO"),
-  DIRECT_DEBIT("DIRECT_DEBIT"),
-  APM("APM"),
-  UNKNOWN("UNKNOWN");
+public final class PaymentType {
+  public static final PaymentType CASH = new PaymentType("CASH");
+  public static final PaymentType POS = new PaymentType("POS");
+  public static final PaymentType ECOM = new PaymentType("ECOM");
+  public static final PaymentType RECURRING = new PaymentType("RECURRING");
+  public static final PaymentType BITCOIN = new PaymentType("BITCOIN");
+  public static final PaymentType BALANCE = new PaymentType("BALANCE");
+  public static final PaymentType MOTO = new PaymentType("MOTO");
+  public static final PaymentType BOLETO = new PaymentType("BOLETO");
+  public static final PaymentType DIRECT_DEBIT = new PaymentType("DIRECT_DEBIT");
+  public static final PaymentType APM = new PaymentType("APM");
+  public static final PaymentType UNKNOWN = new PaymentType("UNKNOWN");
 
   private final String value;
 
-  PaymentType(String value) {
-    this.value = value;
+  private PaymentType(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a PaymentType for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static PaymentType of(String value) {
+    return new PaymentType(value);
   }
 
   @JsonValue
@@ -36,14 +47,16 @@ public enum PaymentType {
 
   @JsonCreator
   public static PaymentType fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (PaymentType entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown PaymentType value: " + value);
+    return value == null ? null : new PaymentType(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other || (other instanceof PaymentType that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

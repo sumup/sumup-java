@@ -146,13 +146,8 @@ func (r *typeResolver) javaType(ref *base.SchemaProxy, context ...string) javaTy
 	if schema.Properties != nil && schema.Properties.Len() > 0 {
 		return r.inlineObjectType(schema, context)
 	}
-	if len(schema.AllOf) > 0 {
-		for _, item := range schema.AllOf {
-			if item == nil {
-				continue
-			}
-			return r.javaType(item, context...)
-		}
+	if schemaHasFlattenableProperties(schema) {
+		return r.inlineObjectType(schema, context)
 	}
 	if len(schema.OneOf) > 0 {
 		for _, item := range schema.OneOf {
@@ -171,6 +166,10 @@ func (r *typeResolver) javaType(ref *base.SchemaProxy, context ...string) javaTy
 		}
 	}
 	return r.genericMap()
+}
+
+func (r *typeResolver) parameterJavaType(ref *base.SchemaProxy, context ...string) javaType {
+	return r.javaType(ref, context...)
 }
 
 // objectType handles schemas that look like objects by either emitting inline
@@ -331,6 +330,7 @@ func (r *typeResolver) inlineSchemaModels(params Params) []schemaModel {
 				imports := sortedImports(map[string]struct{}{
 					"com.fasterxml.jackson.annotation.JsonCreator": {},
 					"com.fasterxml.jackson.annotation.JsonValue":   {},
+					"java.util.Objects":                           {},
 				})
 				models = append(models, schemaModel{
 					Name:             info.className,

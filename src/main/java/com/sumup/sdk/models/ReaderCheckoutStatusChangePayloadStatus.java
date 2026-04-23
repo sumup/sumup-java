@@ -3,16 +3,30 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** The current status of the transaction. */
-public enum ReaderCheckoutStatusChangePayloadStatus {
-  SUCCESSFUL("successful"),
-  FAILED("failed");
+public final class ReaderCheckoutStatusChangePayloadStatus {
+  public static final ReaderCheckoutStatusChangePayloadStatus SUCCESSFUL =
+      new ReaderCheckoutStatusChangePayloadStatus("successful");
+  public static final ReaderCheckoutStatusChangePayloadStatus FAILED =
+      new ReaderCheckoutStatusChangePayloadStatus("failed");
 
   private final String value;
 
-  ReaderCheckoutStatusChangePayloadStatus(String value) {
-    this.value = value;
+  private ReaderCheckoutStatusChangePayloadStatus(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a ReaderCheckoutStatusChangePayloadStatus for a value not yet known to this SDK
+   * version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static ReaderCheckoutStatusChangePayloadStatus of(String value) {
+    return new ReaderCheckoutStatusChangePayloadStatus(value);
   }
 
   @JsonValue
@@ -27,15 +41,18 @@ public enum ReaderCheckoutStatusChangePayloadStatus {
 
   @JsonCreator
   public static ReaderCheckoutStatusChangePayloadStatus fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (ReaderCheckoutStatusChangePayloadStatus entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException(
-        "Unknown ReaderCheckoutStatusChangePayloadStatus value: " + value);
+    return value == null ? null : new ReaderCheckoutStatusChangePayloadStatus(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof ReaderCheckoutStatusChangePayloadStatus that
+            && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

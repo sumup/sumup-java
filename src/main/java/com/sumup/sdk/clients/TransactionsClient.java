@@ -578,7 +578,8 @@ public final class TransactionsClient {
      * @param value Specifies the order in which the returned results are displayed.
      * @return This ListTransactionsV21QueryParams instance.
      */
-    public ListTransactionsV21QueryParams order(com.sumup.sdk.models.Order value) {
+    public ListTransactionsV21QueryParams order(
+        com.sumup.sdk.models.ListTransactionsV21Order value) {
       this.values.put("order", Objects.requireNonNull(value, "order"));
       return this;
     }
@@ -604,7 +605,7 @@ public final class TransactionsClient {
      * @return This ListTransactionsV21QueryParams instance.
      */
     public ListTransactionsV21QueryParams statuses(
-        java.util.List<com.sumup.sdk.models.StatusesItem> value) {
+        java.util.List<com.sumup.sdk.models.ListTransactionsV21StatusesItem> value) {
       this.values.put("statuses[]", Objects.requireNonNull(value, "statuses"));
       return this;
     }
@@ -627,7 +628,7 @@ public final class TransactionsClient {
      * @return This ListTransactionsV21QueryParams instance.
      */
     public ListTransactionsV21QueryParams types(
-        java.util.List<com.sumup.sdk.models.TypesItem> value) {
+        java.util.List<com.sumup.sdk.models.ListTransactionsV21TypesItem> value) {
       this.values.put("types", Objects.requireNonNull(value, "types"));
       return this;
     }
@@ -740,7 +741,7 @@ public final class TransactionsClient {
      * @param value Specifies the order in which the returned results are displayed.
      * @return This ListTransactionsQueryParams instance.
      */
-    public ListTransactionsQueryParams order(com.sumup.sdk.models.Order2 value) {
+    public ListTransactionsQueryParams order(com.sumup.sdk.models.ListTransactionsOrder value) {
       this.values.put("order", Objects.requireNonNull(value, "order"));
       return this;
     }
@@ -766,7 +767,7 @@ public final class TransactionsClient {
      * @return This ListTransactionsQueryParams instance.
      */
     public ListTransactionsQueryParams statuses(
-        java.util.List<com.sumup.sdk.models.StatusesItem2> value) {
+        java.util.List<com.sumup.sdk.models.ListTransactionsStatusesItem> value) {
       this.values.put("statuses[]", Objects.requireNonNull(value, "statuses"));
       return this;
     }
@@ -789,7 +790,7 @@ public final class TransactionsClient {
      * @return This ListTransactionsQueryParams instance.
      */
     public ListTransactionsQueryParams types(
-        java.util.List<com.sumup.sdk.models.TypesItem2> value) {
+        java.util.List<com.sumup.sdk.models.ListTransactionsTypesItem> value) {
       this.values.put("types", Objects.requireNonNull(value, "types"));
       return this;
     }

@@ -2,4 +2,78 @@
 package com.sumup.sdk.models;
 
 /** Error payload with the invalid parameter reference. */
-public record ErrorExtended(com.sumup.sdk.models.Error value) {}
+public record ErrorExtended(
+    /** Platform code for the error. */
+    String errorCode,
+
+    /** Short description of the error. */
+    String message,
+
+    /**
+     * Parameter name (with relative location) to which the error applies. Parameters from embedded
+     * resources are displayed using dot notation. For example, `card.name` refers to the `name`
+     * parameter embedded in the `card` object.
+     */
+    String param) {
+  /**
+   * Creates a builder for ErrorExtended.
+   *
+   * @return Builder that constructs immutable ErrorExtended instances.
+   */
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  /** Builder for ErrorExtended instances. */
+  public static final class Builder {
+    private String errorCode;
+    private String message;
+    private String param;
+
+    private Builder() {}
+
+    /**
+     * Sets the value for {@code errorCode}.
+     *
+     * @param errorCode Platform code for the error.
+     * @return This builder instance.
+     */
+    public Builder errorCode(String errorCode) {
+      this.errorCode = errorCode;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code message}.
+     *
+     * @param message Short description of the error.
+     * @return This builder instance.
+     */
+    public Builder message(String message) {
+      this.message = message;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code param}.
+     *
+     * @param param Parameter name (with relative location) to which the error applies. Parameters
+     *     from embedded resources are displayed using dot notation. For example, `card.name` refers
+     *     to the `name` parameter embedded in the `card` object.
+     * @return This builder instance.
+     */
+    public Builder param(String param) {
+      this.param = param;
+      return this;
+    }
+
+    /**
+     * Builds an immutable ErrorExtended instance.
+     *
+     * @return Immutable ErrorExtended.
+     */
+    public ErrorExtended build() {
+      return new ErrorExtended(errorCode, message, param);
+    }
+  }
+}

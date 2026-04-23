@@ -21,13 +21,13 @@ type sdkModel struct {
 
 // clientModel encapsulates the data necessary to render a Java API client.
 type clientModel struct {
-	TagName      string
+	TagName             string
 	TagDescriptionLines []string
-	ClassName    string
-	AccessorName string
-	FieldName    string
-	Package      string
-	Methods      []operationModel
+	ClassName           string
+	AccessorName        string
+	FieldName           string
+	Package             string
+	Methods             []operationModel
 }
 
 // operationModel stores the derived metadata for one OpenAPI operation.
@@ -242,9 +242,9 @@ func convertOperation(method, path string, item *v3.PathItem, op *v3.Operation, 
 	}
 
 	params := collectParameters(item, op)
-	model.PathParams = filterParams(params, parameterInPath, resolver)
+	model.PathParams = filterParams(params, parameterInPath, resolver, sanitizedID)
 
-	queryParams := filterParams(params, parameterInQuery, resolver)
+	queryParams := filterParams(params, parameterInQuery, resolver, sanitizedID)
 	model.RequiredQueryParams, model.OptionalQueryParams = splitParams(queryParams)
 	if len(model.OptionalQueryParams) > 0 {
 		model.QueryStruct = &parameterGroupModel{
@@ -260,7 +260,7 @@ func convertOperation(method, path string, item *v3.PathItem, op *v3.Operation, 
 	}
 	model.HasQueryParams = len(model.RequiredQueryParams) > 0 || len(model.OptionalQueryParams) > 0
 
-	headerParams := filterParams(params, parameterInHeader, resolver)
+	headerParams := filterParams(params, parameterInHeader, resolver, sanitizedID)
 	model.RequiredHeaderParams, model.OptionalHeaderParams = splitParams(headerParams)
 	if len(model.OptionalHeaderParams) > 0 {
 		model.HeaderStruct = &parameterGroupModel{
@@ -356,7 +356,7 @@ func collectParameters(item *v3.PathItem, op *v3.Operation) []*v3.Parameter {
 
 // filterParams keeps parameters that match the requested location and converts
 // them into parameterModel values.
-func filterParams(params []*v3.Parameter, location string, resolver *typeResolver) []parameterModel {
+func filterParams(params []*v3.Parameter, location string, resolver *typeResolver, operationContext string) []parameterModel {
 	var filtered []parameterModel
 	seen := map[string]struct{}{}
 	for _, param := range params {
@@ -375,7 +375,7 @@ func filterParams(params []*v3.Parameter, location string, resolver *typeResolve
 		}
 		seen[name] = struct{}{}
 		schemaRef := parameterSchema(param)
-		javaType := resolver.javaType(schemaRef, name)
+		javaType := resolver.parameterJavaType(schemaRef, operationContext, name)
 		required := param.Required != nil && *param.Required
 		filtered = append(filtered, parameterModel{
 			Name:        name,
@@ -568,6 +568,7 @@ func buildSchemas(doc *v3.Document, params Params, resolver *typeResolver) []sch
 			imports := sortedImports(map[string]struct{}{
 				"com.fasterxml.jackson.annotation.JsonCreator": {},
 				"com.fasterxml.jackson.annotation.JsonValue":   {},
+				"java.util.Objects":                           {},
 			})
 			result = append(result, schemaModel{
 				Name:             name,
@@ -630,7 +631,7 @@ func buildSchemaFields(name string, ref *base.SchemaProxy, resolver *typeResolve
 	if schema == nil {
 		return []schemaField{{Name: "value", Type: "Object"}}, nil, nil, false
 	}
-	if schemaHasType(schema, "object") {
+	if schemaDefinesModelFields(schema) {
 		props := collectProperties(schema)
 		if len(props) == 0 {
 			return []schemaField{{Name: "value", Type: "java.util.Map<String, Object>"}}, nil, []string{"java.util.Map"}, false
@@ -693,6 +694,31 @@ func buildSchemaFields(name string, ref *base.SchemaProxy, resolver *typeResolve
 	}
 
 	return fields, additionalProps, sortedImports(imports), hasRequired
+}
+
+func schemaDefinesModelFields(schema *base.Schema) bool {
+	if schema == nil {
+		return false
+	}
+	return schemaHasType(schema, "object") || schemaHasFlattenableProperties(schema)
+}
+
+func schemaHasFlattenableProperties(schema *base.Schema) bool {
+	if schema == nil {
+		return false
+	}
+	if schema.Properties != nil && schema.Properties.Len() > 0 {
+		return true
+	}
+	for _, item := range schema.AllOf {
+		if item == nil {
+			continue
+		}
+		if schemaHasFlattenableProperties(item.Schema()) {
+			return true
+		}
+	}
+	return false
 }
 
 // resolveAdditionalProperties returns metadata for schemas that allow

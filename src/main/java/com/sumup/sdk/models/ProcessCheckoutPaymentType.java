@@ -3,24 +3,38 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /**
  * Payment method used for this processing attempt. It determines which additional request fields
  * are required.
  */
-public enum ProcessCheckoutPaymentType {
-  CARD("card"),
-  BOLETO("boleto"),
-  IDEAL("ideal"),
-  BLIK("blik"),
-  BANCONTACT("bancontact"),
-  GOOGLE_PAY("google_pay"),
-  APPLE_PAY("apple_pay");
+public final class ProcessCheckoutPaymentType {
+  public static final ProcessCheckoutPaymentType CARD = new ProcessCheckoutPaymentType("card");
+  public static final ProcessCheckoutPaymentType BOLETO = new ProcessCheckoutPaymentType("boleto");
+  public static final ProcessCheckoutPaymentType IDEAL = new ProcessCheckoutPaymentType("ideal");
+  public static final ProcessCheckoutPaymentType BLIK = new ProcessCheckoutPaymentType("blik");
+  public static final ProcessCheckoutPaymentType BANCONTACT =
+      new ProcessCheckoutPaymentType("bancontact");
+  public static final ProcessCheckoutPaymentType GOOGLE_PAY =
+      new ProcessCheckoutPaymentType("google_pay");
+  public static final ProcessCheckoutPaymentType APPLE_PAY =
+      new ProcessCheckoutPaymentType("apple_pay");
 
   private final String value;
 
-  ProcessCheckoutPaymentType(String value) {
-    this.value = value;
+  private ProcessCheckoutPaymentType(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a ProcessCheckoutPaymentType for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static ProcessCheckoutPaymentType of(String value) {
+    return new ProcessCheckoutPaymentType(value);
   }
 
   @JsonValue
@@ -35,14 +49,17 @@ public enum ProcessCheckoutPaymentType {
 
   @JsonCreator
   public static ProcessCheckoutPaymentType fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (ProcessCheckoutPaymentType entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown ProcessCheckoutPaymentType value: " + value);
+    return value == null ? null : new ProcessCheckoutPaymentType(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof ProcessCheckoutPaymentType that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

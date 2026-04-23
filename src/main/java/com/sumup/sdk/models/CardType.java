@@ -3,38 +3,49 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** Issuing card network of the payment card used for the transaction. */
-public enum CardType {
-  ALELO("ALELO"),
-  AMEX("AMEX"),
-  CONECS("CONECS"),
-  CUP("CUP"),
-  DINERS("DINERS"),
-  DISCOVER("DISCOVER"),
-  EFTPOS("EFTPOS"),
-  ELO("ELO"),
-  ELV("ELV"),
-  GIROCARD("GIROCARD"),
-  HIPERCARD("HIPERCARD"),
-  INTERAC("INTERAC"),
-  JCB("JCB"),
-  MAESTRO("MAESTRO"),
-  MASTERCARD("MASTERCARD"),
-  PLUXEE("PLUXEE"),
-  SWILE("SWILE"),
-  TICKET("TICKET"),
-  VISA("VISA"),
-  VISA_ELECTRON("VISA_ELECTRON"),
-  VISA_VPAY("VISA_VPAY"),
-  VPAY("VPAY"),
-  VR("VR"),
-  UNKNOWN("UNKNOWN");
+public final class CardType {
+  public static final CardType ALELO = new CardType("ALELO");
+  public static final CardType AMEX = new CardType("AMEX");
+  public static final CardType CONECS = new CardType("CONECS");
+  public static final CardType CUP = new CardType("CUP");
+  public static final CardType DINERS = new CardType("DINERS");
+  public static final CardType DISCOVER = new CardType("DISCOVER");
+  public static final CardType EFTPOS = new CardType("EFTPOS");
+  public static final CardType ELO = new CardType("ELO");
+  public static final CardType ELV = new CardType("ELV");
+  public static final CardType GIROCARD = new CardType("GIROCARD");
+  public static final CardType HIPERCARD = new CardType("HIPERCARD");
+  public static final CardType INTERAC = new CardType("INTERAC");
+  public static final CardType JCB = new CardType("JCB");
+  public static final CardType MAESTRO = new CardType("MAESTRO");
+  public static final CardType MASTERCARD = new CardType("MASTERCARD");
+  public static final CardType PLUXEE = new CardType("PLUXEE");
+  public static final CardType SWILE = new CardType("SWILE");
+  public static final CardType TICKET = new CardType("TICKET");
+  public static final CardType VISA = new CardType("VISA");
+  public static final CardType VISA_ELECTRON = new CardType("VISA_ELECTRON");
+  public static final CardType VISA_VPAY = new CardType("VISA_VPAY");
+  public static final CardType VPAY = new CardType("VPAY");
+  public static final CardType VR = new CardType("VR");
+  public static final CardType UNKNOWN = new CardType("UNKNOWN");
 
   private final String value;
 
-  CardType(String value) {
-    this.value = value;
+  private CardType(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a CardType for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static CardType of(String value) {
+    return new CardType(value);
   }
 
   @JsonValue
@@ -49,14 +60,16 @@ public enum CardType {
 
   @JsonCreator
   public static CardType fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (CardType entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown CardType value: " + value);
+    return value == null ? null : new CardType(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other || (other instanceof CardType that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

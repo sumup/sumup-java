@@ -3,19 +3,32 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /**
  * Key indicating type of error. Present only for typed 401 responses (e.g. invalid token, invalid
  * password). Absent for generic unauthorized responses.
  */
-public enum UnauthorizedErrorsType {
-  INVALID_ACCESS_TOKEN("INVALID_ACCESS_TOKEN"),
-  INVALID_PASSWORD("INVALID_PASSWORD");
+public final class UnauthorizedErrorsType {
+  public static final UnauthorizedErrorsType INVALID_ACCESS_TOKEN =
+      new UnauthorizedErrorsType("INVALID_ACCESS_TOKEN");
+  public static final UnauthorizedErrorsType INVALID_PASSWORD =
+      new UnauthorizedErrorsType("INVALID_PASSWORD");
 
   private final String value;
 
-  UnauthorizedErrorsType(String value) {
-    this.value = value;
+  private UnauthorizedErrorsType(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a UnauthorizedErrorsType for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static UnauthorizedErrorsType of(String value) {
+    return new UnauthorizedErrorsType(value);
   }
 
   @JsonValue
@@ -30,14 +43,17 @@ public enum UnauthorizedErrorsType {
 
   @JsonCreator
   public static UnauthorizedErrorsType fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (UnauthorizedErrorsType entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown UnauthorizedErrorsType value: " + value);
+    return value == null ? null : new UnauthorizedErrorsType(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof UnauthorizedErrorsType that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

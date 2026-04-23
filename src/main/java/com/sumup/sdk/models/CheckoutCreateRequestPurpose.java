@@ -3,20 +3,33 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /**
  * Business purpose of the checkout. Use `CHECKOUT` for a standard payment and
  * `SETUP_RECURRING_PAYMENT` when collecting consent and payment details for future recurring
  * charges.
  */
-public enum CheckoutCreateRequestPurpose {
-  CHECKOUT("CHECKOUT"),
-  SETUP_RECURRING_PAYMENT("SETUP_RECURRING_PAYMENT");
+public final class CheckoutCreateRequestPurpose {
+  public static final CheckoutCreateRequestPurpose CHECKOUT =
+      new CheckoutCreateRequestPurpose("CHECKOUT");
+  public static final CheckoutCreateRequestPurpose SETUP_RECURRING_PAYMENT =
+      new CheckoutCreateRequestPurpose("SETUP_RECURRING_PAYMENT");
 
   private final String value;
 
-  CheckoutCreateRequestPurpose(String value) {
-    this.value = value;
+  private CheckoutCreateRequestPurpose(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a CheckoutCreateRequestPurpose for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static CheckoutCreateRequestPurpose of(String value) {
+    return new CheckoutCreateRequestPurpose(value);
   }
 
   @JsonValue
@@ -31,14 +44,17 @@ public enum CheckoutCreateRequestPurpose {
 
   @JsonCreator
   public static CheckoutCreateRequestPurpose fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (CheckoutCreateRequestPurpose entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown CheckoutCreateRequestPurpose value: " + value);
+    return value == null ? null : new CheckoutCreateRequestPurpose(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof CheckoutCreateRequestPurpose that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

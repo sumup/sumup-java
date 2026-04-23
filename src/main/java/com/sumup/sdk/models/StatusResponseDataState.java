@@ -3,20 +3,36 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** Latest state of the device */
-public enum StatusResponseDataState {
-  IDLE("IDLE"),
-  SELECTING_TIP("SELECTING_TIP"),
-  WAITING_FOR_CARD("WAITING_FOR_CARD"),
-  WAITING_FOR_PIN("WAITING_FOR_PIN"),
-  WAITING_FOR_SIGNATURE("WAITING_FOR_SIGNATURE"),
-  UPDATING_FIRMWARE("UPDATING_FIRMWARE");
+public final class StatusResponseDataState {
+  public static final StatusResponseDataState IDLE = new StatusResponseDataState("IDLE");
+  public static final StatusResponseDataState SELECTING_TIP =
+      new StatusResponseDataState("SELECTING_TIP");
+  public static final StatusResponseDataState WAITING_FOR_CARD =
+      new StatusResponseDataState("WAITING_FOR_CARD");
+  public static final StatusResponseDataState WAITING_FOR_PIN =
+      new StatusResponseDataState("WAITING_FOR_PIN");
+  public static final StatusResponseDataState WAITING_FOR_SIGNATURE =
+      new StatusResponseDataState("WAITING_FOR_SIGNATURE");
+  public static final StatusResponseDataState UPDATING_FIRMWARE =
+      new StatusResponseDataState("UPDATING_FIRMWARE");
 
   private final String value;
 
-  StatusResponseDataState(String value) {
-    this.value = value;
+  private StatusResponseDataState(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a StatusResponseDataState for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static StatusResponseDataState of(String value) {
+    return new StatusResponseDataState(value);
   }
 
   @JsonValue
@@ -31,14 +47,17 @@ public enum StatusResponseDataState {
 
   @JsonCreator
   public static StatusResponseDataState fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (StatusResponseDataState entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown StatusResponseDataState value: " + value);
+    return value == null ? null : new StatusResponseDataState(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof StatusResponseDataState that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

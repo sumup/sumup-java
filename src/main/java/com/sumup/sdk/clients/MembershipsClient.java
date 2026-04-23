@@ -177,7 +177,7 @@ public final class MembershipsClient {
      *     Pass explicit null to filter for resources without a parent.
      * @return This ListMembershipsQueryParams instance.
      */
-    public ListMembershipsQueryParams resourceParentType(com.sumup.sdk.models.ResourceType value) {
+    public ListMembershipsQueryParams resourceParentType(java.util.Map<String, Object> value) {
       this.values.put("resource.parent.type", Objects.requireNonNull(value, "resourceParentType"));
       return this;
     }

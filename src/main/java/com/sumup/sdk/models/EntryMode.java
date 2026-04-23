@@ -3,41 +3,52 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** Entry mode of the payment details. */
-public enum EntryMode {
-  BOLETO("BOLETO"),
-  SOFORT("SOFORT"),
-  IDEAL("IDEAL"),
-  BANCONTACT("BANCONTACT"),
-  EPS("EPS"),
-  MYBANK("MYBANK"),
-  SATISPAY("SATISPAY"),
-  BLIK("BLIK"),
-  P24("P24"),
-  GIROPAY("GIROPAY"),
-  PIX("PIX"),
-  QR_CODE_PIX("QR_CODE_PIX"),
-  APPLE_PAY("APPLE_PAY"),
-  GOOGLE_PAY("GOOGLE_PAY"),
-  PAYPAL("PAYPAL"),
-  TWINT("TWINT"),
-  NONE("NONE"),
-  CHIP("CHIP"),
-  MANUAL_ENTRY("MANUAL_ENTRY"),
-  CUSTOMER_ENTRY("CUSTOMER_ENTRY"),
-  MAGSTRIPE_FALLBACK("MAGSTRIPE_FALLBACK"),
-  MAGSTRIPE("MAGSTRIPE"),
-  DIRECT_DEBIT("DIRECT_DEBIT"),
-  CONTACTLESS("CONTACTLESS"),
-  MOTO("MOTO"),
-  CONTACTLESS_MAGSTRIPE("CONTACTLESS_MAGSTRIPE"),
-  N_A("N/A");
+public final class EntryMode {
+  public static final EntryMode BOLETO = new EntryMode("BOLETO");
+  public static final EntryMode SOFORT = new EntryMode("SOFORT");
+  public static final EntryMode IDEAL = new EntryMode("IDEAL");
+  public static final EntryMode BANCONTACT = new EntryMode("BANCONTACT");
+  public static final EntryMode EPS = new EntryMode("EPS");
+  public static final EntryMode MYBANK = new EntryMode("MYBANK");
+  public static final EntryMode SATISPAY = new EntryMode("SATISPAY");
+  public static final EntryMode BLIK = new EntryMode("BLIK");
+  public static final EntryMode P24 = new EntryMode("P24");
+  public static final EntryMode GIROPAY = new EntryMode("GIROPAY");
+  public static final EntryMode PIX = new EntryMode("PIX");
+  public static final EntryMode QR_CODE_PIX = new EntryMode("QR_CODE_PIX");
+  public static final EntryMode APPLE_PAY = new EntryMode("APPLE_PAY");
+  public static final EntryMode GOOGLE_PAY = new EntryMode("GOOGLE_PAY");
+  public static final EntryMode PAYPAL = new EntryMode("PAYPAL");
+  public static final EntryMode TWINT = new EntryMode("TWINT");
+  public static final EntryMode NONE = new EntryMode("NONE");
+  public static final EntryMode CHIP = new EntryMode("CHIP");
+  public static final EntryMode MANUAL_ENTRY = new EntryMode("MANUAL_ENTRY");
+  public static final EntryMode CUSTOMER_ENTRY = new EntryMode("CUSTOMER_ENTRY");
+  public static final EntryMode MAGSTRIPE_FALLBACK = new EntryMode("MAGSTRIPE_FALLBACK");
+  public static final EntryMode MAGSTRIPE = new EntryMode("MAGSTRIPE");
+  public static final EntryMode DIRECT_DEBIT = new EntryMode("DIRECT_DEBIT");
+  public static final EntryMode CONTACTLESS = new EntryMode("CONTACTLESS");
+  public static final EntryMode MOTO = new EntryMode("MOTO");
+  public static final EntryMode CONTACTLESS_MAGSTRIPE = new EntryMode("CONTACTLESS_MAGSTRIPE");
+  public static final EntryMode N_A = new EntryMode("N/A");
 
   private final String value;
 
-  EntryMode(String value) {
-    this.value = value;
+  private EntryMode(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a EntryMode for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static EntryMode of(String value) {
+    return new EntryMode(value);
   }
 
   @JsonValue
@@ -52,14 +63,16 @@ public enum EntryMode {
 
   @JsonCreator
   public static EntryMode fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (EntryMode entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown EntryMode value: " + value);
+    return value == null ? null : new EntryMode(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other || (other instanceof EntryMode that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

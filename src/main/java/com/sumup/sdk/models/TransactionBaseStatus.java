@@ -3,18 +3,29 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** Current status of the transaction. */
-public enum TransactionBaseStatus {
-  SUCCESSFUL("SUCCESSFUL"),
-  CANCELLED("CANCELLED"),
-  FAILED("FAILED"),
-  PENDING("PENDING");
+public final class TransactionBaseStatus {
+  public static final TransactionBaseStatus SUCCESSFUL = new TransactionBaseStatus("SUCCESSFUL");
+  public static final TransactionBaseStatus CANCELLED = new TransactionBaseStatus("CANCELLED");
+  public static final TransactionBaseStatus FAILED = new TransactionBaseStatus("FAILED");
+  public static final TransactionBaseStatus PENDING = new TransactionBaseStatus("PENDING");
 
   private final String value;
 
-  TransactionBaseStatus(String value) {
-    this.value = value;
+  private TransactionBaseStatus(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a TransactionBaseStatus for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static TransactionBaseStatus of(String value) {
+    return new TransactionBaseStatus(value);
   }
 
   @JsonValue
@@ -29,14 +40,17 @@ public enum TransactionBaseStatus {
 
   @JsonCreator
   public static TransactionBaseStatus fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (TransactionBaseStatus entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown TransactionBaseStatus value: " + value);
+    return value == null ? null : new TransactionBaseStatus(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof TransactionBaseStatus that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

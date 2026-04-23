@@ -215,7 +215,7 @@ public final class PayoutsClient {
      * @param value Response format for the payout list.
      * @return This ListPayoutsV1QueryParams instance.
      */
-    public ListPayoutsV1QueryParams format(com.sumup.sdk.models.Format value) {
+    public ListPayoutsV1QueryParams format(com.sumup.sdk.models.ListPayoutsV1Format value) {
       this.values.put("format", Objects.requireNonNull(value, "format"));
       return this;
     }
@@ -237,7 +237,7 @@ public final class PayoutsClient {
      * @param value Sort direction for the returned payouts.
      * @return This ListPayoutsV1QueryParams instance.
      */
-    public ListPayoutsV1QueryParams order(com.sumup.sdk.models.Order2 value) {
+    public ListPayoutsV1QueryParams order(com.sumup.sdk.models.ListPayoutsV1Order value) {
       this.values.put("order", Objects.requireNonNull(value, "order"));
       return this;
     }
@@ -262,7 +262,7 @@ public final class PayoutsClient {
      * @param value Response format for the payout list.
      * @return This ListPayoutsQueryParams instance.
      */
-    public ListPayoutsQueryParams format(com.sumup.sdk.models.Format2 value) {
+    public ListPayoutsQueryParams format(com.sumup.sdk.models.ListPayoutsFormat value) {
       this.values.put("format", Objects.requireNonNull(value, "format"));
       return this;
     }
@@ -284,7 +284,7 @@ public final class PayoutsClient {
      * @param value Sort direction for the returned payouts.
      * @return This ListPayoutsQueryParams instance.
      */
-    public ListPayoutsQueryParams order(com.sumup.sdk.models.Order2 value) {
+    public ListPayoutsQueryParams order(com.sumup.sdk.models.ListPayoutsOrder value) {
       this.values.put("order", Objects.requireNonNull(value, "order"));
       return this;
     }
