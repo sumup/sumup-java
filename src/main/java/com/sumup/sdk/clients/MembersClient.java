@@ -42,10 +42,10 @@ public final class MembersClient {
    * @return com.sumup.sdk.models.Member parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Member createMerchantMember(
+  public com.sumup.sdk.models.Member create(
       String merchantCode, com.sumup.sdk.models.CreateMerchantMemberRequest request)
       throws ApiException {
-    return createMerchantMember(merchantCode, request, null);
+    return create(merchantCode, request, null);
   }
 
   /**
@@ -62,7 +62,7 @@ public final class MembersClient {
    * @return com.sumup.sdk.models.Member parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Member createMerchantMember(
+  public com.sumup.sdk.models.Member create(
       String merchantCode,
       com.sumup.sdk.models.CreateMerchantMemberRequest request,
       RequestOptions requestOptions)
@@ -97,8 +97,8 @@ public final class MembersClient {
    *     request timeout.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public void deleteMerchantMember(String memberId, String merchantCode) throws ApiException {
-    deleteMerchantMember(memberId, merchantCode, null);
+  public void delete(String memberId, String merchantCode) throws ApiException {
+    delete(memberId, merchantCode, null);
   }
 
   /**
@@ -114,8 +114,8 @@ public final class MembersClient {
    *     {@code null} to use client defaults.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public void deleteMerchantMember(
-      String memberId, String merchantCode, RequestOptions requestOptions) throws ApiException {
+  public void delete(String memberId, String merchantCode, RequestOptions requestOptions)
+      throws ApiException {
     Objects.requireNonNull(memberId, "memberId");
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v0.1/merchants/{merchant_code}/members/{member_id}";
@@ -141,9 +141,8 @@ public final class MembersClient {
    * @return com.sumup.sdk.models.Member parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Member getMerchantMember(String memberId, String merchantCode)
-      throws ApiException {
-    return getMerchantMember(memberId, merchantCode, null);
+  public com.sumup.sdk.models.Member get(String memberId, String merchantCode) throws ApiException {
+    return get(memberId, merchantCode, null);
   }
 
   /**
@@ -160,7 +159,7 @@ public final class MembersClient {
    * @return com.sumup.sdk.models.Member parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Member getMerchantMember(
+  public com.sumup.sdk.models.Member get(
       String memberId, String merchantCode, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(memberId, "memberId");
     Objects.requireNonNull(merchantCode, "merchantCode");
@@ -193,9 +192,9 @@ public final class MembersClient {
    * @return com.sumup.sdk.models.ListMerchantMembersResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.ListMerchantMembersResponse listMerchantMembers(String merchantCode)
+  public com.sumup.sdk.models.ListMerchantMembersResponse list(String merchantCode)
       throws ApiException {
-    return listMerchantMembers(merchantCode, null);
+    return list(merchantCode, null);
   }
 
   /**
@@ -212,9 +211,9 @@ public final class MembersClient {
    * @return com.sumup.sdk.models.ListMerchantMembersResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.ListMerchantMembersResponse listMerchantMembers(
+  public com.sumup.sdk.models.ListMerchantMembersResponse list(
       String merchantCode, ListMerchantMembersQueryParams listMerchantMembers) throws ApiException {
-    return listMerchantMembers(merchantCode, listMerchantMembers, null);
+    return list(merchantCode, listMerchantMembers, null);
   }
 
   /**
@@ -231,7 +230,7 @@ public final class MembersClient {
    * @return com.sumup.sdk.models.ListMerchantMembersResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.ListMerchantMembersResponse listMerchantMembers(
+  public com.sumup.sdk.models.ListMerchantMembersResponse list(
       String merchantCode,
       ListMerchantMembersQueryParams listMerchantMembers,
       RequestOptions requestOptions)
@@ -271,12 +270,12 @@ public final class MembersClient {
    * @return com.sumup.sdk.models.Member parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Member updateMerchantMember(
+  public com.sumup.sdk.models.Member update(
       String memberId,
       String merchantCode,
       com.sumup.sdk.models.UpdateMerchantMemberRequest request)
       throws ApiException {
-    return updateMerchantMember(memberId, merchantCode, request, null);
+    return update(memberId, merchantCode, request, null);
   }
 
   /**
@@ -294,7 +293,7 @@ public final class MembersClient {
    * @return com.sumup.sdk.models.Member parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Member updateMerchantMember(
+  public com.sumup.sdk.models.Member update(
       String memberId,
       String merchantCode,
       com.sumup.sdk.models.UpdateMerchantMemberRequest request,

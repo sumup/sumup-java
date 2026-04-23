@@ -41,8 +41,8 @@ public final class ReceiptsClient {
    * @return com.sumup.sdk.models.Receipt parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Receipt getReceipt(String id, String mid) throws ApiException {
-    return getReceipt(id, mid, null);
+  public com.sumup.sdk.models.Receipt get(String id, String mid) throws ApiException {
+    return get(id, mid, null);
   }
 
   /**
@@ -60,9 +60,9 @@ public final class ReceiptsClient {
    * @return com.sumup.sdk.models.Receipt parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Receipt getReceipt(
-      String id, String mid, GetReceiptQueryParams getReceipt) throws ApiException {
-    return getReceipt(id, mid, getReceipt, null);
+  public com.sumup.sdk.models.Receipt get(String id, String mid, GetReceiptQueryParams getReceipt)
+      throws ApiException {
+    return get(id, mid, getReceipt, null);
   }
 
   /**
@@ -80,7 +80,7 @@ public final class ReceiptsClient {
    * @return com.sumup.sdk.models.Receipt parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Receipt getReceipt(
+  public com.sumup.sdk.models.Receipt get(
       String id, String mid, GetReceiptQueryParams getReceipt, RequestOptions requestOptions)
       throws ApiException {
     Objects.requireNonNull(id, "id");

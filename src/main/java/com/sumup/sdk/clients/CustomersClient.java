@@ -42,9 +42,9 @@ public final class CustomersClient {
    * @return com.sumup.sdk.models.Customer parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Customer createCustomer(com.sumup.sdk.models.Customer request)
+  public com.sumup.sdk.models.Customer create(com.sumup.sdk.models.Customer request)
       throws ApiException {
-    return createCustomer(request, null);
+    return create(request, null);
   }
 
   /**
@@ -61,7 +61,7 @@ public final class CustomersClient {
    * @return com.sumup.sdk.models.Customer parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Customer createCustomer(
+  public com.sumup.sdk.models.Customer create(
       com.sumup.sdk.models.Customer request, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/customers";
@@ -131,8 +131,8 @@ public final class CustomersClient {
    * @return com.sumup.sdk.models.Customer parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Customer getCustomer(String customerId) throws ApiException {
-    return getCustomer(customerId, null);
+  public com.sumup.sdk.models.Customer get(String customerId) throws ApiException {
+    return get(customerId, null);
   }
 
   /**
@@ -149,7 +149,7 @@ public final class CustomersClient {
    * @return com.sumup.sdk.models.Customer parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Customer getCustomer(String customerId, RequestOptions requestOptions)
+  public com.sumup.sdk.models.Customer get(String customerId, RequestOptions requestOptions)
       throws ApiException {
     Objects.requireNonNull(customerId, "customerId");
     String path = "/v0.1/customers/{customer_id}";
@@ -228,9 +228,9 @@ public final class CustomersClient {
    * @return com.sumup.sdk.models.Customer parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Customer updateCustomer(
+  public com.sumup.sdk.models.Customer update(
       String customerId, com.sumup.sdk.models.UpdateCustomerRequest request) throws ApiException {
-    return updateCustomer(customerId, request, null);
+    return update(customerId, request, null);
   }
 
   /**
@@ -249,7 +249,7 @@ public final class CustomersClient {
    * @return com.sumup.sdk.models.Customer parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Customer updateCustomer(
+  public com.sumup.sdk.models.Customer update(
       String customerId,
       com.sumup.sdk.models.UpdateCustomerRequest request,
       RequestOptions requestOptions)

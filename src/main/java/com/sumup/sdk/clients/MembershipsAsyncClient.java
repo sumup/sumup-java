@@ -43,9 +43,9 @@ public final class MembershipsAsyncClient {
    *     response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.ListMembershipsResponse> listMemberships()
+  public CompletableFuture<com.sumup.sdk.models.ListMembershipsResponse> list()
       throws ApiException {
-    return listMemberships(null);
+    return list(null);
   }
 
   /**
@@ -62,9 +62,9 @@ public final class MembershipsAsyncClient {
    *     response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.ListMembershipsResponse> listMemberships(
+  public CompletableFuture<com.sumup.sdk.models.ListMembershipsResponse> list(
       ListMembershipsQueryParams listMemberships) throws ApiException {
-    return listMemberships(listMemberships, null);
+    return list(listMemberships, null);
   }
 
   /**
@@ -81,7 +81,7 @@ public final class MembershipsAsyncClient {
    *     response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.ListMembershipsResponse> listMemberships(
+  public CompletableFuture<com.sumup.sdk.models.ListMembershipsResponse> list(
       ListMembershipsQueryParams listMemberships, RequestOptions requestOptions)
       throws ApiException {
     String path = "/v0.1/memberships";

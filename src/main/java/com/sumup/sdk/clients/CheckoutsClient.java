@@ -40,6 +40,59 @@ public final class CheckoutsClient {
   }
 
   /**
+   * Create a checkout
+   *
+   * <p>Creates a new payment checkout resource. The unique `checkout_reference` created by this
+   * request, is used for further manipulation of the checkout. For 3DS checkouts, add the
+   * `redirect_url` parameter to your request body schema. Follow by processing a checkout to charge
+   * the provided payment instrument.
+   *
+   * <p>Operation ID: CreateCheckout
+   *
+   * @param request Details for creating a checkout resource.
+   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
+   *     request timeout.
+   * @return com.sumup.sdk.models.Checkout parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public com.sumup.sdk.models.Checkout create(com.sumup.sdk.models.CheckoutCreateRequest request)
+      throws ApiException {
+    return create(request, null);
+  }
+
+  /**
+   * Create a checkout
+   *
+   * <p>Creates a new payment checkout resource. The unique `checkout_reference` created by this
+   * request, is used for further manipulation of the checkout. For 3DS checkouts, add the
+   * `redirect_url` parameter to your request body schema. Follow by processing a checkout to charge
+   * the provided payment instrument.
+   *
+   * <p>Operation ID: CreateCheckout
+   *
+   * @param request Details for creating a checkout resource.
+   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
+   *     {@code null} to use client defaults.
+   * @return com.sumup.sdk.models.Checkout parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public com.sumup.sdk.models.Checkout create(
+      com.sumup.sdk.models.CheckoutCreateRequest request, RequestOptions requestOptions)
+      throws ApiException {
+    Objects.requireNonNull(request, "request");
+    String path = "/v0.1/checkouts";
+
+    return this.apiClient.send(
+        HttpMethod.POST,
+        path,
+        null,
+        null,
+        request,
+        new TypeReference<com.sumup.sdk.models.Checkout>() {},
+        requestOptions);
+  }
+
+  /**
    * Create an Apple Pay session
    *
    * <p>Creates an Apple Pay merchant session for the specified checkout. Use this endpoint after
@@ -100,59 +153,6 @@ public final class CheckoutsClient {
   }
 
   /**
-   * Create a checkout
-   *
-   * <p>Creates a new payment checkout resource. The unique `checkout_reference` created by this
-   * request, is used for further manipulation of the checkout. For 3DS checkouts, add the
-   * `redirect_url` parameter to your request body schema. Follow by processing a checkout to charge
-   * the provided payment instrument.
-   *
-   * <p>Operation ID: CreateCheckout
-   *
-   * @param request Details for creating a checkout resource.
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @return com.sumup.sdk.models.Checkout parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public com.sumup.sdk.models.Checkout createCheckout(
-      com.sumup.sdk.models.CheckoutCreateRequest request) throws ApiException {
-    return createCheckout(request, null);
-  }
-
-  /**
-   * Create a checkout
-   *
-   * <p>Creates a new payment checkout resource. The unique `checkout_reference` created by this
-   * request, is used for further manipulation of the checkout. For 3DS checkouts, add the
-   * `redirect_url` parameter to your request body schema. Follow by processing a checkout to charge
-   * the provided payment instrument.
-   *
-   * <p>Operation ID: CreateCheckout
-   *
-   * @param request Details for creating a checkout resource.
-   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
-   *     {@code null} to use client defaults.
-   * @return com.sumup.sdk.models.Checkout parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public com.sumup.sdk.models.Checkout createCheckout(
-      com.sumup.sdk.models.CheckoutCreateRequest request, RequestOptions requestOptions)
-      throws ApiException {
-    Objects.requireNonNull(request, "request");
-    String path = "/v0.1/checkouts";
-
-    return this.apiClient.send(
-        HttpMethod.POST,
-        path,
-        null,
-        null,
-        request,
-        new TypeReference<com.sumup.sdk.models.Checkout>() {},
-        requestOptions);
-  }
-
-  /**
    * Deactivate a checkout
    *
    * <p>Deactivates an identified checkout resource. If the checkout has already been processed it
@@ -166,8 +166,8 @@ public final class CheckoutsClient {
    * @return com.sumup.sdk.models.Checkout parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Checkout deactivateCheckout(String id) throws ApiException {
-    return deactivateCheckout(id, null);
+  public com.sumup.sdk.models.Checkout deactivate(String id) throws ApiException {
+    return deactivate(id, null);
   }
 
   /**
@@ -184,7 +184,7 @@ public final class CheckoutsClient {
    * @return com.sumup.sdk.models.Checkout parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Checkout deactivateCheckout(String id, RequestOptions requestOptions)
+  public com.sumup.sdk.models.Checkout deactivate(String id, RequestOptions requestOptions)
       throws ApiException {
     Objects.requireNonNull(id, "id");
     String path = "/v0.1/checkouts/{id}";
@@ -214,8 +214,8 @@ public final class CheckoutsClient {
    * @return com.sumup.sdk.models.CheckoutSuccess parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.CheckoutSuccess getCheckout(String id) throws ApiException {
-    return getCheckout(id, null);
+  public com.sumup.sdk.models.CheckoutSuccess get(String id) throws ApiException {
+    return get(id, null);
   }
 
   /**
@@ -232,7 +232,7 @@ public final class CheckoutsClient {
    * @return com.sumup.sdk.models.CheckoutSuccess parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.CheckoutSuccess getCheckout(String id, RequestOptions requestOptions)
+  public com.sumup.sdk.models.CheckoutSuccess get(String id, RequestOptions requestOptions)
       throws ApiException {
     Objects.requireNonNull(id, "id");
     String path = "/v0.1/checkouts/{id}";
@@ -249,6 +249,72 @@ public final class CheckoutsClient {
   }
 
   /**
+   * List checkouts
+   *
+   * <p>Lists created checkout resources according to the applied `checkout_reference`.
+   *
+   * <p>Operation ID: ListCheckouts
+   *
+   * <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
+   * headers, authorization, query values, or timeouts.
+   *
+   * @return {@code java.util.List<com.sumup.sdk.models.CheckoutSuccess>} parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public java.util.List<com.sumup.sdk.models.CheckoutSuccess> list() throws ApiException {
+    return list(null);
+  }
+
+  /**
+   * List checkouts
+   *
+   * <p>Lists created checkout resources according to the applied `checkout_reference`.
+   *
+   * <p>Operation ID: ListCheckouts
+   *
+   * @param listCheckouts Optional query parameters for this request.
+   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
+   *     request timeout.
+   * @return {@code java.util.List<com.sumup.sdk.models.CheckoutSuccess>} parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public java.util.List<com.sumup.sdk.models.CheckoutSuccess> list(
+      ListCheckoutsQueryParams listCheckouts) throws ApiException {
+    return list(listCheckouts, null);
+  }
+
+  /**
+   * List checkouts
+   *
+   * <p>Lists created checkout resources according to the applied `checkout_reference`.
+   *
+   * <p>Operation ID: ListCheckouts
+   *
+   * @param listCheckouts Optional query parameters for this request.
+   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
+   *     {@code null} to use client defaults.
+   * @return {@code java.util.List<com.sumup.sdk.models.CheckoutSuccess>} parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public java.util.List<com.sumup.sdk.models.CheckoutSuccess> list(
+      ListCheckoutsQueryParams listCheckouts, RequestOptions requestOptions) throws ApiException {
+    String path = "/v0.1/checkouts";
+    Map<String, Object> queryParams = new LinkedHashMap<>();
+    if (listCheckouts != null) {
+      queryParams.putAll(listCheckouts.toMap());
+    }
+
+    return this.apiClient.send(
+        HttpMethod.GET,
+        path,
+        queryParams,
+        null,
+        null,
+        new TypeReference<java.util.List<com.sumup.sdk.models.CheckoutSuccess>>() {},
+        requestOptions);
+  }
+
+  /**
    * Get available payment methods
    *
    * <p>Get payment methods available for the given merchant to use with a checkout.
@@ -261,9 +327,9 @@ public final class CheckoutsClient {
    * @return com.sumup.sdk.models.GetPaymentMethodsResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.GetPaymentMethodsResponse getPaymentMethods(String merchantCode)
-      throws ApiException {
-    return getPaymentMethods(merchantCode, null);
+  public com.sumup.sdk.models.GetPaymentMethodsResponse listAvailablePaymentMethods(
+      String merchantCode) throws ApiException {
+    return listAvailablePaymentMethods(merchantCode, null);
   }
 
   /**
@@ -280,9 +346,9 @@ public final class CheckoutsClient {
    * @return com.sumup.sdk.models.GetPaymentMethodsResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.GetPaymentMethodsResponse getPaymentMethods(
+  public com.sumup.sdk.models.GetPaymentMethodsResponse listAvailablePaymentMethods(
       String merchantCode, GetPaymentMethodsQueryParams getPaymentMethods) throws ApiException {
-    return getPaymentMethods(merchantCode, getPaymentMethods, null);
+    return listAvailablePaymentMethods(merchantCode, getPaymentMethods, null);
   }
 
   /**
@@ -299,7 +365,7 @@ public final class CheckoutsClient {
    * @return com.sumup.sdk.models.GetPaymentMethodsResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.GetPaymentMethodsResponse getPaymentMethods(
+  public com.sumup.sdk.models.GetPaymentMethodsResponse listAvailablePaymentMethods(
       String merchantCode,
       GetPaymentMethodsQueryParams getPaymentMethods,
       RequestOptions requestOptions)
@@ -325,72 +391,6 @@ public final class CheckoutsClient {
   }
 
   /**
-   * List checkouts
-   *
-   * <p>Lists created checkout resources according to the applied `checkout_reference`.
-   *
-   * <p>Operation ID: ListCheckouts
-   *
-   * <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
-   * headers, authorization, query values, or timeouts.
-   *
-   * @return {@code java.util.List<com.sumup.sdk.models.CheckoutSuccess>} parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public java.util.List<com.sumup.sdk.models.CheckoutSuccess> listCheckouts() throws ApiException {
-    return listCheckouts(null);
-  }
-
-  /**
-   * List checkouts
-   *
-   * <p>Lists created checkout resources according to the applied `checkout_reference`.
-   *
-   * <p>Operation ID: ListCheckouts
-   *
-   * @param listCheckouts Optional query parameters for this request.
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @return {@code java.util.List<com.sumup.sdk.models.CheckoutSuccess>} parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public java.util.List<com.sumup.sdk.models.CheckoutSuccess> listCheckouts(
-      ListCheckoutsQueryParams listCheckouts) throws ApiException {
-    return listCheckouts(listCheckouts, null);
-  }
-
-  /**
-   * List checkouts
-   *
-   * <p>Lists created checkout resources according to the applied `checkout_reference`.
-   *
-   * <p>Operation ID: ListCheckouts
-   *
-   * @param listCheckouts Optional query parameters for this request.
-   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
-   *     {@code null} to use client defaults.
-   * @return {@code java.util.List<com.sumup.sdk.models.CheckoutSuccess>} parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public java.util.List<com.sumup.sdk.models.CheckoutSuccess> listCheckouts(
-      ListCheckoutsQueryParams listCheckouts, RequestOptions requestOptions) throws ApiException {
-    String path = "/v0.1/checkouts";
-    Map<String, Object> queryParams = new LinkedHashMap<>();
-    if (listCheckouts != null) {
-      queryParams.putAll(listCheckouts.toMap());
-    }
-
-    return this.apiClient.send(
-        HttpMethod.GET,
-        path,
-        queryParams,
-        null,
-        null,
-        new TypeReference<java.util.List<com.sumup.sdk.models.CheckoutSuccess>>() {},
-        requestOptions);
-  }
-
-  /**
    * Process a checkout
    *
    * <p>Processing a checkout will attempt to charge the provided payment instrument for the amount
@@ -406,9 +406,9 @@ public final class CheckoutsClient {
    * @return com.sumup.sdk.models.CheckoutSuccess parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.CheckoutSuccess processCheckout(
+  public com.sumup.sdk.models.CheckoutSuccess process(
       String id, com.sumup.sdk.models.ProcessCheckout request) throws ApiException {
-    return processCheckout(id, request, null);
+    return process(id, request, null);
   }
 
   /**
@@ -427,7 +427,7 @@ public final class CheckoutsClient {
    * @return com.sumup.sdk.models.CheckoutSuccess parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.CheckoutSuccess processCheckout(
+  public com.sumup.sdk.models.CheckoutSuccess process(
       String id, com.sumup.sdk.models.ProcessCheckout request, RequestOptions requestOptions)
       throws ApiException {
     Objects.requireNonNull(id, "id");
@@ -443,6 +443,31 @@ public final class CheckoutsClient {
         request,
         new TypeReference<com.sumup.sdk.models.CheckoutSuccess>() {},
         requestOptions);
+  }
+
+  /** Optional query parameters for this request. */
+  public static final class ListCheckoutsQueryParams {
+    private final Map<String, Object> values = new LinkedHashMap<>();
+
+    /**
+     * Sets the checkout_reference query parameter.
+     *
+     * @param value Filters the list of checkout resources by the unique ID of the checkout.
+     * @return This ListCheckoutsQueryParams instance.
+     */
+    public ListCheckoutsQueryParams checkoutReference(String value) {
+      this.values.put("checkout_reference", Objects.requireNonNull(value, "checkoutReference"));
+      return this;
+    }
+
+    /**
+     * Converts query parameters to a map understood by ApiClient.
+     *
+     * @return Collected query parameters keyed by API name.
+     */
+    Map<String, Object> toMap() {
+      return values;
+    }
   }
 
   /** Optional query parameters for this request. */
@@ -468,31 +493,6 @@ public final class CheckoutsClient {
      */
     public GetPaymentMethodsQueryParams currency(String value) {
       this.values.put("currency", Objects.requireNonNull(value, "currency"));
-      return this;
-    }
-
-    /**
-     * Converts query parameters to a map understood by ApiClient.
-     *
-     * @return Collected query parameters keyed by API name.
-     */
-    Map<String, Object> toMap() {
-      return values;
-    }
-  }
-
-  /** Optional query parameters for this request. */
-  public static final class ListCheckoutsQueryParams {
-    private final Map<String, Object> values = new LinkedHashMap<>();
-
-    /**
-     * Sets the checkout_reference query parameter.
-     *
-     * @param value Filters the list of checkout resources by the unique ID of the checkout.
-     * @return This ListCheckoutsQueryParams instance.
-     */
-    public ListCheckoutsQueryParams checkoutReference(String value) {
-      this.values.put("checkout_reference", Objects.requireNonNull(value, "checkoutReference"));
       return this;
     }
 

@@ -233,7 +233,7 @@ func convertOperation(method, path string, item *v3.PathItem, op *v3.Operation, 
 	sanitizedID := sanitizeOperationID(op.OperationId)
 	model := operationModel{
 		OperationID:      sanitizedID,
-		MethodName:       camelCase(sanitizedID, "operation"),
+		MethodName:       operationMethodName(op, sanitizedID),
 		SummaryLines:     splitComment(strings.TrimSpace(op.Summary)),
 		DescriptionLines: splitComment(strings.TrimSpace(op.Description)),
 		HttpMethod:       strings.ToUpper(method),
@@ -304,6 +304,33 @@ func sanitizeOperationID(operationID string) string {
 		return "operation"
 	}
 	return operationID
+}
+
+// operationMethodName returns the Java method name for an OpenAPI operation.
+// When present, x-codegen.method_name is preferred because generated methods
+// are already scoped to their tag client.
+func operationMethodName(op *v3.Operation, fallbackID string) string {
+	if methodName := codegenMethodName(op); methodName != "" {
+		return camelCase(methodName, "operation")
+	}
+	return camelCase(fallbackID, "operation")
+}
+
+func codegenMethodName(op *v3.Operation) string {
+	if op == nil || op.Extensions == nil {
+		return ""
+	}
+	node := op.Extensions.GetOrZero("x-codegen")
+	if node == nil {
+		return ""
+	}
+	var extension struct {
+		MethodName string `yaml:"method_name"`
+	}
+	if err := node.Decode(&extension); err != nil {
+		return ""
+	}
+	return strings.TrimSpace(extension.MethodName)
 }
 
 // collectParameters merges operation and path-level parameters, filtering out
