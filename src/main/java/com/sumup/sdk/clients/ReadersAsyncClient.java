@@ -70,7 +70,9 @@ public final class ReadersAsyncClient {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/merchants/{merchant_code}/readers";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
 
     return this.apiClient.sendAsync(
         HttpMethod.POST,
@@ -142,8 +144,10 @@ public final class ReadersAsyncClient {
     Objects.requireNonNull(readerId, "readerId");
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}/checkout";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    path = path.replace("{reader_id}", ApiClient.urlEncode(String.valueOf(readerId)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
 
     return this.apiClient.sendAsync(
         HttpMethod.POST,
@@ -214,8 +218,10 @@ public final class ReadersAsyncClient {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(readerId, "readerId");
     String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}/terminate";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    path = path.replace("{reader_id}", ApiClient.urlEncode(String.valueOf(readerId)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
 
     return this.apiClient.sendAsync(
         HttpMethod.POST, path, null, null, request, null, requestOptions);
@@ -260,8 +266,10 @@ public final class ReadersAsyncClient {
     Objects.requireNonNull(id, "id");
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v0.1/merchants/{merchant_code}/readers/{id}";
-    path = path.replace("{id}", ApiClient.urlEncode(String.valueOf(id)));
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
 
     return this.apiClient.sendAsync(
         HttpMethod.DELETE, path, null, null, null, null, requestOptions);
@@ -331,8 +339,10 @@ public final class ReadersAsyncClient {
     Objects.requireNonNull(id, "id");
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v0.1/merchants/{merchant_code}/readers/{id}";
-    path = path.replace("{id}", ApiClient.urlEncode(String.valueOf(id)));
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
     Map<String, String> headerParams = new LinkedHashMap<>();
     if (getReader != null) {
       headerParams.putAll(getReader.toMap());
@@ -402,8 +412,10 @@ public final class ReadersAsyncClient {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(readerId, "readerId");
     String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}/status";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    path = path.replace("{reader_id}", ApiClient.urlEncode(String.valueOf(readerId)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -452,7 +464,9 @@ public final class ReadersAsyncClient {
       String merchantCode, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v0.1/merchants/{merchant_code}/readers";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -512,8 +526,10 @@ public final class ReadersAsyncClient {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/merchants/{merchant_code}/readers/{id}";
-    path = path.replace("{id}", ApiClient.urlEncode(String.valueOf(id)));
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
 
     return this.apiClient.sendAsync(
         HttpMethod.PATCH,

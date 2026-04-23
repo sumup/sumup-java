@@ -71,7 +71,9 @@ public final class RolesClient {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/merchants/{merchant_code}/roles";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
 
     return this.apiClient.send(
         HttpMethod.POST,
@@ -118,8 +120,10 @@ public final class RolesClient {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(roleId, "roleId");
     String path = "/v0.1/merchants/{merchant_code}/roles/{role_id}";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    path = path.replace("{role_id}", ApiClient.urlEncode(String.valueOf(roleId)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path = path.replace("{role_id}", ApiClient.urlEncode(ApiClient.parameterValue(roleId)));
 
     this.apiClient.send(HttpMethod.DELETE, path, null, null, null, null, requestOptions);
   }
@@ -162,8 +166,10 @@ public final class RolesClient {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(roleId, "roleId");
     String path = "/v0.1/merchants/{merchant_code}/roles/{role_id}";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    path = path.replace("{role_id}", ApiClient.urlEncode(String.valueOf(roleId)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path = path.replace("{role_id}", ApiClient.urlEncode(ApiClient.parameterValue(roleId)));
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -210,7 +216,9 @@ public final class RolesClient {
       String merchantCode, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v0.1/merchants/{merchant_code}/roles";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -268,8 +276,10 @@ public final class RolesClient {
     Objects.requireNonNull(roleId, "roleId");
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/merchants/{merchant_code}/roles/{role_id}";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    path = path.replace("{role_id}", ApiClient.urlEncode(String.valueOf(roleId)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path = path.replace("{role_id}", ApiClient.urlEncode(ApiClient.parameterValue(roleId)));
 
     return this.apiClient.send(
         HttpMethod.PATCH,

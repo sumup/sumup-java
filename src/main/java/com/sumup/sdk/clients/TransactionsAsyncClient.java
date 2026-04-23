@@ -180,7 +180,9 @@ public final class TransactionsAsyncClient {
       throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v2.1/merchants/{merchant_code}/transactions";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
     Map<String, Object> queryParams = new LinkedHashMap<>();
     if (getTransactionV21 != null) {
       queryParams.putAll(getTransactionV21.toMap());
@@ -328,7 +330,9 @@ public final class TransactionsAsyncClient {
       throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v2.1/merchants/{merchant_code}/transactions/history";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
     Map<String, Object> queryParams = new LinkedHashMap<>();
     if (listTransactionsV21 != null) {
       queryParams.putAll(listTransactionsV21.toMap());
@@ -384,7 +388,7 @@ public final class TransactionsAsyncClient {
       throws ApiException {
     Objects.requireNonNull(txnId, "txnId");
     String path = "/v0.1/me/refund/{txn_id}";
-    path = path.replace("{txn_id}", ApiClient.urlEncode(String.valueOf(txnId)));
+    path = path.replace("{txn_id}", ApiClient.urlEncode(ApiClient.parameterValue(txnId)));
 
     return this.apiClient.sendAsync(
         HttpMethod.POST, path, null, null, request, null, requestOptions);

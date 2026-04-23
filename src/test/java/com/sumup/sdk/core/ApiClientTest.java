@@ -3,6 +3,8 @@ package com.sumup.sdk.core;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.sumup.sdk.clients.ReadersClient;
+import com.sumup.sdk.models.ReaderId;
 import java.net.Authenticator;
 import java.net.CookieHandler;
 import java.net.ProxySelector;
@@ -108,6 +110,19 @@ final class ApiClientTest {
 
     assertTrue(httpClient.lastRequest().timeout().isPresent());
     assertEquals(timeout, httpClient.lastRequest().timeout().get());
+  }
+
+  @Test
+  void pathParamsUnwrapSingleValueRecords() {
+    CapturingHttpClient httpClient = new CapturingHttpClient();
+    ApiClient apiClient = ApiClient.builder().httpClient(httpClient).build();
+    ReadersClient readersClient = new ReadersClient(apiClient);
+
+    readersClient.deleteReader(new ReaderId("reader 123"), "merchant-code");
+
+    assertEquals(
+        URI.create("https://api.sumup.com/v0.1/merchants/merchant-code/readers/reader+123"),
+        httpClient.lastRequest().uri());
   }
 
   private static final class CapturingHttpClient extends HttpClient {

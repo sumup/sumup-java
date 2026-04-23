@@ -164,7 +164,7 @@ public final class {{ .ClassName }} {
 {{- end }}
         String path = {{ quote .Path }};
 {{- range .PathParams }}
-        path = path.replace({{ quote (printf "{%s}" .Name) }}, ApiClient.urlEncode(String.valueOf({{ .FieldName }})));
+        path = path.replace({{ quote (printf "{%s}" .Name) }}, ApiClient.urlEncode(ApiClient.parameterValue({{ .FieldName }})));
 {{- end }}
 
 {{- if or .RequiredQueryParams .OptionalQueryParams }}

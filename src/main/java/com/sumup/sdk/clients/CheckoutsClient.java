@@ -87,7 +87,7 @@ public final class CheckoutsClient {
       throws ApiException {
     Objects.requireNonNull(id, "id");
     String path = "/v0.2/checkouts/{id}/apple-pay-session";
-    path = path.replace("{id}", ApiClient.urlEncode(String.valueOf(id)));
+    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
 
     return this.apiClient.send(
         HttpMethod.PUT,
@@ -188,7 +188,7 @@ public final class CheckoutsClient {
       throws ApiException {
     Objects.requireNonNull(id, "id");
     String path = "/v0.1/checkouts/{id}";
-    path = path.replace("{id}", ApiClient.urlEncode(String.valueOf(id)));
+    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
 
     return this.apiClient.send(
         HttpMethod.DELETE,
@@ -236,7 +236,7 @@ public final class CheckoutsClient {
       throws ApiException {
     Objects.requireNonNull(id, "id");
     String path = "/v0.1/checkouts/{id}";
-    path = path.replace("{id}", ApiClient.urlEncode(String.valueOf(id)));
+    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -306,7 +306,9 @@ public final class CheckoutsClient {
       throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v0.1/merchants/{merchant_code}/payment-methods";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
     Map<String, Object> queryParams = new LinkedHashMap<>();
     if (getPaymentMethods != null) {
       queryParams.putAll(getPaymentMethods.toMap());
@@ -431,7 +433,7 @@ public final class CheckoutsClient {
     Objects.requireNonNull(id, "id");
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/checkouts/{id}";
-    path = path.replace("{id}", ApiClient.urlEncode(String.valueOf(id)));
+    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
 
     return this.apiClient.send(
         HttpMethod.PUT,

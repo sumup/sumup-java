@@ -279,6 +279,26 @@ public final class ApiClient {
     return URLEncoder.encode(value, StandardCharsets.UTF_8);
   }
 
+  public static String parameterValue(Object value) {
+    Object unwrapped = unwrapSingleValueRecord(value);
+    return unwrapped == null ? null : unwrapped.toString();
+  }
+
+  private static Object unwrapSingleValueRecord(Object value) {
+    if (value == null || !value.getClass().isRecord()) {
+      return value;
+    }
+    var components = value.getClass().getRecordComponents();
+    if (components.length != 1 || !"value".equals(components[0].getName())) {
+      return value;
+    }
+    try {
+      return components[0].getAccessor().invoke(value);
+    } catch (ReflectiveOperationException e) {
+      throw new ApiException("Failed to serialize request parameter", e);
+    }
+  }
+
   public static String headerValue(Object value) {
     if (value == null) {
       return null;
