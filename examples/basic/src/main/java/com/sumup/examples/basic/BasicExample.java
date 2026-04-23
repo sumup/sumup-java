@@ -18,7 +18,7 @@ public final class BasicExample {
     SumUpClient client = new SumUpClient();
 
     try {
-      List<com.sumup.sdk.models.CheckoutSuccess> checkouts = client.checkouts().listCheckouts();
+      List<com.sumup.sdk.models.CheckoutSuccess> checkouts = client.checkouts().list();
       System.out.printf("Fetched %d checkouts.%n", checkouts.size());
     } catch (ApiException ex) {
       System.err.printf(

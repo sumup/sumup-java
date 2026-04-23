@@ -43,10 +43,10 @@ public final class RolesAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Role parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Role> createMerchantRole(
+  public CompletableFuture<com.sumup.sdk.models.Role> create(
       String merchantCode, com.sumup.sdk.models.CreateMerchantRoleRequest request)
       throws ApiException {
-    return createMerchantRole(merchantCode, request, null);
+    return create(merchantCode, request, null);
   }
 
   /**
@@ -64,7 +64,7 @@ public final class RolesAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Role parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Role> createMerchantRole(
+  public CompletableFuture<com.sumup.sdk.models.Role> create(
       String merchantCode,
       com.sumup.sdk.models.CreateMerchantRoleRequest request,
       RequestOptions requestOptions)
@@ -100,9 +100,8 @@ public final class RolesAsyncClient {
    * @return CompletableFuture completed when the request finishes.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<Void> deleteMerchantRole(String merchantCode, String roleId)
-      throws ApiException {
-    return deleteMerchantRole(merchantCode, roleId, null);
+  public CompletableFuture<Void> delete(String merchantCode, String roleId) throws ApiException {
+    return delete(merchantCode, roleId, null);
   }
 
   /**
@@ -119,7 +118,7 @@ public final class RolesAsyncClient {
    * @return CompletableFuture completed when the request finishes.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<Void> deleteMerchantRole(
+  public CompletableFuture<Void> delete(
       String merchantCode, String roleId, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(roleId, "roleId");
@@ -147,9 +146,9 @@ public final class RolesAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Role parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Role> getMerchantRole(
-      String merchantCode, String roleId) throws ApiException {
-    return getMerchantRole(merchantCode, roleId, null);
+  public CompletableFuture<com.sumup.sdk.models.Role> get(String merchantCode, String roleId)
+      throws ApiException {
+    return get(merchantCode, roleId, null);
   }
 
   /**
@@ -166,7 +165,7 @@ public final class RolesAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Role parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Role> getMerchantRole(
+  public CompletableFuture<com.sumup.sdk.models.Role> get(
       String merchantCode, String roleId, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(roleId, "roleId");
@@ -200,9 +199,9 @@ public final class RolesAsyncClient {
    *     response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.ListMerchantRolesResponse> listMerchantRoles(
-      String merchantCode) throws ApiException {
-    return listMerchantRoles(merchantCode, null);
+  public CompletableFuture<com.sumup.sdk.models.ListMerchantRolesResponse> list(String merchantCode)
+      throws ApiException {
+    return list(merchantCode, null);
   }
 
   /**
@@ -219,7 +218,7 @@ public final class RolesAsyncClient {
    *     response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.ListMerchantRolesResponse> listMerchantRoles(
+  public CompletableFuture<com.sumup.sdk.models.ListMerchantRolesResponse> list(
       String merchantCode, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v0.1/merchants/{merchant_code}/roles";
@@ -252,10 +251,10 @@ public final class RolesAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Role parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Role> updateMerchantRole(
+  public CompletableFuture<com.sumup.sdk.models.Role> update(
       String merchantCode, String roleId, com.sumup.sdk.models.UpdateMerchantRoleRequest request)
       throws ApiException {
-    return updateMerchantRole(merchantCode, roleId, request, null);
+    return update(merchantCode, roleId, request, null);
   }
 
   /**
@@ -273,7 +272,7 @@ public final class RolesAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Role parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Role> updateMerchantRole(
+  public CompletableFuture<com.sumup.sdk.models.Role> update(
       String merchantCode,
       String roleId,
       com.sumup.sdk.models.UpdateMerchantRoleRequest request,

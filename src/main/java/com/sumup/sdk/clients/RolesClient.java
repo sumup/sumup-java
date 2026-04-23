@@ -42,10 +42,10 @@ public final class RolesClient {
    * @return com.sumup.sdk.models.Role parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Role createMerchantRole(
+  public com.sumup.sdk.models.Role create(
       String merchantCode, com.sumup.sdk.models.CreateMerchantRoleRequest request)
       throws ApiException {
-    return createMerchantRole(merchantCode, request, null);
+    return create(merchantCode, request, null);
   }
 
   /**
@@ -63,7 +63,7 @@ public final class RolesClient {
    * @return com.sumup.sdk.models.Role parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Role createMerchantRole(
+  public com.sumup.sdk.models.Role create(
       String merchantCode,
       com.sumup.sdk.models.CreateMerchantRoleRequest request,
       RequestOptions requestOptions)
@@ -98,8 +98,8 @@ public final class RolesClient {
    *     request timeout.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public void deleteMerchantRole(String merchantCode, String roleId) throws ApiException {
-    deleteMerchantRole(merchantCode, roleId, null);
+  public void delete(String merchantCode, String roleId) throws ApiException {
+    delete(merchantCode, roleId, null);
   }
 
   /**
@@ -115,7 +115,7 @@ public final class RolesClient {
    *     {@code null} to use client defaults.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public void deleteMerchantRole(String merchantCode, String roleId, RequestOptions requestOptions)
+  public void delete(String merchantCode, String roleId, RequestOptions requestOptions)
       throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(roleId, "roleId");
@@ -142,9 +142,8 @@ public final class RolesClient {
    * @return com.sumup.sdk.models.Role parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Role getMerchantRole(String merchantCode, String roleId)
-      throws ApiException {
-    return getMerchantRole(merchantCode, roleId, null);
+  public com.sumup.sdk.models.Role get(String merchantCode, String roleId) throws ApiException {
+    return get(merchantCode, roleId, null);
   }
 
   /**
@@ -161,7 +160,7 @@ public final class RolesClient {
    * @return com.sumup.sdk.models.Role parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Role getMerchantRole(
+  public com.sumup.sdk.models.Role get(
       String merchantCode, String roleId, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(roleId, "roleId");
@@ -194,9 +193,9 @@ public final class RolesClient {
    * @return com.sumup.sdk.models.ListMerchantRolesResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.ListMerchantRolesResponse listMerchantRoles(String merchantCode)
+  public com.sumup.sdk.models.ListMerchantRolesResponse list(String merchantCode)
       throws ApiException {
-    return listMerchantRoles(merchantCode, null);
+    return list(merchantCode, null);
   }
 
   /**
@@ -212,7 +211,7 @@ public final class RolesClient {
    * @return com.sumup.sdk.models.ListMerchantRolesResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.ListMerchantRolesResponse listMerchantRoles(
+  public com.sumup.sdk.models.ListMerchantRolesResponse list(
       String merchantCode, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v0.1/merchants/{merchant_code}/roles";
@@ -245,10 +244,10 @@ public final class RolesClient {
    * @return com.sumup.sdk.models.Role parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Role updateMerchantRole(
+  public com.sumup.sdk.models.Role update(
       String merchantCode, String roleId, com.sumup.sdk.models.UpdateMerchantRoleRequest request)
       throws ApiException {
-    return updateMerchantRole(merchantCode, roleId, request, null);
+    return update(merchantCode, roleId, request, null);
   }
 
   /**
@@ -266,7 +265,7 @@ public final class RolesClient {
    * @return com.sumup.sdk.models.Role parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Role updateMerchantRole(
+  public com.sumup.sdk.models.Role update(
       String merchantCode,
       String roleId,
       com.sumup.sdk.models.UpdateMerchantRoleRequest request,

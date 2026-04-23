@@ -41,9 +41,9 @@ public final class MerchantsAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Merchant parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Merchant> getMerchant(String merchantCode)
+  public CompletableFuture<com.sumup.sdk.models.Merchant> get(String merchantCode)
       throws ApiException {
-    return getMerchant(merchantCode, null);
+    return get(merchantCode, null);
   }
 
   /**
@@ -60,9 +60,9 @@ public final class MerchantsAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Merchant parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Merchant> getMerchant(
+  public CompletableFuture<com.sumup.sdk.models.Merchant> get(
       String merchantCode, GetMerchantQueryParams getMerchant) throws ApiException {
-    return getMerchant(merchantCode, getMerchant, null);
+    return get(merchantCode, getMerchant, null);
   }
 
   /**
@@ -79,7 +79,7 @@ public final class MerchantsAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Merchant parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Merchant> getMerchant(
+  public CompletableFuture<com.sumup.sdk.models.Merchant> get(
       String merchantCode, GetMerchantQueryParams getMerchant, RequestOptions requestOptions)
       throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");

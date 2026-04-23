@@ -43,10 +43,10 @@ public final class MembersAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Member parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Member> createMerchantMember(
+  public CompletableFuture<com.sumup.sdk.models.Member> create(
       String merchantCode, com.sumup.sdk.models.CreateMerchantMemberRequest request)
       throws ApiException {
-    return createMerchantMember(merchantCode, request, null);
+    return create(merchantCode, request, null);
   }
 
   /**
@@ -63,7 +63,7 @@ public final class MembersAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Member parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Member> createMerchantMember(
+  public CompletableFuture<com.sumup.sdk.models.Member> create(
       String merchantCode,
       com.sumup.sdk.models.CreateMerchantMemberRequest request,
       RequestOptions requestOptions)
@@ -99,9 +99,8 @@ public final class MembersAsyncClient {
    * @return CompletableFuture completed when the request finishes.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<Void> deleteMerchantMember(String memberId, String merchantCode)
-      throws ApiException {
-    return deleteMerchantMember(memberId, merchantCode, null);
+  public CompletableFuture<Void> delete(String memberId, String merchantCode) throws ApiException {
+    return delete(memberId, merchantCode, null);
   }
 
   /**
@@ -118,7 +117,7 @@ public final class MembersAsyncClient {
    * @return CompletableFuture completed when the request finishes.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<Void> deleteMerchantMember(
+  public CompletableFuture<Void> delete(
       String memberId, String merchantCode, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(memberId, "memberId");
     Objects.requireNonNull(merchantCode, "merchantCode");
@@ -146,9 +145,9 @@ public final class MembersAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Member parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Member> getMerchantMember(
-      String memberId, String merchantCode) throws ApiException {
-    return getMerchantMember(memberId, merchantCode, null);
+  public CompletableFuture<com.sumup.sdk.models.Member> get(String memberId, String merchantCode)
+      throws ApiException {
+    return get(memberId, merchantCode, null);
   }
 
   /**
@@ -165,7 +164,7 @@ public final class MembersAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Member parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Member> getMerchantMember(
+  public CompletableFuture<com.sumup.sdk.models.Member> get(
       String memberId, String merchantCode, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(memberId, "memberId");
     Objects.requireNonNull(merchantCode, "merchantCode");
@@ -199,9 +198,9 @@ public final class MembersAsyncClient {
    *     response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.ListMerchantMembersResponse> listMerchantMembers(
+  public CompletableFuture<com.sumup.sdk.models.ListMerchantMembersResponse> list(
       String merchantCode) throws ApiException {
-    return listMerchantMembers(merchantCode, null);
+    return list(merchantCode, null);
   }
 
   /**
@@ -219,9 +218,9 @@ public final class MembersAsyncClient {
    *     response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.ListMerchantMembersResponse> listMerchantMembers(
+  public CompletableFuture<com.sumup.sdk.models.ListMerchantMembersResponse> list(
       String merchantCode, ListMerchantMembersQueryParams listMerchantMembers) throws ApiException {
-    return listMerchantMembers(merchantCode, listMerchantMembers, null);
+    return list(merchantCode, listMerchantMembers, null);
   }
 
   /**
@@ -239,7 +238,7 @@ public final class MembersAsyncClient {
    *     response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.ListMerchantMembersResponse> listMerchantMembers(
+  public CompletableFuture<com.sumup.sdk.models.ListMerchantMembersResponse> list(
       String merchantCode,
       ListMerchantMembersQueryParams listMerchantMembers,
       RequestOptions requestOptions)
@@ -279,12 +278,12 @@ public final class MembersAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Member parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Member> updateMerchantMember(
+  public CompletableFuture<com.sumup.sdk.models.Member> update(
       String memberId,
       String merchantCode,
       com.sumup.sdk.models.UpdateMerchantMemberRequest request)
       throws ApiException {
-    return updateMerchantMember(memberId, merchantCode, request, null);
+    return update(memberId, merchantCode, request, null);
   }
 
   /**
@@ -302,7 +301,7 @@ public final class MembersAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Member parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Member> updateMerchantMember(
+  public CompletableFuture<com.sumup.sdk.models.Member> update(
       String memberId,
       String merchantCode,
       com.sumup.sdk.models.UpdateMerchantMemberRequest request,

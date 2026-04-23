@@ -18,7 +18,7 @@ public final class CardReaderCheckoutExample {
     SumUpClient client = new SumUpClient();
 
     Optional<String> readerId =
-        client.readers().listReaders(merchantCode).items().stream()
+        client.readers().list(merchantCode).items().stream()
             .findFirst()
             .map(reader -> reader.id().value());
     if (readerId.isEmpty()) {
@@ -46,7 +46,7 @@ public final class CardReaderCheckoutExample {
             .build();
 
     try {
-      client.readers().createReaderCheckout(merchantCode, readerId, request);
+      client.readers().createCheckout(merchantCode, readerId, request);
       return true;
     } catch (ApiException ex) {
       System.err.printf(

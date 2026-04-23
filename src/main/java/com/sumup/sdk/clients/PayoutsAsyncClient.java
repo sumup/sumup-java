@@ -35,89 +35,6 @@ public final class PayoutsAsyncClient {
    *
    * <p>Lists ordered payouts for the merchant account.
    *
-   * <p>Operation ID: ListPayouts
-   *
-   * @param endDate End date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
-   * @param startDate Start date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
-   *     <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
-   *     headers, authorization, query values, or timeouts.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.FinancialPayouts parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.FinancialPayouts> listPayouts(
-      java.time.LocalDate endDate, java.time.LocalDate startDate) throws ApiException {
-    return listPayouts(endDate, startDate, null);
-  }
-
-  /**
-   * List payouts
-   *
-   * <p>Lists ordered payouts for the merchant account.
-   *
-   * <p>Operation ID: ListPayouts
-   *
-   * @param endDate End date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
-   * @param startDate Start date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
-   * @param listPayouts Optional query parameters for this request.
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.FinancialPayouts parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.FinancialPayouts> listPayouts(
-      java.time.LocalDate endDate,
-      java.time.LocalDate startDate,
-      ListPayoutsQueryParams listPayouts)
-      throws ApiException {
-    return listPayouts(endDate, startDate, listPayouts, null);
-  }
-
-  /**
-   * List payouts
-   *
-   * <p>Lists ordered payouts for the merchant account.
-   *
-   * <p>Operation ID: ListPayouts
-   *
-   * @param endDate End date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
-   * @param startDate Start date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
-   * @param listPayouts Optional query parameters for this request.
-   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
-   *     {@code null} to use client defaults.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.FinancialPayouts parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.FinancialPayouts> listPayouts(
-      java.time.LocalDate endDate,
-      java.time.LocalDate startDate,
-      ListPayoutsQueryParams listPayouts,
-      RequestOptions requestOptions)
-      throws ApiException {
-    Objects.requireNonNull(endDate, "endDate");
-    Objects.requireNonNull(startDate, "startDate");
-    String path = "/v0.1/me/financials/payouts";
-    Map<String, Object> queryParams = new LinkedHashMap<>();
-    queryParams.put("end_date", endDate);
-    queryParams.put("start_date", startDate);
-    if (listPayouts != null) {
-      queryParams.putAll(listPayouts.toMap());
-    }
-
-    return this.apiClient.sendAsync(
-        HttpMethod.GET,
-        path,
-        queryParams,
-        null,
-        null,
-        new TypeReference<com.sumup.sdk.models.FinancialPayouts>() {},
-        requestOptions);
-  }
-
-  /**
-   * List payouts
-   *
-   * <p>Lists ordered payouts for the merchant account.
-   *
    * <p>Operation ID: ListPayoutsV1
    *
    * @param merchantCode Merchant code of the account whose payouts should be listed.
@@ -128,10 +45,10 @@ public final class PayoutsAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.FinancialPayouts parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.FinancialPayouts> listPayoutsV1(
+  public CompletableFuture<com.sumup.sdk.models.FinancialPayouts> list(
       String merchantCode, java.time.LocalDate endDate, java.time.LocalDate startDate)
       throws ApiException {
-    return listPayoutsV1(merchantCode, endDate, startDate, null);
+    return list(merchantCode, endDate, startDate, null);
   }
 
   /**
@@ -150,13 +67,13 @@ public final class PayoutsAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.FinancialPayouts parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.FinancialPayouts> listPayoutsV1(
+  public CompletableFuture<com.sumup.sdk.models.FinancialPayouts> list(
       String merchantCode,
       java.time.LocalDate endDate,
       java.time.LocalDate startDate,
       ListPayoutsV1QueryParams listPayoutsV1)
       throws ApiException {
-    return listPayoutsV1(merchantCode, endDate, startDate, listPayoutsV1, null);
+    return list(merchantCode, endDate, startDate, listPayoutsV1, null);
   }
 
   /**
@@ -175,7 +92,7 @@ public final class PayoutsAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.FinancialPayouts parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.FinancialPayouts> listPayoutsV1(
+  public CompletableFuture<com.sumup.sdk.models.FinancialPayouts> list(
       String merchantCode,
       java.time.LocalDate endDate,
       java.time.LocalDate startDate,
@@ -206,51 +123,87 @@ public final class PayoutsAsyncClient {
         requestOptions);
   }
 
-  /** Optional query parameters for this request. */
-  public static final class ListPayoutsQueryParams {
-    private final Map<String, Object> values = new LinkedHashMap<>();
+  /**
+   * List payouts
+   *
+   * <p>Lists ordered payouts for the merchant account.
+   *
+   * <p>Operation ID: ListPayouts
+   *
+   * @param endDate End date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
+   * @param startDate Start date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
+   *     <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
+   *     headers, authorization, query values, or timeouts.
+   * @return CompletableFuture resolved with com.sumup.sdk.models.FinancialPayouts parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public CompletableFuture<com.sumup.sdk.models.FinancialPayouts> listDeprecated(
+      java.time.LocalDate endDate, java.time.LocalDate startDate) throws ApiException {
+    return listDeprecated(endDate, startDate, null);
+  }
 
-    /**
-     * Sets the format query parameter.
-     *
-     * @param value Response format for the payout list.
-     * @return This ListPayoutsQueryParams instance.
-     */
-    public ListPayoutsQueryParams format(com.sumup.sdk.models.Format2 value) {
-      this.values.put("format", Objects.requireNonNull(value, "format"));
-      return this;
+  /**
+   * List payouts
+   *
+   * <p>Lists ordered payouts for the merchant account.
+   *
+   * <p>Operation ID: ListPayouts
+   *
+   * @param endDate End date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
+   * @param startDate Start date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
+   * @param listPayouts Optional query parameters for this request.
+   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
+   *     request timeout.
+   * @return CompletableFuture resolved with com.sumup.sdk.models.FinancialPayouts parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public CompletableFuture<com.sumup.sdk.models.FinancialPayouts> listDeprecated(
+      java.time.LocalDate endDate,
+      java.time.LocalDate startDate,
+      ListPayoutsQueryParams listPayouts)
+      throws ApiException {
+    return listDeprecated(endDate, startDate, listPayouts, null);
+  }
+
+  /**
+   * List payouts
+   *
+   * <p>Lists ordered payouts for the merchant account.
+   *
+   * <p>Operation ID: ListPayouts
+   *
+   * @param endDate End date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
+   * @param startDate Start date (in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
+   * @param listPayouts Optional query parameters for this request.
+   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
+   *     {@code null} to use client defaults.
+   * @return CompletableFuture resolved with com.sumup.sdk.models.FinancialPayouts parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public CompletableFuture<com.sumup.sdk.models.FinancialPayouts> listDeprecated(
+      java.time.LocalDate endDate,
+      java.time.LocalDate startDate,
+      ListPayoutsQueryParams listPayouts,
+      RequestOptions requestOptions)
+      throws ApiException {
+    Objects.requireNonNull(endDate, "endDate");
+    Objects.requireNonNull(startDate, "startDate");
+    String path = "/v0.1/me/financials/payouts";
+    Map<String, Object> queryParams = new LinkedHashMap<>();
+    queryParams.put("end_date", endDate);
+    queryParams.put("start_date", startDate);
+    if (listPayouts != null) {
+      queryParams.putAll(listPayouts.toMap());
     }
 
-    /**
-     * Sets the limit query parameter.
-     *
-     * @param value Maximum number of payout records to return.
-     * @return This ListPayoutsQueryParams instance.
-     */
-    public ListPayoutsQueryParams limit(Long value) {
-      this.values.put("limit", Objects.requireNonNull(value, "limit"));
-      return this;
-    }
-
-    /**
-     * Sets the order query parameter.
-     *
-     * @param value Sort direction for the returned payouts.
-     * @return This ListPayoutsQueryParams instance.
-     */
-    public ListPayoutsQueryParams order(com.sumup.sdk.models.Order2 value) {
-      this.values.put("order", Objects.requireNonNull(value, "order"));
-      return this;
-    }
-
-    /**
-     * Converts query parameters to a map understood by ApiClient.
-     *
-     * @return Collected query parameters keyed by API name.
-     */
-    Map<String, Object> toMap() {
-      return values;
-    }
+    return this.apiClient.sendAsync(
+        HttpMethod.GET,
+        path,
+        queryParams,
+        null,
+        null,
+        new TypeReference<com.sumup.sdk.models.FinancialPayouts>() {},
+        requestOptions);
   }
 
   /** Optional query parameters for this request. */
@@ -286,6 +239,53 @@ public final class PayoutsAsyncClient {
      * @return This ListPayoutsV1QueryParams instance.
      */
     public ListPayoutsV1QueryParams order(com.sumup.sdk.models.Order2 value) {
+      this.values.put("order", Objects.requireNonNull(value, "order"));
+      return this;
+    }
+
+    /**
+     * Converts query parameters to a map understood by ApiClient.
+     *
+     * @return Collected query parameters keyed by API name.
+     */
+    Map<String, Object> toMap() {
+      return values;
+    }
+  }
+
+  /** Optional query parameters for this request. */
+  public static final class ListPayoutsQueryParams {
+    private final Map<String, Object> values = new LinkedHashMap<>();
+
+    /**
+     * Sets the format query parameter.
+     *
+     * @param value Response format for the payout list.
+     * @return This ListPayoutsQueryParams instance.
+     */
+    public ListPayoutsQueryParams format(com.sumup.sdk.models.Format2 value) {
+      this.values.put("format", Objects.requireNonNull(value, "format"));
+      return this;
+    }
+
+    /**
+     * Sets the limit query parameter.
+     *
+     * @param value Maximum number of payout records to return.
+     * @return This ListPayoutsQueryParams instance.
+     */
+    public ListPayoutsQueryParams limit(Long value) {
+      this.values.put("limit", Objects.requireNonNull(value, "limit"));
+      return this;
+    }
+
+    /**
+     * Sets the order query parameter.
+     *
+     * @param value Sort direction for the returned payouts.
+     * @return This ListPayoutsQueryParams instance.
+     */
+    public ListPayoutsQueryParams order(com.sumup.sdk.models.Order2 value) {
       this.values.put("order", Objects.requireNonNull(value, "order"));
       return this;
     }

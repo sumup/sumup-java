@@ -42,9 +42,9 @@ public final class ReadersClient {
    * @return com.sumup.sdk.models.Reader parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Reader createReader(
+  public com.sumup.sdk.models.Reader create(
       String merchantCode, com.sumup.sdk.models.CreateReaderRequest request) throws ApiException {
-    return createReader(merchantCode, request, null);
+    return create(merchantCode, request, null);
   }
 
   /**
@@ -61,7 +61,7 @@ public final class ReadersClient {
    * @return com.sumup.sdk.models.Reader parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Reader createReader(
+  public com.sumup.sdk.models.Reader create(
       String merchantCode,
       com.sumup.sdk.models.CreateReaderRequest request,
       RequestOptions requestOptions)
@@ -103,12 +103,12 @@ public final class ReadersClient {
    * @return com.sumup.sdk.models.CreateReaderCheckoutResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.CreateReaderCheckoutResponse createReaderCheckout(
+  public com.sumup.sdk.models.CreateReaderCheckoutResponse createCheckout(
       String merchantCode,
       String readerId,
       com.sumup.sdk.models.CreateReaderCheckoutRequest request)
       throws ApiException {
-    return createReaderCheckout(merchantCode, readerId, request, null);
+    return createCheckout(merchantCode, readerId, request, null);
   }
 
   /**
@@ -131,7 +131,7 @@ public final class ReadersClient {
    * @return com.sumup.sdk.models.CreateReaderCheckoutResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.CreateReaderCheckoutResponse createReaderCheckout(
+  public com.sumup.sdk.models.CreateReaderCheckoutResponse createCheckout(
       String merchantCode,
       String readerId,
       com.sumup.sdk.models.CreateReaderCheckoutRequest request,
@@ -157,71 +157,6 @@ public final class ReadersClient {
   }
 
   /**
-   * Terminate a Reader Checkout
-   *
-   * <p>Terminate a Reader Checkout stops the current transaction on the target device. This process
-   * is asynchronous and the actual termination may take some time to be performed on the device.
-   * There are some caveats when using this endpoint: * The target device must be online, otherwise
-   * terminate won't be accepted * The action will succeed only if the device is waiting for
-   * cardholder action: e.g: waiting for card, waiting for PIN, etc. * There is no confirmation of
-   * the termination. If a transaction is successfully terminated and `return_url` was provided on
-   * Checkout, the transaction status will be sent as `failed` to the provided URL. **Note**: If the
-   * target device is a Solo, it must be in version 3.3.28.0 or higher.
-   *
-   * <p>Operation ID: CreateReaderTerminate
-   *
-   * @param merchantCode Merchant Code
-   * @param readerId The unique identifier of the Reader
-   * @param request A checkout initial attributes
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public void createReaderTerminate(
-      String merchantCode, String readerId, java.util.Map<String, Object> request)
-      throws ApiException {
-    createReaderTerminate(merchantCode, readerId, request, null);
-  }
-
-  /**
-   * Terminate a Reader Checkout
-   *
-   * <p>Terminate a Reader Checkout stops the current transaction on the target device. This process
-   * is asynchronous and the actual termination may take some time to be performed on the device.
-   * There are some caveats when using this endpoint: * The target device must be online, otherwise
-   * terminate won't be accepted * The action will succeed only if the device is waiting for
-   * cardholder action: e.g: waiting for card, waiting for PIN, etc. * There is no confirmation of
-   * the termination. If a transaction is successfully terminated and `return_url` was provided on
-   * Checkout, the transaction status will be sent as `failed` to the provided URL. **Note**: If the
-   * target device is a Solo, it must be in version 3.3.28.0 or higher.
-   *
-   * <p>Operation ID: CreateReaderTerminate
-   *
-   * @param merchantCode Merchant Code
-   * @param readerId The unique identifier of the Reader
-   * @param request A checkout initial attributes
-   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
-   *     {@code null} to use client defaults.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public void createReaderTerminate(
-      String merchantCode,
-      String readerId,
-      java.util.Map<String, Object> request,
-      RequestOptions requestOptions)
-      throws ApiException {
-    Objects.requireNonNull(merchantCode, "merchantCode");
-    Objects.requireNonNull(readerId, "readerId");
-    String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}/terminate";
-    path =
-        path.replace(
-            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
-    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
-
-    this.apiClient.send(HttpMethod.POST, path, null, null, request, null, requestOptions);
-  }
-
-  /**
    * Delete a reader
    *
    * <p>Delete a reader.
@@ -234,9 +169,8 @@ public final class ReadersClient {
    *     request timeout.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public void deleteReader(com.sumup.sdk.models.ReaderId id, String merchantCode)
-      throws ApiException {
-    deleteReader(id, merchantCode, null);
+  public void delete(com.sumup.sdk.models.ReaderId id, String merchantCode) throws ApiException {
+    delete(id, merchantCode, null);
   }
 
   /**
@@ -252,7 +186,7 @@ public final class ReadersClient {
    *     {@code null} to use client defaults.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public void deleteReader(
+  public void delete(
       com.sumup.sdk.models.ReaderId id, String merchantCode, RequestOptions requestOptions)
       throws ApiException {
     Objects.requireNonNull(id, "id");
@@ -280,9 +214,9 @@ public final class ReadersClient {
    * @return com.sumup.sdk.models.Reader parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Reader getReader(
-      com.sumup.sdk.models.ReaderId id, String merchantCode) throws ApiException {
-    return getReader(id, merchantCode, null);
+  public com.sumup.sdk.models.Reader get(com.sumup.sdk.models.ReaderId id, String merchantCode)
+      throws ApiException {
+    return get(id, merchantCode, null);
   }
 
   /**
@@ -300,10 +234,10 @@ public final class ReadersClient {
    * @return com.sumup.sdk.models.Reader parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Reader getReader(
+  public com.sumup.sdk.models.Reader get(
       com.sumup.sdk.models.ReaderId id, String merchantCode, GetReaderHeaders getReader)
       throws ApiException {
-    return getReader(id, merchantCode, getReader, null);
+    return get(id, merchantCode, getReader, null);
   }
 
   /**
@@ -321,7 +255,7 @@ public final class ReadersClient {
    * @return com.sumup.sdk.models.Reader parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Reader getReader(
+  public com.sumup.sdk.models.Reader get(
       com.sumup.sdk.models.ReaderId id,
       String merchantCode,
       GetReaderHeaders getReader,
@@ -371,9 +305,9 @@ public final class ReadersClient {
    * @return com.sumup.sdk.models.StatusResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.StatusResponse getReaderStatus(String merchantCode, String readerId)
+  public com.sumup.sdk.models.StatusResponse getStatus(String merchantCode, String readerId)
       throws ApiException {
-    return getReaderStatus(merchantCode, readerId, null);
+    return getStatus(merchantCode, readerId, null);
   }
 
   /**
@@ -398,7 +332,7 @@ public final class ReadersClient {
    * @return com.sumup.sdk.models.StatusResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.StatusResponse getReaderStatus(
+  public com.sumup.sdk.models.StatusResponse getStatus(
       String merchantCode, String readerId, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(readerId, "readerId");
@@ -431,9 +365,8 @@ public final class ReadersClient {
    * @return com.sumup.sdk.models.ListReadersResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.ListReadersResponse listReaders(String merchantCode)
-      throws ApiException {
-    return listReaders(merchantCode, null);
+  public com.sumup.sdk.models.ListReadersResponse list(String merchantCode) throws ApiException {
+    return list(merchantCode, null);
   }
 
   /**
@@ -449,7 +382,7 @@ public final class ReadersClient {
    * @return com.sumup.sdk.models.ListReadersResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.ListReadersResponse listReaders(
+  public com.sumup.sdk.models.ListReadersResponse list(
       String merchantCode, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v0.1/merchants/{merchant_code}/readers";
@@ -468,6 +401,71 @@ public final class ReadersClient {
   }
 
   /**
+   * Terminate a Reader Checkout
+   *
+   * <p>Terminate a Reader Checkout stops the current transaction on the target device. This process
+   * is asynchronous and the actual termination may take some time to be performed on the device.
+   * There are some caveats when using this endpoint: * The target device must be online, otherwise
+   * terminate won't be accepted * The action will succeed only if the device is waiting for
+   * cardholder action: e.g: waiting for card, waiting for PIN, etc. * There is no confirmation of
+   * the termination. If a transaction is successfully terminated and `return_url` was provided on
+   * Checkout, the transaction status will be sent as `failed` to the provided URL. **Note**: If the
+   * target device is a Solo, it must be in version 3.3.28.0 or higher.
+   *
+   * <p>Operation ID: CreateReaderTerminate
+   *
+   * @param merchantCode Merchant Code
+   * @param readerId The unique identifier of the Reader
+   * @param request A checkout initial attributes
+   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
+   *     request timeout.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public void terminateCheckout(
+      String merchantCode, String readerId, java.util.Map<String, Object> request)
+      throws ApiException {
+    terminateCheckout(merchantCode, readerId, request, null);
+  }
+
+  /**
+   * Terminate a Reader Checkout
+   *
+   * <p>Terminate a Reader Checkout stops the current transaction on the target device. This process
+   * is asynchronous and the actual termination may take some time to be performed on the device.
+   * There are some caveats when using this endpoint: * The target device must be online, otherwise
+   * terminate won't be accepted * The action will succeed only if the device is waiting for
+   * cardholder action: e.g: waiting for card, waiting for PIN, etc. * There is no confirmation of
+   * the termination. If a transaction is successfully terminated and `return_url` was provided on
+   * Checkout, the transaction status will be sent as `failed` to the provided URL. **Note**: If the
+   * target device is a Solo, it must be in version 3.3.28.0 or higher.
+   *
+   * <p>Operation ID: CreateReaderTerminate
+   *
+   * @param merchantCode Merchant Code
+   * @param readerId The unique identifier of the Reader
+   * @param request A checkout initial attributes
+   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
+   *     {@code null} to use client defaults.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public void terminateCheckout(
+      String merchantCode,
+      String readerId,
+      java.util.Map<String, Object> request,
+      RequestOptions requestOptions)
+      throws ApiException {
+    Objects.requireNonNull(merchantCode, "merchantCode");
+    Objects.requireNonNull(readerId, "readerId");
+    String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}/terminate";
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
+
+    this.apiClient.send(HttpMethod.POST, path, null, null, request, null, requestOptions);
+  }
+
+  /**
    * Update a Reader
    *
    * <p>Update a Reader.
@@ -482,12 +480,12 @@ public final class ReadersClient {
    * @return com.sumup.sdk.models.Reader parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Reader updateReader(
+  public com.sumup.sdk.models.Reader update(
       com.sumup.sdk.models.ReaderId id,
       String merchantCode,
       com.sumup.sdk.models.UpdateReaderRequest request)
       throws ApiException {
-    return updateReader(id, merchantCode, request, null);
+    return update(id, merchantCode, request, null);
   }
 
   /**
@@ -505,7 +503,7 @@ public final class ReadersClient {
    * @return com.sumup.sdk.models.Reader parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Reader updateReader(
+  public com.sumup.sdk.models.Reader update(
       com.sumup.sdk.models.ReaderId id,
       String merchantCode,
       com.sumup.sdk.models.UpdateReaderRequest request,

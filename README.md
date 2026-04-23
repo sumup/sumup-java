@@ -107,7 +107,7 @@ CheckoutCreateRequest request =
         .returnUrl("https://example.com/webhook")
         .build();
 
-var checkout = client.checkouts().createCheckout(request);
+var checkout = client.checkouts().create(request);
 System.out.printf("Checkout %s created with id %s%n", checkout.checkoutReference(), checkout.id());
 ```
 
@@ -143,7 +143,7 @@ CompletableFuture<Void> checkoutFuture =
                       .returnUrl("https://example.com/webhook")
                       .build();
 
-              return client.checkouts().createCheckout(request);
+              return client.checkouts().create(request);
             })
         .thenAccept(
             checkout ->
@@ -175,7 +175,7 @@ String readerId =
     Optional.ofNullable(System.getenv("SUMUP_READER_ID"))
         .orElseGet(
             () ->
-                client.readers().listReaders(merchantCode).items().stream()
+                client.readers().list(merchantCode).items().stream()
                     .findFirst()
                     .map(reader -> reader.id().value())
                     .orElseThrow(() -> new IllegalStateException("No paired readers found.")));
@@ -192,7 +192,7 @@ CreateReaderCheckoutRequest request =
         .returnUrl("https://example.com/webhook")
         .build();
 
-client.readers().createReaderCheckout(merchantCode, readerId, request);
+client.readers().createCheckout(merchantCode, readerId, request);
 System.out.println("Reader checkout created.");
 ```
 
@@ -219,7 +219,7 @@ CompletableFuture<String> readerIdFuture =
             () ->
                 client
                     .readers()
-                    .listReaders(merchantCode)
+                    .list(merchantCode)
                     .thenApply(
                         response ->
                             response.items().stream()
@@ -244,7 +244,7 @@ readerIdFuture
                   .returnUrl("https://example.com/webhook")
                   .build();
 
-          return client.readers().createReaderCheckout(merchantCode, readerId, request);
+          return client.readers().createCheckout(merchantCode, readerId, request);
         })
     .thenAccept(
         response ->
