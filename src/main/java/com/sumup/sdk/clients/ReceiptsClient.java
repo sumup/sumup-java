@@ -86,7 +86,7 @@ public final class ReceiptsClient {
     Objects.requireNonNull(id, "id");
     Objects.requireNonNull(mid, "mid");
     String path = "/v1.1/receipts/{id}";
-    path = path.replace("{id}", ApiClient.urlEncode(String.valueOf(id)));
+    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
     Map<String, Object> queryParams = new LinkedHashMap<>();
     queryParams.put("mid", mid);
     if (getReceipt != null) {

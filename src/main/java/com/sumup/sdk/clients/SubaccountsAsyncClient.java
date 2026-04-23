@@ -63,7 +63,7 @@ public final class SubaccountsAsyncClient {
       Integer operatorId, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(operatorId, "operatorId");
     String path = "/v0.1/me/accounts/{operator_id}";
-    path = path.replace("{operator_id}", ApiClient.urlEncode(String.valueOf(operatorId)));
+    path = path.replace("{operator_id}", ApiClient.urlEncode(ApiClient.parameterValue(operatorId)));
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -237,7 +237,7 @@ public final class SubaccountsAsyncClient {
     Objects.requireNonNull(operatorId, "operatorId");
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/me/accounts/{operator_id}";
-    path = path.replace("{operator_id}", ApiClient.urlEncode(String.valueOf(operatorId)));
+    path = path.replace("{operator_id}", ApiClient.urlEncode(ApiClient.parameterValue(operatorId)));
 
     return this.apiClient.sendAsync(
         HttpMethod.PUT,

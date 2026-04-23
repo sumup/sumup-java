@@ -84,7 +84,9 @@ public final class MerchantsAsyncClient {
       throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v1/merchants/{merchant_code}";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
     Map<String, Object> queryParams = new LinkedHashMap<>();
     if (getMerchant != null) {
       queryParams.putAll(getMerchant.toMap());
@@ -163,8 +165,10 @@ public final class MerchantsAsyncClient {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(personId, "personId");
     String path = "/v1/merchants/{merchant_code}/persons/{person_id}";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
-    path = path.replace("{person_id}", ApiClient.urlEncode(String.valueOf(personId)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path = path.replace("{person_id}", ApiClient.urlEncode(ApiClient.parameterValue(personId)));
     Map<String, Object> queryParams = new LinkedHashMap<>();
     if (getPerson != null) {
       queryParams.putAll(getPerson.toMap());
@@ -239,7 +243,9 @@ public final class MerchantsAsyncClient {
       throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v1/merchants/{merchant_code}/persons";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
     Map<String, Object> queryParams = new LinkedHashMap<>();
     if (listPersons != null) {
       queryParams.putAll(listPersons.toMap());

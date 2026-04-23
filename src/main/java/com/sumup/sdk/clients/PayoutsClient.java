@@ -185,7 +185,9 @@ public final class PayoutsClient {
     Objects.requireNonNull(endDate, "endDate");
     Objects.requireNonNull(startDate, "startDate");
     String path = "/v1.0/merchants/{merchant_code}/payouts";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
     Map<String, Object> queryParams = new LinkedHashMap<>();
     queryParams.put("end_date", endDate);
     queryParams.put("start_date", startDate);

@@ -111,8 +111,8 @@ public final class CustomersClient {
     Objects.requireNonNull(customerId, "customerId");
     Objects.requireNonNull(token, "token");
     String path = "/v0.1/customers/{customer_id}/payment-instruments/{token}";
-    path = path.replace("{customer_id}", ApiClient.urlEncode(String.valueOf(customerId)));
-    path = path.replace("{token}", ApiClient.urlEncode(String.valueOf(token)));
+    path = path.replace("{customer_id}", ApiClient.urlEncode(ApiClient.parameterValue(customerId)));
+    path = path.replace("{token}", ApiClient.urlEncode(ApiClient.parameterValue(token)));
 
     this.apiClient.send(HttpMethod.DELETE, path, null, null, null, null, requestOptions);
   }
@@ -153,7 +153,7 @@ public final class CustomersClient {
       throws ApiException {
     Objects.requireNonNull(customerId, "customerId");
     String path = "/v0.1/customers/{customer_id}";
-    path = path.replace("{customer_id}", ApiClient.urlEncode(String.valueOf(customerId)));
+    path = path.replace("{customer_id}", ApiClient.urlEncode(ApiClient.parameterValue(customerId)));
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -200,7 +200,7 @@ public final class CustomersClient {
       String customerId, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(customerId, "customerId");
     String path = "/v0.1/customers/{customer_id}/payment-instruments";
-    path = path.replace("{customer_id}", ApiClient.urlEncode(String.valueOf(customerId)));
+    path = path.replace("{customer_id}", ApiClient.urlEncode(ApiClient.parameterValue(customerId)));
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -257,7 +257,7 @@ public final class CustomersClient {
     Objects.requireNonNull(customerId, "customerId");
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/customers/{customer_id}";
-    path = path.replace("{customer_id}", ApiClient.urlEncode(String.valueOf(customerId)));
+    path = path.replace("{customer_id}", ApiClient.urlEncode(ApiClient.parameterValue(customerId)));
 
     return this.apiClient.send(
         HttpMethod.PUT,

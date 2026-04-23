@@ -71,7 +71,9 @@ public final class MembersAsyncClient {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/merchants/{merchant_code}/members";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
 
     return this.apiClient.sendAsync(
         HttpMethod.POST,
@@ -121,8 +123,10 @@ public final class MembersAsyncClient {
     Objects.requireNonNull(memberId, "memberId");
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v0.1/merchants/{merchant_code}/members/{member_id}";
-    path = path.replace("{member_id}", ApiClient.urlEncode(String.valueOf(memberId)));
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path = path.replace("{member_id}", ApiClient.urlEncode(ApiClient.parameterValue(memberId)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
 
     return this.apiClient.sendAsync(
         HttpMethod.DELETE, path, null, null, null, null, requestOptions);
@@ -166,8 +170,10 @@ public final class MembersAsyncClient {
     Objects.requireNonNull(memberId, "memberId");
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v0.1/merchants/{merchant_code}/members/{member_id}";
-    path = path.replace("{member_id}", ApiClient.urlEncode(String.valueOf(memberId)));
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path = path.replace("{member_id}", ApiClient.urlEncode(ApiClient.parameterValue(memberId)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
 
     return this.apiClient.sendAsync(
         HttpMethod.GET,
@@ -240,7 +246,9 @@ public final class MembersAsyncClient {
       throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v0.1/merchants/{merchant_code}/members";
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
     Map<String, Object> queryParams = new LinkedHashMap<>();
     if (listMerchantMembers != null) {
       queryParams.putAll(listMerchantMembers.toMap());
@@ -304,8 +312,10 @@ public final class MembersAsyncClient {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(request, "request");
     String path = "/v0.1/merchants/{merchant_code}/members/{member_id}";
-    path = path.replace("{member_id}", ApiClient.urlEncode(String.valueOf(memberId)));
-    path = path.replace("{merchant_code}", ApiClient.urlEncode(String.valueOf(merchantCode)));
+    path = path.replace("{member_id}", ApiClient.urlEncode(ApiClient.parameterValue(memberId)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
 
     return this.apiClient.sendAsync(
         HttpMethod.PUT,
