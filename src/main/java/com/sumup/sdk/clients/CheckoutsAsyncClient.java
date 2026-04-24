@@ -45,8 +45,10 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Creates a new payment checkout resource. The unique `checkout_reference` created by this
    * request, is used for further manipulation of the checkout. For 3DS checkouts, add the
-   * `redirect_url` parameter to your request body schema. Follow by processing a checkout to charge
-   * the provided payment instrument.
+   * `redirect_url` parameter to your request body schema. To use the [Hosted
+   * Checkout](https://developer.sumup.com/online-payments/checkouts/hosted-checkout/) page, set the
+   * `hosted_checkout.enabled` to `true`. Follow by processing a checkout to charge the provided
+   * payment instrument.
    *
    * <p>Operation ID: CreateCheckout
    *
@@ -66,8 +68,10 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Creates a new payment checkout resource. The unique `checkout_reference` created by this
    * request, is used for further manipulation of the checkout. For 3DS checkouts, add the
-   * `redirect_url` parameter to your request body schema. Follow by processing a checkout to charge
-   * the provided payment instrument.
+   * `redirect_url` parameter to your request body schema. To use the [Hosted
+   * Checkout](https://developer.sumup.com/online-payments/checkouts/hosted-checkout/) page, set the
+   * `hosted_checkout.enabled` to `true`. Follow by processing a checkout to charge the provided
+   * payment instrument.
    *
    * <p>Operation ID: CreateCheckout
    *
