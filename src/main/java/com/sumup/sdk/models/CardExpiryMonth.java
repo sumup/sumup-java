@@ -3,26 +3,37 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** Month from the expiration time of the payment card. Accepted format is `MM`. */
-public enum CardExpiryMonth {
-  VALUE_01("01"),
-  VALUE_02("02"),
-  VALUE_03("03"),
-  VALUE_04("04"),
-  VALUE_05("05"),
-  VALUE_06("06"),
-  VALUE_07("07"),
-  VALUE_08("08"),
-  VALUE_09("09"),
-  VALUE_10("10"),
-  VALUE_11("11"),
-  VALUE_12("12");
+public final class CardExpiryMonth {
+  public static final CardExpiryMonth VALUE_01 = new CardExpiryMonth("01");
+  public static final CardExpiryMonth VALUE_02 = new CardExpiryMonth("02");
+  public static final CardExpiryMonth VALUE_03 = new CardExpiryMonth("03");
+  public static final CardExpiryMonth VALUE_04 = new CardExpiryMonth("04");
+  public static final CardExpiryMonth VALUE_05 = new CardExpiryMonth("05");
+  public static final CardExpiryMonth VALUE_06 = new CardExpiryMonth("06");
+  public static final CardExpiryMonth VALUE_07 = new CardExpiryMonth("07");
+  public static final CardExpiryMonth VALUE_08 = new CardExpiryMonth("08");
+  public static final CardExpiryMonth VALUE_09 = new CardExpiryMonth("09");
+  public static final CardExpiryMonth VALUE_10 = new CardExpiryMonth("10");
+  public static final CardExpiryMonth VALUE_11 = new CardExpiryMonth("11");
+  public static final CardExpiryMonth VALUE_12 = new CardExpiryMonth("12");
 
   private final String value;
 
-  CardExpiryMonth(String value) {
-    this.value = value;
+  private CardExpiryMonth(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a CardExpiryMonth for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static CardExpiryMonth of(String value) {
+    return new CardExpiryMonth(value);
   }
 
   @JsonValue
@@ -37,14 +48,17 @@ public enum CardExpiryMonth {
 
   @JsonCreator
   public static CardExpiryMonth fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (CardExpiryMonth entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown CardExpiryMonth value: " + value);
+    return value == null ? null : new CardExpiryMonth(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof CardExpiryMonth that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

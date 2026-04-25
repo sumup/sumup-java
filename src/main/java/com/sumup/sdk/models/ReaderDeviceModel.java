@@ -3,16 +3,27 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** Identifier of the model of the device. */
-public enum ReaderDeviceModel {
-  SOLO("solo"),
-  VIRTUAL_SOLO("virtual-solo");
+public final class ReaderDeviceModel {
+  public static final ReaderDeviceModel SOLO = new ReaderDeviceModel("solo");
+  public static final ReaderDeviceModel VIRTUAL_SOLO = new ReaderDeviceModel("virtual-solo");
 
   private final String value;
 
-  ReaderDeviceModel(String value) {
-    this.value = value;
+  private ReaderDeviceModel(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a ReaderDeviceModel for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static ReaderDeviceModel of(String value) {
+    return new ReaderDeviceModel(value);
   }
 
   @JsonValue
@@ -27,14 +38,17 @@ public enum ReaderDeviceModel {
 
   @JsonCreator
   public static ReaderDeviceModel fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (ReaderDeviceModel entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown ReaderDeviceModel value: " + value);
+    return value == null ? null : new ReaderDeviceModel(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof ReaderDeviceModel that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

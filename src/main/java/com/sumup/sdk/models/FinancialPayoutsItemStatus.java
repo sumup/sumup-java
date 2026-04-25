@@ -3,15 +3,27 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
-public enum FinancialPayoutsItemStatus {
-  SUCCESSFUL("SUCCESSFUL"),
-  FAILED("FAILED");
+public final class FinancialPayoutsItemStatus {
+  public static final FinancialPayoutsItemStatus SUCCESSFUL =
+      new FinancialPayoutsItemStatus("SUCCESSFUL");
+  public static final FinancialPayoutsItemStatus FAILED = new FinancialPayoutsItemStatus("FAILED");
 
   private final String value;
 
-  FinancialPayoutsItemStatus(String value) {
-    this.value = value;
+  private FinancialPayoutsItemStatus(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a FinancialPayoutsItemStatus for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static FinancialPayoutsItemStatus of(String value) {
+    return new FinancialPayoutsItemStatus(value);
   }
 
   @JsonValue
@@ -26,14 +38,17 @@ public enum FinancialPayoutsItemStatus {
 
   @JsonCreator
   public static FinancialPayoutsItemStatus fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (FinancialPayoutsItemStatus entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown FinancialPayoutsItemStatus value: " + value);
+    return value == null ? null : new FinancialPayoutsItemStatus(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof FinancialPayoutsItemStatus that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

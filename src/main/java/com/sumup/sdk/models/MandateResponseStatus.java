@@ -3,16 +3,27 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** Current lifecycle status of the mandate. */
-public enum MandateResponseStatus {
-  ACTIVE("active"),
-  INACTIVE("inactive");
+public final class MandateResponseStatus {
+  public static final MandateResponseStatus ACTIVE = new MandateResponseStatus("active");
+  public static final MandateResponseStatus INACTIVE = new MandateResponseStatus("inactive");
 
   private final String value;
 
-  MandateResponseStatus(String value) {
-    this.value = value;
+  private MandateResponseStatus(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a MandateResponseStatus for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static MandateResponseStatus of(String value) {
+    return new MandateResponseStatus(value);
   }
 
   @JsonValue
@@ -27,14 +38,17 @@ public enum MandateResponseStatus {
 
   @JsonCreator
   public static MandateResponseStatus fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (MandateResponseStatus entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown MandateResponseStatus value: " + value);
+    return value == null ? null : new MandateResponseStatus(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof MandateResponseStatus that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

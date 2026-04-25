@@ -3,18 +3,33 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** Key indicating type of error */
-public enum BadRequestErrorsType {
-  INVALID_BEARER_TOKEN("INVALID_BEARER_TOKEN"),
-  INVALID_USER_AGENT("INVALID_USER_AGENT"),
-  NOT_ENOUGH_UNPAID_PAYOUTS("NOT_ENOUGH_UNPAID_PAYOUTS"),
-  DUPLICATE_HEADERS("DUPLICATE_HEADERS");
+public final class BadRequestErrorsType {
+  public static final BadRequestErrorsType INVALID_BEARER_TOKEN =
+      new BadRequestErrorsType("INVALID_BEARER_TOKEN");
+  public static final BadRequestErrorsType INVALID_USER_AGENT =
+      new BadRequestErrorsType("INVALID_USER_AGENT");
+  public static final BadRequestErrorsType NOT_ENOUGH_UNPAID_PAYOUTS =
+      new BadRequestErrorsType("NOT_ENOUGH_UNPAID_PAYOUTS");
+  public static final BadRequestErrorsType DUPLICATE_HEADERS =
+      new BadRequestErrorsType("DUPLICATE_HEADERS");
 
   private final String value;
 
-  BadRequestErrorsType(String value) {
-    this.value = value;
+  private BadRequestErrorsType(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a BadRequestErrorsType for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static BadRequestErrorsType of(String value) {
+    return new BadRequestErrorsType(value);
   }
 
   @JsonValue
@@ -29,14 +44,17 @@ public enum BadRequestErrorsType {
 
   @JsonCreator
   public static BadRequestErrorsType fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (BadRequestErrorsType entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown BadRequestErrorsType value: " + value);
+    return value == null ? null : new BadRequestErrorsType(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof BadRequestErrorsType that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

@@ -3,15 +3,26 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** Type of mandate to create for the saved payment instrument. */
-public enum MandatePayloadType {
-  RECURRENT("recurrent");
+public final class MandatePayloadType {
+  public static final MandatePayloadType RECURRENT = new MandatePayloadType("recurrent");
 
   private final String value;
 
-  MandatePayloadType(String value) {
-    this.value = value;
+  private MandatePayloadType(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a MandatePayloadType for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static MandatePayloadType of(String value) {
+    return new MandatePayloadType(value);
   }
 
   @JsonValue
@@ -26,14 +37,17 @@ public enum MandatePayloadType {
 
   @JsonCreator
   public static MandatePayloadType fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (MandatePayloadType entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown MandatePayloadType value: " + value);
+    return value == null ? null : new MandatePayloadType(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof MandatePayloadType that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

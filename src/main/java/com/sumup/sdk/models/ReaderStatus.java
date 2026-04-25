@@ -3,6 +3,7 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /**
  * The status of the reader object gives information about the current state of the reader. Possible
@@ -11,16 +12,26 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * merchant account and can be used with SumUp APIs. - `expired` - The pairing is expired and no
  * longer usable with the account. The resource needs to get recreated.
  */
-public enum ReaderStatus {
-  UNKNOWN("unknown"),
-  PROCESSING("processing"),
-  PAIRED("paired"),
-  EXPIRED("expired");
+public final class ReaderStatus {
+  public static final ReaderStatus UNKNOWN = new ReaderStatus("unknown");
+  public static final ReaderStatus PROCESSING = new ReaderStatus("processing");
+  public static final ReaderStatus PAIRED = new ReaderStatus("paired");
+  public static final ReaderStatus EXPIRED = new ReaderStatus("expired");
 
   private final String value;
 
-  ReaderStatus(String value) {
-    this.value = value;
+  private ReaderStatus(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a ReaderStatus for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static ReaderStatus of(String value) {
+    return new ReaderStatus(value);
   }
 
   @JsonValue
@@ -35,14 +46,16 @@ public enum ReaderStatus {
 
   @JsonCreator
   public static ReaderStatus fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (ReaderStatus entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown ReaderStatus value: " + value);
+    return value == null ? null : new ReaderStatus(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other || (other instanceof ReaderStatus that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

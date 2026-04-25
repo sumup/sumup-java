@@ -260,11 +260,7 @@ public final class ApiClient {
     if (value instanceof OffsetDateTime) {
       return ((OffsetDateTime) value).toString();
     }
-    try {
-      return objectMapper.writeValueAsString(value);
-    } catch (JsonProcessingException e) {
-      return value.toString();
-    }
+    return parameterValue(value);
   }
 
   private String writeBody(Object body) {

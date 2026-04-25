@@ -2,4 +2,762 @@
 package com.sumup.sdk.models;
 
 /** Full transaction resource with checkout, payout, and event details. */
-public record TransactionFull(com.sumup.sdk.models.TransactionBase value) {}
+public record TransactionFull(
+    /** Total amount of the transaction. */
+    Float amount,
+
+    /**
+     * Authorization code for the transaction sent by the payment card issuer or bank. Applicable
+     * only to card payments.
+     */
+    String authCode,
+
+    /** Details of the payment card. */
+    com.sumup.sdk.models.CardResponse card,
+
+    /** Client transaction id. */
+    String clientTransactionId,
+
+    /**
+     * Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the currency for the
+     * amount. Currently supported currency values are enumerated above.
+     */
+    com.sumup.sdk.models.Currency currency,
+
+    /** Details of the device used to create the transaction. */
+    com.sumup.sdk.models.Device deviceInfo,
+
+    /** Details of the ELV card account associated with the transaction. */
+    com.sumup.sdk.models.ElvCardAccount elvAccount,
+
+    /** Entry mode of the payment details. */
+    com.sumup.sdk.models.EntryMode entryMode,
+
+    /** Compact list of events related to the transaction. */
+    java.util.List<com.sumup.sdk.models.Event> events,
+
+    /** Transaction SumUp total fee amount. */
+    Double feeAmount,
+
+    /** External/foreign transaction id (passed by clients). */
+    String foreignTransactionId,
+
+    /**
+     * Indication of the precision of the geographical position received from the payment terminal.
+     */
+    com.sumup.sdk.models.HorizontalAccuracy horizontalAccuracy,
+
+    /** Unique ID of the transaction. */
+    String id,
+
+    /** Current number of the installment for deferred payments. */
+    Long installmentsCount,
+
+    /**
+     * Latitude value from the coordinates of the payment location (as received from the payment
+     * terminal reader).
+     */
+    com.sumup.sdk.models.Lat lat,
+
+    /** List of hyperlinks for accessing related resources. */
+    java.util.List<com.sumup.sdk.models.Link> links,
+
+    /** Local date and time of the creation of the transaction. */
+    java.time.OffsetDateTime localTime,
+
+    /** Details of the payment location as received from the payment terminal. */
+    com.sumup.sdk.models.TransactionFullLocation location,
+
+    /**
+     * Longitude value from the coordinates of the payment location (as received from the payment
+     * terminal reader).
+     */
+    com.sumup.sdk.models.Lon lon,
+
+    /** Unique code of the registered merchant to whom the payment is made. */
+    String merchantCode,
+
+    /** SumUp merchant internal Id. */
+    Long merchantId,
+
+    /** Payment type used for the transaction. */
+    com.sumup.sdk.models.PaymentType paymentType,
+
+    /** The date of the payout. */
+    java.time.LocalDate payoutDate,
+
+    /** Payout plan of the registered user at the time when the transaction was made. */
+    com.sumup.sdk.models.TransactionFullPayoutPlan payoutPlan,
+
+    /** Payout type for the transaction. */
+    com.sumup.sdk.models.TransactionFullPayoutType payoutType,
+
+    /** Number of payouts that are made to the registered user specified in the `user` property. */
+    Long payoutsReceived,
+
+    /** Total number of payouts to the registered user specified in the `user` property. */
+    Long payoutsTotal,
+
+    /** Debit/Credit. */
+    com.sumup.sdk.models.TransactionFullProcessAs processAs,
+
+    /**
+     * Short description of the payment. The value is taken from the `description` property of the
+     * related checkout resource.
+     */
+    String productSummary,
+
+    /**
+     * List of products from the merchant's catalogue for which the transaction serves as a payment.
+     */
+    java.util.List<com.sumup.sdk.models.Product> products,
+
+    /** Simple name of the payment type. */
+    com.sumup.sdk.models.TransactionFullSimplePaymentType simplePaymentType,
+
+    /**
+     * High-level status of the transaction from the merchant's perspective. - `PENDING`: The
+     * payment has been initiated and is still being processed. A final outcome is not available
+     * yet. - `SUCCESSFUL`: The payment was completed successfully. - `PAID_OUT`: The payment was
+     * completed successfully and the funds have already been included in a payout to the merchant.
+     * - `FAILED`: The payment did not complete successfully. - `CANCELLED`: The payment was
+     * cancelled or reversed and is no longer payable or payable to the merchant. - `CANCEL_FAILED`:
+     * An attempt to cancel or reverse the payment was not completed successfully. - `REFUNDED`: The
+     * payment was refunded in full or in part. - `REFUND_FAILED`: An attempt to refund the payment
+     * was not completed successfully. - `CHARGEBACK`: The payment was subject to a chargeback. -
+     * `NON_COLLECTION`: The amount could not be collected from the merchant after a chargeback or
+     * related adjustment.
+     */
+    com.sumup.sdk.models.TransactionFullSimpleStatus simpleStatus,
+
+    /** Current status of the transaction. */
+    com.sumup.sdk.models.TransactionFullStatus status,
+
+    /** Indicates whether tax deduction is enabled for the transaction. */
+    Boolean taxEnabled,
+
+    /**
+     * Date and time of the creation of the transaction. Response format expressed according to
+     * [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) code.
+     */
+    java.time.OffsetDateTime timestamp,
+
+    /** Amount of the tip (out of the total transaction amount). */
+    Float tipAmount,
+
+    /**
+     * Transaction code returned by the acquirer/processing entity after processing the transaction.
+     */
+    String transactionCode,
+
+    /** Detailed list of events related to the transaction. */
+    java.util.List<com.sumup.sdk.models.TransactionEvent> transactionEvents,
+
+    /** Email address of the registered user (merchant) to whom the payment is made. */
+    String username,
+
+    /** Amount of the applicable VAT (out of the total transaction amount). */
+    Float vatAmount,
+
+    /** List of VAT rates applicable to the transaction. */
+    java.util.List<com.sumup.sdk.models.TransactionFullVatRatesItem> vatRates,
+
+    /** Verification method used for the transaction. */
+    com.sumup.sdk.models.TransactionFullVerificationMethod verificationMethod) {
+  /**
+   * Creates a builder for TransactionFull.
+   *
+   * @return Builder that constructs immutable TransactionFull instances.
+   */
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  /** Builder for TransactionFull instances. */
+  public static final class Builder {
+    private Float amount;
+    private String authCode;
+    private com.sumup.sdk.models.CardResponse card;
+    private String clientTransactionId;
+    private com.sumup.sdk.models.Currency currency;
+    private com.sumup.sdk.models.Device deviceInfo;
+    private com.sumup.sdk.models.ElvCardAccount elvAccount;
+    private com.sumup.sdk.models.EntryMode entryMode;
+    private java.util.List<com.sumup.sdk.models.Event> events;
+    private Double feeAmount;
+    private String foreignTransactionId;
+    private com.sumup.sdk.models.HorizontalAccuracy horizontalAccuracy;
+    private String id;
+    private Long installmentsCount;
+    private com.sumup.sdk.models.Lat lat;
+    private java.util.List<com.sumup.sdk.models.Link> links;
+    private java.time.OffsetDateTime localTime;
+    private com.sumup.sdk.models.TransactionFullLocation location;
+    private com.sumup.sdk.models.Lon lon;
+    private String merchantCode;
+    private Long merchantId;
+    private com.sumup.sdk.models.PaymentType paymentType;
+    private java.time.LocalDate payoutDate;
+    private com.sumup.sdk.models.TransactionFullPayoutPlan payoutPlan;
+    private com.sumup.sdk.models.TransactionFullPayoutType payoutType;
+    private Long payoutsReceived;
+    private Long payoutsTotal;
+    private com.sumup.sdk.models.TransactionFullProcessAs processAs;
+    private String productSummary;
+    private java.util.List<com.sumup.sdk.models.Product> products;
+    private com.sumup.sdk.models.TransactionFullSimplePaymentType simplePaymentType;
+    private com.sumup.sdk.models.TransactionFullSimpleStatus simpleStatus;
+    private com.sumup.sdk.models.TransactionFullStatus status;
+    private Boolean taxEnabled;
+    private java.time.OffsetDateTime timestamp;
+    private Float tipAmount;
+    private String transactionCode;
+    private java.util.List<com.sumup.sdk.models.TransactionEvent> transactionEvents;
+    private String username;
+    private Float vatAmount;
+    private java.util.List<com.sumup.sdk.models.TransactionFullVatRatesItem> vatRates;
+    private com.sumup.sdk.models.TransactionFullVerificationMethod verificationMethod;
+
+    private Builder() {}
+
+    /**
+     * Sets the value for {@code amount}.
+     *
+     * @param amount Total amount of the transaction.
+     * @return This builder instance.
+     */
+    public Builder amount(Float amount) {
+      this.amount = amount;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code authCode}.
+     *
+     * @param authCode Authorization code for the transaction sent by the payment card issuer or
+     *     bank. Applicable only to card payments.
+     * @return This builder instance.
+     */
+    public Builder authCode(String authCode) {
+      this.authCode = authCode;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code card}.
+     *
+     * @param card Details of the payment card.
+     * @return This builder instance.
+     */
+    public Builder card(com.sumup.sdk.models.CardResponse card) {
+      this.card = card;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code clientTransactionId}.
+     *
+     * @param clientTransactionId Client transaction id.
+     * @return This builder instance.
+     */
+    public Builder clientTransactionId(String clientTransactionId) {
+      this.clientTransactionId = clientTransactionId;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code currency}.
+     *
+     * @param currency Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the
+     *     currency for the amount. Currently supported currency values are enumerated above.
+     * @return This builder instance.
+     */
+    public Builder currency(com.sumup.sdk.models.Currency currency) {
+      this.currency = currency;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code deviceInfo}.
+     *
+     * @param deviceInfo Details of the device used to create the transaction.
+     * @return This builder instance.
+     */
+    public Builder deviceInfo(com.sumup.sdk.models.Device deviceInfo) {
+      this.deviceInfo = deviceInfo;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code elvAccount}.
+     *
+     * @param elvAccount Details of the ELV card account associated with the transaction.
+     * @return This builder instance.
+     */
+    public Builder elvAccount(com.sumup.sdk.models.ElvCardAccount elvAccount) {
+      this.elvAccount = elvAccount;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code entryMode}.
+     *
+     * @param entryMode Entry mode of the payment details.
+     * @return This builder instance.
+     */
+    public Builder entryMode(com.sumup.sdk.models.EntryMode entryMode) {
+      this.entryMode = entryMode;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code events}.
+     *
+     * @param events Compact list of events related to the transaction.
+     * @return This builder instance.
+     */
+    public Builder events(java.util.List<com.sumup.sdk.models.Event> events) {
+      this.events = events;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code feeAmount}.
+     *
+     * @param feeAmount Transaction SumUp total fee amount.
+     * @return This builder instance.
+     */
+    public Builder feeAmount(Double feeAmount) {
+      this.feeAmount = feeAmount;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code foreignTransactionId}.
+     *
+     * @param foreignTransactionId External/foreign transaction id (passed by clients).
+     * @return This builder instance.
+     */
+    public Builder foreignTransactionId(String foreignTransactionId) {
+      this.foreignTransactionId = foreignTransactionId;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code horizontalAccuracy}.
+     *
+     * @param horizontalAccuracy Indication of the precision of the geographical position received
+     *     from the payment terminal.
+     * @return This builder instance.
+     */
+    public Builder horizontalAccuracy(com.sumup.sdk.models.HorizontalAccuracy horizontalAccuracy) {
+      this.horizontalAccuracy = horizontalAccuracy;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code id}.
+     *
+     * @param id Unique ID of the transaction.
+     * @return This builder instance.
+     */
+    public Builder id(String id) {
+      this.id = id;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code installmentsCount}.
+     *
+     * @param installmentsCount Current number of the installment for deferred payments.
+     * @return This builder instance.
+     */
+    public Builder installmentsCount(Long installmentsCount) {
+      this.installmentsCount = installmentsCount;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code lat}.
+     *
+     * @param lat Latitude value from the coordinates of the payment location (as received from the
+     *     payment terminal reader).
+     * @return This builder instance.
+     */
+    public Builder lat(com.sumup.sdk.models.Lat lat) {
+      this.lat = lat;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code links}.
+     *
+     * @param links List of hyperlinks for accessing related resources.
+     * @return This builder instance.
+     */
+    public Builder links(java.util.List<com.sumup.sdk.models.Link> links) {
+      this.links = links;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code localTime}.
+     *
+     * @param localTime Local date and time of the creation of the transaction.
+     * @return This builder instance.
+     */
+    public Builder localTime(java.time.OffsetDateTime localTime) {
+      this.localTime = localTime;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code location}.
+     *
+     * @param location Details of the payment location as received from the payment terminal.
+     * @return This builder instance.
+     */
+    public Builder location(com.sumup.sdk.models.TransactionFullLocation location) {
+      this.location = location;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code lon}.
+     *
+     * @param lon Longitude value from the coordinates of the payment location (as received from the
+     *     payment terminal reader).
+     * @return This builder instance.
+     */
+    public Builder lon(com.sumup.sdk.models.Lon lon) {
+      this.lon = lon;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code merchantCode}.
+     *
+     * @param merchantCode Unique code of the registered merchant to whom the payment is made.
+     * @return This builder instance.
+     */
+    public Builder merchantCode(String merchantCode) {
+      this.merchantCode = merchantCode;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code merchantId}.
+     *
+     * @param merchantId SumUp merchant internal Id.
+     * @return This builder instance.
+     */
+    public Builder merchantId(Long merchantId) {
+      this.merchantId = merchantId;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code paymentType}.
+     *
+     * @param paymentType Payment type used for the transaction.
+     * @return This builder instance.
+     */
+    public Builder paymentType(com.sumup.sdk.models.PaymentType paymentType) {
+      this.paymentType = paymentType;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code payoutDate}.
+     *
+     * @param payoutDate The date of the payout.
+     * @return This builder instance.
+     */
+    public Builder payoutDate(java.time.LocalDate payoutDate) {
+      this.payoutDate = payoutDate;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code payoutPlan}.
+     *
+     * @param payoutPlan Payout plan of the registered user at the time when the transaction was
+     *     made.
+     * @return This builder instance.
+     */
+    public Builder payoutPlan(com.sumup.sdk.models.TransactionFullPayoutPlan payoutPlan) {
+      this.payoutPlan = payoutPlan;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code payoutType}.
+     *
+     * @param payoutType Payout type for the transaction.
+     * @return This builder instance.
+     */
+    public Builder payoutType(com.sumup.sdk.models.TransactionFullPayoutType payoutType) {
+      this.payoutType = payoutType;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code payoutsReceived}.
+     *
+     * @param payoutsReceived Number of payouts that are made to the registered user specified in
+     *     the `user` property.
+     * @return This builder instance.
+     */
+    public Builder payoutsReceived(Long payoutsReceived) {
+      this.payoutsReceived = payoutsReceived;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code payoutsTotal}.
+     *
+     * @param payoutsTotal Total number of payouts to the registered user specified in the `user`
+     *     property.
+     * @return This builder instance.
+     */
+    public Builder payoutsTotal(Long payoutsTotal) {
+      this.payoutsTotal = payoutsTotal;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code processAs}.
+     *
+     * @param processAs Debit/Credit.
+     * @return This builder instance.
+     */
+    public Builder processAs(com.sumup.sdk.models.TransactionFullProcessAs processAs) {
+      this.processAs = processAs;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code productSummary}.
+     *
+     * @param productSummary Short description of the payment. The value is taken from the
+     *     `description` property of the related checkout resource.
+     * @return This builder instance.
+     */
+    public Builder productSummary(String productSummary) {
+      this.productSummary = productSummary;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code products}.
+     *
+     * @param products List of products from the merchant's catalogue for which the transaction
+     *     serves as a payment.
+     * @return This builder instance.
+     */
+    public Builder products(java.util.List<com.sumup.sdk.models.Product> products) {
+      this.products = products;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code simplePaymentType}.
+     *
+     * @param simplePaymentType Simple name of the payment type.
+     * @return This builder instance.
+     */
+    public Builder simplePaymentType(
+        com.sumup.sdk.models.TransactionFullSimplePaymentType simplePaymentType) {
+      this.simplePaymentType = simplePaymentType;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code simpleStatus}.
+     *
+     * @param simpleStatus High-level status of the transaction from the merchant's perspective. -
+     *     `PENDING`: The payment has been initiated and is still being processed. A final outcome
+     *     is not available yet. - `SUCCESSFUL`: The payment was completed successfully. -
+     *     `PAID_OUT`: The payment was completed successfully and the funds have already been
+     *     included in a payout to the merchant. - `FAILED`: The payment did not complete
+     *     successfully. - `CANCELLED`: The payment was cancelled or reversed and is no longer
+     *     payable or payable to the merchant. - `CANCEL_FAILED`: An attempt to cancel or reverse
+     *     the payment was not completed successfully. - `REFUNDED`: The payment was refunded in
+     *     full or in part. - `REFUND_FAILED`: An attempt to refund the payment was not completed
+     *     successfully. - `CHARGEBACK`: The payment was subject to a chargeback. -
+     *     `NON_COLLECTION`: The amount could not be collected from the merchant after a chargeback
+     *     or related adjustment.
+     * @return This builder instance.
+     */
+    public Builder simpleStatus(com.sumup.sdk.models.TransactionFullSimpleStatus simpleStatus) {
+      this.simpleStatus = simpleStatus;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code status}.
+     *
+     * @param status Current status of the transaction.
+     * @return This builder instance.
+     */
+    public Builder status(com.sumup.sdk.models.TransactionFullStatus status) {
+      this.status = status;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code taxEnabled}.
+     *
+     * @param taxEnabled Indicates whether tax deduction is enabled for the transaction.
+     * @return This builder instance.
+     */
+    public Builder taxEnabled(Boolean taxEnabled) {
+      this.taxEnabled = taxEnabled;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code timestamp}.
+     *
+     * @param timestamp Date and time of the creation of the transaction. Response format expressed
+     *     according to [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) code.
+     * @return This builder instance.
+     */
+    public Builder timestamp(java.time.OffsetDateTime timestamp) {
+      this.timestamp = timestamp;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code tipAmount}.
+     *
+     * @param tipAmount Amount of the tip (out of the total transaction amount).
+     * @return This builder instance.
+     */
+    public Builder tipAmount(Float tipAmount) {
+      this.tipAmount = tipAmount;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code transactionCode}.
+     *
+     * @param transactionCode Transaction code returned by the acquirer/processing entity after
+     *     processing the transaction.
+     * @return This builder instance.
+     */
+    public Builder transactionCode(String transactionCode) {
+      this.transactionCode = transactionCode;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code transactionEvents}.
+     *
+     * @param transactionEvents Detailed list of events related to the transaction.
+     * @return This builder instance.
+     */
+    public Builder transactionEvents(
+        java.util.List<com.sumup.sdk.models.TransactionEvent> transactionEvents) {
+      this.transactionEvents = transactionEvents;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code username}.
+     *
+     * @param username Email address of the registered user (merchant) to whom the payment is made.
+     * @return This builder instance.
+     */
+    public Builder username(String username) {
+      this.username = username;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code vatAmount}.
+     *
+     * @param vatAmount Amount of the applicable VAT (out of the total transaction amount).
+     * @return This builder instance.
+     */
+    public Builder vatAmount(Float vatAmount) {
+      this.vatAmount = vatAmount;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code vatRates}.
+     *
+     * @param vatRates List of VAT rates applicable to the transaction.
+     * @return This builder instance.
+     */
+    public Builder vatRates(
+        java.util.List<com.sumup.sdk.models.TransactionFullVatRatesItem> vatRates) {
+      this.vatRates = vatRates;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code verificationMethod}.
+     *
+     * @param verificationMethod Verification method used for the transaction.
+     * @return This builder instance.
+     */
+    public Builder verificationMethod(
+        com.sumup.sdk.models.TransactionFullVerificationMethod verificationMethod) {
+      this.verificationMethod = verificationMethod;
+      return this;
+    }
+
+    /**
+     * Builds an immutable TransactionFull instance.
+     *
+     * @return Immutable TransactionFull.
+     */
+    public TransactionFull build() {
+      return new TransactionFull(
+          amount,
+          authCode,
+          card,
+          clientTransactionId,
+          currency,
+          deviceInfo,
+          elvAccount,
+          entryMode,
+          events,
+          feeAmount,
+          foreignTransactionId,
+          horizontalAccuracy,
+          id,
+          installmentsCount,
+          lat,
+          links,
+          localTime,
+          location,
+          lon,
+          merchantCode,
+          merchantId,
+          paymentType,
+          payoutDate,
+          payoutPlan,
+          payoutType,
+          payoutsReceived,
+          payoutsTotal,
+          processAs,
+          productSummary,
+          products,
+          simplePaymentType,
+          simpleStatus,
+          status,
+          taxEnabled,
+          timestamp,
+          tipAmount,
+          transactionCode,
+          transactionEvents,
+          username,
+          vatAmount,
+          vatRates,
+          verificationMethod);
+    }
+  }
+}

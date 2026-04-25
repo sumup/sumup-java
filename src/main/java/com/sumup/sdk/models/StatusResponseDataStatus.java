@@ -3,16 +3,27 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** Status of a device */
-public enum StatusResponseDataStatus {
-  ONLINE("ONLINE"),
-  OFFLINE("OFFLINE");
+public final class StatusResponseDataStatus {
+  public static final StatusResponseDataStatus ONLINE = new StatusResponseDataStatus("ONLINE");
+  public static final StatusResponseDataStatus OFFLINE = new StatusResponseDataStatus("OFFLINE");
 
   private final String value;
 
-  StatusResponseDataStatus(String value) {
-    this.value = value;
+  private StatusResponseDataStatus(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a StatusResponseDataStatus for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static StatusResponseDataStatus of(String value) {
+    return new StatusResponseDataStatus(value);
   }
 
   @JsonValue
@@ -27,14 +38,17 @@ public enum StatusResponseDataStatus {
 
   @JsonCreator
   public static StatusResponseDataStatus fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (StatusResponseDataStatus entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown StatusResponseDataStatus value: " + value);
+    return value == null ? null : new StatusResponseDataStatus(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof StatusResponseDataStatus that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

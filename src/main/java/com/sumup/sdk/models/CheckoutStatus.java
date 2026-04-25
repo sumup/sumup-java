@@ -3,22 +3,33 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /**
  * Current high-level state of the checkout. `PENDING` means the checkout exists but is not yet
  * completed, `PAID` means a payment succeeded, `FAILED` means the latest processing attempt failed,
  * and `EXPIRED` means the checkout can no longer be processed.
  */
-public enum CheckoutStatus {
-  PENDING("PENDING"),
-  FAILED("FAILED"),
-  PAID("PAID"),
-  EXPIRED("EXPIRED");
+public final class CheckoutStatus {
+  public static final CheckoutStatus PENDING = new CheckoutStatus("PENDING");
+  public static final CheckoutStatus FAILED = new CheckoutStatus("FAILED");
+  public static final CheckoutStatus PAID = new CheckoutStatus("PAID");
+  public static final CheckoutStatus EXPIRED = new CheckoutStatus("EXPIRED");
 
   private final String value;
 
-  CheckoutStatus(String value) {
-    this.value = value;
+  private CheckoutStatus(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a CheckoutStatus for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static CheckoutStatus of(String value) {
+    return new CheckoutStatus(value);
   }
 
   @JsonValue
@@ -33,14 +44,16 @@ public enum CheckoutStatus {
 
   @JsonCreator
   public static CheckoutStatus fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (CheckoutStatus entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown CheckoutStatus value: " + value);
+    return value == null ? null : new CheckoutStatus(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other || (other instanceof CheckoutStatus that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

@@ -2,4 +2,365 @@
 package com.sumup.sdk.models;
 
 /** Transaction entry returned in history listing responses. */
-public record TransactionHistory(com.sumup.sdk.models.TransactionBase value) {}
+public record TransactionHistory(
+    /** Total amount of the transaction. */
+    Float amount,
+
+    /** Issuing card network of the payment card used for the transaction. */
+    com.sumup.sdk.models.CardType cardType,
+
+    /** Client-specific ID of the transaction. */
+    String clientTransactionId,
+
+    /**
+     * Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the currency for the
+     * amount. Currently supported currency values are enumerated above.
+     */
+    com.sumup.sdk.models.Currency currency,
+
+    /** Unique ID of the transaction. */
+    String id,
+
+    /** Current number of the installment for deferred payments. */
+    Long installmentsCount,
+
+    /** Payment type used for the transaction. */
+    com.sumup.sdk.models.PaymentType paymentType,
+
+    /** Payout date (if paid out at once). */
+    java.time.LocalDate payoutDate,
+
+    /** Payout plan of the registered user at the time when the transaction was made. */
+    com.sumup.sdk.models.TransactionFullPayoutPlan payoutPlan,
+
+    /** Payout type. */
+    com.sumup.sdk.models.TransactionHistoryPayoutType payoutType,
+
+    /** Number of payouts that are made to the registered user specified in the `user` property. */
+    Long payoutsReceived,
+
+    /** Total number of payouts to the registered user specified in the `user` property. */
+    Long payoutsTotal,
+
+    /**
+     * Short description of the payment. The value is taken from the `description` property of the
+     * related checkout resource.
+     */
+    String productSummary,
+
+    /** Total refunded amount. */
+    Double refundedAmount,
+
+    /** Current status of the transaction. */
+    com.sumup.sdk.models.TransactionFullStatus status,
+
+    /**
+     * Date and time of the creation of the transaction. Response format expressed according to
+     * [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) code.
+     */
+    java.time.OffsetDateTime timestamp,
+
+    /**
+     * Transaction code returned by the acquirer/processing entity after processing the transaction.
+     */
+    String transactionCode,
+
+    /** Unique ID of the transaction. */
+    com.sumup.sdk.models.TransactionId transactionId,
+
+    /** Type of the transaction for the registered user specified in the `user` property. */
+    com.sumup.sdk.models.TransactionHistoryType type,
+
+    /** Email address of the registered user (merchant) to whom the payment is made. */
+    String user) {
+  /**
+   * Creates a builder for TransactionHistory.
+   *
+   * @return Builder that constructs immutable TransactionHistory instances.
+   */
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  /** Builder for TransactionHistory instances. */
+  public static final class Builder {
+    private Float amount;
+    private com.sumup.sdk.models.CardType cardType;
+    private String clientTransactionId;
+    private com.sumup.sdk.models.Currency currency;
+    private String id;
+    private Long installmentsCount;
+    private com.sumup.sdk.models.PaymentType paymentType;
+    private java.time.LocalDate payoutDate;
+    private com.sumup.sdk.models.TransactionFullPayoutPlan payoutPlan;
+    private com.sumup.sdk.models.TransactionHistoryPayoutType payoutType;
+    private Long payoutsReceived;
+    private Long payoutsTotal;
+    private String productSummary;
+    private Double refundedAmount;
+    private com.sumup.sdk.models.TransactionFullStatus status;
+    private java.time.OffsetDateTime timestamp;
+    private String transactionCode;
+    private com.sumup.sdk.models.TransactionId transactionId;
+    private com.sumup.sdk.models.TransactionHistoryType type;
+    private String user;
+
+    private Builder() {}
+
+    /**
+     * Sets the value for {@code amount}.
+     *
+     * @param amount Total amount of the transaction.
+     * @return This builder instance.
+     */
+    public Builder amount(Float amount) {
+      this.amount = amount;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code cardType}.
+     *
+     * @param cardType Issuing card network of the payment card used for the transaction.
+     * @return This builder instance.
+     */
+    public Builder cardType(com.sumup.sdk.models.CardType cardType) {
+      this.cardType = cardType;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code clientTransactionId}.
+     *
+     * @param clientTransactionId Client-specific ID of the transaction.
+     * @return This builder instance.
+     */
+    public Builder clientTransactionId(String clientTransactionId) {
+      this.clientTransactionId = clientTransactionId;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code currency}.
+     *
+     * @param currency Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the
+     *     currency for the amount. Currently supported currency values are enumerated above.
+     * @return This builder instance.
+     */
+    public Builder currency(com.sumup.sdk.models.Currency currency) {
+      this.currency = currency;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code id}.
+     *
+     * @param id Unique ID of the transaction.
+     * @return This builder instance.
+     */
+    public Builder id(String id) {
+      this.id = id;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code installmentsCount}.
+     *
+     * @param installmentsCount Current number of the installment for deferred payments.
+     * @return This builder instance.
+     */
+    public Builder installmentsCount(Long installmentsCount) {
+      this.installmentsCount = installmentsCount;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code paymentType}.
+     *
+     * @param paymentType Payment type used for the transaction.
+     * @return This builder instance.
+     */
+    public Builder paymentType(com.sumup.sdk.models.PaymentType paymentType) {
+      this.paymentType = paymentType;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code payoutDate}.
+     *
+     * @param payoutDate Payout date (if paid out at once).
+     * @return This builder instance.
+     */
+    public Builder payoutDate(java.time.LocalDate payoutDate) {
+      this.payoutDate = payoutDate;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code payoutPlan}.
+     *
+     * @param payoutPlan Payout plan of the registered user at the time when the transaction was
+     *     made.
+     * @return This builder instance.
+     */
+    public Builder payoutPlan(com.sumup.sdk.models.TransactionFullPayoutPlan payoutPlan) {
+      this.payoutPlan = payoutPlan;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code payoutType}.
+     *
+     * @param payoutType Payout type.
+     * @return This builder instance.
+     */
+    public Builder payoutType(com.sumup.sdk.models.TransactionHistoryPayoutType payoutType) {
+      this.payoutType = payoutType;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code payoutsReceived}.
+     *
+     * @param payoutsReceived Number of payouts that are made to the registered user specified in
+     *     the `user` property.
+     * @return This builder instance.
+     */
+    public Builder payoutsReceived(Long payoutsReceived) {
+      this.payoutsReceived = payoutsReceived;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code payoutsTotal}.
+     *
+     * @param payoutsTotal Total number of payouts to the registered user specified in the `user`
+     *     property.
+     * @return This builder instance.
+     */
+    public Builder payoutsTotal(Long payoutsTotal) {
+      this.payoutsTotal = payoutsTotal;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code productSummary}.
+     *
+     * @param productSummary Short description of the payment. The value is taken from the
+     *     `description` property of the related checkout resource.
+     * @return This builder instance.
+     */
+    public Builder productSummary(String productSummary) {
+      this.productSummary = productSummary;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code refundedAmount}.
+     *
+     * @param refundedAmount Total refunded amount.
+     * @return This builder instance.
+     */
+    public Builder refundedAmount(Double refundedAmount) {
+      this.refundedAmount = refundedAmount;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code status}.
+     *
+     * @param status Current status of the transaction.
+     * @return This builder instance.
+     */
+    public Builder status(com.sumup.sdk.models.TransactionFullStatus status) {
+      this.status = status;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code timestamp}.
+     *
+     * @param timestamp Date and time of the creation of the transaction. Response format expressed
+     *     according to [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) code.
+     * @return This builder instance.
+     */
+    public Builder timestamp(java.time.OffsetDateTime timestamp) {
+      this.timestamp = timestamp;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code transactionCode}.
+     *
+     * @param transactionCode Transaction code returned by the acquirer/processing entity after
+     *     processing the transaction.
+     * @return This builder instance.
+     */
+    public Builder transactionCode(String transactionCode) {
+      this.transactionCode = transactionCode;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code transactionId}.
+     *
+     * @param transactionId Unique ID of the transaction.
+     * @return This builder instance.
+     */
+    public Builder transactionId(com.sumup.sdk.models.TransactionId transactionId) {
+      this.transactionId = transactionId;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code type}.
+     *
+     * @param type Type of the transaction for the registered user specified in the `user` property.
+     * @return This builder instance.
+     */
+    public Builder type(com.sumup.sdk.models.TransactionHistoryType type) {
+      this.type = type;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code user}.
+     *
+     * @param user Email address of the registered user (merchant) to whom the payment is made.
+     * @return This builder instance.
+     */
+    public Builder user(String user) {
+      this.user = user;
+      return this;
+    }
+
+    /**
+     * Builds an immutable TransactionHistory instance.
+     *
+     * @return Immutable TransactionHistory.
+     */
+    public TransactionHistory build() {
+      return new TransactionHistory(
+          amount,
+          cardType,
+          clientTransactionId,
+          currency,
+          id,
+          installmentsCount,
+          paymentType,
+          payoutDate,
+          payoutPlan,
+          payoutType,
+          payoutsReceived,
+          payoutsTotal,
+          productSummary,
+          refundedAmount,
+          status,
+          timestamp,
+          transactionCode,
+          transactionId,
+          type,
+          user);
+    }
+  }
+}

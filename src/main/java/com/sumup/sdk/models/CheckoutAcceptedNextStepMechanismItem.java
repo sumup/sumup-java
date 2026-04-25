@@ -3,15 +3,28 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
-public enum CheckoutAcceptedNextStepMechanismItem {
-  IFRAME("iframe"),
-  BROWSER("browser");
+public final class CheckoutAcceptedNextStepMechanismItem {
+  public static final CheckoutAcceptedNextStepMechanismItem IFRAME =
+      new CheckoutAcceptedNextStepMechanismItem("iframe");
+  public static final CheckoutAcceptedNextStepMechanismItem BROWSER =
+      new CheckoutAcceptedNextStepMechanismItem("browser");
 
   private final String value;
 
-  CheckoutAcceptedNextStepMechanismItem(String value) {
-    this.value = value;
+  private CheckoutAcceptedNextStepMechanismItem(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a CheckoutAcceptedNextStepMechanismItem for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static CheckoutAcceptedNextStepMechanismItem of(String value) {
+    return new CheckoutAcceptedNextStepMechanismItem(value);
   }
 
   @JsonValue
@@ -26,15 +39,18 @@ public enum CheckoutAcceptedNextStepMechanismItem {
 
   @JsonCreator
   public static CheckoutAcceptedNextStepMechanismItem fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (CheckoutAcceptedNextStepMechanismItem entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException(
-        "Unknown CheckoutAcceptedNextStepMechanismItem value: " + value);
+    return value == null ? null : new CheckoutAcceptedNextStepMechanismItem(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof CheckoutAcceptedNextStepMechanismItem that
+            && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

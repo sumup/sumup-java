@@ -13,14 +13,25 @@ package {{ .Package }};
  */
 {{- end }}
 {{- if .IsEnum }}
-public enum {{ .ClassName }} {
-{{- range $index, $value := .EnumValues }}{{ if $index }},
-{{ end }}    {{ $value.Name }}({{ quote $value.WireValue }}){{ end }};
+public final class {{ .ClassName }} {
+{{- range .EnumValues }}
+    public static final {{ $.ClassName }} {{ .Name }} = new {{ $.ClassName }}({{ quote .WireValue }});
+{{- end }}
 
     private final String value;
 
-    {{ .ClassName }}(String value) {
-        this.value = value;
+    private {{ .ClassName }}(String value) {
+        this.value = Objects.requireNonNull(value, "value");
+    }
+
+    /**
+     * Creates a {{ .ClassName }} for a value not yet known to this SDK version.
+     *
+     * @param value Wire value sent to or received from the API.
+     * @return Open enum value wrapping {@code value}.
+     */
+    public static {{ .ClassName }} of(String value) {
+        return new {{ .ClassName }}(value);
     }
 
     @JsonValue
@@ -35,15 +46,17 @@ public enum {{ .ClassName }} {
 
     @JsonCreator
     public static {{ .ClassName }} fromValue(String value) {
-        if (value == null) {
-            return null;
-        }
-        for ({{ .ClassName }} entry : values()) {
-            if (entry.value.equals(value)) {
-                return entry;
-            }
-        }
-        throw new IllegalArgumentException("Unknown {{ .ClassName }} value: " + value);
+        return value == null ? null : new {{ .ClassName }}(value);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return this == other || (other instanceof {{ .ClassName }} that && this.value.equals(that.value));
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
     }
 }
 {{- else }}

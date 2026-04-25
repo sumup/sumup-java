@@ -3,19 +3,30 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** The status of the membership. */
-public enum MembershipStatus {
-  ACCEPTED("accepted"),
-  PENDING("pending"),
-  EXPIRED("expired"),
-  DISABLED("disabled"),
-  UNKNOWN("unknown");
+public final class MembershipStatus {
+  public static final MembershipStatus ACCEPTED = new MembershipStatus("accepted");
+  public static final MembershipStatus PENDING = new MembershipStatus("pending");
+  public static final MembershipStatus EXPIRED = new MembershipStatus("expired");
+  public static final MembershipStatus DISABLED = new MembershipStatus("disabled");
+  public static final MembershipStatus UNKNOWN = new MembershipStatus("unknown");
 
   private final String value;
 
-  MembershipStatus(String value) {
-    this.value = value;
+  private MembershipStatus(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a MembershipStatus for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static MembershipStatus of(String value) {
+    return new MembershipStatus(value);
   }
 
   @JsonValue
@@ -30,14 +41,17 @@ public enum MembershipStatus {
 
   @JsonCreator
   public static MembershipStatus fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (MembershipStatus entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown MembershipStatus value: " + value);
+    return value == null ? null : new MembershipStatus(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof MembershipStatus that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

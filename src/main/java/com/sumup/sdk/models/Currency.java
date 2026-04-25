@@ -3,33 +3,44 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /**
  * Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the currency for the
  * amount. Currently supported currency values are enumerated above.
  */
-public enum Currency {
-  BGN("BGN"),
-  BRL("BRL"),
-  CHF("CHF"),
-  CLP("CLP"),
-  COP("COP"),
-  CZK("CZK"),
-  DKK("DKK"),
-  EUR("EUR"),
-  GBP("GBP"),
-  HRK("HRK"),
-  HUF("HUF"),
-  NOK("NOK"),
-  PLN("PLN"),
-  RON("RON"),
-  SEK("SEK"),
-  USD("USD");
+public final class Currency {
+  public static final Currency BGN = new Currency("BGN");
+  public static final Currency BRL = new Currency("BRL");
+  public static final Currency CHF = new Currency("CHF");
+  public static final Currency CLP = new Currency("CLP");
+  public static final Currency COP = new Currency("COP");
+  public static final Currency CZK = new Currency("CZK");
+  public static final Currency DKK = new Currency("DKK");
+  public static final Currency EUR = new Currency("EUR");
+  public static final Currency GBP = new Currency("GBP");
+  public static final Currency HRK = new Currency("HRK");
+  public static final Currency HUF = new Currency("HUF");
+  public static final Currency NOK = new Currency("NOK");
+  public static final Currency PLN = new Currency("PLN");
+  public static final Currency RON = new Currency("RON");
+  public static final Currency SEK = new Currency("SEK");
+  public static final Currency USD = new Currency("USD");
 
   private final String value;
 
-  Currency(String value) {
-    this.value = value;
+  private Currency(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a Currency for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static Currency of(String value) {
+    return new Currency(value);
   }
 
   @JsonValue
@@ -44,14 +55,16 @@ public enum Currency {
 
   @JsonCreator
   public static Currency fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (Currency entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown Currency value: " + value);
+    return value == null ? null : new Currency(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other || (other instanceof Currency that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

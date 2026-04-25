@@ -3,19 +3,32 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /**
  * The card type of the card used for the transaction. Is is required only for some countries (e.g:
  * Brazil).
  */
-public enum CreateReaderCheckoutRequestCardType {
-  CREDIT("credit"),
-  DEBIT("debit");
+public final class CreateReaderCheckoutRequestCardType {
+  public static final CreateReaderCheckoutRequestCardType CREDIT =
+      new CreateReaderCheckoutRequestCardType("credit");
+  public static final CreateReaderCheckoutRequestCardType DEBIT =
+      new CreateReaderCheckoutRequestCardType("debit");
 
   private final String value;
 
-  CreateReaderCheckoutRequestCardType(String value) {
-    this.value = value;
+  private CreateReaderCheckoutRequestCardType(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a CreateReaderCheckoutRequestCardType for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static CreateReaderCheckoutRequestCardType of(String value) {
+    return new CreateReaderCheckoutRequestCardType(value);
   }
 
   @JsonValue
@@ -30,15 +43,18 @@ public enum CreateReaderCheckoutRequestCardType {
 
   @JsonCreator
   public static CreateReaderCheckoutRequestCardType fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (CreateReaderCheckoutRequestCardType entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException(
-        "Unknown CreateReaderCheckoutRequestCardType value: " + value);
+    return value == null ? null : new CreateReaderCheckoutRequestCardType(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof CreateReaderCheckoutRequestCardType that
+            && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

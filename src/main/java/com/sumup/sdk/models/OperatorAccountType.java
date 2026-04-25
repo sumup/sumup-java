@@ -3,15 +3,26 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
-public enum OperatorAccountType {
-  OPERATOR("operator"),
-  NORMAL("normal");
+public final class OperatorAccountType {
+  public static final OperatorAccountType OPERATOR = new OperatorAccountType("operator");
+  public static final OperatorAccountType NORMAL = new OperatorAccountType("normal");
 
   private final String value;
 
-  OperatorAccountType(String value) {
-    this.value = value;
+  private OperatorAccountType(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a OperatorAccountType for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static OperatorAccountType of(String value) {
+    return new OperatorAccountType(value);
   }
 
   @JsonValue
@@ -26,14 +37,17 @@ public enum OperatorAccountType {
 
   @JsonCreator
   public static OperatorAccountType fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (OperatorAccountType entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown OperatorAccountType value: " + value);
+    return value == null ? null : new OperatorAccountType(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof OperatorAccountType that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }

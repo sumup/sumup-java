@@ -67,7 +67,7 @@ public record Checkout(
      * Payment attempts and resulting transaction records linked to this checkout. Use the
      * Transactions endpoints when you need the authoritative payment result and event history.
      */
-    java.util.List<com.sumup.sdk.models.TransactionBase> transactions,
+    java.util.List<com.sumup.sdk.models.CheckoutTransactionsItem> transactions,
 
     /**
      * Optional expiration timestamp. The checkout must be processed before this moment, otherwise
@@ -95,7 +95,7 @@ public record Checkout(
     private String merchantCode;
     private String returnUrl;
     private com.sumup.sdk.models.CheckoutStatus status;
-    private java.util.List<com.sumup.sdk.models.TransactionBase> transactions;
+    private java.util.List<com.sumup.sdk.models.CheckoutTransactionsItem> transactions;
     private java.time.OffsetDateTime validUntil;
 
     private Builder() {}
@@ -229,7 +229,8 @@ public record Checkout(
      *     and event history.
      * @return This builder instance.
      */
-    public Builder transactions(java.util.List<com.sumup.sdk.models.TransactionBase> transactions) {
+    public Builder transactions(
+        java.util.List<com.sumup.sdk.models.CheckoutTransactionsItem> transactions) {
       this.transactions = transactions;
       return this;
     }

@@ -3,15 +3,27 @@ package com.sumup.sdk.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
 
 /** Type of the payment instrument. */
-public enum PaymentInstrumentResponseType {
-  CARD("card");
+public final class PaymentInstrumentResponseType {
+  public static final PaymentInstrumentResponseType CARD =
+      new PaymentInstrumentResponseType("card");
 
   private final String value;
 
-  PaymentInstrumentResponseType(String value) {
-    this.value = value;
+  private PaymentInstrumentResponseType(String value) {
+    this.value = Objects.requireNonNull(value, "value");
+  }
+
+  /**
+   * Creates a PaymentInstrumentResponseType for a value not yet known to this SDK version.
+   *
+   * @param value Wire value sent to or received from the API.
+   * @return Open enum value wrapping {@code value}.
+   */
+  public static PaymentInstrumentResponseType of(String value) {
+    return new PaymentInstrumentResponseType(value);
   }
 
   @JsonValue
@@ -26,14 +38,17 @@ public enum PaymentInstrumentResponseType {
 
   @JsonCreator
   public static PaymentInstrumentResponseType fromValue(String value) {
-    if (value == null) {
-      return null;
-    }
-    for (PaymentInstrumentResponseType entry : values()) {
-      if (entry.value.equals(value)) {
-        return entry;
-      }
-    }
-    throw new IllegalArgumentException("Unknown PaymentInstrumentResponseType value: " + value);
+    return value == null ? null : new PaymentInstrumentResponseType(value);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    return this == other
+        || (other instanceof PaymentInstrumentResponseType that && this.value.equals(that.value));
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }
