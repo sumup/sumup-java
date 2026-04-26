@@ -41,6 +41,12 @@ public record CheckoutSuccess(
      */
     String description,
 
+    /**
+     * URL of the SumUp-hosted payment page that handles the payment flow. Returned when Hosted
+     * Checkout is enabled for the checkout.
+     */
+    String hostedCheckoutUrl,
+
     /** Unique SumUp identifier of the checkout resource. */
     String id,
 
@@ -321,6 +327,7 @@ public record CheckoutSuccess(
           customerId,
           date,
           description,
+          null,
           null,
           mandate,
           merchantCode,
