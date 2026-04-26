@@ -35,6 +35,12 @@ public record CheckoutCreateRequest(
      */
     String description,
 
+    /**
+     * Hosted Checkout configuration. Enable it to receive a SumUp-hosted payment page URL in the
+     * checkout response.
+     */
+    com.sumup.sdk.models.HostedCheckout hostedCheckout,
+
     /** Merchant account that should receive the payment. */
     String merchantCode,
 
@@ -82,6 +88,7 @@ public record CheckoutCreateRequest(
     private com.sumup.sdk.models.Currency currency;
     private String customerId;
     private String description;
+    private com.sumup.sdk.models.HostedCheckout hostedCheckout;
     private String merchantCode;
     private com.sumup.sdk.models.CheckoutCreateRequestPurpose purpose;
     private String redirectUrl;
@@ -146,6 +153,18 @@ public record CheckoutCreateRequest(
      */
     public Builder description(String description) {
       this.description = description;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code hostedCheckout}.
+     *
+     * @param hostedCheckout Hosted Checkout configuration. Enable it to receive a SumUp-hosted
+     *     payment page URL in the checkout response.
+     * @return This builder instance.
+     */
+    public Builder hostedCheckout(com.sumup.sdk.models.HostedCheckout hostedCheckout) {
+      this.hostedCheckout = hostedCheckout;
       return this;
     }
 
@@ -227,6 +246,7 @@ public record CheckoutCreateRequest(
           Objects.requireNonNull(currency, "currency"),
           customerId,
           description,
+          hostedCheckout,
           Objects.requireNonNull(merchantCode, "merchantCode"),
           purpose,
           redirectUrl,
