@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 
 public final class ListPayoutsV1Order {
-  public static final ListPayoutsV1Order DESC = new ListPayoutsV1Order("desc");
   public static final ListPayoutsV1Order ASC = new ListPayoutsV1Order("asc");
+  public static final ListPayoutsV1Order DESC = new ListPayoutsV1Order("desc");
 
   private final String value;
 

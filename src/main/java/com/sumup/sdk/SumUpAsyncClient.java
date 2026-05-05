@@ -10,7 +10,6 @@ import com.sumup.sdk.clients.PayoutsAsyncClient;
 import com.sumup.sdk.clients.ReadersAsyncClient;
 import com.sumup.sdk.clients.ReceiptsAsyncClient;
 import com.sumup.sdk.clients.RolesAsyncClient;
-import com.sumup.sdk.clients.SubaccountsAsyncClient;
 import com.sumup.sdk.clients.TransactionsAsyncClient;
 import com.sumup.sdk.core.ApiClient;
 import java.net.http.HttpClient;
@@ -32,7 +31,6 @@ public final class SumUpAsyncClient {
   private final ReadersAsyncClient readers;
   private final ReceiptsAsyncClient receipts;
   private final RolesAsyncClient roles;
-  private final SubaccountsAsyncClient subaccounts;
   private final TransactionsAsyncClient transactions;
 
   /** Creates a SumUpAsyncClient using the API key from the SUMUP_API_KEY environment variable. */
@@ -73,7 +71,6 @@ public final class SumUpAsyncClient {
     this.readers = new ReadersAsyncClient(this.apiClient);
     this.receipts = new ReceiptsAsyncClient(this.apiClient);
     this.roles = new RolesAsyncClient(this.apiClient);
-    this.subaccounts = new SubaccountsAsyncClient(this.apiClient);
     this.transactions = new TransactionsAsyncClient(this.apiClient);
   }
 
@@ -174,15 +171,6 @@ public final class SumUpAsyncClient {
    */
   public RolesAsyncClient roles() {
     return roles;
-  }
-
-  /**
-   * Returns the SubaccountsAsyncClient client for the "Subaccounts" API group.
-   *
-   * @return Client for the associated API group.
-   */
-  public SubaccountsAsyncClient subaccounts() {
-    return subaccounts;
   }
 
   /**
