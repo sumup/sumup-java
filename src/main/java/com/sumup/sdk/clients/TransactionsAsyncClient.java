@@ -126,79 +126,6 @@ public final class TransactionsAsyncClient {
   }
 
   /**
-   * Retrieve a transaction
-   *
-   * <p>Retrieves the full details of an identified transaction. The transaction resource is
-   * identified by a query parameter and *one* of following parameters is required: - `id` -
-   * `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
-   *
-   * <p>Operation ID: GetTransaction
-   *
-   * <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
-   * headers, authorization, query values, or timeouts.
-   *
-   * @return CompletableFuture resolved with com.sumup.sdk.models.TransactionFull parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.TransactionFull> getDeprecated()
-      throws ApiException {
-    return getDeprecated(null);
-  }
-
-  /**
-   * Retrieve a transaction
-   *
-   * <p>Retrieves the full details of an identified transaction. The transaction resource is
-   * identified by a query parameter and *one* of following parameters is required: - `id` -
-   * `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
-   *
-   * <p>Operation ID: GetTransaction
-   *
-   * @param getTransaction Optional query parameters for this request.
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.TransactionFull parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.TransactionFull> getDeprecated(
-      GetTransactionQueryParams getTransaction) throws ApiException {
-    return getDeprecated(getTransaction, null);
-  }
-
-  /**
-   * Retrieve a transaction
-   *
-   * <p>Retrieves the full details of an identified transaction. The transaction resource is
-   * identified by a query parameter and *one* of following parameters is required: - `id` -
-   * `transaction_code` - `foreign_transaction_id` - `client_transaction_id`
-   *
-   * <p>Operation ID: GetTransaction
-   *
-   * @param getTransaction Optional query parameters for this request.
-   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
-   *     {@code null} to use client defaults.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.TransactionFull parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.TransactionFull> getDeprecated(
-      GetTransactionQueryParams getTransaction, RequestOptions requestOptions) throws ApiException {
-    String path = "/v0.1/me/transactions";
-    Map<String, Object> queryParams = new LinkedHashMap<>();
-    if (getTransaction != null) {
-      queryParams.putAll(getTransaction.toMap());
-    }
-
-    return this.apiClient.sendAsync(
-        HttpMethod.GET,
-        path,
-        queryParams,
-        null,
-        null,
-        new TypeReference<com.sumup.sdk.models.TransactionFull>() {},
-        requestOptions);
-  }
-
-  /**
    * List transactions
    *
    * <p>Lists detailed history of all transactions associated with the merchant profile.
@@ -278,74 +205,24 @@ public final class TransactionsAsyncClient {
   }
 
   /**
-   * List transactions
+   * Refund a transaction
    *
-   * <p>Lists detailed history of all transactions associated with the merchant profile.
+   * <p>Refunds an identified transaction either in full or partially.
    *
-   * <p>Operation ID: ListTransactions
+   * <p>Operation ID: RefundTransaction
    *
-   * <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
-   * headers, authorization, query values, or timeouts.
-   *
-   * @return CompletableFuture resolved with com.sumup.sdk.models.ListTransactionsResponse parsed
-   *     response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.ListTransactionsResponse> listDeprecated()
-      throws ApiException {
-    return listDeprecated(null);
-  }
-
-  /**
-   * List transactions
-   *
-   * <p>Lists detailed history of all transactions associated with the merchant profile.
-   *
-   * <p>Operation ID: ListTransactions
-   *
-   * @param listTransactions Optional query parameters for this request.
+   * @param id Unique ID of the transaction.
+   * @param merchantCode Merchant code of the account that owns the payment to refund.
+   * @param request Optional amount for partial refunds.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.ListTransactionsResponse parsed
-   *     response.
+   * @return CompletableFuture completed when the request finishes.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.ListTransactionsResponse> listDeprecated(
-      ListTransactionsQueryParams listTransactions) throws ApiException {
-    return listDeprecated(listTransactions, null);
-  }
-
-  /**
-   * List transactions
-   *
-   * <p>Lists detailed history of all transactions associated with the merchant profile.
-   *
-   * <p>Operation ID: ListTransactions
-   *
-   * @param listTransactions Optional query parameters for this request.
-   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
-   *     {@code null} to use client defaults.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.ListTransactionsResponse parsed
-   *     response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.ListTransactionsResponse> listDeprecated(
-      ListTransactionsQueryParams listTransactions, RequestOptions requestOptions)
+  public CompletableFuture<Void> refund(
+      String id, String merchantCode, com.sumup.sdk.models.RefundTransactionRequest request)
       throws ApiException {
-    String path = "/v0.1/me/transactions/history";
-    Map<String, Object> queryParams = new LinkedHashMap<>();
-    if (listTransactions != null) {
-      queryParams.putAll(listTransactions.toMap());
-    }
-
-    return this.apiClient.sendAsync(
-        HttpMethod.GET,
-        path,
-        queryParams,
-        null,
-        null,
-        new TypeReference<com.sumup.sdk.models.ListTransactionsResponse>() {},
-        requestOptions);
+    return refund(id, merchantCode, request, null);
   }
 
   /**
@@ -355,26 +232,8 @@ public final class TransactionsAsyncClient {
    *
    * <p>Operation ID: RefundTransaction
    *
-   * @param txnId Unique ID of the transaction.
-   * @param request Optional amount for partial refunds.
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @return CompletableFuture completed when the request finishes.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<Void> refund(
-      String txnId, com.sumup.sdk.models.RefundTransactionRequest request) throws ApiException {
-    return refund(txnId, request, null);
-  }
-
-  /**
-   * Refund a transaction
-   *
-   * <p>Refunds an identified transaction either in full or partially.
-   *
-   * <p>Operation ID: RefundTransaction
-   *
-   * @param txnId Unique ID of the transaction.
+   * @param id Unique ID of the transaction.
+   * @param merchantCode Merchant code of the account that owns the payment to refund.
    * @param request Optional amount for partial refunds.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -382,13 +241,18 @@ public final class TransactionsAsyncClient {
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<Void> refund(
-      String txnId,
+      String id,
+      String merchantCode,
       com.sumup.sdk.models.RefundTransactionRequest request,
       RequestOptions requestOptions)
       throws ApiException {
-    Objects.requireNonNull(txnId, "txnId");
-    String path = "/v0.1/me/refund/{txn_id}";
-    path = path.replace("{txn_id}", ApiClient.urlEncode(ApiClient.parameterValue(txnId)));
+    Objects.requireNonNull(id, "id");
+    Objects.requireNonNull(merchantCode, "merchantCode");
+    String path = "/v1.0/merchants/{merchant_code}/payments/{id}/refunds";
+    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
 
     return this.apiClient.sendAsync(
         HttpMethod.POST, path, null, null, request, null, requestOptions);
@@ -441,43 +305,6 @@ public final class TransactionsAsyncClient {
      * @return This GetTransactionV21QueryParams instance.
      */
     public GetTransactionV21QueryParams transactionCode(String value) {
-      this.values.put("transaction_code", Objects.requireNonNull(value, "transactionCode"));
-      return this;
-    }
-
-    /**
-     * Converts query parameters to a map understood by ApiClient.
-     *
-     * @return Collected query parameters keyed by API name.
-     */
-    Map<String, Object> toMap() {
-      return values;
-    }
-  }
-
-  /** Optional query parameters for this request. */
-  public static final class GetTransactionQueryParams {
-    private final Map<String, Object> values = new LinkedHashMap<>();
-
-    /**
-     * Sets the id query parameter.
-     *
-     * @param value Retrieves the transaction resource with the specified transaction ID (the `id`
-     *     parameter in the transaction resource).
-     * @return This GetTransactionQueryParams instance.
-     */
-    public GetTransactionQueryParams id(String value) {
-      this.values.put("id", Objects.requireNonNull(value, "id"));
-      return this;
-    }
-
-    /**
-     * Sets the transaction_code query parameter.
-     *
-     * @param value Retrieves the transaction resource with the specified transaction code.
-     * @return This GetTransactionQueryParams instance.
-     */
-    public GetTransactionQueryParams transactionCode(String value) {
       this.values.put("transaction_code", Objects.requireNonNull(value, "transactionCode"));
       return this;
     }
@@ -653,168 +480,6 @@ public final class TransactionsAsyncClient {
      * @return This ListTransactionsV21QueryParams instance.
      */
     public ListTransactionsV21QueryParams users(java.util.List<String> value) {
-      this.values.put("users", Objects.requireNonNull(value, "users"));
-      return this;
-    }
-
-    /**
-     * Converts query parameters to a map understood by ApiClient.
-     *
-     * @return Collected query parameters keyed by API name.
-     */
-    Map<String, Object> toMap() {
-      return values;
-    }
-  }
-
-  /** Optional query parameters for this request. */
-  public static final class ListTransactionsQueryParams {
-    private final Map<String, Object> values = new LinkedHashMap<>();
-
-    /**
-     * Sets the changes_since query parameter.
-     *
-     * @param value Filters the results by the latest modification time of resources and returns
-     *     only transactions that are modified *at or after* the specified timestamp (in
-     *     [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
-     * @return This ListTransactionsQueryParams instance.
-     */
-    public ListTransactionsQueryParams changesSince(java.time.OffsetDateTime value) {
-      this.values.put("changes_since", Objects.requireNonNull(value, "changesSince"));
-      return this;
-    }
-
-    /**
-     * Sets the limit query parameter.
-     *
-     * @param value Specifies the maximum number of results per page. Value must be a positive
-     *     integer and if not specified, will return 10 results.
-     * @return This ListTransactionsQueryParams instance.
-     */
-    public ListTransactionsQueryParams limit(Long value) {
-      this.values.put("limit", Objects.requireNonNull(value, "limit"));
-      return this;
-    }
-
-    /**
-     * Sets the newest_ref query parameter.
-     *
-     * @param value Filters the results by the reference ID of transaction events and returns only
-     *     transactions with events whose IDs are *smaller* than the specified value. This
-     *     parameters supersedes the `newest_time` parameter (if both are provided in the request).
-     * @return This ListTransactionsQueryParams instance.
-     */
-    public ListTransactionsQueryParams newestRef(String value) {
-      this.values.put("newest_ref", Objects.requireNonNull(value, "newestRef"));
-      return this;
-    }
-
-    /**
-     * Sets the newest_time query parameter.
-     *
-     * @param value Filters the results by the creation time of resources and returns only
-     *     transactions that are created *before* the specified timestamp (in
-     *     [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
-     * @return This ListTransactionsQueryParams instance.
-     */
-    public ListTransactionsQueryParams newestTime(java.time.OffsetDateTime value) {
-      this.values.put("newest_time", Objects.requireNonNull(value, "newestTime"));
-      return this;
-    }
-
-    /**
-     * Sets the oldest_ref query parameter.
-     *
-     * @param value Filters the results by the reference ID of transaction events and returns only
-     *     transactions with events whose IDs are *greater* than the specified value. This
-     *     parameters supersedes the `oldest_time` parameter (if both are provided in the request).
-     * @return This ListTransactionsQueryParams instance.
-     */
-    public ListTransactionsQueryParams oldestRef(String value) {
-      this.values.put("oldest_ref", Objects.requireNonNull(value, "oldestRef"));
-      return this;
-    }
-
-    /**
-     * Sets the oldest_time query parameter.
-     *
-     * @param value Filters the results by the creation time of resources and returns only
-     *     transactions that are created *at or after* the specified timestamp (in
-     *     [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format).
-     * @return This ListTransactionsQueryParams instance.
-     */
-    public ListTransactionsQueryParams oldestTime(java.time.OffsetDateTime value) {
-      this.values.put("oldest_time", Objects.requireNonNull(value, "oldestTime"));
-      return this;
-    }
-
-    /**
-     * Sets the order query parameter.
-     *
-     * @param value Specifies the order in which the returned results are displayed.
-     * @return This ListTransactionsQueryParams instance.
-     */
-    public ListTransactionsQueryParams order(com.sumup.sdk.models.ListTransactionsOrder value) {
-      this.values.put("order", Objects.requireNonNull(value, "order"));
-      return this;
-    }
-
-    /**
-     * Sets the payment_types query parameter.
-     *
-     * @param value Filters the returned results by the specified list of payment types used for the
-     *     transactions.
-     * @return This ListTransactionsQueryParams instance.
-     */
-    public ListTransactionsQueryParams paymentTypes(
-        java.util.List<com.sumup.sdk.models.PaymentType> value) {
-      this.values.put("payment_types", Objects.requireNonNull(value, "paymentTypes"));
-      return this;
-    }
-
-    /**
-     * Sets the statuses[] query parameter.
-     *
-     * @param value Filters the returned results by the specified list of final statuses of the
-     *     transactions.
-     * @return This ListTransactionsQueryParams instance.
-     */
-    public ListTransactionsQueryParams statuses(
-        java.util.List<com.sumup.sdk.models.ListTransactionsStatusesItem> value) {
-      this.values.put("statuses[]", Objects.requireNonNull(value, "statuses"));
-      return this;
-    }
-
-    /**
-     * Sets the transaction_code query parameter.
-     *
-     * @param value Retrieves the transaction resource with the specified transaction code.
-     * @return This ListTransactionsQueryParams instance.
-     */
-    public ListTransactionsQueryParams transactionCode(String value) {
-      this.values.put("transaction_code", Objects.requireNonNull(value, "transactionCode"));
-      return this;
-    }
-
-    /**
-     * Sets the types query parameter.
-     *
-     * @param value Filters the returned results by the specified list of transaction types.
-     * @return This ListTransactionsQueryParams instance.
-     */
-    public ListTransactionsQueryParams types(
-        java.util.List<com.sumup.sdk.models.ListTransactionsTypesItem> value) {
-      this.values.put("types", Objects.requireNonNull(value, "types"));
-      return this;
-    }
-
-    /**
-     * Sets the users query parameter.
-     *
-     * @param value Filters the returned results by user email.
-     * @return This ListTransactionsQueryParams instance.
-     */
-    public ListTransactionsQueryParams users(java.util.List<String> value) {
       this.values.put("users", Objects.requireNonNull(value, "users"));
       return this;
     }

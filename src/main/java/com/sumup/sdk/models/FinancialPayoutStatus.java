@@ -5,24 +5,25 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 
-public final class ListTransactionsOrder {
-  public static final ListTransactionsOrder ASCENDING = new ListTransactionsOrder("ascending");
-  public static final ListTransactionsOrder DESCENDING = new ListTransactionsOrder("descending");
+/** Merchant-facing outcome of the payout record. */
+public final class FinancialPayoutStatus {
+  public static final FinancialPayoutStatus SUCCESSFUL = new FinancialPayoutStatus("SUCCESSFUL");
+  public static final FinancialPayoutStatus FAILED = new FinancialPayoutStatus("FAILED");
 
   private final String value;
 
-  private ListTransactionsOrder(String value) {
+  private FinancialPayoutStatus(String value) {
     this.value = Objects.requireNonNull(value, "value");
   }
 
   /**
-   * Creates a ListTransactionsOrder for a value not yet known to this SDK version.
+   * Creates a FinancialPayoutStatus for a value not yet known to this SDK version.
    *
    * @param value Wire value sent to or received from the API.
    * @return Open enum value wrapping {@code value}.
    */
-  public static ListTransactionsOrder of(String value) {
-    return new ListTransactionsOrder(value);
+  public static FinancialPayoutStatus of(String value) {
+    return new FinancialPayoutStatus(value);
   }
 
   @JsonValue
@@ -36,14 +37,14 @@ public final class ListTransactionsOrder {
   }
 
   @JsonCreator
-  public static ListTransactionsOrder fromValue(String value) {
-    return value == null ? null : new ListTransactionsOrder(value);
+  public static FinancialPayoutStatus fromValue(String value) {
+    return value == null ? null : new FinancialPayoutStatus(value);
   }
 
   @Override
   public boolean equals(Object other) {
     return this == other
-        || (other instanceof ListTransactionsOrder that && this.value.equals(that.value));
+        || (other instanceof FinancialPayoutStatus that && this.value.equals(that.value));
   }
 
   @Override

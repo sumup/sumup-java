@@ -10,7 +10,6 @@ import com.sumup.sdk.clients.PayoutsClient;
 import com.sumup.sdk.clients.ReadersClient;
 import com.sumup.sdk.clients.ReceiptsClient;
 import com.sumup.sdk.clients.RolesClient;
-import com.sumup.sdk.clients.SubaccountsClient;
 import com.sumup.sdk.clients.TransactionsClient;
 import com.sumup.sdk.core.ApiClient;
 import java.net.http.HttpClient;
@@ -32,7 +31,6 @@ public final class SumUpClient {
   private final ReadersClient readers;
   private final ReceiptsClient receipts;
   private final RolesClient roles;
-  private final SubaccountsClient subaccounts;
   private final TransactionsClient transactions;
 
   /** Creates a SumUpClient using the API key from the SUMUP_API_KEY environment variable. */
@@ -73,7 +71,6 @@ public final class SumUpClient {
     this.readers = new ReadersClient(this.apiClient);
     this.receipts = new ReceiptsClient(this.apiClient);
     this.roles = new RolesClient(this.apiClient);
-    this.subaccounts = new SubaccountsClient(this.apiClient);
     this.transactions = new TransactionsClient(this.apiClient);
   }
 
@@ -174,15 +171,6 @@ public final class SumUpClient {
    */
   public RolesClient roles() {
     return roles;
-  }
-
-  /**
-   * Returns the SubaccountsClient client for the "Subaccounts" API group.
-   *
-   * @return Client for the associated API group.
-   */
-  public SubaccountsClient subaccounts() {
-    return subaccounts;
   }
 
   /**
