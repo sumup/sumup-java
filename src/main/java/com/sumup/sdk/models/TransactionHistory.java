@@ -51,8 +51,14 @@ public record TransactionHistory(
     /** Total refunded amount. */
     Double refundedAmount,
 
-    /** Current status of the transaction. */
-    com.sumup.sdk.models.TransactionFullStatus status,
+    /**
+     * Current status of the transaction. - `PENDING`: The transaction has been created but its
+     * final outcome is not known yet. - `SUCCESSFUL`: The transaction completed successfully. -
+     * `CANCELLED`: The transaction was cancelled or otherwise reversed before completion. -
+     * `FAILED`: The transaction attempt did not complete successfully. - `REFUNDED`: The
+     * transaction was refunded in full or in part.
+     */
+    com.sumup.sdk.models.TransactionStatus status,
 
     /**
      * Date and time of the creation of the transaction. Response format expressed according to
@@ -98,7 +104,7 @@ public record TransactionHistory(
     private Long payoutsTotal;
     private String productSummary;
     private Double refundedAmount;
-    private com.sumup.sdk.models.TransactionFullStatus status;
+    private com.sumup.sdk.models.TransactionStatus status;
     private java.time.OffsetDateTime timestamp;
     private String transactionCode;
     private com.sumup.sdk.models.TransactionId transactionId;
@@ -269,10 +275,14 @@ public record TransactionHistory(
     /**
      * Sets the value for {@code status}.
      *
-     * @param status Current status of the transaction.
+     * @param status Current status of the transaction. - `PENDING`: The transaction has been
+     *     created but its final outcome is not known yet. - `SUCCESSFUL`: The transaction completed
+     *     successfully. - `CANCELLED`: The transaction was cancelled or otherwise reversed before
+     *     completion. - `FAILED`: The transaction attempt did not complete successfully. -
+     *     `REFUNDED`: The transaction was refunded in full or in part.
      * @return This builder instance.
      */
-    public Builder status(com.sumup.sdk.models.TransactionFullStatus status) {
+    public Builder status(com.sumup.sdk.models.TransactionStatus status) {
       this.status = status;
       return this;
     }

@@ -130,8 +130,14 @@ public record TransactionFull(
      */
     com.sumup.sdk.models.TransactionFullSimpleStatus simpleStatus,
 
-    /** Current status of the transaction. */
-    com.sumup.sdk.models.TransactionFullStatus status,
+    /**
+     * Current status of the transaction. - `PENDING`: The transaction has been created but its
+     * final outcome is not known yet. - `SUCCESSFUL`: The transaction completed successfully. -
+     * `CANCELLED`: The transaction was cancelled or otherwise reversed before completion. -
+     * `FAILED`: The transaction attempt did not complete successfully. - `REFUNDED`: The
+     * transaction was refunded in full or in part.
+     */
+    com.sumup.sdk.models.TransactionStatus status,
 
     /** Indicates whether tax deduction is enabled for the transaction. */
     Boolean taxEnabled,
@@ -207,7 +213,7 @@ public record TransactionFull(
     private java.util.List<com.sumup.sdk.models.Product> products;
     private com.sumup.sdk.models.TransactionFullSimplePaymentType simplePaymentType;
     private com.sumup.sdk.models.TransactionFullSimpleStatus simpleStatus;
-    private com.sumup.sdk.models.TransactionFullStatus status;
+    private com.sumup.sdk.models.TransactionStatus status;
     private Boolean taxEnabled;
     private java.time.OffsetDateTime timestamp;
     private Float tipAmount;
@@ -597,10 +603,14 @@ public record TransactionFull(
     /**
      * Sets the value for {@code status}.
      *
-     * @param status Current status of the transaction.
+     * @param status Current status of the transaction. - `PENDING`: The transaction has been
+     *     created but its final outcome is not known yet. - `SUCCESSFUL`: The transaction completed
+     *     successfully. - `CANCELLED`: The transaction was cancelled or otherwise reversed before
+     *     completion. - `FAILED`: The transaction attempt did not complete successfully. -
+     *     `REFUNDED`: The transaction was refunded in full or in part.
      * @return This builder instance.
      */
-    public Builder status(com.sumup.sdk.models.TransactionFullStatus status) {
+    public Builder status(com.sumup.sdk.models.TransactionStatus status) {
       this.status = status;
       return this;
     }
