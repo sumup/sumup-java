@@ -118,7 +118,7 @@ final class ApiClientTest {
     ApiClient apiClient = ApiClient.builder().httpClient(httpClient).build();
     ReadersClient readersClient = new ReadersClient(apiClient);
 
-    readersClient.delete(new ReaderId("reader 123"), "merchant-code");
+    readersClient.delete("merchant-code", new ReaderId("reader 123"));
 
     assertEquals(
         URI.create("https://api.sumup.com/v0.1/merchants/merchant-code/readers/reader+123"),

@@ -26,7 +26,7 @@ public record MembershipUser(
     /** True if the user has enabled MFA on login. */
     Boolean mfaOnLoginEnabled,
 
-    /** User's preferred name. Used for display purposes only. */
+    /** User's nickname. Used for display purposes only. */
     String nickname,
 
     /**
@@ -37,6 +37,9 @@ public record MembershipUser(
 
     /** True if the user is a service account. */
     Boolean serviceAccountUser,
+
+    /** Type of the user account. */
+    com.sumup.sdk.models.UserType type,
 
     /** True if the user is a virtual user (operator). */
     Boolean virtualUser) {
@@ -59,6 +62,7 @@ public record MembershipUser(
     private String nickname;
     private String picture;
     private Boolean serviceAccountUser;
+    private com.sumup.sdk.models.UserType type;
     private Boolean virtualUser;
 
     private Builder() {}
@@ -124,7 +128,7 @@ public record MembershipUser(
     /**
      * Sets the value for {@code nickname}.
      *
-     * @param nickname User's preferred name. Used for display purposes only.
+     * @param nickname User's nickname. Used for display purposes only.
      * @return This builder instance.
      */
     public Builder nickname(String nickname) {
@@ -156,6 +160,17 @@ public record MembershipUser(
     }
 
     /**
+     * Sets the value for {@code type}.
+     *
+     * @param type Type of the user account.
+     * @return This builder instance.
+     */
+    public Builder type(com.sumup.sdk.models.UserType type) {
+      this.type = type;
+      return this;
+    }
+
+    /**
      * Sets the value for {@code virtualUser}.
      *
      * @param virtualUser True if the user is a virtual user (operator).
@@ -181,6 +196,7 @@ public record MembershipUser(
           nickname,
           picture,
           Objects.requireNonNull(serviceAccountUser, "serviceAccountUser"),
+          Objects.requireNonNull(type, "type"),
           Objects.requireNonNull(virtualUser, "virtualUser"));
     }
   }

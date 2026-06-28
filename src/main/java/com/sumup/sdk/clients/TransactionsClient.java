@@ -206,17 +206,19 @@ public final class TransactionsClient {
    *
    * <p>Operation ID: RefundTransaction
    *
-   * @param id Unique ID of the transaction.
    * @param merchantCode Merchant code of the account that owns the payment to refund.
+   * @param transactionId Unique ID of the transaction.
    * @param request Optional amount for partial refunds.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @throws ApiException if the SumUp API returns an error.
    */
   public void refund(
-      String id, String merchantCode, com.sumup.sdk.models.RefundTransactionRequest request)
+      String merchantCode,
+      String transactionId,
+      com.sumup.sdk.models.RefundTransactionRequest request)
       throws ApiException {
-    refund(id, merchantCode, request, null);
+    refund(merchantCode, transactionId, request, null);
   }
 
   /**
@@ -226,26 +228,28 @@ public final class TransactionsClient {
    *
    * <p>Operation ID: RefundTransaction
    *
-   * @param id Unique ID of the transaction.
    * @param merchantCode Merchant code of the account that owns the payment to refund.
+   * @param transactionId Unique ID of the transaction.
    * @param request Optional amount for partial refunds.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @throws ApiException if the SumUp API returns an error.
    */
   public void refund(
-      String id,
       String merchantCode,
+      String transactionId,
       com.sumup.sdk.models.RefundTransactionRequest request,
       RequestOptions requestOptions)
       throws ApiException {
-    Objects.requireNonNull(id, "id");
     Objects.requireNonNull(merchantCode, "merchantCode");
-    String path = "/v1.0/merchants/{merchant_code}/payments/{id}/refunds";
-    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
+    Objects.requireNonNull(transactionId, "transactionId");
+    String path = "/v1.0/merchants/{merchant_code}/payments/{transaction_id}/refunds";
     path =
         path.replace(
             "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path =
+        path.replace(
+            "{transaction_id}", ApiClient.urlEncode(ApiClient.parameterValue(transactionId)));
 
     this.apiClient.send(HttpMethod.POST, path, null, null, request, null, requestOptions);
   }
@@ -417,7 +421,7 @@ public final class TransactionsClient {
     }
 
     /**
-     * Sets the payment_types query parameter.
+     * Sets the payment_types[] query parameter.
      *
      * @param value Filters the returned results by the specified list of payment types used for the
      *     transactions.
@@ -425,7 +429,7 @@ public final class TransactionsClient {
      */
     public ListTransactionsV21QueryParams paymentTypes(
         java.util.List<com.sumup.sdk.models.PaymentType> value) {
-      this.values.put("payment_types", Objects.requireNonNull(value, "paymentTypes"));
+      this.values.put("payment_types[]", Objects.requireNonNull(value, "paymentTypes"));
       return this;
     }
 
@@ -454,25 +458,25 @@ public final class TransactionsClient {
     }
 
     /**
-     * Sets the types query parameter.
+     * Sets the types[] query parameter.
      *
      * @param value Filters the returned results by the specified list of transaction types.
      * @return This ListTransactionsV21QueryParams instance.
      */
     public ListTransactionsV21QueryParams types(
         java.util.List<com.sumup.sdk.models.ListTransactionsV21TypesItem> value) {
-      this.values.put("types", Objects.requireNonNull(value, "types"));
+      this.values.put("types[]", Objects.requireNonNull(value, "types"));
       return this;
     }
 
     /**
-     * Sets the users query parameter.
+     * Sets the users[] query parameter.
      *
      * @param value Filters the returned results by user email.
      * @return This ListTransactionsV21QueryParams instance.
      */
     public ListTransactionsV21QueryParams users(java.util.List<String> value) {
-      this.values.put("users", Objects.requireNonNull(value, "users"));
+      this.values.put("users[]", Objects.requireNonNull(value, "users"));
       return this;
     }
 
