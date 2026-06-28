@@ -34,15 +34,15 @@ public final class ReceiptsClient {
    *
    * <p>Operation ID: GetReceipt
    *
-   * @param id SumUp unique transaction ID or transaction code, e.g. TS7HDYLSKD.
+   * @param transactionId SumUp unique transaction ID or transaction code, e.g. TS7HDYLSKD.
    * @param mid Merchant code.
    *     <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
    *     headers, authorization, query values, or timeouts.
    * @return com.sumup.sdk.models.Receipt parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Receipt get(String id, String mid) throws ApiException {
-    return get(id, mid, null);
+  public com.sumup.sdk.models.Receipt get(String transactionId, String mid) throws ApiException {
+    return get(transactionId, mid, null);
   }
 
   /**
@@ -52,7 +52,7 @@ public final class ReceiptsClient {
    *
    * <p>Operation ID: GetReceipt
    *
-   * @param id SumUp unique transaction ID or transaction code, e.g. TS7HDYLSKD.
+   * @param transactionId SumUp unique transaction ID or transaction code, e.g. TS7HDYLSKD.
    * @param mid Merchant code.
    * @param getReceipt Optional query parameters for this request.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
@@ -60,9 +60,9 @@ public final class ReceiptsClient {
    * @return com.sumup.sdk.models.Receipt parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Receipt get(String id, String mid, GetReceiptQueryParams getReceipt)
-      throws ApiException {
-    return get(id, mid, getReceipt, null);
+  public com.sumup.sdk.models.Receipt get(
+      String transactionId, String mid, GetReceiptQueryParams getReceipt) throws ApiException {
+    return get(transactionId, mid, getReceipt, null);
   }
 
   /**
@@ -72,7 +72,7 @@ public final class ReceiptsClient {
    *
    * <p>Operation ID: GetReceipt
    *
-   * @param id SumUp unique transaction ID or transaction code, e.g. TS7HDYLSKD.
+   * @param transactionId SumUp unique transaction ID or transaction code, e.g. TS7HDYLSKD.
    * @param mid Merchant code.
    * @param getReceipt Optional query parameters for this request.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
@@ -81,12 +81,17 @@ public final class ReceiptsClient {
    * @throws ApiException if the SumUp API returns an error.
    */
   public com.sumup.sdk.models.Receipt get(
-      String id, String mid, GetReceiptQueryParams getReceipt, RequestOptions requestOptions)
+      String transactionId,
+      String mid,
+      GetReceiptQueryParams getReceipt,
+      RequestOptions requestOptions)
       throws ApiException {
-    Objects.requireNonNull(id, "id");
+    Objects.requireNonNull(transactionId, "transactionId");
     Objects.requireNonNull(mid, "mid");
-    String path = "/v1.1/receipts/{id}";
-    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
+    String path = "/v1.1/receipts/{transaction_id}";
+    path =
+        path.replace(
+            "{transaction_id}", ApiClient.urlEncode(ApiClient.parameterValue(transactionId)));
     Map<String, Object> queryParams = new LinkedHashMap<>();
     queryParams.put("mid", mid);
     if (getReceipt != null) {

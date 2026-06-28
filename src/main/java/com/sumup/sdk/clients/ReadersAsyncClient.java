@@ -166,16 +166,16 @@ public final class ReadersAsyncClient {
    *
    * <p>Operation ID: DeleteReader
    *
-   * @param id The unique identifier of the reader.
    * @param merchantCode Short unique identifier for the merchant.
+   * @param readerId The unique identifier of the reader.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @return CompletableFuture completed when the request finishes.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<Void> delete(com.sumup.sdk.models.ReaderId id, String merchantCode)
+  public CompletableFuture<Void> delete(String merchantCode, com.sumup.sdk.models.ReaderId readerId)
       throws ApiException {
-    return delete(id, merchantCode, null);
+    return delete(merchantCode, readerId, null);
   }
 
   /**
@@ -185,23 +185,23 @@ public final class ReadersAsyncClient {
    *
    * <p>Operation ID: DeleteReader
    *
-   * @param id The unique identifier of the reader.
    * @param merchantCode Short unique identifier for the merchant.
+   * @param readerId The unique identifier of the reader.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return CompletableFuture completed when the request finishes.
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<Void> delete(
-      com.sumup.sdk.models.ReaderId id, String merchantCode, RequestOptions requestOptions)
+      String merchantCode, com.sumup.sdk.models.ReaderId readerId, RequestOptions requestOptions)
       throws ApiException {
-    Objects.requireNonNull(id, "id");
     Objects.requireNonNull(merchantCode, "merchantCode");
-    String path = "/v0.1/merchants/{merchant_code}/readers/{id}";
-    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
+    Objects.requireNonNull(readerId, "readerId");
+    String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}";
     path =
         path.replace(
             "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
 
     return this.apiClient.sendAsync(
         HttpMethod.DELETE, path, null, null, null, null, requestOptions);
@@ -214,16 +214,16 @@ public final class ReadersAsyncClient {
    *
    * <p>Operation ID: GetReader
    *
-   * @param id The unique identifier of the reader.
    * @param merchantCode Short unique identifier for the merchant.
+   * @param readerId The unique identifier of the reader.
    *     <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
    *     headers, authorization, query values, or timeouts.
    * @return CompletableFuture resolved with com.sumup.sdk.models.Reader parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<com.sumup.sdk.models.Reader> get(
-      com.sumup.sdk.models.ReaderId id, String merchantCode) throws ApiException {
-    return get(id, merchantCode, null);
+      String merchantCode, com.sumup.sdk.models.ReaderId readerId) throws ApiException {
+    return get(merchantCode, readerId, null);
   }
 
   /**
@@ -233,8 +233,8 @@ public final class ReadersAsyncClient {
    *
    * <p>Operation ID: GetReader
    *
-   * @param id The unique identifier of the reader.
    * @param merchantCode Short unique identifier for the merchant.
+   * @param readerId The unique identifier of the reader.
    * @param getReader Optional header overrides for this request.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -242,9 +242,9 @@ public final class ReadersAsyncClient {
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<com.sumup.sdk.models.Reader> get(
-      com.sumup.sdk.models.ReaderId id, String merchantCode, GetReaderHeaders getReader)
+      String merchantCode, com.sumup.sdk.models.ReaderId readerId, GetReaderHeaders getReader)
       throws ApiException {
-    return get(id, merchantCode, getReader, null);
+    return get(merchantCode, readerId, getReader, null);
   }
 
   /**
@@ -254,8 +254,8 @@ public final class ReadersAsyncClient {
    *
    * <p>Operation ID: GetReader
    *
-   * @param id The unique identifier of the reader.
    * @param merchantCode Short unique identifier for the merchant.
+   * @param readerId The unique identifier of the reader.
    * @param getReader Optional header overrides for this request.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -263,18 +263,18 @@ public final class ReadersAsyncClient {
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<com.sumup.sdk.models.Reader> get(
-      com.sumup.sdk.models.ReaderId id,
       String merchantCode,
+      com.sumup.sdk.models.ReaderId readerId,
       GetReaderHeaders getReader,
       RequestOptions requestOptions)
       throws ApiException {
-    Objects.requireNonNull(id, "id");
     Objects.requireNonNull(merchantCode, "merchantCode");
-    String path = "/v0.1/merchants/{merchant_code}/readers/{id}";
-    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
+    Objects.requireNonNull(readerId, "readerId");
+    String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}";
     path =
         path.replace(
             "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
     Map<String, String> headerParams = new LinkedHashMap<>();
     if (getReader != null) {
       headerParams.putAll(getReader.toMap());
@@ -485,8 +485,8 @@ public final class ReadersAsyncClient {
    *
    * <p>Operation ID: UpdateReader
    *
-   * @param id The unique identifier of the reader.
    * @param merchantCode Short unique identifier for the merchant.
+   * @param readerId The unique identifier of the reader.
    * @param request Request body payload.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -494,11 +494,11 @@ public final class ReadersAsyncClient {
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<com.sumup.sdk.models.Reader> update(
-      com.sumup.sdk.models.ReaderId id,
       String merchantCode,
+      com.sumup.sdk.models.ReaderId readerId,
       com.sumup.sdk.models.UpdateReaderRequest request)
       throws ApiException {
-    return update(id, merchantCode, request, null);
+    return update(merchantCode, readerId, request, null);
   }
 
   /**
@@ -508,8 +508,8 @@ public final class ReadersAsyncClient {
    *
    * <p>Operation ID: UpdateReader
    *
-   * @param id The unique identifier of the reader.
    * @param merchantCode Short unique identifier for the merchant.
+   * @param readerId The unique identifier of the reader.
    * @param request Request body payload.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -517,19 +517,19 @@ public final class ReadersAsyncClient {
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<com.sumup.sdk.models.Reader> update(
-      com.sumup.sdk.models.ReaderId id,
       String merchantCode,
+      com.sumup.sdk.models.ReaderId readerId,
       com.sumup.sdk.models.UpdateReaderRequest request,
       RequestOptions requestOptions)
       throws ApiException {
-    Objects.requireNonNull(id, "id");
     Objects.requireNonNull(merchantCode, "merchantCode");
+    Objects.requireNonNull(readerId, "readerId");
     Objects.requireNonNull(request, "request");
-    String path = "/v0.1/merchants/{merchant_code}/readers/{id}";
-    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
+    String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}";
     path =
         path.replace(
             "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
 
     return this.apiClient.sendAsync(
         HttpMethod.PATCH,

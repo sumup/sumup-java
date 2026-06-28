@@ -3,7 +3,7 @@ package com.sumup.sdk.models;
 
 /** Allows you to update user data of managed users. */
 public record UpdateMerchantMemberRequestUser(
-    /** User's preferred name. Used for display purposes only. */
+    /** User's nickname. Used for display purposes only. */
     String nickname,
 
     /** Password of the member to add. Only used if `is_managed_user` is true. */
@@ -27,7 +27,7 @@ public record UpdateMerchantMemberRequestUser(
     /**
      * Sets the value for {@code nickname}.
      *
-     * @param nickname User's preferred name. Used for display purposes only.
+     * @param nickname User's nickname. Used for display purposes only.
      * @return This builder instance.
      */
     public Builder nickname(String nickname) {

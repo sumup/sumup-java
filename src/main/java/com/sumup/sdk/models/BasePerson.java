@@ -55,7 +55,7 @@ public record BasePerson(
     String id,
 
     /** A list of country-specific personal identifiers. */
-    java.util.List<com.sumup.sdk.models.PersonalIdentifier> identifiers,
+    com.sumup.sdk.models.PersonalIdentifiers identifiers,
 
     /**
      * Middle name(s) of the End-User. Note that in some cultures, people can have multiple middle
@@ -106,7 +106,7 @@ public record BasePerson(
     private String countryOfResidence;
     private String familyName;
     private String givenName;
-    private java.util.List<com.sumup.sdk.models.PersonalIdentifier> identifiers;
+    private com.sumup.sdk.models.PersonalIdentifiers identifiers;
     private String middleName;
     private String nationality;
     private com.sumup.sdk.models.Ownership ownership;
@@ -198,8 +198,7 @@ public record BasePerson(
      * @param identifiers A list of country-specific personal identifiers.
      * @return This builder instance.
      */
-    public Builder identifiers(
-        java.util.List<com.sumup.sdk.models.PersonalIdentifier> identifiers) {
+    public Builder identifiers(com.sumup.sdk.models.PersonalIdentifiers identifiers) {
       this.identifiers = identifiers;
       return this;
     }

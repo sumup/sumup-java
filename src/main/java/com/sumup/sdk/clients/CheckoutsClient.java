@@ -107,7 +107,7 @@ public final class CheckoutsClient {
    *
    * <p>Operation ID: CreateApplePaySession
    *
-   * @param id Unique ID of the checkout resource.
+   * @param checkoutId Unique ID of the checkout resource.
    * @param request The data needed to create an apple pay session for a checkout.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -115,8 +115,9 @@ public final class CheckoutsClient {
    * @throws ApiException if the SumUp API returns an error.
    */
   public java.util.Map<String, Object> createApplePaySession(
-      String id, com.sumup.sdk.models.CreateApplePaySessionRequest request) throws ApiException {
-    return createApplePaySession(id, request, null);
+      String checkoutId, com.sumup.sdk.models.CreateApplePaySessionRequest request)
+      throws ApiException {
+    return createApplePaySession(checkoutId, request, null);
   }
 
   /**
@@ -130,7 +131,7 @@ public final class CheckoutsClient {
    *
    * <p>Operation ID: CreateApplePaySession
    *
-   * @param id Unique ID of the checkout resource.
+   * @param checkoutId Unique ID of the checkout resource.
    * @param request The data needed to create an apple pay session for a checkout.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -138,13 +139,13 @@ public final class CheckoutsClient {
    * @throws ApiException if the SumUp API returns an error.
    */
   public java.util.Map<String, Object> createApplePaySession(
-      String id,
+      String checkoutId,
       com.sumup.sdk.models.CreateApplePaySessionRequest request,
       RequestOptions requestOptions)
       throws ApiException {
-    Objects.requireNonNull(id, "id");
-    String path = "/v0.2/checkouts/{id}/apple-pay-session";
-    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
+    Objects.requireNonNull(checkoutId, "checkoutId");
+    String path = "/v0.2/checkouts/{checkout_id}/apple-pay-session";
+    path = path.replace("{checkout_id}", ApiClient.urlEncode(ApiClient.parameterValue(checkoutId)));
 
     return this.apiClient.send(
         HttpMethod.PUT,
@@ -164,14 +165,14 @@ public final class CheckoutsClient {
    *
    * <p>Operation ID: DeactivateCheckout
    *
-   * @param id Unique ID of the checkout resource.
+   * @param checkoutId Unique ID of the checkout resource.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @return com.sumup.sdk.models.Checkout parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Checkout deactivate(String id) throws ApiException {
-    return deactivate(id, null);
+  public com.sumup.sdk.models.Checkout deactivate(String checkoutId) throws ApiException {
+    return deactivate(checkoutId, null);
   }
 
   /**
@@ -182,17 +183,17 @@ public final class CheckoutsClient {
    *
    * <p>Operation ID: DeactivateCheckout
    *
-   * @param id Unique ID of the checkout resource.
+   * @param checkoutId Unique ID of the checkout resource.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return com.sumup.sdk.models.Checkout parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Checkout deactivate(String id, RequestOptions requestOptions)
+  public com.sumup.sdk.models.Checkout deactivate(String checkoutId, RequestOptions requestOptions)
       throws ApiException {
-    Objects.requireNonNull(id, "id");
-    String path = "/v0.1/checkouts/{id}";
-    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
+    Objects.requireNonNull(checkoutId, "checkoutId");
+    String path = "/v0.1/checkouts/{checkout_id}";
+    path = path.replace("{checkout_id}", ApiClient.urlEncode(ApiClient.parameterValue(checkoutId)));
 
     return this.apiClient.send(
         HttpMethod.DELETE,
@@ -212,14 +213,14 @@ public final class CheckoutsClient {
    *
    * <p>Operation ID: GetCheckout
    *
-   * @param id Unique ID of the checkout resource.
+   * @param checkoutId Unique ID of the checkout resource.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @return com.sumup.sdk.models.CheckoutSuccess parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.CheckoutSuccess get(String id) throws ApiException {
-    return get(id, null);
+  public com.sumup.sdk.models.CheckoutSuccess get(String checkoutId) throws ApiException {
+    return get(checkoutId, null);
   }
 
   /**
@@ -230,17 +231,17 @@ public final class CheckoutsClient {
    *
    * <p>Operation ID: GetCheckout
    *
-   * @param id Unique ID of the checkout resource.
+   * @param checkoutId Unique ID of the checkout resource.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return com.sumup.sdk.models.CheckoutSuccess parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.CheckoutSuccess get(String id, RequestOptions requestOptions)
+  public com.sumup.sdk.models.CheckoutSuccess get(String checkoutId, RequestOptions requestOptions)
       throws ApiException {
-    Objects.requireNonNull(id, "id");
-    String path = "/v0.1/checkouts/{id}";
-    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
+    Objects.requireNonNull(checkoutId, "checkoutId");
+    String path = "/v0.1/checkouts/{checkout_id}";
+    path = path.replace("{checkout_id}", ApiClient.urlEncode(ApiClient.parameterValue(checkoutId)));
 
     return this.apiClient.send(
         HttpMethod.GET,
@@ -403,7 +404,7 @@ public final class CheckoutsClient {
    *
    * <p>Operation ID: ProcessCheckout
    *
-   * @param id Unique ID of the checkout resource.
+   * @param checkoutId Unique ID of the checkout resource.
    * @param request Details of the payment instrument for processing the checkout.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -411,8 +412,8 @@ public final class CheckoutsClient {
    * @throws ApiException if the SumUp API returns an error.
    */
   public com.sumup.sdk.models.CheckoutSuccess process(
-      String id, com.sumup.sdk.models.ProcessCheckout request) throws ApiException {
-    return process(id, request, null);
+      String checkoutId, com.sumup.sdk.models.ProcessCheckout request) throws ApiException {
+    return process(checkoutId, request, null);
   }
 
   /**
@@ -424,7 +425,7 @@ public final class CheckoutsClient {
    *
    * <p>Operation ID: ProcessCheckout
    *
-   * @param id Unique ID of the checkout resource.
+   * @param checkoutId Unique ID of the checkout resource.
    * @param request Details of the payment instrument for processing the checkout.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -432,12 +433,14 @@ public final class CheckoutsClient {
    * @throws ApiException if the SumUp API returns an error.
    */
   public com.sumup.sdk.models.CheckoutSuccess process(
-      String id, com.sumup.sdk.models.ProcessCheckout request, RequestOptions requestOptions)
+      String checkoutId,
+      com.sumup.sdk.models.ProcessCheckout request,
+      RequestOptions requestOptions)
       throws ApiException {
-    Objects.requireNonNull(id, "id");
+    Objects.requireNonNull(checkoutId, "checkoutId");
     Objects.requireNonNull(request, "request");
-    String path = "/v0.1/checkouts/{id}";
-    path = path.replace("{id}", ApiClient.urlEncode(ApiClient.parameterValue(id)));
+    String path = "/v0.1/checkouts/{checkout_id}";
+    path = path.replace("{checkout_id}", ApiClient.urlEncode(ApiClient.parameterValue(checkoutId)));
 
     return this.apiClient.send(
         HttpMethod.PUT,

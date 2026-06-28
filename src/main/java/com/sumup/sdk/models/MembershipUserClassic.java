@@ -4,7 +4,7 @@ package com.sumup.sdk.models;
 import java.util.Objects;
 
 /** Classic identifiers of the user. */
-public record MembershipUserClassic(Integer userId) {
+public record MembershipUserClassic(Long userId) {
   /**
    * Creates a builder for MembershipUserClassic.
    *
@@ -16,7 +16,7 @@ public record MembershipUserClassic(Integer userId) {
 
   /** Builder for MembershipUserClassic instances. */
   public static final class Builder {
-    private Integer userId;
+    private Long userId;
 
     private Builder() {}
 
@@ -26,7 +26,7 @@ public record MembershipUserClassic(Integer userId) {
      * @param userId Value for the userId field.
      * @return This builder instance.
      */
-    public Builder userId(Integer userId) {
+    public Builder userId(Long userId) {
       this.userId = userId;
       return this;
     }

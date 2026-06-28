@@ -4,7 +4,7 @@ package com.sumup.sdk.models;
 import java.util.Objects;
 
 public record PersonalIdentifier(
-    /** The unique reference for the personal identifier type as defined in the country SDK. */
+    /** The unique reference for the personal identifier type. */
     String ref,
 
     /** The company identifier value. */
@@ -28,8 +28,7 @@ public record PersonalIdentifier(
     /**
      * Sets the value for {@code ref}.
      *
-     * @param ref The unique reference for the personal identifier type as defined in the country
-     *     SDK.
+     * @param ref The unique reference for the personal identifier type.
      * @return This builder instance.
      */
     public Builder ref(String ref) {
