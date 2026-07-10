@@ -13,10 +13,10 @@ public record TransactionEvent(
     java.time.LocalDate dueDate,
 
     /** Type of the transaction event. */
-    com.sumup.sdk.models.EventType eventType,
+    com.sumup.sdk.models.TransactionEventType eventType,
 
     /** Unique ID of the transaction event. */
-    com.sumup.sdk.models.EventId id,
+    com.sumup.sdk.models.TransactionEventId id,
 
     /**
      * Consecutive number of the installment that is paid. Applicable only payout events, i.e.
@@ -40,7 +40,7 @@ public record TransactionEvent(
      * The event could not be completed. Typical examples are a payout that could not be executed or
      * an event that was rejected during processing.
      */
-    com.sumup.sdk.models.EventStatus status,
+    com.sumup.sdk.models.TransactionEventStatus status,
 
     /** Date and time of the transaction event. */
     java.time.OffsetDateTime timestamp) {
@@ -58,10 +58,10 @@ public record TransactionEvent(
     private Double amount;
     private java.time.LocalDate date;
     private java.time.LocalDate dueDate;
-    private com.sumup.sdk.models.EventType eventType;
-    private com.sumup.sdk.models.EventId id;
+    private com.sumup.sdk.models.TransactionEventType eventType;
+    private com.sumup.sdk.models.TransactionEventId id;
     private Long installmentNumber;
-    private com.sumup.sdk.models.EventStatus status;
+    private com.sumup.sdk.models.TransactionEventStatus status;
     private java.time.OffsetDateTime timestamp;
 
     private Builder() {}
@@ -105,7 +105,7 @@ public record TransactionEvent(
      * @param eventType Type of the transaction event.
      * @return This builder instance.
      */
-    public Builder eventType(com.sumup.sdk.models.EventType eventType) {
+    public Builder eventType(com.sumup.sdk.models.TransactionEventType eventType) {
       this.eventType = eventType;
       return this;
     }
@@ -116,7 +116,7 @@ public record TransactionEvent(
      * @param id Unique ID of the transaction event.
      * @return This builder instance.
      */
-    public Builder id(com.sumup.sdk.models.EventId id) {
+    public Builder id(com.sumup.sdk.models.TransactionEventId id) {
       this.id = id;
       return this;
     }
@@ -153,7 +153,7 @@ public record TransactionEvent(
      *     rejected during processing.
      * @return This builder instance.
      */
-    public Builder status(com.sumup.sdk.models.EventStatus status) {
+    public Builder status(com.sumup.sdk.models.TransactionEventStatus status) {
       this.status = status;
       return this;
     }

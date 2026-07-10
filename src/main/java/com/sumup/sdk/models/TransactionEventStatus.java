@@ -20,29 +20,29 @@ import java.util.Objects;
  * as `PAID_OUT` or `REFUNDED`. - `FAILED`: The event could not be completed. Typical examples are a
  * payout that could not be executed or an event that was rejected during processing.
  */
-public final class EventStatus {
-  public static final EventStatus FAILED = new EventStatus("FAILED");
-  public static final EventStatus PAID_OUT = new EventStatus("PAID_OUT");
-  public static final EventStatus PENDING = new EventStatus("PENDING");
-  public static final EventStatus RECONCILED = new EventStatus("RECONCILED");
-  public static final EventStatus REFUNDED = new EventStatus("REFUNDED");
-  public static final EventStatus SCHEDULED = new EventStatus("SCHEDULED");
-  public static final EventStatus SUCCESSFUL = new EventStatus("SUCCESSFUL");
+public final class TransactionEventStatus {
+  public static final TransactionEventStatus FAILED = new TransactionEventStatus("FAILED");
+  public static final TransactionEventStatus PAID_OUT = new TransactionEventStatus("PAID_OUT");
+  public static final TransactionEventStatus PENDING = new TransactionEventStatus("PENDING");
+  public static final TransactionEventStatus RECONCILED = new TransactionEventStatus("RECONCILED");
+  public static final TransactionEventStatus REFUNDED = new TransactionEventStatus("REFUNDED");
+  public static final TransactionEventStatus SCHEDULED = new TransactionEventStatus("SCHEDULED");
+  public static final TransactionEventStatus SUCCESSFUL = new TransactionEventStatus("SUCCESSFUL");
 
   private final String value;
 
-  private EventStatus(String value) {
+  private TransactionEventStatus(String value) {
     this.value = Objects.requireNonNull(value, "value");
   }
 
   /**
-   * Creates a EventStatus for a value not yet known to this SDK version.
+   * Creates a TransactionEventStatus for a value not yet known to this SDK version.
    *
    * @param value Wire value sent to or received from the API.
    * @return Open enum value wrapping {@code value}.
    */
-  public static EventStatus of(String value) {
-    return new EventStatus(value);
+  public static TransactionEventStatus of(String value) {
+    return new TransactionEventStatus(value);
   }
 
   @JsonValue
@@ -56,13 +56,14 @@ public final class EventStatus {
   }
 
   @JsonCreator
-  public static EventStatus fromValue(String value) {
-    return value == null ? null : new EventStatus(value);
+  public static TransactionEventStatus fromValue(String value) {
+    return value == null ? null : new TransactionEventStatus(value);
   }
 
   @Override
   public boolean equals(Object other) {
-    return this == other || (other instanceof EventStatus that && this.value.equals(that.value));
+    return this == other
+        || (other instanceof TransactionEventStatus that && this.value.equals(that.value));
   }
 
   @Override

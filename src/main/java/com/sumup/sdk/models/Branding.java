@@ -9,6 +9,9 @@ public record Branding(
     /** A hex color value representing the preferred background color of this merchant. */
     String backgroundColor,
 
+    /** Footer text rendered on receipts and other customer-facing products. */
+    String footerText,
+
     /** Data-URL encoded hero image for the merchant business. */
     String hero,
 
@@ -56,6 +59,7 @@ public record Branding(
   /** Builder for Branding instances. */
   public static final class Builder {
     private String backgroundColor;
+    private String footerText;
     private String hero;
     private String icon;
     private String logo;
@@ -75,6 +79,17 @@ public record Branding(
      */
     public Builder backgroundColor(String backgroundColor) {
       this.backgroundColor = backgroundColor;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code footerText}.
+     *
+     * @param footerText Footer text rendered on receipts and other customer-facing products.
+     * @return This builder instance.
+     */
+    public Builder footerText(String footerText) {
+      this.footerText = footerText;
       return this;
     }
 
@@ -168,6 +183,7 @@ public record Branding(
     public Branding build() {
       return new Branding(
           backgroundColor,
+          footerText,
           hero,
           icon,
           logo,

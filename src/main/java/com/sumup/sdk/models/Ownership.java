@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public record Ownership(
     /**
-     * The percent of ownership shares held by the person expressed in percent mille (1/100000).
-     * Only persons with the relationship `owner` can have ownership.
+     * The percent of ownership shares held by the Person expressed in percent mille (1/100000).
+     * Only Persons with the relationship `owner` can have ownership.
      */
     Integer share) {
   /**
@@ -27,8 +27,8 @@ public record Ownership(
     /**
      * Sets the value for {@code share}.
      *
-     * @param share The percent of ownership shares held by the person expressed in percent mille
-     *     (1/100000). Only persons with the relationship `owner` can have ownership.
+     * @param share The percent of ownership shares held by the Person expressed in percent mille
+     *     (1/100000). Only Persons with the relationship `owner` can have ownership.
      * @return This builder instance.
      */
     public Builder share(Integer share) {
