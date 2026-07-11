@@ -13,7 +13,7 @@ import java.util.Objects;
 /**
  * Client for the "Merchants" API group.
  *
- * <p>Merchant account represents a single business entity at SumUp.
+ * <p>A Merchant represents a single business which can use SumUp products like payment processing.
  */
 public final class MerchantsClient {
   private final ApiClient apiClient;
@@ -28,9 +28,9 @@ public final class MerchantsClient {
   }
 
   /**
-   * Retrieve a Merchant
+   * Get Merchant
    *
-   * <p>Retrieve a merchant.
+   * <p>Returns a Merchant for a valid Merchant code.
    *
    * <p>Operation ID: GetMerchant
    *
@@ -45,9 +45,9 @@ public final class MerchantsClient {
   }
 
   /**
-   * Retrieve a Merchant
+   * Get Merchant
    *
-   * <p>Retrieve a merchant.
+   * <p>Returns a Merchant for a valid Merchant code.
    *
    * <p>Operation ID: GetMerchant
    *
@@ -64,9 +64,9 @@ public final class MerchantsClient {
   }
 
   /**
-   * Retrieve a Merchant
+   * Get Merchant
    *
-   * <p>Retrieve a merchant.
+   * <p>Returns a Merchant for a valid Merchant code.
    *
    * <p>Operation ID: GetMerchant
    *
@@ -101,9 +101,9 @@ public final class MerchantsClient {
   }
 
   /**
-   * Retrieve a Person
+   * Get Person
    *
-   * <p>Returns a single person related to the merchant.
+   * <p>Returns a single Person related to a Merchant.
    *
    * <p>Operation ID: GetPerson
    *
@@ -120,9 +120,9 @@ public final class MerchantsClient {
   }
 
   /**
-   * Retrieve a Person
+   * Get Person
    *
-   * <p>Returns a single person related to the merchant.
+   * <p>Returns a single Person related to a Merchant.
    *
    * <p>Operation ID: GetPerson
    *
@@ -140,9 +140,9 @@ public final class MerchantsClient {
   }
 
   /**
-   * Retrieve a Person
+   * Get Person
    *
-   * <p>Returns a single person related to the merchant.
+   * <p>Returns a single Person related to a Merchant.
    *
    * <p>Operation ID: GetPerson
    *
@@ -185,7 +185,7 @@ public final class MerchantsClient {
   /**
    * List Persons
    *
-   * <p>Returns a list of persons related to the merchant.
+   * <p>Returns the Persons related to a Merchant.
    *
    * <p>Operation ID: ListPersons
    *
@@ -203,7 +203,7 @@ public final class MerchantsClient {
   /**
    * List Persons
    *
-   * <p>Returns a list of persons related to the merchant.
+   * <p>Returns the Persons related to a Merchant.
    *
    * <p>Operation ID: ListPersons
    *
@@ -222,7 +222,7 @@ public final class MerchantsClient {
   /**
    * List Persons
    *
-   * <p>Returns a list of persons related to the merchant.
+   * <p>Returns the Persons related to a Merchant.
    *
    * <p>Operation ID: ListPersons
    *

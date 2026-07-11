@@ -452,6 +452,59 @@ public final class CheckoutsClient {
         requestOptions);
   }
 
+  /**
+   * Update a checkout
+   *
+   * <p>Updates an identified checkout resource.
+   *
+   * <p>Operation ID: UpdateCheckout
+   *
+   * @param checkoutId Unique ID of the checkout resource.
+   * @param request Details for updating a checkout resource.
+   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
+   *     request timeout.
+   * @return com.sumup.sdk.models.Checkout parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public com.sumup.sdk.models.Checkout update(
+      String checkoutId, com.sumup.sdk.models.CheckoutUpdateRequest request) throws ApiException {
+    return update(checkoutId, request, null);
+  }
+
+  /**
+   * Update a checkout
+   *
+   * <p>Updates an identified checkout resource.
+   *
+   * <p>Operation ID: UpdateCheckout
+   *
+   * @param checkoutId Unique ID of the checkout resource.
+   * @param request Details for updating a checkout resource.
+   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
+   *     {@code null} to use client defaults.
+   * @return com.sumup.sdk.models.Checkout parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public com.sumup.sdk.models.Checkout update(
+      String checkoutId,
+      com.sumup.sdk.models.CheckoutUpdateRequest request,
+      RequestOptions requestOptions)
+      throws ApiException {
+    Objects.requireNonNull(checkoutId, "checkoutId");
+    Objects.requireNonNull(request, "request");
+    String path = "/v0.1/checkouts/{checkout_id}";
+    path = path.replace("{checkout_id}", ApiClient.urlEncode(ApiClient.parameterValue(checkoutId)));
+
+    return this.apiClient.send(
+        HttpMethod.PATCH,
+        path,
+        null,
+        null,
+        request,
+        new TypeReference<com.sumup.sdk.models.Checkout>() {},
+        requestOptions);
+  }
+
   /** Optional query parameters for this request. */
   public static final class ListCheckoutsQueryParams {
     private final Map<String, Object> values = new LinkedHashMap<>();

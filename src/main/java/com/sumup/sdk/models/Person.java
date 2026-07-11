@@ -18,8 +18,8 @@ public record Person(
     java.time.LocalDate birthdate,
 
     /**
-     * Reflects the status of changes submitted through the `PATCH` endpoints for the merchant or
-     * persons. If some changes have not been applied yet, the status will be `pending`. If all
+     * Reflects the status of changes submitted through the `PATCH` endpoints for the Merchant or
+     * Persons. If some changes have not been applied yet, the status will be `pending`. If all
      * changes have been applied, the status `done`. The status is only returned after write
      * operations or on read endpoints when the `version` query parameter is provided.
      */
@@ -34,7 +34,7 @@ public record Person(
 
     /**
      * An [ISO3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code
-     * representing the country where the person resides.
+     * representing the country where the Person resides.
      */
     String countryOfResidence,
 
@@ -45,7 +45,7 @@ public record Person(
     String givenName,
 
     /**
-     * The unique identifier for the person. This is a [typeid](https://github.com/sumup/typeid).
+     * The unique identifier for the Person. This is a [typeid](https://github.com/sumup/typeid).
      */
     String id,
 
@@ -60,7 +60,7 @@ public record Person(
     String middleName,
 
     /**
-     * The persons nationality. May be an [ISO3166-1
+     * The Person's nationality. May be an [ISO3166-1
      * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code, but legacy data may
      * not conform to this standard.
      */
@@ -71,12 +71,12 @@ public record Person(
     com.sumup.sdk.models.PhoneNumber phoneNumber,
 
     /**
-     * A list of roles the person has in the merchant or towards SumUp. A merchant must have at
-     * least one person with the relationship `representative`.
+     * A list of roles the Person has in the Merchant or towards SumUp. A Merchant must have at
+     * least one Person with the relationship `representative`.
      */
     java.util.List<String> relationships,
 
-    /** A corresponding identity user ID for the person, if they have a user account. */
+    /** A corresponding identity user ID for the Person, if they have a user account. */
     String userId,
 
     /**
@@ -157,7 +157,7 @@ public record Person(
      *
      * @param countryOfResidence An [ISO3166-1
      *     alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code representing the
-     *     country where the person resides.
+     *     country where the Person resides.
      * @return This builder instance.
      */
     public Builder countryOfResidence(String countryOfResidence) {
@@ -214,7 +214,7 @@ public record Person(
     /**
      * Sets the value for {@code nationality}.
      *
-     * @param nationality The persons nationality. May be an [ISO3166-1
+     * @param nationality The Person's nationality. May be an [ISO3166-1
      *     alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code, but legacy data
      *     may not conform to this standard.
      * @return This builder instance.
@@ -250,8 +250,8 @@ public record Person(
     /**
      * Sets the value for {@code relationships}.
      *
-     * @param relationships A list of roles the person has in the merchant or towards SumUp. A
-     *     merchant must have at least one person with the relationship `representative`.
+     * @param relationships A list of roles the Person has in the Merchant or towards SumUp. A
+     *     Merchant must have at least one Person with the relationship `representative`.
      * @return This builder instance.
      */
     public Builder relationships(java.util.List<String> relationships) {
@@ -262,7 +262,7 @@ public record Person(
     /**
      * Sets the value for {@code userId}.
      *
-     * @param userId A corresponding identity user ID for the person, if they have a user account.
+     * @param userId A corresponding identity user ID for the Person, if they have a user account.
      * @return This builder instance.
      */
     public Builder userId(String userId) {

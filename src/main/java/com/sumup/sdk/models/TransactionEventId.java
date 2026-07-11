@@ -2,4 +2,4 @@
 package com.sumup.sdk.models;
 
 /** Unique ID of the transaction event. */
-public record EventId(Long value) {}
+public record TransactionEventId(Long value) {}
