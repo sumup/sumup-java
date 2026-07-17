@@ -1,5 +1,53 @@
 # Changelog
 
+## [0.0.8](https://github.com/sumup/sumup-java/compare/v0.0.7...v0.0.8) (2026-07-17)
+
+
+### Features
+
+* issue templates ([#94](https://github.com/sumup/sumup-java/issues/94)) ([f376ba2](https://github.com/sumup/sumup-java/commit/f376ba20b7c4e82a478f03f81b79b0b7beae26a8))
+* **sdk:** improve method names ([#82](https://github.com/sumup/sumup-java/issues/82)) ([c93c8e8](https://github.com/sumup/sumup-java/commit/c93c8e85cebdbf7cdcb5d3f0c9d6346992efe3a8))
+
+
+### Bug Fixes
+
+* **codegen:** flatten allOf models and avoid inline enum parameter types ([#83](https://github.com/sumup/sumup-java/issues/83)) ([4d4269b](https://github.com/sumup/sumup-java/commit/4d4269be6ff92fc7581fbc76bb2bef8ccb3a23cf))
+* regenerate sdk ([a646abf](https://github.com/sumup/sumup-java/commit/a646abf453009ce78f55e86b7d992c92ce6068fd))
+* **sdk:** unwrap scalar record path parameters ([#80](https://github.com/sumup/sumup-java/issues/80)) ([bcb39f1](https://github.com/sumup/sumup-java/commit/bcb39f172c6b2b8d5ab8a77b1336f6fca823d9d9))
+
+
+### Chores
+
+* **cd:** don't run release please on release ([#114](https://github.com/sumup/sumup-java/issues/114)) ([b553e11](https://github.com/sumup/sumup-java/commit/b553e11e0adff5e759a4aaca0288956a22a55291))
+* **deps:** bump actions/checkout from 6.0.2 to 6.0.3 ([#99](https://github.com/sumup/sumup-java/issues/99)) ([55b1e6b](https://github.com/sumup/sumup-java/commit/55b1e6b6c92f267b3cc83cfb92d12752b0d4ffb2))
+* **deps:** bump actions/checkout from 6.0.3 to 7.0.0 ([#105](https://github.com/sumup/sumup-java/issues/105)) ([e8fea0a](https://github.com/sumup/sumup-java/commit/e8fea0aed610a2219a8db4b50a6ae8ff765ff373))
+* **deps:** bump actions/create-github-app-token from 3.1.1 to 3.2.0 ([#92](https://github.com/sumup/sumup-java/issues/92)) ([8340bbd](https://github.com/sumup/sumup-java/commit/8340bbdea0df91e65c5264d87c421b5b42fb682e))
+* **deps:** bump actions/setup-go from 6.4.0 to 6.5.0 ([#107](https://github.com/sumup/sumup-java/issues/107)) ([fa6f74b](https://github.com/sumup/sumup-java/commit/fa6f74b5b34d7ed0f8b5365e39c1d4410f3f7e59))
+* **deps:** bump actions/setup-java from 5.2.0 to 5.3.0 ([#104](https://github.com/sumup/sumup-java/issues/104)) ([c45a81e](https://github.com/sumup/sumup-java/commit/c45a81eb433f848679dc6f27365f35aac7c44e3d))
+* **deps:** bump actions/setup-java from 5.3.0 to 5.4.0 ([#108](https://github.com/sumup/sumup-java/issues/108)) ([5c7cbd3](https://github.com/sumup/sumup-java/commit/5c7cbd3b6cf7514809b14dc27e3968e2e15345e9))
+* **deps:** bump actions/setup-java from 5.4.0 to 5.5.0 ([#115](https://github.com/sumup/sumup-java/issues/115)) ([402c691](https://github.com/sumup/sumup-java/commit/402c6915d6f5a70399e58a728422bf6f0d404c3c))
+* **deps:** bump com.diffplug.spotless from 8.4.0 to 8.7.0 ([#102](https://github.com/sumup/sumup-java/issues/102)) ([6838eb2](https://github.com/sumup/sumup-java/commit/6838eb2d4ca7e3f83a81a3e8b89580a15c24a27b))
+* **deps:** bump com.diffplug.spotless from 8.7.0 to 8.8.0 ([#109](https://github.com/sumup/sumup-java/issues/109)) ([523efa6](https://github.com/sumup/sumup-java/commit/523efa6faab370dc773e6453b26abcc1c528a989))
+* **deps:** bump com.fasterxml.jackson:jackson-bom in the jackson group ([#100](https://github.com/sumup/sumup-java/issues/100)) ([62370a2](https://github.com/sumup/sumup-java/commit/62370a2292fdf197c57155d4e3aa2b54b1aeef93))
+* **deps:** bump com.fasterxml.jackson:jackson-bom in the jackson group ([#89](https://github.com/sumup/sumup-java/issues/89)) ([28bd165](https://github.com/sumup/sumup-java/commit/28bd165885a4505452a428ea348dc6d477f22ad0))
+* **deps:** bump github.com/pb33f/libopenapi in /codegen ([#103](https://github.com/sumup/sumup-java/issues/103)) ([dc6ff38](https://github.com/sumup/sumup-java/commit/dc6ff38a0017039f1c7dd6cca77305ac00a6f245))
+* **deps:** bump github.com/pb33f/libopenapi in /codegen ([#110](https://github.com/sumup/sumup-java/issues/110)) ([74258cb](https://github.com/sumup/sumup-java/commit/74258cb96d634720d9c44de1cef5c4ba4df5b546))
+* **deps:** bump github.com/pb33f/libopenapi in /codegen ([#86](https://github.com/sumup/sumup-java/issues/86)) ([1ea4fb7](https://github.com/sumup/sumup-java/commit/1ea4fb7081f410a95a0c37be86738eb843aeabe6))
+* **deps:** bump github.com/pb33f/libopenapi in /codegen ([#88](https://github.com/sumup/sumup-java/issues/88)) ([80c10cb](https://github.com/sumup/sumup-java/commit/80c10cb40546c1015655371eccaa947292695722))
+* **deps:** bump googleapis/release-please-action from 4.4.1 to 5.0.0 ([#87](https://github.com/sumup/sumup-java/issues/87)) ([59c8d9e](https://github.com/sumup/sumup-java/commit/59c8d9e2ebe27d0be781f3cef07ad70ddac33282))
+* **deps:** bump gradle-wrapper from 9.4.1 to 9.5.0 ([#90](https://github.com/sumup/sumup-java/issues/90)) ([018fe08](https://github.com/sumup/sumup-java/commit/018fe08e4250a8d5b16de63f4d7c6f69450c3c55))
+* **deps:** bump gradle-wrapper from 9.5.0 to 9.5.1 ([#93](https://github.com/sumup/sumup-java/issues/93)) ([b544b04](https://github.com/sumup/sumup-java/commit/b544b0461734662fc03f5f4dd4be22de55792a8c))
+* **deps:** bump gradle-wrapper from 9.5.1 to 9.6.0 ([#106](https://github.com/sumup/sumup-java/issues/106)) ([8a878e7](https://github.com/sumup/sumup-java/commit/8a878e7bb426eb4b77f1fd36dd460cffa8e92dec))
+* **deps:** bump gradle-wrapper from 9.6.0 to 9.6.1 ([#111](https://github.com/sumup/sumup-java/issues/111)) ([dffc548](https://github.com/sumup/sumup-java/commit/dffc54899861c48c768d8b50d315f9d258494d68))
+* **deps:** bump org.junit.jupiter:junit-jupiter from 6.0.3 to 6.1.0 ([#97](https://github.com/sumup/sumup-java/issues/97)) ([b19cb40](https://github.com/sumup/sumup-java/commit/b19cb40dcda00912c1816249fa2a90bbe150804d))
+* **deps:** bump org.junit.jupiter:junit-jupiter from 6.1.0 to 6.1.1 ([#112](https://github.com/sumup/sumup-java/issues/112)) ([9c2696d](https://github.com/sumup/sumup-java/commit/9c2696d3e6e462591b527d2b46be252e1e3ea437))
+* synced file(s) with sumup/apis ([#113](https://github.com/sumup/sumup-java/issues/113)) ([fe1d5d9](https://github.com/sumup/sumup-java/commit/fe1d5d98d260b7c122b1b225d1183f9ce10afafb))
+* synced file(s) with sumup/apis ([#116](https://github.com/sumup/sumup-java/issues/116)) ([7f75703](https://github.com/sumup/sumup-java/commit/7f757033ccb3fcd3e4fc6ef8ce5861fa6d3ad6b6))
+* synced file(s) with sumup/apis ([#84](https://github.com/sumup/sumup-java/issues/84)) ([84d9cd1](https://github.com/sumup/sumup-java/commit/84d9cd1e97469ba9aa5811ef8a47ff784ae0d6f2))
+* synced file(s) with sumup/apis ([#85](https://github.com/sumup/sumup-java/issues/85)) ([7f79c9f](https://github.com/sumup/sumup-java/commit/7f79c9f0cdc06efad81efbc5236d8fab82010273))
+* synced file(s) with sumup/apis ([#91](https://github.com/sumup/sumup-java/issues/91)) ([ffe8d46](https://github.com/sumup/sumup-java/commit/ffe8d46fe6817d810033470778a26b4911b761d5))
+* synced file(s) with sumup/apis ([#95](https://github.com/sumup/sumup-java/issues/95)) ([297e46b](https://github.com/sumup/sumup-java/commit/297e46bb517b001c55ac49352262e2f9ee62f6e0))
+
 ## [0.0.7](https://github.com/sumup/sumup-java/compare/v0.0.6...v0.0.7) (2026-04-22)
 
 
