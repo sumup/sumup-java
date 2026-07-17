@@ -216,10 +216,10 @@ public final class TransactionsAsyncClient {
    * @param request Optional amount for partial refunds.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
-   * @return CompletableFuture completed when the request finishes.
+   * @return CompletableFuture resolved with {@code java.util.Map<String, Object>} parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<Void> refund(
+  public CompletableFuture<java.util.Map<String, Object>> refund(
       String merchantCode,
       String transactionId,
       com.sumup.sdk.models.RefundTransactionRequest request)
@@ -239,10 +239,10 @@ public final class TransactionsAsyncClient {
    * @param request Optional amount for partial refunds.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
-   * @return CompletableFuture completed when the request finishes.
+   * @return CompletableFuture resolved with {@code java.util.Map<String, Object>} parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<Void> refund(
+  public CompletableFuture<java.util.Map<String, Object>> refund(
       String merchantCode,
       String transactionId,
       com.sumup.sdk.models.RefundTransactionRequest request,
@@ -259,7 +259,13 @@ public final class TransactionsAsyncClient {
             "{transaction_id}", ApiClient.urlEncode(ApiClient.parameterValue(transactionId)));
 
     return this.apiClient.sendAsync(
-        HttpMethod.POST, path, null, null, request, null, requestOptions);
+        HttpMethod.POST,
+        path,
+        null,
+        null,
+        request,
+        new TypeReference<java.util.Map<String, Object>>() {},
+        requestOptions);
   }
 
   /** Optional query parameters for this request. */

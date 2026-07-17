@@ -211,14 +211,15 @@ public final class TransactionsClient {
    * @param request Optional amount for partial refunds.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
+   * @return {@code java.util.Map<String, Object>} parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public void refund(
+  public java.util.Map<String, Object> refund(
       String merchantCode,
       String transactionId,
       com.sumup.sdk.models.RefundTransactionRequest request)
       throws ApiException {
-    refund(merchantCode, transactionId, request, null);
+    return refund(merchantCode, transactionId, request, null);
   }
 
   /**
@@ -233,9 +234,10 @@ public final class TransactionsClient {
    * @param request Optional amount for partial refunds.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
+   * @return {@code java.util.Map<String, Object>} parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public void refund(
+  public java.util.Map<String, Object> refund(
       String merchantCode,
       String transactionId,
       com.sumup.sdk.models.RefundTransactionRequest request,
@@ -251,7 +253,14 @@ public final class TransactionsClient {
         path.replace(
             "{transaction_id}", ApiClient.urlEncode(ApiClient.parameterValue(transactionId)));
 
-    this.apiClient.send(HttpMethod.POST, path, null, null, request, null, requestOptions);
+    return this.apiClient.send(
+        HttpMethod.POST,
+        path,
+        null,
+        null,
+        request,
+        new TypeReference<java.util.Map<String, Object>>() {},
+        requestOptions);
   }
 
   /** Optional query parameters for this request. */
