@@ -4,7 +4,7 @@ go 1.25.7
 
 require (
 	github.com/lmittmann/tint v1.2.0
-	github.com/pb33f/libopenapi v0.38.5
+	github.com/pb33f/libopenapi v0.38.6
 	github.com/urfave/cli/v2 v2.27.7
 )
 
