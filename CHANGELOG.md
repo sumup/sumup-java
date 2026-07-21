@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.0.9](https://github.com/sumup/sumup-java/compare/v0.0.8...v0.0.9) (2026-07-21)
+
+
+### Chores
+
+* **deps:** bump actions/setup-java from 5.5.0 to 5.6.0 ([#121](https://github.com/sumup/sumup-java/issues/121)) ([ab625c9](https://github.com/sumup/sumup-java/commit/ab625c93a6117c17af605e7538f245be01e5d702))
+* **deps:** bump com.fasterxml.jackson:jackson-bom in the jackson group ([#117](https://github.com/sumup/sumup-java/issues/117)) ([aa69469](https://github.com/sumup/sumup-java/commit/aa694690d5b180d5a735aac3256f82c617d1064c))
+* **deps:** bump github.com/lmittmann/tint in /codegen ([#118](https://github.com/sumup/sumup-java/issues/118)) ([15c020e](https://github.com/sumup/sumup-java/commit/15c020e4a348ed6f6eef470e5138762cfe00a023))
+* **deps:** bump github.com/pb33f/libopenapi in /codegen ([#120](https://github.com/sumup/sumup-java/issues/120)) ([6340275](https://github.com/sumup/sumup-java/commit/6340275699f07254909cdfa5a360baaf2d3cb090))
+* **deps:** bump org.junit.jupiter:junit-jupiter from 6.1.1 to 6.1.2 ([#119](https://github.com/sumup/sumup-java/issues/119)) ([390c613](https://github.com/sumup/sumup-java/commit/390c613e5471ce0996db30fc5688759168d54c79))
+
 ## [0.0.8](https://github.com/sumup/sumup-java/compare/v0.0.7...v0.0.8) (2026-07-17)
 
 
