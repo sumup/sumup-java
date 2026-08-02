@@ -9,6 +9,13 @@ generate:
 	go -C codegen run . generate --spec ../openapi.json
 	just format
 
+# Generate the developer portal code sample catalog.
+generate-codesamples output="code-samples.json":
+	go -C codegen run . samples \
+		--spec ../openapi.json \
+		--sdk-version-file ../VERSION \
+		--out "{{ absolute_path(output) }}"
+
 # Run unit tests for the Go generator code.
 go-test:
 	go -C codegen test ./...

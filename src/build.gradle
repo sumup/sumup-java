@@ -1,3 +1,4 @@
+import groovy.json.JsonSlurper
 import org.gradle.language.jvm.tasks.ProcessResources
 
 plugins {
@@ -45,6 +46,60 @@ tasks.named('processResources', ProcessResources) {
         into('com/sumup/sdk')
         rename { 'sdk-version.txt' }
     }
+}
+
+def codeSamplesJson = layout.buildDirectory.file('generated/code-samples/catalog.json')
+def codeSamplesSourceDir = layout.buildDirectory.dir('generated/code-samples/src')
+
+def generateCodeSamples = tasks.register('generateCodeSamples', Exec) {
+    group = 'verification'
+    description = 'Generates the developer portal Java code sample catalog.'
+    workingDir rootProject.projectDir
+    commandLine(
+        'go', '-C', 'codegen', 'run', '.', 'samples',
+        '--spec', '../openapi.json',
+        '--sdk-version-file', '../VERSION',
+        '--out', codeSamplesJson.get().asFile.absolutePath)
+    inputs.files(
+        rootProject.file('openapi.json'),
+        rootProject.file('VERSION'),
+        rootProject.fileTree('codegen') {
+            include '**/*.go'
+            include 'go.mod'
+            include 'go.sum'
+        })
+    outputs.file(codeSamplesJson)
+}
+
+def prepareCodeSamples = tasks.register('prepareCodeSamples') {
+    group = 'verification'
+    description = 'Writes generated Java code samples to individual source files.'
+    dependsOn(generateCodeSamples)
+    inputs.file(codeSamplesJson)
+    outputs.dir(codeSamplesSourceDir)
+    doLast {
+        def outputDir = codeSamplesSourceDir.get().asFile
+        delete(outputDir)
+        outputDir.mkdirs()
+
+        def catalog = new JsonSlurper().parse(codeSamplesJson.get().asFile)
+        catalog.samples.each { sample ->
+            def classMatcher = sample.sample =~ /public final class ([A-Za-z0-9_]+)/
+            if (!classMatcher.find()) {
+                throw new GradleException("Code sample ${sample.id} has no public class")
+            }
+            new File(outputDir, "${classMatcher.group(1)}.java").text = sample.sample
+        }
+    }
+}
+
+tasks.register('compileCodeSamples', JavaCompile) {
+    group = 'verification'
+    description = 'Compiles every generated Java code sample against the SDK.'
+    dependsOn(prepareCodeSamples, tasks.named('classes'))
+    source(codeSamplesSourceDir)
+    classpath = sourceSets.main.runtimeClasspath
+    destinationDirectory = layout.buildDirectory.dir('classes/java/codeSamples')
 }
 
 tasks.withType(Javadoc).configureEach {
