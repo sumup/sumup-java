@@ -56,6 +56,8 @@ type operationModel struct {
 	HasOptionalHeaders   bool
 	HasOptionalArgs      bool
 	TagName              string
+	Operation            *v3.Operation
+	RequestSchema        *base.SchemaProxy
 }
 
 // parameterGroupModel holds information about optional parameter structs
@@ -78,6 +80,8 @@ type parameterModel struct {
 	Required    bool
 	Type        javaType
 	Location    string
+	Schema      *base.SchemaProxy
+	Parameter   *v3.Parameter
 }
 
 // schemaModel represents the information required to render a POJO model.
@@ -97,11 +101,13 @@ type schemaModel struct {
 
 // schemaField stores metadata for a field within a schemaModel.
 type schemaField struct {
+	WireName         string
 	Name             string
 	Type             string
 	DescriptionLines []string
 	Required         bool
 	ReadOnly         bool
+	Schema           *base.SchemaProxy
 }
 
 // additionalPropertiesModel describes synthetic map storage used when object
@@ -239,6 +245,7 @@ func convertOperation(method, path string, item *v3.PathItem, op *v3.Operation, 
 		HttpMethod:       strings.ToUpper(method),
 		Path:             path,
 		TagName:          firstTag(op.Tags),
+		Operation:        op,
 	}
 
 	params := collectParameters(item, op)
@@ -277,6 +284,7 @@ func convertOperation(method, path string, item *v3.PathItem, op *v3.Operation, 
 	model.HasHeaderParams = len(model.RequiredHeaderParams) > 0 || len(model.OptionalHeaderParams) > 0
 
 	if op.RequestBody != nil {
+		model.RequestSchema = preferredSchema(op.RequestBody.Content)
 		model.RequestBodyType = schemaTypeFromContent(op.RequestBody, resolver, sanitizedID, "Request")
 		model.RequestRequired = op.RequestBody.Required != nil && *op.RequestBody.Required
 		model.RequestDescription = normalizeText(op.RequestBody.Description)
@@ -384,6 +392,8 @@ func filterParams(params []*v3.Parameter, location string, resolver *typeResolve
 			Required:    required,
 			Type:        javaType,
 			Location:    location,
+			Schema:      schemaRef,
+			Parameter:   param,
 		})
 	}
 	sort.Slice(filtered, func(i, j int) bool {
@@ -568,7 +578,7 @@ func buildSchemas(doc *v3.Document, params Params, resolver *typeResolver) []sch
 			imports := sortedImports(map[string]struct{}{
 				"com.fasterxml.jackson.annotation.JsonCreator": {},
 				"com.fasterxml.jackson.annotation.JsonValue":   {},
-				"java.util.Objects":                           {},
+				"java.util.Objects":                            {},
 			})
 			result = append(result, schemaModel{
 				Name:             name,
@@ -655,11 +665,13 @@ func buildSchemaFields(name string, ref *base.SchemaProxy, resolver *typeResolve
 				desc = schemaFromProxy(propRef).Description
 			}
 			fields = append(fields, schemaField{
+				WireName:         propName,
 				Name:             camelCase(propName, propName),
 				Type:             javaType.Name,
 				DescriptionLines: splitComment(desc),
 				Required:         required[propName],
 				ReadOnly:         readOnly,
+				Schema:           propRef,
 			})
 			if required[propName] && !readOnly {
 				hasRequired = true

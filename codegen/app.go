@@ -13,6 +13,7 @@ func App() *cli.App {
 		DefaultCommand:       "generate",
 		Commands: []*cli.Command{
 			GenerateCommand(),
+			SamplesCommand(),
 		},
 	}
 }

@@ -16,3 +16,6 @@ build/
 .classpath
 .project
 .settings
+
+# Generated developer portal artifact
+/code-samples.json

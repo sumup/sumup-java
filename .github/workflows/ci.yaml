@@ -46,6 +46,9 @@ jobs:
       - name: Format SDK code
         run: ./gradlew spotlessApply
 
+      - name: Compile generated code samples
+        run: ./gradlew :sumup-sdk:compileCodeSamples
+
       - name: Ensure clean working tree
         run: git diff --exit-code
 
