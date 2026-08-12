@@ -10,12 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * Client for the "Readers" API group.
- *
- * <p>A reader represents a device that accepts payments. You can use the SumUp Solo to accept
- * in-person payments.
- */
+/** Client for the "Readers" API group. */
 public final class ReadersClient {
   private final ApiClient apiClient;
 
@@ -157,6 +152,73 @@ public final class ReadersClient {
   }
 
   /**
+   * Create a Go Reader Payment
+   *
+   * <p>Initiates a payment on the SumUp Go terminal identified by the reader ID. Use
+   * `client_transaction_id` as an idempotency key: retrying the request with the same value returns
+   * the result of the original payment instead of creating a duplicate.
+   *
+   * <p>Operation ID: CreateGoReaderCheckout
+   *
+   * @param merchantCode Short unique identifier for the merchant.
+   * @param readerId The unique identifier of the reader.
+   * @param request Payment details to initiate on the reader.
+   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
+   *     request timeout.
+   * @return com.sumup.sdk.models.ReaderPaymentResponse parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public com.sumup.sdk.models.ReaderPaymentResponse createGoCheckout(
+      String merchantCode,
+      com.sumup.sdk.models.ReaderId readerId,
+      com.sumup.sdk.models.ReaderPaymentRequestParams request)
+      throws ApiException {
+    return createGoCheckout(merchantCode, readerId, request, null);
+  }
+
+  /**
+   * Create a Go Reader Payment
+   *
+   * <p>Initiates a payment on the SumUp Go terminal identified by the reader ID. Use
+   * `client_transaction_id` as an idempotency key: retrying the request with the same value returns
+   * the result of the original payment instead of creating a duplicate.
+   *
+   * <p>Operation ID: CreateGoReaderCheckout
+   *
+   * @param merchantCode Short unique identifier for the merchant.
+   * @param readerId The unique identifier of the reader.
+   * @param request Payment details to initiate on the reader.
+   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
+   *     {@code null} to use client defaults.
+   * @return com.sumup.sdk.models.ReaderPaymentResponse parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public com.sumup.sdk.models.ReaderPaymentResponse createGoCheckout(
+      String merchantCode,
+      com.sumup.sdk.models.ReaderId readerId,
+      com.sumup.sdk.models.ReaderPaymentRequestParams request,
+      RequestOptions requestOptions)
+      throws ApiException {
+    Objects.requireNonNull(merchantCode, "merchantCode");
+    Objects.requireNonNull(readerId, "readerId");
+    Objects.requireNonNull(request, "request");
+    String path = "/v0/merchants/{merchant_code}/readers/{reader_id}/go-checkout";
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
+
+    return this.apiClient.send(
+        HttpMethod.POST,
+        path,
+        null,
+        null,
+        request,
+        new TypeReference<com.sumup.sdk.models.ReaderPaymentResponse>() {},
+        requestOptions);
+  }
+
+  /**
    * Delete a reader
    *
    * <p>Delete a reader.
@@ -281,6 +343,64 @@ public final class ReadersClient {
         headerParams,
         null,
         new TypeReference<com.sumup.sdk.models.Reader>() {},
+        requestOptions);
+  }
+
+  /**
+   * Get a Reader Checkout
+   *
+   * <p>Get a Checkout for a Reader.
+   *
+   * <p>Operation ID: GetReaderCheckout
+   *
+   * @param checkoutId The unique identifier of the Checkout
+   * @param merchantCode Merchant Code
+   * @param readerId The unique identifier of the Reader
+   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
+   *     request timeout.
+   * @return com.sumup.sdk.models.GetReaderCheckoutResponse parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public com.sumup.sdk.models.GetReaderCheckoutResponse getCheckout(
+      String checkoutId, String merchantCode, String readerId) throws ApiException {
+    return getCheckout(checkoutId, merchantCode, readerId, null);
+  }
+
+  /**
+   * Get a Reader Checkout
+   *
+   * <p>Get a Checkout for a Reader.
+   *
+   * <p>Operation ID: GetReaderCheckout
+   *
+   * @param checkoutId The unique identifier of the Checkout
+   * @param merchantCode Merchant Code
+   * @param readerId The unique identifier of the Reader
+   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
+   *     {@code null} to use client defaults.
+   * @return com.sumup.sdk.models.GetReaderCheckoutResponse parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public com.sumup.sdk.models.GetReaderCheckoutResponse getCheckout(
+      String checkoutId, String merchantCode, String readerId, RequestOptions requestOptions)
+      throws ApiException {
+    Objects.requireNonNull(checkoutId, "checkoutId");
+    Objects.requireNonNull(merchantCode, "merchantCode");
+    Objects.requireNonNull(readerId, "readerId");
+    String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}/checkout/{checkout_id}";
+    path = path.replace("{checkout_id}", ApiClient.urlEncode(ApiClient.parameterValue(checkoutId)));
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
+
+    return this.apiClient.send(
+        HttpMethod.GET,
+        path,
+        null,
+        null,
+        null,
+        new TypeReference<com.sumup.sdk.models.GetReaderCheckoutResponse>() {},
         requestOptions);
   }
 
