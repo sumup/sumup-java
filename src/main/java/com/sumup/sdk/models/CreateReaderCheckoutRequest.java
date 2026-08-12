@@ -17,7 +17,7 @@ public record CreateReaderCheckoutRequest(
      * Affiliate metadata for the transaction. It is a field that allow for integrators to track the
      * source of the transaction.
      */
-    com.sumup.sdk.models.Affiliate affiliate,
+    com.sumup.sdk.models.Affiliate2 affiliate,
 
     /**
      * The card type of the card used for the transaction. Is is required only for some countries
@@ -68,7 +68,7 @@ public record CreateReaderCheckoutRequest(
   /** Builder for CreateReaderCheckoutRequest instances. */
   public static final class Builder {
     private com.sumup.sdk.models.CreateReaderCheckoutRequestAade aade;
-    private com.sumup.sdk.models.Affiliate affiliate;
+    private com.sumup.sdk.models.Affiliate2 affiliate;
     private com.sumup.sdk.models.CreateReaderCheckoutRequestCardType cardType;
     private String description;
     private Long installments;
@@ -100,7 +100,7 @@ public record CreateReaderCheckoutRequest(
      *     integrators to track the source of the transaction.
      * @return This builder instance.
      */
-    public Builder affiliate(com.sumup.sdk.models.Affiliate affiliate) {
+    public Builder affiliate(com.sumup.sdk.models.Affiliate2 affiliate) {
       this.affiliate = affiliate;
       return this;
     }

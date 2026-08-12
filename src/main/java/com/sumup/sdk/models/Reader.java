@@ -11,12 +11,7 @@ public record Reader(
     /** Information about the underlying physical device. */
     com.sumup.sdk.models.ReaderDevice device,
 
-    /**
-     * Unique identifier of the object. Note that this identifies the instance of the physical
-     * devices pairing with your SumUp account. If you
-     * [delete](https://developer.sumup.com/api/readers/delete-reader) a reader, and pair the device
-     * again, the ID will be different. Do not use this ID to refer to a physical device.
-     */
+    /** Unique identifier of the reader that the payment is initiated on. */
     com.sumup.sdk.models.ReaderId id,
 
     /**
@@ -93,10 +88,7 @@ public record Reader(
     /**
      * Sets the value for {@code id}.
      *
-     * @param id Unique identifier of the object. Note that this identifies the instance of the
-     *     physical devices pairing with your SumUp account. If you
-     *     [delete](https://developer.sumup.com/api/readers/delete-reader) a reader, and pair the
-     *     device again, the ID will be different. Do not use this ID to refer to a physical device.
+     * @param id Unique identifier of the reader that the payment is initiated on.
      * @return This builder instance.
      */
     public Builder id(com.sumup.sdk.models.ReaderId id) {

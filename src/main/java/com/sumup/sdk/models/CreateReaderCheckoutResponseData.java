@@ -4,6 +4,9 @@ package com.sumup.sdk.models;
 import java.util.Objects;
 
 public record CreateReaderCheckoutResponseData(
+    /** The checkout ID is a unique identifier for the checkout. */
+    String checkoutId,
+
     /**
      * The client transaction ID is a unique identifier for the transaction that is generated for
      * the client. It can be used later to fetch the transaction details via the [Transactions
@@ -21,9 +24,21 @@ public record CreateReaderCheckoutResponseData(
 
   /** Builder for CreateReaderCheckoutResponseData instances. */
   public static final class Builder {
+    private String checkoutId;
     private String clientTransactionId;
 
     private Builder() {}
+
+    /**
+     * Sets the value for {@code checkoutId}.
+     *
+     * @param checkoutId The checkout ID is a unique identifier for the checkout.
+     * @return This builder instance.
+     */
+    public Builder checkoutId(String checkoutId) {
+      this.checkoutId = checkoutId;
+      return this;
+    }
 
     /**
      * Sets the value for {@code clientTransactionId}.
@@ -46,7 +61,7 @@ public record CreateReaderCheckoutResponseData(
      */
     public CreateReaderCheckoutResponseData build() {
       return new CreateReaderCheckoutResponseData(
-          Objects.requireNonNull(clientTransactionId, "clientTransactionId"));
+          checkoutId, Objects.requireNonNull(clientTransactionId, "clientTransactionId"));
     }
   }
 }
