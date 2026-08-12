@@ -1,5 +1,31 @@
 # Changelog
 
+## [0.0.10](https://github.com/sumup/sumup-java/compare/v0.0.9...v0.0.10) (2026-08-12)
+
+
+### Features
+
+* **codegen:** generate validated Java code samples ([#130](https://github.com/sumup/sumup-java/issues/130)) ([b41fe99](https://github.com/sumup/sumup-java/commit/b41fe99236d556ccf23265521ae13c0ab0ea8bd7))
+
+
+### Bug Fixes
+
+* **ci:** set explicit permissions ([#123](https://github.com/sumup/sumup-java/issues/123)) ([02f71d6](https://github.com/sumup/sumup-java/commit/02f71d60a067e5e535366b0484dde9b295c7b8e9))
+
+
+### Chores
+
+* **deps:** bump actions/checkout from 6.0.2 to 7.0.1 ([#133](https://github.com/sumup/sumup-java/issues/133)) ([b135f0f](https://github.com/sumup/sumup-java/commit/b135f0f25c34a2a8f7e0302d785bc673c1d3d9c2))
+* **deps:** bump actions/checkout from 7.0.0 to 7.0.1 ([#129](https://github.com/sumup/sumup-java/issues/129)) ([7965b53](https://github.com/sumup/sumup-java/commit/7965b53fd869354fbe2315b0e0184cf5319a0f53))
+* **deps:** bump actions/create-github-app-token from 3.1.1 to 3.2.0 ([#131](https://github.com/sumup/sumup-java/issues/131)) ([4b9e1ec](https://github.com/sumup/sumup-java/commit/4b9e1ec675051ee26e49bd9b77dbe0ba82360a63))
+* **deps:** bump actions/setup-go from 6.4.0 to 7.0.0 ([#134](https://github.com/sumup/sumup-java/issues/134)) ([b4ffb16](https://github.com/sumup/sumup-java/commit/b4ffb166482bd89b8640c18905a8e00f2cdfc712))
+* **deps:** bump actions/setup-go from 6.5.0 to 7.0.0 ([#127](https://github.com/sumup/sumup-java/issues/127)) ([a23a898](https://github.com/sumup/sumup-java/commit/a23a8982316dabd0ef1b8e604de436eea972242b))
+* **deps:** bump actions/setup-java from 5.6.0 to 5.7.0 ([#135](https://github.com/sumup/sumup-java/issues/135)) ([6a8b136](https://github.com/sumup/sumup-java/commit/6a8b136f7da7974c2586d7f3727bc29918f1b95a))
+* **deps:** bump com.diffplug.spotless from 8.8.0 to 8.9.0 ([#132](https://github.com/sumup/sumup-java/issues/132)) ([1926c7a](https://github.com/sumup/sumup-java/commit/1926c7a1cfa652793cae18d3a1987a52d173eb67))
+* **deps:** bump github.com/pb33f/libopenapi in /codegen ([#126](https://github.com/sumup/sumup-java/issues/126)) ([e480603](https://github.com/sumup/sumup-java/commit/e4806038a50b985de512bd1d2dd2096d2d4885b3))
+* **deps:** bump reviewdog/action-actionlint from 1.72.0 to 1.73.0 ([#128](https://github.com/sumup/sumup-java/issues/128)) ([ac8c37b](https://github.com/sumup/sumup-java/commit/ac8c37bdd165a7b313260a46f4f0b29922e598a1))
+* synced file(s) with sumup/apis ([#125](https://github.com/sumup/sumup-java/issues/125)) ([eba1cff](https://github.com/sumup/sumup-java/commit/eba1cffe9908ff81b43612077807556d7a4eb907))
+
 ## [0.0.9](https://github.com/sumup/sumup-java/compare/v0.0.8...v0.0.9) (2026-07-21)
 
 
