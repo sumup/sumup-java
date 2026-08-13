@@ -132,14 +132,14 @@ func (r javaSampleRenderer) render(client clientModel, operation operationModel,
 	args := make([]string, 0)
 	for _, parameter := range operation.PathParams {
 		value, provided := parameterSample(parameter.Parameter)
-		args = append(args, r.value(parameter.Type.Name, parameter.Schema, value, provided, 0))
+		args = append(args, r.value(parameter.Type.Name, parameter.Schema, value, provided, true, 0))
 	}
 	for _, parameter := range operation.RequiredQueryParams {
 		value, provided := parameterSample(parameter.Parameter)
-		args = append(args, r.value(parameter.Type.Name, parameter.Schema, value, provided, 0))
+		args = append(args, r.value(parameter.Type.Name, parameter.Schema, value, provided, true, 0))
 	}
 	if operation.HasRequestBody {
-		args = append(args, r.value(operation.RequestBodyType.Name, operation.RequestSchema, example.value, example.provided, 0))
+		args = append(args, r.value(operation.RequestBodyType.Name, operation.RequestSchema, example.value, example.provided, true, 0))
 	}
 
 	className := pascalCase(operation.OperationID+" "+example.name, "Sample")
@@ -176,11 +176,11 @@ func (r javaSampleRenderer) render(client clientModel, operation operationModel,
 	return source.String(), nil
 }
 
-func (r javaSampleRenderer) value(typeName string, schema *base.SchemaProxy, raw any, provided bool, depth int) string {
+func (r javaSampleRenderer) value(typeName string, schema *base.SchemaProxy, raw any, provided bool, allowSchemaExamples bool, depth int) string {
 	if depth > 8 {
 		return "null"
 	}
-	if !provided {
+	if !provided && allowSchemaExamples {
 		raw, provided = schemaSample(schema)
 	}
 
@@ -201,14 +201,14 @@ func (r javaSampleRenderer) value(typeName string, schema *base.SchemaProxy, raw
 					continue
 				}
 				value, fieldProvided := values[field.WireName]
-				if !fieldProvided && field.Required {
+				if !fieldProvided && field.Required && !provided && allowSchemaExamples {
 					value, fieldProvided = schemaSample(field.Schema)
 				}
 				if !field.Required && !fieldProvided {
 					continue
 				}
 				expression.WriteString("\n    ." + field.Name + "(")
-				expression.WriteString(r.value(field.Type, field.Schema, value, fieldProvided, depth+1))
+				expression.WriteString(r.value(field.Type, field.Schema, value, fieldProvided, allowSchemaExamples && !provided, depth+1))
 				expression.WriteString(")")
 			}
 			expression.WriteString("\n    .build()")
@@ -217,10 +217,10 @@ func (r javaSampleRenderer) value(typeName string, schema *base.SchemaProxy, raw
 		if len(model.Fields) == 1 {
 			field := model.Fields[0]
 			value, fieldProvided := values[field.WireName]
-			if !fieldProvided {
+			if !fieldProvided && !provided && allowSchemaExamples {
 				value, fieldProvided = schemaSample(field.Schema)
 			}
-			return "new " + typeName + "(" + r.value(field.Type, field.Schema, value, fieldProvided, depth+1) + ")"
+			return "new " + typeName + "(" + r.value(field.Type, field.Schema, value, fieldProvided, allowSchemaExamples && !provided, depth+1) + ")"
 		}
 	}
 
@@ -233,7 +233,7 @@ func (r javaSampleRenderer) value(typeName string, schema *base.SchemaProxy, raw
 			itemSchema = schema.Schema().Items.A
 		}
 		for _, item := range items {
-			parts = append(parts, r.value(inner, itemSchema, item, true, depth+1))
+			parts = append(parts, r.value(inner, itemSchema, item, true, allowSchemaExamples && !provided, depth+1))
 		}
 		return "java.util.List.of(" + strings.Join(parts, ", ") + ")"
 	}
