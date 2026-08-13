@@ -36,7 +36,7 @@ public final class ReceiptsAsyncClient {
    * <p>Operation ID: GetReceipt
    *
    * @param transactionId SumUp unique transaction ID or transaction code, e.g. TS7HDYLSKD.
-   * @param mid Merchant code.
+   * @param mid Short unique identifier for the merchant.
    *     <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
    *     headers, authorization, query values, or timeouts.
    * @return CompletableFuture resolved with com.sumup.sdk.models.Receipt parsed response.
@@ -55,7 +55,7 @@ public final class ReceiptsAsyncClient {
    * <p>Operation ID: GetReceipt
    *
    * @param transactionId SumUp unique transaction ID or transaction code, e.g. TS7HDYLSKD.
-   * @param mid Merchant code.
+   * @param mid Short unique identifier for the merchant.
    * @param getReceipt Optional query parameters for this request.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -75,7 +75,7 @@ public final class ReceiptsAsyncClient {
    * <p>Operation ID: GetReceipt
    *
    * @param transactionId SumUp unique transaction ID or transaction code, e.g. TS7HDYLSKD.
-   * @param mid Merchant code.
+   * @param mid Short unique identifier for the merchant.
    * @param getReceipt Optional query parameters for this request.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -117,7 +117,7 @@ public final class ReceiptsAsyncClient {
     /**
      * Sets the tx_event_id query parameter.
      *
-     * @param value The ID of the transaction event (refund).
+     * @param value Unique identifier of the transaction event to include on the receipt.
      * @return This GetReceiptQueryParams instance.
      */
     public GetReceiptQueryParams txEventId(Long value) {

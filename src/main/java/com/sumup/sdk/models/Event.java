@@ -3,22 +3,22 @@ package com.sumup.sdk.models;
 
 /** High-level transaction event details. */
 public record Event(
-    /** Amount of the event. */
+    /** Amount associated with the transaction event, in major units. */
     Float amount,
 
-    /** Amount deducted for the event. */
+    /** Amount deducted from the merchant for the event, in major units. */
     Float deductedAmount,
 
-    /** Amount of the fee deducted for the event. */
+    /** Fee deducted from the merchant for the event, in major units. */
     Float deductedFeeAmount,
 
-    /** Amount of the fee related to the event. */
+    /** Fee associated with the transaction event, in major units. */
     Float feeAmount,
 
-    /** Unique ID of the transaction event. */
+    /** Unique identifier of the transaction event. */
     com.sumup.sdk.models.TransactionEventId id,
 
-    /** Consecutive number of the installment. */
+    /** Consecutive number of the installment associated with the event. */
     Long installmentNumber,
 
     /**
@@ -39,10 +39,10 @@ public record Event(
      */
     com.sumup.sdk.models.TransactionEventStatus status,
 
-    /** Date and time of the transaction event. */
+    /** The timestamp of when the transaction event occurred. */
     java.time.OffsetDateTime timestamp,
 
-    /** Unique ID of the transaction. */
+    /** Unique identifier of the transaction. */
     com.sumup.sdk.models.TransactionId transactionId,
 
     /** Type of the transaction event. */
@@ -74,7 +74,7 @@ public record Event(
     /**
      * Sets the value for {@code amount}.
      *
-     * @param amount Amount of the event.
+     * @param amount Amount associated with the transaction event, in major units.
      * @return This builder instance.
      */
     public Builder amount(Float amount) {
@@ -85,7 +85,7 @@ public record Event(
     /**
      * Sets the value for {@code deductedAmount}.
      *
-     * @param deductedAmount Amount deducted for the event.
+     * @param deductedAmount Amount deducted from the merchant for the event, in major units.
      * @return This builder instance.
      */
     public Builder deductedAmount(Float deductedAmount) {
@@ -96,7 +96,7 @@ public record Event(
     /**
      * Sets the value for {@code deductedFeeAmount}.
      *
-     * @param deductedFeeAmount Amount of the fee deducted for the event.
+     * @param deductedFeeAmount Fee deducted from the merchant for the event, in major units.
      * @return This builder instance.
      */
     public Builder deductedFeeAmount(Float deductedFeeAmount) {
@@ -107,7 +107,7 @@ public record Event(
     /**
      * Sets the value for {@code feeAmount}.
      *
-     * @param feeAmount Amount of the fee related to the event.
+     * @param feeAmount Fee associated with the transaction event, in major units.
      * @return This builder instance.
      */
     public Builder feeAmount(Float feeAmount) {
@@ -118,7 +118,7 @@ public record Event(
     /**
      * Sets the value for {@code id}.
      *
-     * @param id Unique ID of the transaction event.
+     * @param id Unique identifier of the transaction event.
      * @return This builder instance.
      */
     public Builder id(com.sumup.sdk.models.TransactionEventId id) {
@@ -129,7 +129,7 @@ public record Event(
     /**
      * Sets the value for {@code installmentNumber}.
      *
-     * @param installmentNumber Consecutive number of the installment.
+     * @param installmentNumber Consecutive number of the installment associated with the event.
      * @return This builder instance.
      */
     public Builder installmentNumber(Long installmentNumber) {
@@ -165,7 +165,7 @@ public record Event(
     /**
      * Sets the value for {@code timestamp}.
      *
-     * @param timestamp Date and time of the transaction event.
+     * @param timestamp The timestamp of when the transaction event occurred.
      * @return This builder instance.
      */
     public Builder timestamp(java.time.OffsetDateTime timestamp) {
@@ -176,7 +176,7 @@ public record Event(
     /**
      * Sets the value for {@code transactionId}.
      *
-     * @param transactionId Unique ID of the transaction.
+     * @param transactionId Unique identifier of the transaction.
      * @return This builder instance.
      */
     public Builder transactionId(com.sumup.sdk.models.TransactionId transactionId) {

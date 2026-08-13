@@ -3,7 +3,7 @@ package com.sumup.sdk.models;
 
 /** Details of the saved payment instrument created or reused during checkout processing. */
 public record CheckoutSuccessPaymentInstrument(
-    /** Token value */
+    /** Unique token of the saved payment instrument. */
     String token) {
   /**
    * Creates a builder for CheckoutSuccessPaymentInstrument.
@@ -23,7 +23,7 @@ public record CheckoutSuccessPaymentInstrument(
     /**
      * Sets the value for {@code token}.
      *
-     * @param token Token value
+     * @param token Unique token of the saved payment instrument.
      * @return This builder instance.
      */
     public Builder token(String token) {

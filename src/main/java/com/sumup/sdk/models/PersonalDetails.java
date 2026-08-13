@@ -21,7 +21,7 @@ public record PersonalDetails(
     /** Phone number of the customer. */
     String phone,
 
-    /** An identification number user for tax purposes (e.g. CPF) */
+    /** Identification number used for tax purposes, such as a CPF in Brazil. */
     String taxId) {
   /**
    * Creates a builder for PersonalDetails.
@@ -113,7 +113,7 @@ public record PersonalDetails(
     /**
      * Sets the value for {@code taxId}.
      *
-     * @param taxId An identification number user for tax purposes (e.g. CPF)
+     * @param taxId Identification number used for tax purposes, such as a CPF in Brazil.
      * @return This builder instance.
      */
     public Builder taxId(String taxId) {

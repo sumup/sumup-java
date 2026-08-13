@@ -2,6 +2,7 @@
 package com.sumup.sdk.models;
 
 public record GetPaymentMethodsResponse(
+    /** Payment methods available to the merchant for the checkout. */
     java.util.List<com.sumup.sdk.models.GetPaymentMethodsResponseAvailablePaymentMethodsItem>
         availablePaymentMethods) {
   /**
@@ -24,7 +25,7 @@ public record GetPaymentMethodsResponse(
     /**
      * Sets the value for {@code availablePaymentMethods}.
      *
-     * @param availablePaymentMethods Value for the availablePaymentMethods field.
+     * @param availablePaymentMethods Payment methods available to the merchant for the checkout.
      * @return This builder instance.
      */
     public Builder availablePaymentMethods(

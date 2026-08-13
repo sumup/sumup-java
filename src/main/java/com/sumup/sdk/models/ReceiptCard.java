@@ -3,10 +3,10 @@ package com.sumup.sdk.models;
 
 /** Payment card details displayed on the receipt. */
 public record ReceiptCard(
-    /** Card last 4 digits. */
+    /** Last four digits of the payment card number. */
     String last4Digits,
 
-    /** Card Scheme. */
+    /** Issuing card network of the payment card. */
     String type) {
   /**
    * Creates a builder for ReceiptCard.
@@ -27,7 +27,7 @@ public record ReceiptCard(
     /**
      * Sets the value for {@code last4Digits}.
      *
-     * @param last4Digits Card last 4 digits.
+     * @param last4Digits Last four digits of the payment card number.
      * @return This builder instance.
      */
     public Builder last4Digits(String last4Digits) {
@@ -38,7 +38,7 @@ public record ReceiptCard(
     /**
      * Sets the value for {@code type}.
      *
-     * @param type Card Scheme.
+     * @param type Issuing card network of the payment card.
      * @return This builder instance.
      */
     public Builder type(String type) {

@@ -12,18 +12,17 @@ public record CheckoutSuccessTransactionsItem(
     String authCode,
 
     /**
-     * Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the currency for the
-     * amount. Currently supported currency values are enumerated above.
+     * Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of the amount.
      */
     com.sumup.sdk.models.Currency currency,
 
     /** Entry mode of the payment details. */
     com.sumup.sdk.models.EntryMode entryMode,
 
-    /** Unique ID of the transaction. */
+    /** Unique identifier of the transaction. */
     String id,
 
-    /** Current number of the installment for deferred payments. */
+    /** Number of installments for a deferred payment. */
     Long installmentsCount,
 
     /** Unique code of the registered merchant to whom the payment is made. */
@@ -41,10 +40,7 @@ public record CheckoutSuccessTransactionsItem(
      */
     com.sumup.sdk.models.TransactionStatus status,
 
-    /**
-     * Date and time of the creation of the transaction. Response format expressed according to
-     * [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) code.
-     */
+    /** The timestamp of when the transaction was created. */
     java.time.OffsetDateTime timestamp,
 
     /** Amount of the tip (out of the total transaction amount). */
@@ -110,8 +106,8 @@ public record CheckoutSuccessTransactionsItem(
     /**
      * Sets the value for {@code currency}.
      *
-     * @param currency Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the
-     *     currency for the amount. Currently supported currency values are enumerated above.
+     * @param currency Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code
+     *     of the amount.
      * @return This builder instance.
      */
     public Builder currency(com.sumup.sdk.models.Currency currency) {
@@ -133,7 +129,7 @@ public record CheckoutSuccessTransactionsItem(
     /**
      * Sets the value for {@code id}.
      *
-     * @param id Unique ID of the transaction.
+     * @param id Unique identifier of the transaction.
      * @return This builder instance.
      */
     public Builder id(String id) {
@@ -144,7 +140,7 @@ public record CheckoutSuccessTransactionsItem(
     /**
      * Sets the value for {@code installmentsCount}.
      *
-     * @param installmentsCount Current number of the installment for deferred payments.
+     * @param installmentsCount Number of installments for a deferred payment.
      * @return This builder instance.
      */
     public Builder installmentsCount(Long installmentsCount) {
@@ -192,8 +188,7 @@ public record CheckoutSuccessTransactionsItem(
     /**
      * Sets the value for {@code timestamp}.
      *
-     * @param timestamp Date and time of the creation of the transaction. Response format expressed
-     *     according to [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) code.
+     * @param timestamp The timestamp of when the transaction was created.
      * @return This builder instance.
      */
     public Builder timestamp(java.time.OffsetDateTime timestamp) {

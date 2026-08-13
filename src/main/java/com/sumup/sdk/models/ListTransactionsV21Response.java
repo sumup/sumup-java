@@ -2,7 +2,10 @@
 package com.sumup.sdk.models;
 
 public record ListTransactionsV21Response(
+    /** Transactions in the current result page. */
     java.util.List<com.sumup.sdk.models.TransactionHistory> items,
+
+    /** Pagination links for navigating the transaction history. */
     java.util.List<com.sumup.sdk.models.TransactionsHistoryLink> links) {
   /**
    * Creates a builder for ListTransactionsV21Response.
@@ -23,7 +26,7 @@ public record ListTransactionsV21Response(
     /**
      * Sets the value for {@code items}.
      *
-     * @param items Value for the items field.
+     * @param items Transactions in the current result page.
      * @return This builder instance.
      */
     public Builder items(java.util.List<com.sumup.sdk.models.TransactionHistory> items) {
@@ -34,7 +37,7 @@ public record ListTransactionsV21Response(
     /**
      * Sets the value for {@code links}.
      *
-     * @param links Value for the links field.
+     * @param links Pagination links for navigating the transaction history.
      * @return This builder instance.
      */
     public Builder links(java.util.List<com.sumup.sdk.models.TransactionsHistoryLink> links) {

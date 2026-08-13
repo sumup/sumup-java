@@ -15,7 +15,7 @@ public record TransactionEvent(
     /** Type of the transaction event. */
     com.sumup.sdk.models.TransactionEventType eventType,
 
-    /** Unique ID of the transaction event. */
+    /** Unique identifier of the transaction event. */
     com.sumup.sdk.models.TransactionEventId id,
 
     /**
@@ -113,7 +113,7 @@ public record TransactionEvent(
     /**
      * Sets the value for {@code id}.
      *
-     * @param id Unique ID of the transaction event.
+     * @param id Unique identifier of the transaction event.
      * @return This builder instance.
      */
     public Builder id(com.sumup.sdk.models.TransactionEventId id) {

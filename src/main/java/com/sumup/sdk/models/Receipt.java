@@ -9,10 +9,10 @@ public record Receipt(
     /** EMV-specific metadata returned for card-present payments. */
     java.util.Map<String, Object> emvData,
 
-    /** Receipt merchant data */
+    /** Merchant details displayed on a transaction receipt. */
     com.sumup.sdk.models.ReceiptMerchantData merchantData,
 
-    /** Transaction information. */
+    /** Transaction details displayed on a receipt. */
     com.sumup.sdk.models.ReceiptTransaction transactionData) {
   /**
    * Creates a builder for Receipt.
@@ -57,7 +57,7 @@ public record Receipt(
     /**
      * Sets the value for {@code merchantData}.
      *
-     * @param merchantData Receipt merchant data
+     * @param merchantData Merchant details displayed on a transaction receipt.
      * @return This builder instance.
      */
     public Builder merchantData(com.sumup.sdk.models.ReceiptMerchantData merchantData) {
@@ -68,7 +68,7 @@ public record Receipt(
     /**
      * Sets the value for {@code transactionData}.
      *
-     * @param transactionData Transaction information.
+     * @param transactionData Transaction details displayed on a receipt.
      * @return This builder instance.
      */
     public Builder transactionData(com.sumup.sdk.models.ReceiptTransaction transactionData) {

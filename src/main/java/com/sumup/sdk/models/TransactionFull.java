@@ -15,12 +15,11 @@ public record TransactionFull(
     /** Details of the payment card. */
     com.sumup.sdk.models.CardResponse card,
 
-    /** Client transaction id. */
+    /** Client-supplied identifier of the transaction. */
     String clientTransactionId,
 
     /**
-     * Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the currency for the
-     * amount. Currently supported currency values are enumerated above.
+     * Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of the amount.
      */
     com.sumup.sdk.models.Currency currency,
 
@@ -39,7 +38,7 @@ public record TransactionFull(
     /** Transaction SumUp total fee amount. */
     Double feeAmount,
 
-    /** External/foreign transaction id (passed by clients). */
+    /** External transaction identifier supplied by the client. */
     String foreignTransactionId,
 
     /**
@@ -47,10 +46,10 @@ public record TransactionFull(
      */
     com.sumup.sdk.models.HorizontalAccuracy horizontalAccuracy,
 
-    /** Unique ID of the transaction. */
+    /** Unique identifier of the transaction. */
     String id,
 
-    /** Current number of the installment for deferred payments. */
+    /** Number of installments for a deferred payment. */
     Long installmentsCount,
 
     /**
@@ -62,7 +61,7 @@ public record TransactionFull(
     /** List of hyperlinks for accessing related resources. */
     java.util.List<com.sumup.sdk.models.Link> links,
 
-    /** Local date and time of the creation of the transaction. */
+    /** Local timestamp of when the transaction was created. */
     java.time.OffsetDateTime localTime,
 
     /** Details of the payment location as received from the payment terminal. */
@@ -77,7 +76,7 @@ public record TransactionFull(
     /** Unique code of the registered merchant to whom the payment is made. */
     String merchantCode,
 
-    /** SumUp merchant internal Id. */
+    /** Internal SumUp identifier of the merchant. */
     Long merchantId,
 
     /** Payment type used for the transaction. */
@@ -98,7 +97,7 @@ public record TransactionFull(
     /** Total number of payouts to the registered user specified in the `user` property. */
     Long payoutsTotal,
 
-    /** Debit/Credit. */
+    /** Whether the transaction was processed as credit or debit. */
     com.sumup.sdk.models.TransactionFullProcessAs processAs,
 
     /**
@@ -142,10 +141,7 @@ public record TransactionFull(
     /** Indicates whether tax deduction is enabled for the transaction. */
     Boolean taxEnabled,
 
-    /**
-     * Date and time of the creation of the transaction. Response format expressed according to
-     * [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) code.
-     */
+    /** The timestamp of when the transaction was created. */
     java.time.OffsetDateTime timestamp,
 
     /** Amount of the tip (out of the total transaction amount). */
@@ -263,7 +259,7 @@ public record TransactionFull(
     /**
      * Sets the value for {@code clientTransactionId}.
      *
-     * @param clientTransactionId Client transaction id.
+     * @param clientTransactionId Client-supplied identifier of the transaction.
      * @return This builder instance.
      */
     public Builder clientTransactionId(String clientTransactionId) {
@@ -274,8 +270,8 @@ public record TransactionFull(
     /**
      * Sets the value for {@code currency}.
      *
-     * @param currency Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the
-     *     currency for the amount. Currently supported currency values are enumerated above.
+     * @param currency Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code
+     *     of the amount.
      * @return This builder instance.
      */
     public Builder currency(com.sumup.sdk.models.Currency currency) {
@@ -341,7 +337,7 @@ public record TransactionFull(
     /**
      * Sets the value for {@code foreignTransactionId}.
      *
-     * @param foreignTransactionId External/foreign transaction id (passed by clients).
+     * @param foreignTransactionId External transaction identifier supplied by the client.
      * @return This builder instance.
      */
     public Builder foreignTransactionId(String foreignTransactionId) {
@@ -364,7 +360,7 @@ public record TransactionFull(
     /**
      * Sets the value for {@code id}.
      *
-     * @param id Unique ID of the transaction.
+     * @param id Unique identifier of the transaction.
      * @return This builder instance.
      */
     public Builder id(String id) {
@@ -375,7 +371,7 @@ public record TransactionFull(
     /**
      * Sets the value for {@code installmentsCount}.
      *
-     * @param installmentsCount Current number of the installment for deferred payments.
+     * @param installmentsCount Number of installments for a deferred payment.
      * @return This builder instance.
      */
     public Builder installmentsCount(Long installmentsCount) {
@@ -409,7 +405,7 @@ public record TransactionFull(
     /**
      * Sets the value for {@code localTime}.
      *
-     * @param localTime Local date and time of the creation of the transaction.
+     * @param localTime Local timestamp of when the transaction was created.
      * @return This builder instance.
      */
     public Builder localTime(java.time.OffsetDateTime localTime) {
@@ -454,7 +450,7 @@ public record TransactionFull(
     /**
      * Sets the value for {@code merchantId}.
      *
-     * @param merchantId SumUp merchant internal Id.
+     * @param merchantId Internal SumUp identifier of the merchant.
      * @return This builder instance.
      */
     public Builder merchantId(Long merchantId) {
@@ -534,7 +530,7 @@ public record TransactionFull(
     /**
      * Sets the value for {@code processAs}.
      *
-     * @param processAs Debit/Credit.
+     * @param processAs Whether the transaction was processed as credit or debit.
      * @return This builder instance.
      */
     public Builder processAs(com.sumup.sdk.models.TransactionFullProcessAs processAs) {
@@ -629,8 +625,7 @@ public record TransactionFull(
     /**
      * Sets the value for {@code timestamp}.
      *
-     * @param timestamp Date and time of the creation of the transaction. Response format expressed
-     *     according to [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) code.
+     * @param timestamp The timestamp of when the transaction was created.
      * @return This builder instance.
      */
     public Builder timestamp(java.time.OffsetDateTime timestamp) {

@@ -9,19 +9,18 @@ public record TransactionHistory(
     /** Issuing card network of the payment card used for the transaction. */
     com.sumup.sdk.models.CardType cardType,
 
-    /** Client-specific ID of the transaction. */
+    /** Client-supplied identifier of the transaction. */
     String clientTransactionId,
 
     /**
-     * Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the currency for the
-     * amount. Currently supported currency values are enumerated above.
+     * Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of the amount.
      */
     com.sumup.sdk.models.Currency currency,
 
-    /** Unique ID of the transaction. */
+    /** Unique identifier of the transaction. */
     String id,
 
-    /** Current number of the installment for deferred payments. */
+    /** Number of installments for a deferred payment. */
     Long installmentsCount,
 
     /** Payment type used for the transaction. */
@@ -60,10 +59,7 @@ public record TransactionHistory(
      */
     com.sumup.sdk.models.TransactionStatus status,
 
-    /**
-     * Date and time of the creation of the transaction. Response format expressed according to
-     * [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) code.
-     */
+    /** The timestamp of when the transaction was created. */
     java.time.OffsetDateTime timestamp,
 
     /**
@@ -71,7 +67,7 @@ public record TransactionHistory(
      */
     String transactionCode,
 
-    /** Unique ID of the transaction. */
+    /** Unique identifier of the transaction. */
     com.sumup.sdk.models.TransactionId transactionId,
 
     /** Type of the transaction for the registered user specified in the `user` property. */
@@ -138,7 +134,7 @@ public record TransactionHistory(
     /**
      * Sets the value for {@code clientTransactionId}.
      *
-     * @param clientTransactionId Client-specific ID of the transaction.
+     * @param clientTransactionId Client-supplied identifier of the transaction.
      * @return This builder instance.
      */
     public Builder clientTransactionId(String clientTransactionId) {
@@ -149,8 +145,8 @@ public record TransactionHistory(
     /**
      * Sets the value for {@code currency}.
      *
-     * @param currency Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the
-     *     currency for the amount. Currently supported currency values are enumerated above.
+     * @param currency Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code
+     *     of the amount.
      * @return This builder instance.
      */
     public Builder currency(com.sumup.sdk.models.Currency currency) {
@@ -161,7 +157,7 @@ public record TransactionHistory(
     /**
      * Sets the value for {@code id}.
      *
-     * @param id Unique ID of the transaction.
+     * @param id Unique identifier of the transaction.
      * @return This builder instance.
      */
     public Builder id(String id) {
@@ -172,7 +168,7 @@ public record TransactionHistory(
     /**
      * Sets the value for {@code installmentsCount}.
      *
-     * @param installmentsCount Current number of the installment for deferred payments.
+     * @param installmentsCount Number of installments for a deferred payment.
      * @return This builder instance.
      */
     public Builder installmentsCount(Long installmentsCount) {
@@ -290,8 +286,7 @@ public record TransactionHistory(
     /**
      * Sets the value for {@code timestamp}.
      *
-     * @param timestamp Date and time of the creation of the transaction. Response format expressed
-     *     according to [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) code.
+     * @param timestamp The timestamp of when the transaction was created.
      * @return This builder instance.
      */
     public Builder timestamp(java.time.OffsetDateTime timestamp) {
@@ -314,7 +309,7 @@ public record TransactionHistory(
     /**
      * Sets the value for {@code transactionId}.
      *
-     * @param transactionId Unique ID of the transaction.
+     * @param transactionId Unique identifier of the transaction.
      * @return This builder instance.
      */
     public Builder transactionId(com.sumup.sdk.models.TransactionId transactionId) {

@@ -2,16 +2,16 @@
 package com.sumup.sdk.models;
 
 public record ReceiptTransactionVatRatesItem(
-    /** Gross */
+    /** Gross amount to which the VAT rate applies. */
     Float gross,
 
-    /** Net */
+    /** Net amount to which the VAT rate applies. */
     Float net,
 
-    /** Rate */
+    /** VAT rate applied to the transaction amount. */
     Float rate,
 
-    /** Vat */
+    /** VAT amount included in the gross amount. */
     Float vat) {
   /**
    * Creates a builder for ReceiptTransactionVatRatesItem.
@@ -34,7 +34,7 @@ public record ReceiptTransactionVatRatesItem(
     /**
      * Sets the value for {@code gross}.
      *
-     * @param gross Gross
+     * @param gross Gross amount to which the VAT rate applies.
      * @return This builder instance.
      */
     public Builder gross(Float gross) {
@@ -45,7 +45,7 @@ public record ReceiptTransactionVatRatesItem(
     /**
      * Sets the value for {@code net}.
      *
-     * @param net Net
+     * @param net Net amount to which the VAT rate applies.
      * @return This builder instance.
      */
     public Builder net(Float net) {
@@ -56,7 +56,7 @@ public record ReceiptTransactionVatRatesItem(
     /**
      * Sets the value for {@code rate}.
      *
-     * @param rate Rate
+     * @param rate VAT rate applied to the transaction amount.
      * @return This builder instance.
      */
     public Builder rate(Float rate) {
@@ -67,7 +67,7 @@ public record ReceiptTransactionVatRatesItem(
     /**
      * Sets the value for {@code vat}.
      *
-     * @param vat Vat
+     * @param vat VAT amount included in the gross amount.
      * @return This builder instance.
      */
     public Builder vat(Float vat) {

@@ -108,7 +108,7 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Operation ID: CreateApplePaySession
    *
-   * @param checkoutId Unique ID of the checkout resource.
+   * @param checkoutId Unique identifier of the checkout resource.
    * @param request The data needed to create an apple pay session for a checkout.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -132,7 +132,7 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Operation ID: CreateApplePaySession
    *
-   * @param checkoutId Unique ID of the checkout resource.
+   * @param checkoutId Unique identifier of the checkout resource.
    * @param request The data needed to create an apple pay session for a checkout.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -166,7 +166,7 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Operation ID: DeactivateCheckout
    *
-   * @param checkoutId Unique ID of the checkout resource.
+   * @param checkoutId Unique identifier of the checkout resource.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @return CompletableFuture resolved with com.sumup.sdk.models.Checkout parsed response.
@@ -185,7 +185,7 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Operation ID: DeactivateCheckout
    *
-   * @param checkoutId Unique ID of the checkout resource.
+   * @param checkoutId Unique identifier of the checkout resource.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return CompletableFuture resolved with com.sumup.sdk.models.Checkout parsed response.
@@ -215,7 +215,7 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Operation ID: GetCheckout
    *
-   * @param checkoutId Unique ID of the checkout resource.
+   * @param checkoutId Unique identifier of the checkout resource.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @return CompletableFuture resolved with com.sumup.sdk.models.CheckoutSuccess parsed response.
@@ -234,7 +234,7 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Operation ID: GetCheckout
    *
-   * @param checkoutId Unique ID of the checkout resource.
+   * @param checkoutId Unique identifier of the checkout resource.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return CompletableFuture resolved with com.sumup.sdk.models.CheckoutSuccess parsed response.
@@ -333,7 +333,7 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Operation ID: GetPaymentMethods
    *
-   * @param merchantCode The SumUp merchant code.
+   * @param merchantCode Short unique identifier for the merchant.
    *     <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
    *     headers, authorization, query values, or timeouts.
    * @return CompletableFuture resolved with com.sumup.sdk.models.GetPaymentMethodsResponse parsed
@@ -352,7 +352,7 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Operation ID: GetPaymentMethods
    *
-   * @param merchantCode The SumUp merchant code.
+   * @param merchantCode Short unique identifier for the merchant.
    * @param getPaymentMethods Optional query parameters for this request.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -373,7 +373,7 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Operation ID: GetPaymentMethods
    *
-   * @param merchantCode The SumUp merchant code.
+   * @param merchantCode Short unique identifier for the merchant.
    * @param getPaymentMethods Optional query parameters for this request.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -416,7 +416,7 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Operation ID: ProcessCheckout
    *
-   * @param checkoutId Unique ID of the checkout resource.
+   * @param checkoutId Unique identifier of the checkout resource.
    * @param request Details of the payment instrument for processing the checkout.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -437,7 +437,7 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Operation ID: ProcessCheckout
    *
-   * @param checkoutId Unique ID of the checkout resource.
+   * @param checkoutId Unique identifier of the checkout resource.
    * @param request Details of the payment instrument for processing the checkout.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -471,7 +471,7 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Operation ID: UpdateCheckout
    *
-   * @param checkoutId Unique ID of the checkout resource.
+   * @param checkoutId Unique identifier of the checkout resource.
    * @param request Details for updating a checkout resource.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -490,7 +490,7 @@ public final class CheckoutsAsyncClient {
    *
    * <p>Operation ID: UpdateCheckout
    *
-   * @param checkoutId Unique ID of the checkout resource.
+   * @param checkoutId Unique identifier of the checkout resource.
    * @param request Details for updating a checkout resource.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -524,7 +524,7 @@ public final class CheckoutsAsyncClient {
     /**
      * Sets the checkout_reference query parameter.
      *
-     * @param value Filters the list of checkout resources by the unique ID of the checkout.
+     * @param value Filters the list of checkout resources by the unique reference of the checkout.
      * @return This ListCheckoutsQueryParams instance.
      */
     public ListCheckoutsQueryParams checkoutReference(String value) {

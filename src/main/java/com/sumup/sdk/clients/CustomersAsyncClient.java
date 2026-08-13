@@ -84,7 +84,7 @@ public final class CustomersAsyncClient {
    *
    * <p>Operation ID: DeactivatePaymentInstrument
    *
-   * @param customerId Unique ID of the saved customer resource.
+   * @param customerId Unique identifier of the saved customer resource.
    * @param token Unique token identifying the card saved as a payment instrument resource.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -103,7 +103,7 @@ public final class CustomersAsyncClient {
    *
    * <p>Operation ID: DeactivatePaymentInstrument
    *
-   * @param customerId Unique ID of the saved customer resource.
+   * @param customerId Unique identifier of the saved customer resource.
    * @param token Unique token identifying the card saved as a payment instrument resource.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -130,7 +130,7 @@ public final class CustomersAsyncClient {
    *
    * <p>Operation ID: GetCustomer
    *
-   * @param customerId Unique ID of the saved customer resource.
+   * @param customerId Unique identifier of the saved customer resource.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @return CompletableFuture resolved with com.sumup.sdk.models.Customer parsed response.
@@ -149,7 +149,7 @@ public final class CustomersAsyncClient {
    *
    * <p>Operation ID: GetCustomer
    *
-   * @param customerId Unique ID of the saved customer resource.
+   * @param customerId Unique identifier of the saved customer resource.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return CompletableFuture resolved with com.sumup.sdk.models.Customer parsed response.
@@ -178,7 +178,7 @@ public final class CustomersAsyncClient {
    *
    * <p>Operation ID: ListPaymentInstruments
    *
-   * @param customerId Unique ID of the saved customer resource.
+   * @param customerId Unique identifier of the saved customer resource.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @return CompletableFuture resolved with {@code
@@ -197,7 +197,7 @@ public final class CustomersAsyncClient {
    *
    * <p>Operation ID: ListPaymentInstruments
    *
-   * @param customerId Unique ID of the saved customer resource.
+   * @param customerId Unique identifier of the saved customer resource.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return CompletableFuture resolved with {@code
@@ -229,7 +229,7 @@ public final class CustomersAsyncClient {
    *
    * <p>Operation ID: UpdateCustomer
    *
-   * @param customerId Unique ID of the saved customer resource.
+   * @param customerId Unique identifier of the saved customer resource.
    * @param request Customer fields to update.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -250,7 +250,7 @@ public final class CustomersAsyncClient {
    *
    * <p>Operation ID: UpdateCustomer
    *
-   * @param customerId Unique ID of the saved customer resource.
+   * @param customerId Unique identifier of the saved customer resource.
    * @param request Customer fields to update.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
