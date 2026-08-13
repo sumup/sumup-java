@@ -52,7 +52,7 @@ public final class TransactionsAsyncClient {
    *
    * <p>Operation ID: GetTransactionV2.1
    *
-   * @param merchantCode Merchant code of the account whose transaction should be retrieved.
+   * @param merchantCode Short unique identifier for the merchant.
    *     <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
    *     headers, authorization, query values, or timeouts.
    * @return CompletableFuture resolved with com.sumup.sdk.models.TransactionFull parsed response.
@@ -72,7 +72,7 @@ public final class TransactionsAsyncClient {
    *
    * <p>Operation ID: GetTransactionV2.1
    *
-   * @param merchantCode Merchant code of the account whose transaction should be retrieved.
+   * @param merchantCode Short unique identifier for the merchant.
    * @param getTransactionV21 Optional query parameters for this request.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -93,7 +93,7 @@ public final class TransactionsAsyncClient {
    *
    * <p>Operation ID: GetTransactionV2.1
    *
-   * @param merchantCode Merchant code of the account whose transaction should be retrieved.
+   * @param merchantCode Short unique identifier for the merchant.
    * @param getTransactionV21 Optional query parameters for this request.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -132,7 +132,7 @@ public final class TransactionsAsyncClient {
    *
    * <p>Operation ID: ListTransactionsV2.1
    *
-   * @param merchantCode Merchant code of the account whose transaction history should be listed.
+   * @param merchantCode Short unique identifier for the merchant.
    *     <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
    *     headers, authorization, query values, or timeouts.
    * @return CompletableFuture resolved with com.sumup.sdk.models.ListTransactionsV21Response parsed
@@ -151,7 +151,7 @@ public final class TransactionsAsyncClient {
    *
    * <p>Operation ID: ListTransactionsV2.1
    *
-   * @param merchantCode Merchant code of the account whose transaction history should be listed.
+   * @param merchantCode Short unique identifier for the merchant.
    * @param listTransactionsV21 Optional query parameters for this request.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -171,7 +171,7 @@ public final class TransactionsAsyncClient {
    *
    * <p>Operation ID: ListTransactionsV2.1
    *
-   * @param merchantCode Merchant code of the account whose transaction history should be listed.
+   * @param merchantCode Short unique identifier for the merchant.
    * @param listTransactionsV21 Optional query parameters for this request.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -211,8 +211,8 @@ public final class TransactionsAsyncClient {
    *
    * <p>Operation ID: RefundTransaction
    *
-   * @param merchantCode Merchant code of the account that owns the payment to refund.
-   * @param transactionId Unique ID of the transaction.
+   * @param merchantCode Short unique identifier for the merchant.
+   * @param transactionId Unique identifier of the transaction.
    * @param request Optional amount for partial refunds.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -234,8 +234,8 @@ public final class TransactionsAsyncClient {
    *
    * <p>Operation ID: RefundTransaction
    *
-   * @param merchantCode Merchant code of the account that owns the payment to refund.
-   * @param transactionId Unique ID of the transaction.
+   * @param merchantCode Short unique identifier for the merchant.
+   * @param transactionId Unique identifier of the transaction.
    * @param request Optional amount for partial refunds.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -275,7 +275,7 @@ public final class TransactionsAsyncClient {
     /**
      * Sets the client_transaction_id query parameter.
      *
-     * @param value Client transaction id.
+     * @param value Client-supplied identifier of the transaction.
      * @return This GetTransactionV21QueryParams instance.
      */
     public GetTransactionV21QueryParams clientTransactionId(String value) {
@@ -287,7 +287,7 @@ public final class TransactionsAsyncClient {
     /**
      * Sets the foreign_transaction_id query parameter.
      *
-     * @param value External/foreign transaction id (passed by clients).
+     * @param value External transaction identifier supplied by the client.
      * @return This GetTransactionV21QueryParams instance.
      */
     public GetTransactionV21QueryParams foreignTransactionId(String value) {

@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /** Saved customer details. */
 public record Customer(
-    /** Unique ID of the customer. */
+    /** Unique identifier of the customer. */
     String customerId,
 
     /** Personal details for the customer. */
@@ -29,7 +29,7 @@ public record Customer(
     /**
      * Sets the value for {@code customerId}.
      *
-     * @param customerId Unique ID of the customer.
+     * @param customerId Unique identifier of the customer.
      * @return This builder instance.
      */
     public Builder customerId(String customerId) {

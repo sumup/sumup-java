@@ -6,16 +6,16 @@ public record Link(
     /** URL for accessing the related resource. */
     String href,
 
-    /** Maximum allowed amount for the refund. */
+    /** Maximum amount allowed for a refund, in major units. */
     Float maxAmount,
 
-    /** Minimum allowed amount for the refund. */
+    /** Minimum amount allowed for a refund, in major units. */
     Float minAmount,
 
-    /** Specifies the relation to the current resource. */
+    /** Relation of the linked resource to the current resource. */
     String rel,
 
-    /** Specifies the media type of the related resource. */
+    /** Media type of the linked resource. */
     String type) {
   /**
    * Creates a builder for Link.
@@ -50,7 +50,7 @@ public record Link(
     /**
      * Sets the value for {@code maxAmount}.
      *
-     * @param maxAmount Maximum allowed amount for the refund.
+     * @param maxAmount Maximum amount allowed for a refund, in major units.
      * @return This builder instance.
      */
     public Builder maxAmount(Float maxAmount) {
@@ -61,7 +61,7 @@ public record Link(
     /**
      * Sets the value for {@code minAmount}.
      *
-     * @param minAmount Minimum allowed amount for the refund.
+     * @param minAmount Minimum amount allowed for a refund, in major units.
      * @return This builder instance.
      */
     public Builder minAmount(Float minAmount) {
@@ -72,7 +72,7 @@ public record Link(
     /**
      * Sets the value for {@code rel}.
      *
-     * @param rel Specifies the relation to the current resource.
+     * @param rel Relation of the linked resource to the current resource.
      * @return This builder instance.
      */
     public Builder rel(String rel) {
@@ -83,7 +83,7 @@ public record Link(
     /**
      * Sets the value for {@code type}.
      *
-     * @param type Specifies the media type of the related resource.
+     * @param type Media type of the linked resource.
      * @return This builder instance.
      */
     public Builder type(String type) {

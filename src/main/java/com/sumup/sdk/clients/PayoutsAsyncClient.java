@@ -40,7 +40,7 @@ public final class PayoutsAsyncClient {
    *
    * <p>Operation ID: ListPayoutsV1
    *
-   * @param merchantCode Merchant code of the account whose payouts should be listed.
+   * @param merchantCode Short unique identifier for the merchant.
    * @param endDate End date of the payout period filter, inclusive, in
    *     [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) `date` format (`YYYY-MM-DD`). Must be
    *     greater than or equal to `start_date`.
@@ -67,7 +67,7 @@ public final class PayoutsAsyncClient {
    *
    * <p>Operation ID: ListPayoutsV1
    *
-   * @param merchantCode Merchant code of the account whose payouts should be listed.
+   * @param merchantCode Short unique identifier for the merchant.
    * @param endDate End date of the payout period filter, inclusive, in
    *     [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) `date` format (`YYYY-MM-DD`). Must be
    *     greater than or equal to `start_date`.
@@ -98,7 +98,7 @@ public final class PayoutsAsyncClient {
    *
    * <p>Operation ID: ListPayoutsV1
    *
-   * @param merchantCode Merchant code of the account whose payouts should be listed.
+   * @param merchantCode Short unique identifier for the merchant.
    * @param endDate End date of the payout period filter, inclusive, in
    *     [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) `date` format (`YYYY-MM-DD`). Must be
    *     greater than or equal to `start_date`.

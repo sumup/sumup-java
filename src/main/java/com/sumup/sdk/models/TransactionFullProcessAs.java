@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 
-/** Debit/Credit. */
+/** Whether the transaction was processed as credit or debit. */
 public final class TransactionFullProcessAs {
   public static final TransactionFullProcessAs CREDIT = new TransactionFullProcessAs("CREDIT");
   public static final TransactionFullProcessAs DEBIT = new TransactionFullProcessAs("DEBIT");

@@ -3,10 +3,10 @@ package com.sumup.sdk.models;
 
 /** Card reader details displayed on the receipt. */
 public record ReceiptReader(
-    /** Reader serial number. */
+    /** Unique identifier of the physical card reader. */
     String code,
 
-    /** Reader type. */
+    /** Model of the physical card reader. */
     String type) {
   /**
    * Creates a builder for ReceiptReader.
@@ -27,7 +27,7 @@ public record ReceiptReader(
     /**
      * Sets the value for {@code code}.
      *
-     * @param code Reader serial number.
+     * @param code Unique identifier of the physical card reader.
      * @return This builder instance.
      */
     public Builder code(String code) {
@@ -38,7 +38,7 @@ public record ReceiptReader(
     /**
      * Sets the value for {@code type}.
      *
-     * @param type Reader type.
+     * @param type Model of the physical card reader.
      * @return This builder instance.
      */
     public Builder type(String type) {

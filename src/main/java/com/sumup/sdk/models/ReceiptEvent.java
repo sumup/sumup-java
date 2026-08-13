@@ -3,10 +3,10 @@ package com.sumup.sdk.models;
 
 /** Transaction event details as rendered on the receipt. */
 public record ReceiptEvent(
-    /** Amount of the event. */
+    /** Amount associated with the transaction event, in major units. */
     String amount,
 
-    /** Unique ID of the transaction event. */
+    /** Unique identifier of the transaction event. */
     com.sumup.sdk.models.TransactionEventId id,
 
     /** Receipt number associated with the event. */
@@ -30,10 +30,10 @@ public record ReceiptEvent(
      */
     com.sumup.sdk.models.TransactionEventStatus status,
 
-    /** Date and time of the transaction event. */
+    /** The timestamp of when the transaction event occurred. */
     java.time.OffsetDateTime timestamp,
 
-    /** Unique ID of the transaction. */
+    /** Unique identifier of the transaction. */
     com.sumup.sdk.models.TransactionId transactionId,
 
     /** Type of the transaction event. */
@@ -62,7 +62,7 @@ public record ReceiptEvent(
     /**
      * Sets the value for {@code amount}.
      *
-     * @param amount Amount of the event.
+     * @param amount Amount associated with the transaction event, in major units.
      * @return This builder instance.
      */
     public Builder amount(String amount) {
@@ -73,7 +73,7 @@ public record ReceiptEvent(
     /**
      * Sets the value for {@code id}.
      *
-     * @param id Unique ID of the transaction event.
+     * @param id Unique identifier of the transaction event.
      * @return This builder instance.
      */
     public Builder id(com.sumup.sdk.models.TransactionEventId id) {
@@ -120,7 +120,7 @@ public record ReceiptEvent(
     /**
      * Sets the value for {@code timestamp}.
      *
-     * @param timestamp Date and time of the transaction event.
+     * @param timestamp The timestamp of when the transaction event occurred.
      * @return This builder instance.
      */
     public Builder timestamp(java.time.OffsetDateTime timestamp) {
@@ -131,7 +131,7 @@ public record ReceiptEvent(
     /**
      * Sets the value for {@code transactionId}.
      *
-     * @param transactionId Unique ID of the transaction.
+     * @param transactionId Unique identifier of the transaction.
      * @return This builder instance.
      */
     public Builder transactionId(com.sumup.sdk.models.TransactionId transactionId) {

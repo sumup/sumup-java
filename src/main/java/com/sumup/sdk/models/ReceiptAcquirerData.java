@@ -3,8 +3,17 @@ package com.sumup.sdk.models;
 
 /** Acquirer-specific metadata related to the card authorization. */
 public record ReceiptAcquirerData(
-    String authorizationCode, String localTime, String returnCode, String tid) {
+    /** Authorization code returned by the acquirer. */
+    String authorizationCode,
 
+    /** Local timestamp of the card authorization. */
+    String localTime,
+
+    /** Return code reported by the acquirer. */
+    String returnCode,
+
+    /** Identifier of the terminal used for the authorization. */
+    String tid) {
   /**
    * Creates a builder for ReceiptAcquirerData.
    *
@@ -26,7 +35,7 @@ public record ReceiptAcquirerData(
     /**
      * Sets the value for {@code authorizationCode}.
      *
-     * @param authorizationCode Value for the authorizationCode field.
+     * @param authorizationCode Authorization code returned by the acquirer.
      * @return This builder instance.
      */
     public Builder authorizationCode(String authorizationCode) {
@@ -37,7 +46,7 @@ public record ReceiptAcquirerData(
     /**
      * Sets the value for {@code localTime}.
      *
-     * @param localTime Value for the localTime field.
+     * @param localTime Local timestamp of the card authorization.
      * @return This builder instance.
      */
     public Builder localTime(String localTime) {
@@ -48,7 +57,7 @@ public record ReceiptAcquirerData(
     /**
      * Sets the value for {@code returnCode}.
      *
-     * @param returnCode Value for the returnCode field.
+     * @param returnCode Return code reported by the acquirer.
      * @return This builder instance.
      */
     public Builder returnCode(String returnCode) {
@@ -59,7 +68,7 @@ public record ReceiptAcquirerData(
     /**
      * Sets the value for {@code tid}.
      *
-     * @param tid Value for the tid field.
+     * @param tid Identifier of the terminal used for the authorization.
      * @return This builder instance.
      */
     public Builder tid(String tid) {

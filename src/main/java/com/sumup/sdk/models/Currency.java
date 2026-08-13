@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 
-/**
- * Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the currency for the
- * amount. Currently supported currency values are enumerated above.
- */
+/** Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of the amount. */
 public final class Currency {
   public static final Currency BGN = new Currency("BGN");
   public static final Currency BRL = new Currency("BRL");

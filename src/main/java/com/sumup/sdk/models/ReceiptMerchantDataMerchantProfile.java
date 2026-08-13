@@ -3,13 +3,28 @@ package com.sumup.sdk.models;
 
 /** Merchant profile details displayed on the receipt. */
 public record ReceiptMerchantDataMerchantProfile(
+    /** Business address of the merchant. */
     com.sumup.sdk.models.ReceiptMerchantDataMerchantProfileAddress address,
+
+    /** Business name of the merchant. */
     String businessName,
+
+    /** Company registration number of the merchant. */
     String companyRegistrationNumber,
+
+    /** Email address of the merchant. */
     String email,
+
+    /** Language configured for the merchant profile. */
     String language,
+
+    /** Short unique identifier for the merchant. */
     String merchantCode,
+
+    /** VAT identification number of the merchant. */
     String vatId,
+
+    /** Website of the merchant. */
     String website) {
   /**
    * Creates a builder for ReceiptMerchantDataMerchantProfile.
@@ -36,7 +51,7 @@ public record ReceiptMerchantDataMerchantProfile(
     /**
      * Sets the value for {@code address}.
      *
-     * @param address Value for the address field.
+     * @param address Business address of the merchant.
      * @return This builder instance.
      */
     public Builder address(com.sumup.sdk.models.ReceiptMerchantDataMerchantProfileAddress address) {
@@ -47,7 +62,7 @@ public record ReceiptMerchantDataMerchantProfile(
     /**
      * Sets the value for {@code businessName}.
      *
-     * @param businessName Value for the businessName field.
+     * @param businessName Business name of the merchant.
      * @return This builder instance.
      */
     public Builder businessName(String businessName) {
@@ -58,7 +73,7 @@ public record ReceiptMerchantDataMerchantProfile(
     /**
      * Sets the value for {@code companyRegistrationNumber}.
      *
-     * @param companyRegistrationNumber Value for the companyRegistrationNumber field.
+     * @param companyRegistrationNumber Company registration number of the merchant.
      * @return This builder instance.
      */
     public Builder companyRegistrationNumber(String companyRegistrationNumber) {
@@ -69,7 +84,7 @@ public record ReceiptMerchantDataMerchantProfile(
     /**
      * Sets the value for {@code email}.
      *
-     * @param email Value for the email field.
+     * @param email Email address of the merchant.
      * @return This builder instance.
      */
     public Builder email(String email) {
@@ -80,7 +95,7 @@ public record ReceiptMerchantDataMerchantProfile(
     /**
      * Sets the value for {@code language}.
      *
-     * @param language Value for the language field.
+     * @param language Language configured for the merchant profile.
      * @return This builder instance.
      */
     public Builder language(String language) {
@@ -91,7 +106,7 @@ public record ReceiptMerchantDataMerchantProfile(
     /**
      * Sets the value for {@code merchantCode}.
      *
-     * @param merchantCode Value for the merchantCode field.
+     * @param merchantCode Short unique identifier for the merchant.
      * @return This builder instance.
      */
     public Builder merchantCode(String merchantCode) {
@@ -102,7 +117,7 @@ public record ReceiptMerchantDataMerchantProfile(
     /**
      * Sets the value for {@code vatId}.
      *
-     * @param vatId Value for the vatId field.
+     * @param vatId VAT identification number of the merchant.
      * @return This builder instance.
      */
     public Builder vatId(String vatId) {
@@ -113,7 +128,7 @@ public record ReceiptMerchantDataMerchantProfile(
     /**
      * Sets the value for {@code website}.
      *
-     * @param website Value for the website field.
+     * @param website Website of the merchant.
      * @return This builder instance.
      */
     public Builder website(String website) {

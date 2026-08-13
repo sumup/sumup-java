@@ -2,34 +2,34 @@
 package com.sumup.sdk.models;
 
 public record ReceiptTransactionProductsItem(
-    /** Product description */
+    /** Product description. */
     String description,
 
-    /** Product name */
+    /** Product name. */
     String name,
 
-    /** Product price */
+    /** Product price. */
     String price,
 
-    /** Product price including VAT */
+    /** Product price including VAT. */
     String priceWithVat,
 
-    /** Product quantity */
+    /** Product quantity. */
     Long quantity,
 
-    /** VAT amount for a single product */
+    /** VAT amount for a single product. */
     String singleVatAmount,
 
-    /** Quantity x product price */
+    /** Total price calculated as the product price multiplied by the quantity. */
     String totalPrice,
 
-    /** Total price including VAT */
+    /** Total product price including VAT. */
     String totalWithVat,
 
-    /** VAT amount */
+    /** Total VAT amount for the product quantity. */
     String vatAmount,
 
-    /** VAT rate */
+    /** VAT rate. */
     String vatRate) {
   /**
    * Creates a builder for ReceiptTransactionProductsItem.
@@ -58,7 +58,7 @@ public record ReceiptTransactionProductsItem(
     /**
      * Sets the value for {@code description}.
      *
-     * @param description Product description
+     * @param description Product description.
      * @return This builder instance.
      */
     public Builder description(String description) {
@@ -69,7 +69,7 @@ public record ReceiptTransactionProductsItem(
     /**
      * Sets the value for {@code name}.
      *
-     * @param name Product name
+     * @param name Product name.
      * @return This builder instance.
      */
     public Builder name(String name) {
@@ -80,7 +80,7 @@ public record ReceiptTransactionProductsItem(
     /**
      * Sets the value for {@code price}.
      *
-     * @param price Product price
+     * @param price Product price.
      * @return This builder instance.
      */
     public Builder price(String price) {
@@ -91,7 +91,7 @@ public record ReceiptTransactionProductsItem(
     /**
      * Sets the value for {@code priceWithVat}.
      *
-     * @param priceWithVat Product price including VAT
+     * @param priceWithVat Product price including VAT.
      * @return This builder instance.
      */
     public Builder priceWithVat(String priceWithVat) {
@@ -102,7 +102,7 @@ public record ReceiptTransactionProductsItem(
     /**
      * Sets the value for {@code quantity}.
      *
-     * @param quantity Product quantity
+     * @param quantity Product quantity.
      * @return This builder instance.
      */
     public Builder quantity(Long quantity) {
@@ -113,7 +113,7 @@ public record ReceiptTransactionProductsItem(
     /**
      * Sets the value for {@code singleVatAmount}.
      *
-     * @param singleVatAmount VAT amount for a single product
+     * @param singleVatAmount VAT amount for a single product.
      * @return This builder instance.
      */
     public Builder singleVatAmount(String singleVatAmount) {
@@ -124,7 +124,7 @@ public record ReceiptTransactionProductsItem(
     /**
      * Sets the value for {@code totalPrice}.
      *
-     * @param totalPrice Quantity x product price
+     * @param totalPrice Total price calculated as the product price multiplied by the quantity.
      * @return This builder instance.
      */
     public Builder totalPrice(String totalPrice) {
@@ -135,7 +135,7 @@ public record ReceiptTransactionProductsItem(
     /**
      * Sets the value for {@code totalWithVat}.
      *
-     * @param totalWithVat Total price including VAT
+     * @param totalWithVat Total product price including VAT.
      * @return This builder instance.
      */
     public Builder totalWithVat(String totalWithVat) {
@@ -146,7 +146,7 @@ public record ReceiptTransactionProductsItem(
     /**
      * Sets the value for {@code vatAmount}.
      *
-     * @param vatAmount VAT amount
+     * @param vatAmount Total VAT amount for the product quantity.
      * @return This builder instance.
      */
     public Builder vatAmount(String vatAmount) {
@@ -157,7 +157,7 @@ public record ReceiptTransactionProductsItem(
     /**
      * Sets the value for {@code vatRate}.
      *
-     * @param vatRate VAT rate
+     * @param vatRate VAT rate.
      * @return This builder instance.
      */
     public Builder vatRate(String vatRate) {

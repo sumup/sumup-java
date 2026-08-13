@@ -3,7 +3,7 @@ package com.sumup.sdk.models;
 
 /** Details of the mandate linked to the saved payment instrument. */
 public record MandateResponse(
-    /** Merchant account for which the mandate is valid. */
+    /** Short unique identifier for the merchant for which the mandate is valid. */
     String merchantCode,
 
     /** Current lifecycle status of the mandate. */
@@ -31,7 +31,7 @@ public record MandateResponse(
     /**
      * Sets the value for {@code merchantCode}.
      *
-     * @param merchantCode Merchant account for which the mandate is valid.
+     * @param merchantCode Short unique identifier for the merchant for which the mandate is valid.
      * @return This builder instance.
      */
     public Builder merchantCode(String merchantCode) {

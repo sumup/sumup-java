@@ -12,8 +12,7 @@ public record CheckoutUpdateRequest(
     String checkoutReference,
 
     /**
-     * Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the currency for the
-     * amount. Currently supported currency values are enumerated above.
+     * Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of the amount.
      */
     com.sumup.sdk.models.Currency currency,
 
@@ -73,8 +72,8 @@ public record CheckoutUpdateRequest(
     /**
      * Sets the value for {@code currency}.
      *
-     * @param currency Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the
-     *     currency for the amount. Currently supported currency values are enumerated above.
+     * @param currency Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code
+     *     of the amount.
      * @return This builder instance.
      */
     public Builder currency(com.sumup.sdk.models.Currency currency) {

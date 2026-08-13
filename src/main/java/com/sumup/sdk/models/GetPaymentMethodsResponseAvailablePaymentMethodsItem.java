@@ -4,7 +4,7 @@ package com.sumup.sdk.models;
 import java.util.Objects;
 
 public record GetPaymentMethodsResponseAvailablePaymentMethodsItem(
-    /** The ID of the payment method. */
+    /** Unique identifier of the payment method. */
     String id) {
   /**
    * Creates a builder for GetPaymentMethodsResponseAvailablePaymentMethodsItem.
@@ -25,7 +25,7 @@ public record GetPaymentMethodsResponseAvailablePaymentMethodsItem(
     /**
      * Sets the value for {@code id}.
      *
-     * @param id The ID of the payment method.
+     * @param id Unique identifier of the payment method.
      * @return This builder instance.
      */
     public Builder id(String id) {

@@ -17,8 +17,7 @@ public record CheckoutSuccess(
     String checkoutReference,
 
     /**
-     * Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the currency for the
-     * amount. Currently supported currency values are enumerated above.
+     * Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of the amount.
      */
     com.sumup.sdk.models.Currency currency,
 
@@ -29,10 +28,7 @@ public record CheckoutSuccess(
      */
     String customerId,
 
-    /**
-     * Date and time of the creation of the payment checkout. Response format expressed according to
-     * [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) code.
-     */
+    /** The timestamp of when the checkout was created. */
     java.time.OffsetDateTime date,
 
     /**
@@ -53,10 +49,10 @@ public record CheckoutSuccess(
     /** Details of the mandate linked to the saved payment instrument. */
     com.sumup.sdk.models.MandateResponse mandate,
 
-    /** Merchant account that receives the payment. */
+    /** Short unique identifier for the merchant that receives the payment. */
     String merchantCode,
 
-    /** Name of the merchant */
+    /** Name of the merchant. */
     String merchantName,
 
     /** Details of the saved payment instrument created or reused during checkout processing. */
@@ -84,10 +80,7 @@ public record CheckoutSuccess(
      */
     String transactionCode,
 
-    /**
-     * Transaction ID of the successful transaction with which the payment for the checkout is
-     * completed.
-     */
+    /** Unique identifier of the successful transaction that completed payment for the checkout. */
     String transactionId,
 
     /**
@@ -157,8 +150,8 @@ public record CheckoutSuccess(
     /**
      * Sets the value for {@code currency}.
      *
-     * @param currency Three-letter [ISO4217](https://en.wikipedia.org/wiki/ISO_4217) code of the
-     *     currency for the amount. Currently supported currency values are enumerated above.
+     * @param currency Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code
+     *     of the amount.
      * @return This builder instance.
      */
     public Builder currency(com.sumup.sdk.models.Currency currency) {
@@ -182,8 +175,7 @@ public record CheckoutSuccess(
     /**
      * Sets the value for {@code date}.
      *
-     * @param date Date and time of the creation of the payment checkout. Response format expressed
-     *     according to [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) code.
+     * @param date The timestamp of when the checkout was created.
      * @return This builder instance.
      */
     public Builder date(java.time.OffsetDateTime date) {
@@ -218,7 +210,7 @@ public record CheckoutSuccess(
     /**
      * Sets the value for {@code merchantCode}.
      *
-     * @param merchantCode Merchant account that receives the payment.
+     * @param merchantCode Short unique identifier for the merchant that receives the payment.
      * @return This builder instance.
      */
     public Builder merchantCode(String merchantCode) {
@@ -229,7 +221,7 @@ public record CheckoutSuccess(
     /**
      * Sets the value for {@code merchantName}.
      *
-     * @param merchantName Name of the merchant
+     * @param merchantName Name of the merchant.
      * @return This builder instance.
      */
     public Builder merchantName(String merchantName) {
