@@ -7,7 +7,7 @@ public record PersonalIdentifier(
     /** The unique reference for the personal identifier type. */
     String ref,
 
-    /** The company identifier value. */
+    /** The personal identifier value. */
     String value) {
   /**
    * Creates a builder for PersonalIdentifier.
@@ -39,7 +39,7 @@ public record PersonalIdentifier(
     /**
      * Sets the value for {@code value}.
      *
-     * @param value The company identifier value.
+     * @param value The personal identifier value.
      * @return This builder instance.
      */
     public Builder value(String value) {
