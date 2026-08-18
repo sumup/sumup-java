@@ -408,63 +408,6 @@ public final class CheckoutsAsyncClient {
   }
 
   /**
-   * Process a checkout
-   *
-   * <p>Processing a checkout will attempt to charge the provided payment instrument for the amount
-   * of the specified checkout resource initiated in the `Create a checkout` endpoint. Follow this
-   * request with `Retrieve a checkout` to confirm its status.
-   *
-   * <p>Operation ID: ProcessCheckout
-   *
-   * @param checkoutId Unique identifier of the checkout resource.
-   * @param request Details of the payment instrument for processing the checkout.
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.CheckoutSuccess parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.CheckoutSuccess> process(
-      String checkoutId, com.sumup.sdk.models.ProcessCheckout request) throws ApiException {
-    return process(checkoutId, request, null);
-  }
-
-  /**
-   * Process a checkout
-   *
-   * <p>Processing a checkout will attempt to charge the provided payment instrument for the amount
-   * of the specified checkout resource initiated in the `Create a checkout` endpoint. Follow this
-   * request with `Retrieve a checkout` to confirm its status.
-   *
-   * <p>Operation ID: ProcessCheckout
-   *
-   * @param checkoutId Unique identifier of the checkout resource.
-   * @param request Details of the payment instrument for processing the checkout.
-   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
-   *     {@code null} to use client defaults.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.CheckoutSuccess parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.CheckoutSuccess> process(
-      String checkoutId,
-      com.sumup.sdk.models.ProcessCheckout request,
-      RequestOptions requestOptions)
-      throws ApiException {
-    Objects.requireNonNull(checkoutId, "checkoutId");
-    Objects.requireNonNull(request, "request");
-    String path = "/v0.1/checkouts/{checkout_id}";
-    path = path.replace("{checkout_id}", ApiClient.urlEncode(ApiClient.parameterValue(checkoutId)));
-
-    return this.apiClient.sendAsync(
-        HttpMethod.PUT,
-        path,
-        null,
-        null,
-        request,
-        new TypeReference<com.sumup.sdk.models.CheckoutSuccess>() {},
-        requestOptions);
-  }
-
-  /**
    * Update a checkout
    *
    * <p>Updates an identified checkout resource.
