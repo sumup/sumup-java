@@ -1,0 +1,13 @@
+plugins {
+    id 'application'
+    id 'com.diffplug.spotless'
+}
+
+application {
+    mainClass = 'com.sumup.examples.oauth2.OAuth2Example'
+}
+
+dependencies {
+    implementation project(':sumup-sdk')
+    implementation 'com.nimbusds:oauth2-oidc-sdk:11.34'
+}

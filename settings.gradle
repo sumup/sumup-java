@@ -8,3 +8,6 @@ project(':examples:basic').projectDir = file('examples/basic')
 
 include(':examples:card-reader-checkout')
 project(':examples:card-reader-checkout').projectDir = file('examples/card-reader-checkout')
+
+include(':examples:oauth2')
+project(':examples:oauth2').projectDir = file('examples/oauth2')
