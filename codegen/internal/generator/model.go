@@ -106,6 +106,7 @@ type schemaField struct {
 	Type             string
 	DescriptionLines []string
 	Required         bool
+	Nullable         bool
 	ReadOnly         bool
 	Schema           *base.SchemaProxy
 }
@@ -660,6 +661,7 @@ func buildSchemaFields(name string, ref *base.SchemaProxy, resolver *typeResolve
 				imports[imp] = struct{}{}
 			}
 			readOnly := isReadOnlySchema(propRef)
+			nullable := schemaAllowsNull(propRef)
 			desc := ""
 			if schemaFromProxy(propRef) != nil {
 				desc = schemaFromProxy(propRef).Description
@@ -670,10 +672,11 @@ func buildSchemaFields(name string, ref *base.SchemaProxy, resolver *typeResolve
 				Type:             javaType.Name,
 				DescriptionLines: splitComment(desc),
 				Required:         required[propName],
+				Nullable:         nullable,
 				ReadOnly:         readOnly,
 				Schema:           propRef,
 			})
-			if required[propName] && !readOnly {
+			if required[propName] && !nullable && !readOnly {
 				hasRequired = true
 			}
 		}
@@ -916,6 +919,26 @@ func schemaHasType(schema *base.Schema, want string) bool {
 		if t == want {
 			return true
 		}
+	}
+	return false
+}
+
+func schemaAllowsNull(schemaRef *base.SchemaProxy) bool {
+	if schemaRef == nil {
+		return false
+	}
+	schema := schemaRef.Schema()
+	if schema == nil {
+		return false
+	}
+	if schema.Nullable != nil && *schema.Nullable {
+		return true
+	}
+	if schemaHasType(schema, "null") {
+		return true
+	}
+	if len(schema.AllOf) == 1 {
+		return schemaAllowsNull(schema.AllOf[0])
 	}
 	return false
 }

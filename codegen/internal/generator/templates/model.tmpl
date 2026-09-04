@@ -170,7 +170,7 @@ public record {{ .ClassName }}(
             return new {{ $.ClassName }}(
 {{- range $index, $field := .Fields }}
 {{- if $index }},
-{{ end }}                {{ if $field.ReadOnly }}null{{ else if $field.Required }}Objects.requireNonNull({{ $field.Name }}, {{ quote $field.Name }}){{ else }}{{ $field.Name }}{{ end }}
+{{ end }}                {{ if $field.ReadOnly }}null{{ else if and $field.Required (not $field.Nullable) }}Objects.requireNonNull({{ $field.Name }}, {{ quote $field.Name }}){{ else }}{{ $field.Name }}{{ end }}
 {{- end }}
             );
 {{- else }}

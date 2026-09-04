@@ -243,20 +243,20 @@ public record GetReaderCheckoutResponseData(
      */
     public GetReaderCheckoutResponseData build() {
       return new GetReaderCheckoutResponseData(
-          Objects.requireNonNull(cardType, "cardType"),
+          cardType,
           Objects.requireNonNull(checkoutId, "checkoutId"),
           Objects.requireNonNull(clientTransactionId, "clientTransactionId"),
           Objects.requireNonNull(createdAt, "createdAt"),
-          Objects.requireNonNull(installments, "installments"),
+          installments,
           paymentFailureReason,
-          Objects.requireNonNull(paymentStatus, "paymentStatus"),
+          paymentStatus,
           Objects.requireNonNull(paymentType, "paymentType"),
           Objects.requireNonNull(readerFirmwareVersion, "readerFirmwareVersion"),
           Objects.requireNonNull(readerSerialNumber, "readerSerialNumber"),
           Objects.requireNonNull(status, "status"),
           Objects.requireNonNull(totalAmount, "totalAmount"),
           Objects.requireNonNull(updatedAt, "updatedAt"),
-          Objects.requireNonNull(validUntil, "validUntil"));
+          validUntil);
     }
   }
 }
