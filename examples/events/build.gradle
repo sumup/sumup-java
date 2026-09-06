@@ -1,0 +1,6 @@
+plugins {
+    id 'application'
+    id 'com.diffplug.spotless'
+}
+application { mainClass = 'com.sumup.examples.events.EventsExample' }
+dependencies { implementation project(':sumup-sdk') }

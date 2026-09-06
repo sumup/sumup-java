@@ -256,8 +256,39 @@ readerIdFuture
     .join();
 ```
 
+## Handling events
+
+```java
+var events = client.eventsHandler(secret, event ->
+    System.out.printf("Unhandled event %s: %s%n", event.id(), event.type()));
+
+events.onMemberUpdated(event -> {
+    var member = event.fetchObject();
+    System.out.printf("Member updated: %s%n", member.id());
+});
+
+events.handle(rawBody, signatureHeader);
+```
+
+Pass the original request bytes and the `X-SumUp-Webhook-Signature` header.
+The SDK verifies the signature and its fixed five-minute delivery window before processing.
+Register callbacks before serving requests and acknowledge delivery only after processing succeeds.
+Deliveries may repeat; use event IDs to deduplicate processing.
+
+`SumUpAsyncClient.eventsHandler` accepts callbacks returning a `CompletionStage<Void>`.
+Call `handleAsync` and wait for its future to complete before acknowledging delivery.
+Use `event.fetchObjectAsync()` for asynchronous resource fetches.
+
+For manual dispatch, use `client.parseEventNotification(rawBody, signatureHeader, secret)`
+and match the notification type. Unknown event types remain available as `EventNotification`.
+Resource fetches require an HTTP client with redirects disabled (the default).
+`fetchObject` retrieves the resource's current state; deleted resources may return an API error.
+
+See the [standalone HTTP-server example](examples/events) for a complete receiver.
+
 ## Examples
 
+- [examples/events](examples/events) – receives signed events using the JDK HTTP server.
 - `examples/basic` – lists recent checkouts to verify that your API token works.
 - `examples/card-reader-checkout` – lists paired readers and creates a €10 checkout on the first available device.
 

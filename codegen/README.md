@@ -33,3 +33,7 @@ just generate-codesamples
 ```
 
 The recipe writes `code-samples.json` in the repository root by default. Pass another path as its argument to use a different destination. Every generated program is compiled in Continuous Integration. When an SDK release is published, the release workflow regenerates the catalog from that tag and opens or updates a pull request in `sumup/sumup-developer`; the generated JSON is not committed to this repository.
+
+Event classes, notification parsing, and callback registration methods are generated from
+OpenAPI 3.1 `webhooks` entries and their `x-object` references. Signature verification
+and resource-fetching support live in the handwritten `events` runtime.

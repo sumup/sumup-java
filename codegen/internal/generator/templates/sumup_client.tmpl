@@ -51,6 +51,40 @@ public final class {{ .ClassName }} {
     }
 
     /**
+     * Creates a handler for verified event deliveries. Register callbacks before serving requests.
+     * @param secret endpoint signing secret, not an API key
+     * @param fallback callback for unknown and unregistered event types
+     * @return handler bound to this client's configuration
+     */
+    public {{.Package}}.events.{{if eq .ClassName "SumUpAsyncClient"}}Async{{end}}EventsHandler eventsHandler(
+        String secret, {{.Package}}.events.{{if eq .ClassName "SumUpAsyncClient"}}Async{{end}}EventCallback<{{.Package}}.events.EventNotification> fallback) {
+      return new {{.Package}}.events.{{if eq .ClassName "SumUpAsyncClient"}}Async{{end}}EventsHandler(apiClient, secret, fallback);
+    }
+
+    /**
+     * Verifies the original request body before parsing it as a typed event.
+     * @param body unmodified HTTP request bytes
+     * @param signature complete X-SumUp-Webhook-Signature header value
+     * @param secret endpoint signing secret, not an API key
+     * @return typed notification, or a base notification for an unknown type
+     * @throws {{.Package}}.events.EventSignatureException if verification fails
+     * @throws {{.Package}}.events.EventPayloadException if deserialization fails
+     */
+    public {{.Package}}.events.EventNotification parseEventNotification(byte[] body, String signature, String secret) {
+      return {{.Package}}.events.EventNotification.parse(apiClient, body, signature, secret);
+    }
+
+    /**
+     * Parses an already verified payload from trusted storage. Never use directly on incoming requests.
+     * @param body JSON event body
+     * @return notification bound to this client's resource fetching configuration
+     * @throws {{.Package}}.events.EventPayloadException if deserialization fails
+     */
+    public {{.Package}}.events.EventNotification parseEventNotificationWithoutVerification(byte[] body) {
+      return {{.Package}}.events.EventNotification.parseWithoutVerification(apiClient, body);
+    }
+
+    /**
      * Creates a new builder for {{ .ClassName }}.
      *
      * @return Builder used to configure and create {{ .ClassName }} instances.

@@ -51,7 +51,7 @@ func Run(ctx context.Context, params Params) error {
 		return err
 	}
 
-	return nil
+	return renderEvents(doc, params)
 }
 
 // loadDocument reads and parses the OpenAPI specification into the pbo33f
