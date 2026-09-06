@@ -400,6 +400,19 @@ public final class MembersClient {
     }
 
     /**
+     * Sets the user.type query parameter.
+     *
+     * @param value Filter the returned members by user type. Repeat this parameter to include
+     *     multiple user types.
+     * @return This ListMerchantMembersQueryParams instance.
+     */
+    public ListMerchantMembersQueryParams userType(
+        java.util.List<com.sumup.sdk.models.UserType> value) {
+      this.values.put("user.type", Objects.requireNonNull(value, "userType"));
+      return this;
+    }
+
+    /**
      * Converts query parameters to a map understood by ApiClient.
      *
      * @return Collected query parameters keyed by API name.

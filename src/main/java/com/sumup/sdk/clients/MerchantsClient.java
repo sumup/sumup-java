@@ -6,8 +6,6 @@ import com.sumup.sdk.core.ApiClient;
 import com.sumup.sdk.core.ApiException;
 import com.sumup.sdk.core.HttpMethod;
 import com.sumup.sdk.core.RequestOptions;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -35,8 +33,8 @@ public final class MerchantsClient {
    * <p>Operation ID: GetMerchant
    *
    * @param merchantCode Short unique identifier for the merchant.
-   *     <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
-   *     headers, authorization, query values, or timeouts.
+   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
+   *     request timeout.
    * @return com.sumup.sdk.models.Merchant parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
@@ -52,48 +50,23 @@ public final class MerchantsClient {
    * <p>Operation ID: GetMerchant
    *
    * @param merchantCode Short unique identifier for the merchant.
-   * @param getMerchant Optional query parameters for this request.
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @return com.sumup.sdk.models.Merchant parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public com.sumup.sdk.models.Merchant get(String merchantCode, GetMerchantQueryParams getMerchant)
-      throws ApiException {
-    return get(merchantCode, getMerchant, null);
-  }
-
-  /**
-   * Get Merchant
-   *
-   * <p>Returns a Merchant for a valid Merchant code.
-   *
-   * <p>Operation ID: GetMerchant
-   *
-   * @param merchantCode Short unique identifier for the merchant.
-   * @param getMerchant Optional query parameters for this request.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return com.sumup.sdk.models.Merchant parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Merchant get(
-      String merchantCode, GetMerchantQueryParams getMerchant, RequestOptions requestOptions)
+  public com.sumup.sdk.models.Merchant get(String merchantCode, RequestOptions requestOptions)
       throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v1/merchants/{merchant_code}";
     path =
         path.replace(
             "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
-    Map<String, Object> queryParams = new LinkedHashMap<>();
-    if (getMerchant != null) {
-      queryParams.putAll(getMerchant.toMap());
-    }
 
     return this.apiClient.send(
         HttpMethod.GET,
         path,
-        queryParams,
+        null,
         null,
         null,
         new TypeReference<com.sumup.sdk.models.Merchant>() {},
@@ -109,8 +82,8 @@ public final class MerchantsClient {
    *
    * @param merchantCode Short unique identifier for the merchant.
    * @param personId Person ID
-   *     <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
-   *     headers, authorization, query values, or timeouts.
+   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
+   *     request timeout.
    * @return com.sumup.sdk.models.Person parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
@@ -128,38 +101,13 @@ public final class MerchantsClient {
    *
    * @param merchantCode Short unique identifier for the merchant.
    * @param personId Person ID
-   * @param getPerson Optional query parameters for this request.
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @return com.sumup.sdk.models.Person parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public com.sumup.sdk.models.Person getPerson(
-      String merchantCode, String personId, GetPersonQueryParams getPerson) throws ApiException {
-    return getPerson(merchantCode, personId, getPerson, null);
-  }
-
-  /**
-   * Get Person
-   *
-   * <p>Returns a single Person related to a Merchant.
-   *
-   * <p>Operation ID: GetPerson
-   *
-   * @param merchantCode Short unique identifier for the merchant.
-   * @param personId Person ID
-   * @param getPerson Optional query parameters for this request.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return com.sumup.sdk.models.Person parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public com.sumup.sdk.models.Person getPerson(
-      String merchantCode,
-      String personId,
-      GetPersonQueryParams getPerson,
-      RequestOptions requestOptions)
-      throws ApiException {
+      String merchantCode, String personId, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(personId, "personId");
     String path = "/v1/merchants/{merchant_code}/persons/{person_id}";
@@ -167,15 +115,11 @@ public final class MerchantsClient {
         path.replace(
             "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
     path = path.replace("{person_id}", ApiClient.urlEncode(ApiClient.parameterValue(personId)));
-    Map<String, Object> queryParams = new LinkedHashMap<>();
-    if (getPerson != null) {
-      queryParams.putAll(getPerson.toMap());
-    }
 
     return this.apiClient.send(
         HttpMethod.GET,
         path,
-        queryParams,
+        null,
         null,
         null,
         new TypeReference<com.sumup.sdk.models.Person>() {},
@@ -190,8 +134,8 @@ public final class MerchantsClient {
    * <p>Operation ID: ListPersons
    *
    * @param merchantCode Short unique identifier for the merchant.
-   *     <p>Call the overload that accepts optional parameter objects or RequestOptions to customize
-   *     headers, authorization, query values, or timeouts.
+   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
+   *     request timeout.
    * @return com.sumup.sdk.models.ListPersonsResponseBody parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
@@ -208,138 +152,26 @@ public final class MerchantsClient {
    * <p>Operation ID: ListPersons
    *
    * @param merchantCode Short unique identifier for the merchant.
-   * @param listPersons Optional query parameters for this request.
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @return com.sumup.sdk.models.ListPersonsResponseBody parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public com.sumup.sdk.models.ListPersonsResponseBody listPersons(
-      String merchantCode, ListPersonsQueryParams listPersons) throws ApiException {
-    return listPersons(merchantCode, listPersons, null);
-  }
-
-  /**
-   * List Persons
-   *
-   * <p>Returns the Persons related to a Merchant.
-   *
-   * <p>Operation ID: ListPersons
-   *
-   * @param merchantCode Short unique identifier for the merchant.
-   * @param listPersons Optional query parameters for this request.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return com.sumup.sdk.models.ListPersonsResponseBody parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
   public com.sumup.sdk.models.ListPersonsResponseBody listPersons(
-      String merchantCode, ListPersonsQueryParams listPersons, RequestOptions requestOptions)
-      throws ApiException {
+      String merchantCode, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     String path = "/v1/merchants/{merchant_code}/persons";
     path =
         path.replace(
             "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
-    Map<String, Object> queryParams = new LinkedHashMap<>();
-    if (listPersons != null) {
-      queryParams.putAll(listPersons.toMap());
-    }
 
     return this.apiClient.send(
         HttpMethod.GET,
         path,
-        queryParams,
+        null,
         null,
         null,
         new TypeReference<com.sumup.sdk.models.ListPersonsResponseBody>() {},
         requestOptions);
-  }
-
-  /** Optional query parameters for this request. */
-  public static final class GetMerchantQueryParams {
-    private final Map<String, Object> values = new LinkedHashMap<>();
-
-    /**
-     * Sets the version query parameter.
-     *
-     * @param value The version of the resource. At the moment, the only supported value is
-     *     `latest`. When provided and the requested resource's `change_status` is pending, the
-     *     resource will be returned with all pending changes applied. When no changes are pending
-     *     the resource is returned as is. The `change_status` in the response body will reflect the
-     *     current state of the resource.
-     * @return This GetMerchantQueryParams instance.
-     */
-    public GetMerchantQueryParams version(String value) {
-      this.values.put("version", Objects.requireNonNull(value, "version"));
-      return this;
-    }
-
-    /**
-     * Converts query parameters to a map understood by ApiClient.
-     *
-     * @return Collected query parameters keyed by API name.
-     */
-    Map<String, Object> toMap() {
-      return values;
-    }
-  }
-
-  /** Optional query parameters for this request. */
-  public static final class GetPersonQueryParams {
-    private final Map<String, Object> values = new LinkedHashMap<>();
-
-    /**
-     * Sets the version query parameter.
-     *
-     * @param value The version of the resource. At the moment, the only supported value is
-     *     `latest`. When provided and the requested resource's `change_status` is pending, the
-     *     resource will be returned with all pending changes applied. When no changes are pending
-     *     the resource is returned as is. The `change_status` in the response body will reflect the
-     *     current state of the resource.
-     * @return This GetPersonQueryParams instance.
-     */
-    public GetPersonQueryParams version(String value) {
-      this.values.put("version", Objects.requireNonNull(value, "version"));
-      return this;
-    }
-
-    /**
-     * Converts query parameters to a map understood by ApiClient.
-     *
-     * @return Collected query parameters keyed by API name.
-     */
-    Map<String, Object> toMap() {
-      return values;
-    }
-  }
-
-  /** Optional query parameters for this request. */
-  public static final class ListPersonsQueryParams {
-    private final Map<String, Object> values = new LinkedHashMap<>();
-
-    /**
-     * Sets the version query parameter.
-     *
-     * @param value The version of the resource. At the moment, the only supported value is
-     *     `latest`. When provided and the requested resource's `change_status` is pending, the
-     *     resource will be returned with all pending changes applied. When no changes are pending
-     *     the resource is returned as is. The `change_status` in the response body will reflect the
-     *     current state of the resource.
-     * @return This ListPersonsQueryParams instance.
-     */
-    public ListPersonsQueryParams version(String value) {
-      this.values.put("version", Objects.requireNonNull(value, "version"));
-      return this;
-    }
-
-    /**
-     * Converts query parameters to a map understood by ApiClient.
-     *
-     * @return Collected query parameters keyed by API name.
-     */
-    Map<String, Object> toMap() {
-      return values;
-    }
   }
 }
