@@ -119,6 +119,16 @@ public final class ApiClient {
             });
   }
 
+  /** Returns the configured base URI used to resolve API paths. */
+  public URI baseUri() {
+    return baseUri;
+  }
+
+  /** Returns the redirect policy of the configured HTTP transport. */
+  public HttpClient.Redirect redirectPolicy() {
+    return httpClient.followRedirects();
+  }
+
   private HttpRequest buildRequest(
       HttpMethod method,
       String path,

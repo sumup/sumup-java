@@ -75,6 +75,47 @@ public final class SumUpAsyncClient {
   }
 
   /**
+   * Creates a handler for verified event deliveries. Register callbacks before serving requests.
+   *
+   * @param secret endpoint signing secret, not an API key
+   * @param fallback callback for unknown and unregistered event types
+   * @return handler bound to this client's configuration
+   */
+  public com.sumup.sdk.events.AsyncEventsHandler eventsHandler(
+      String secret,
+      com.sumup.sdk.events.AsyncEventCallback<com.sumup.sdk.events.EventNotification> fallback) {
+    return new com.sumup.sdk.events.AsyncEventsHandler(apiClient, secret, fallback);
+  }
+
+  /**
+   * Verifies the original request body before parsing it as a typed event.
+   *
+   * @param body unmodified HTTP request bytes
+   * @param signature complete X-SumUp-Webhook-Signature header value
+   * @param secret endpoint signing secret, not an API key
+   * @return typed notification, or a base notification for an unknown type
+   * @throws com.sumup.sdk.events.EventSignatureException if verification fails
+   * @throws com.sumup.sdk.events.EventPayloadException if deserialization fails
+   */
+  public com.sumup.sdk.events.EventNotification parseEventNotification(
+      byte[] body, String signature, String secret) {
+    return com.sumup.sdk.events.EventNotification.parse(apiClient, body, signature, secret);
+  }
+
+  /**
+   * Parses an already verified payload from trusted storage. Never use directly on incoming
+   * requests.
+   *
+   * @param body JSON event body
+   * @return notification bound to this client's resource fetching configuration
+   * @throws com.sumup.sdk.events.EventPayloadException if deserialization fails
+   */
+  public com.sumup.sdk.events.EventNotification parseEventNotificationWithoutVerification(
+      byte[] body) {
+    return com.sumup.sdk.events.EventNotification.parseWithoutVerification(apiClient, body);
+  }
+
+  /**
    * Creates a new builder for SumUpAsyncClient.
    *
    * @return Builder used to configure and create SumUpAsyncClient instances.
