@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.0.11](https://github.com/sumup/sumup-java/compare/v0.0.10...v0.0.11) (2026-09-06)
+
+
+### Features
+
+* events ([#149](https://github.com/sumup/sumup-java/issues/149)) ([050cd0b](https://github.com/sumup/sumup-java/commit/050cd0bfd364742d976be686500f9dc2f9d4443b))
+* improve code samples generation ([bf71327](https://github.com/sumup/sumup-java/commit/bf71327781fcd37d39dd8a33ee54176af2fd7d1b))
+
+
+### Bug Fixes
+
+* **codegen:** nullable fields in 3.1.0 specs ([fe68f2f](https://github.com/sumup/sumup-java/commit/fe68f2fb1bc9106c9df99b2e0102a135a3086a8a))
+
+
+### Chores
+
+* **deps:** bump actions/setup-java from 5.7.0 to 6.0.0 ([#148](https://github.com/sumup/sumup-java/issues/148)) ([184b1e4](https://github.com/sumup/sumup-java/commit/184b1e407f655c9f7fcd0ffaf437637c708bc709))
+* **deps:** bump com.diffplug.spotless from 8.9.0 to 8.10.0 ([#145](https://github.com/sumup/sumup-java/issues/145)) ([5d1713d](https://github.com/sumup/sumup-java/commit/5d1713dad1c40ce9c3cd603762c5e8af6e12e428))
+* **deps:** bump com.fasterxml.jackson:jackson-bom in the jackson group ([#144](https://github.com/sumup/sumup-java/issues/144)) ([6f73ba5](https://github.com/sumup/sumup-java/commit/6f73ba5e01af50bbe3394438b5fd9726b5d02e6f))
+* **deps:** bump gradle-wrapper from 9.6.1 to 9.7.0 ([#140](https://github.com/sumup/sumup-java/issues/140)) ([ec07d0e](https://github.com/sumup/sumup-java/commit/ec07d0ee6948615159d9a33f8938b0e2b68e2e0f))
+* **deps:** bump gradle-wrapper from 9.7.0 to 9.7.1 ([#147](https://github.com/sumup/sumup-java/issues/147)) ([75209d3](https://github.com/sumup/sumup-java/commit/75209d38ee0aa8b75a1bc8c7860f5d0f3a9a0211))
+* **deps:** bump org.junit.jupiter:junit-jupiter from 6.1.2 to 6.1.3 ([#141](https://github.com/sumup/sumup-java/issues/141)) ([bd0ac45](https://github.com/sumup/sumup-java/commit/bd0ac451c191740cff1c15ed9c8e62a86b7d1c1a))
+* **deps:** bump reviewdog/action-actionlint from 1.73.0 to 1.73.1 ([#139](https://github.com/sumup/sumup-java/issues/139)) ([561af23](https://github.com/sumup/sumup-java/commit/561af230f3aec685834dac2d180ed15e563b82cc))
+* **deps:** bump reviewdog/action-actionlint from 1.73.1 to 1.73.2 ([#143](https://github.com/sumup/sumup-java/issues/143)) ([b0c1833](https://github.com/sumup/sumup-java/commit/b0c1833b0328605e0534d3c7b68e1f6da8752e19))
+* synced file(s) with sumup/apis ([#136](https://github.com/sumup/sumup-java/issues/136)) ([85e5457](https://github.com/sumup/sumup-java/commit/85e54577e6e022915213e2effc290c8d03a8b4b9))
+* synced file(s) with sumup/apis ([#138](https://github.com/sumup/sumup-java/issues/138)) ([da562ea](https://github.com/sumup/sumup-java/commit/da562eaa88a798c9a957ca210b8db8f3fa247e5e))
+* synced file(s) with sumup/apis ([#142](https://github.com/sumup/sumup-java/issues/142)) ([266d3e9](https://github.com/sumup/sumup-java/commit/266d3e98c640aed91f04222bb1f59062e1ed58e2))
+* synced file(s) with sumup/apis ([#146](https://github.com/sumup/sumup-java/issues/146)) ([c314348](https://github.com/sumup/sumup-java/commit/c314348bf2c0d20e28ffcbcd8143dab6523e54a5))
+
 ## [0.0.10](https://github.com/sumup/sumup-java/compare/v0.0.9...v0.0.10) (2026-08-12)
 
 
