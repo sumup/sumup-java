@@ -12,14 +12,14 @@ public record CreateReaderRequest(
     com.sumup.sdk.models.Metadata metadata,
 
     /** Custom human-readable, user-defined name for easier identification of the reader. */
-    com.sumup.sdk.models.ReaderName name,
+    String name,
 
     /**
      * The pairing code is a 8 or 9 character alphanumeric string that is displayed on a SumUp
      * Device after initiating the pairing. It is used to link the physical device to the created
      * pairing.
      */
-    com.sumup.sdk.models.ReaderPairingCode pairingCode) {
+    String pairingCode) {
   /**
    * Creates a builder for CreateReaderRequest.
    *
@@ -32,8 +32,8 @@ public record CreateReaderRequest(
   /** Builder for CreateReaderRequest instances. */
   public static final class Builder {
     private com.sumup.sdk.models.Metadata metadata;
-    private com.sumup.sdk.models.ReaderName name;
-    private com.sumup.sdk.models.ReaderPairingCode pairingCode;
+    private String name;
+    private String pairingCode;
 
     private Builder() {}
 
@@ -56,7 +56,7 @@ public record CreateReaderRequest(
      * @param name Custom human-readable, user-defined name for easier identification of the reader.
      * @return This builder instance.
      */
-    public Builder name(com.sumup.sdk.models.ReaderName name) {
+    public Builder name(String name) {
       this.name = name;
       return this;
     }
@@ -69,7 +69,7 @@ public record CreateReaderRequest(
      *     device to the created pairing.
      * @return This builder instance.
      */
-    public Builder pairingCode(com.sumup.sdk.models.ReaderPairingCode pairingCode) {
+    public Builder pairingCode(String pairingCode) {
       this.pairingCode = pairingCode;
       return this;
     }

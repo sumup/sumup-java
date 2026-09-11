@@ -110,7 +110,7 @@ public final class MembershipsAsyncClient {
      * @param value Filter memberships by resource kind.
      * @return This ListMembershipsQueryParams instance.
      */
-    public ListMembershipsQueryParams kind(com.sumup.sdk.models.ResourceType value) {
+    public ListMembershipsQueryParams kind(String value) {
       this.values.put("kind", Objects.requireNonNull(value, "kind"));
       return this;
     }
@@ -193,7 +193,7 @@ public final class MembershipsAsyncClient {
      * @param value Filter memberships by resource kind.
      * @return This ListMembershipsQueryParams instance.
      */
-    public ListMembershipsQueryParams resourceType(com.sumup.sdk.models.ResourceType value) {
+    public ListMembershipsQueryParams resourceType(String value) {
       this.values.put("resource.type", Objects.requireNonNull(value, "resourceType"));
       return this;
     }

@@ -571,7 +571,7 @@ func buildSchemas(doc *v3.Document, params Params, resolver *typeResolver) []sch
 	result := make([]schemaModel, 0, len(names))
 	for _, name := range names {
 		ref := doc.Components.Schemas.GetOrZero(name)
-		if ref == nil {
+		if ref == nil || isPlainScalarSchema(ref.Schema()) {
 			continue
 		}
 		description := schemaDescription(ref)
@@ -617,7 +617,7 @@ func buildSchemas(doc *v3.Document, params Params, resolver *typeResolver) []sch
 }
 
 // shouldGenerateBuilder reports whether the model should expose a builder.
-// Single-field wrapper records (for example Lon/Lat/Meta-style aliases) don't
+// Single-field wrapper records (for example map aliases) don't
 // benefit from a builder and should use the canonical record constructor.
 func shouldGenerateBuilder(fields []schemaField, additionalProps *additionalPropertiesModel) bool {
 	if additionalProps != nil {

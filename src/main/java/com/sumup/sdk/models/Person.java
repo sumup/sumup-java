@@ -23,14 +23,14 @@ public record Person(
      * changes have been applied, the status `done`. The status is only returned after write
      * operations or on read endpoints when the `version` query parameter is provided.
      */
-    com.sumup.sdk.models.ChangeStatus changeStatus,
+    String changeStatus,
 
     /**
      * An [ISO3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. This
      * definition users `oneOf` with a two-character string type to allow for support of future
      * countries in client code.
      */
-    com.sumup.sdk.models.CountryCode citizenship,
+    String citizenship,
 
     /**
      * An [ISO3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code
@@ -68,7 +68,7 @@ public record Person(
     com.sumup.sdk.models.Ownership ownership,
 
     /** A publicly available phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format. */
-    com.sumup.sdk.models.PhoneNumber phoneNumber,
+    String phoneNumber,
 
     /**
      * A list of roles the Person has in the Merchant or towards SumUp. A Merchant must have at
@@ -83,7 +83,7 @@ public record Person(
      * The version of the resource. The version reflects a specific change submitted to the API via
      * one of the `PATCH` endpoints.
      */
-    com.sumup.sdk.models.Version version) {
+    String version) {
   /**
    * Creates a builder for Person.
    *
@@ -97,7 +97,7 @@ public record Person(
   public static final class Builder {
     private com.sumup.sdk.models.Address address;
     private java.time.LocalDate birthdate;
-    private com.sumup.sdk.models.CountryCode citizenship;
+    private String citizenship;
     private String countryOfResidence;
     private String familyName;
     private String givenName;
@@ -105,10 +105,10 @@ public record Person(
     private String middleName;
     private String nationality;
     private com.sumup.sdk.models.Ownership ownership;
-    private com.sumup.sdk.models.PhoneNumber phoneNumber;
+    private String phoneNumber;
     private java.util.List<String> relationships;
     private String userId;
-    private com.sumup.sdk.models.Version version;
+    private String version;
 
     private Builder() {}
 
@@ -147,7 +147,7 @@ public record Person(
      *     support of future countries in client code.
      * @return This builder instance.
      */
-    public Builder citizenship(com.sumup.sdk.models.CountryCode citizenship) {
+    public Builder citizenship(String citizenship) {
       this.citizenship = citizenship;
       return this;
     }
@@ -242,7 +242,7 @@ public record Person(
      *     [E.164](https://en.wikipedia.org/wiki/E.164) format.
      * @return This builder instance.
      */
-    public Builder phoneNumber(com.sumup.sdk.models.PhoneNumber phoneNumber) {
+    public Builder phoneNumber(String phoneNumber) {
       this.phoneNumber = phoneNumber;
       return this;
     }
@@ -277,7 +277,7 @@ public record Person(
      *     to the API via one of the `PATCH` endpoints.
      * @return This builder instance.
      */
-    public Builder version(com.sumup.sdk.models.Version version) {
+    public Builder version(String version) {
       this.version = version;
       return this;
     }

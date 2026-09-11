@@ -26,7 +26,7 @@ public record Company(
      * by other services. Consumers of this API are expected to use the country SDK to map to any
      * other IDs, translation keys, or descriptions.
      */
-    com.sumup.sdk.models.LegalType legalType,
+    String legalType,
 
     /**
      * The merchant category code for the account as specified by
@@ -39,7 +39,7 @@ public record Company(
     String name,
 
     /** A publicly available phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format. */
-    com.sumup.sdk.models.PhoneNumber phoneNumber,
+    String phoneNumber,
 
     /**
      * An address somewhere in the world. The address fields used depend on the country conventions.
@@ -66,10 +66,10 @@ public record Company(
     private com.sumup.sdk.models.Address address;
     private com.sumup.sdk.models.Attributes attributes;
     private com.sumup.sdk.models.CompanyIdentifiers identifiers;
-    private com.sumup.sdk.models.LegalType legalType;
+    private String legalType;
     private String merchantCategoryCode;
     private String name;
-    private com.sumup.sdk.models.PhoneNumber phoneNumber;
+    private String phoneNumber;
     private com.sumup.sdk.models.Address tradingAddress;
     private String website;
 
@@ -120,7 +120,7 @@ public record Company(
      *     country SDK to map to any other IDs, translation keys, or descriptions.
      * @return This builder instance.
      */
-    public Builder legalType(com.sumup.sdk.models.LegalType legalType) {
+    public Builder legalType(String legalType) {
       this.legalType = legalType;
       return this;
     }
@@ -156,7 +156,7 @@ public record Company(
      *     [E.164](https://en.wikipedia.org/wiki/E.164) format.
      * @return This builder instance.
      */
-    public Builder phoneNumber(com.sumup.sdk.models.PhoneNumber phoneNumber) {
+    public Builder phoneNumber(String phoneNumber) {
       this.phoneNumber = phoneNumber;
       return this;
     }

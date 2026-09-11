@@ -35,7 +35,7 @@ public record BusinessProfile(
     String name,
 
     /** A publicly available phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format. */
-    com.sumup.sdk.models.PhoneNumber phoneNumber,
+    String phoneNumber,
 
     /** The business's publicly available website. */
     String website) {
@@ -55,7 +55,7 @@ public record BusinessProfile(
     private String dynamicDescriptor;
     private String email;
     private String name;
-    private com.sumup.sdk.models.PhoneNumber phoneNumber;
+    private String phoneNumber;
     private String website;
 
     private Builder() {}
@@ -129,7 +129,7 @@ public record BusinessProfile(
      *     [E.164](https://en.wikipedia.org/wiki/E.164) format.
      * @return This builder instance.
      */
-    public Builder phoneNumber(com.sumup.sdk.models.PhoneNumber phoneNumber) {
+    public Builder phoneNumber(String phoneNumber) {
       this.phoneNumber = phoneNumber;
       return this;
     }

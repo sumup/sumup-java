@@ -12,7 +12,7 @@ public record Reader(
     com.sumup.sdk.models.ReaderDevice device,
 
     /** Unique identifier of the reader that the payment is initiated on. */
-    com.sumup.sdk.models.ReaderId id,
+    String id,
 
     /**
      * Set of user-defined key-value pairs attached to the object. Partial updates are not
@@ -22,7 +22,7 @@ public record Reader(
     com.sumup.sdk.models.Metadata metadata,
 
     /** Custom human-readable, user-defined name for easier identification of the reader. */
-    com.sumup.sdk.models.ReaderName name,
+    String name,
 
     /**
      * Identifier of the system-managed service account associated with this reader. Present only
@@ -54,9 +54,9 @@ public record Reader(
   public static final class Builder {
     private java.time.OffsetDateTime createdAt;
     private com.sumup.sdk.models.ReaderDevice device;
-    private com.sumup.sdk.models.ReaderId id;
+    private String id;
     private com.sumup.sdk.models.Metadata metadata;
-    private com.sumup.sdk.models.ReaderName name;
+    private String name;
     private java.util.UUID serviceAccountId;
     private com.sumup.sdk.models.ReaderStatus status;
     private java.time.OffsetDateTime updatedAt;
@@ -91,7 +91,7 @@ public record Reader(
      * @param id Unique identifier of the reader that the payment is initiated on.
      * @return This builder instance.
      */
-    public Builder id(com.sumup.sdk.models.ReaderId id) {
+    public Builder id(String id) {
       this.id = id;
       return this;
     }
@@ -115,7 +115,7 @@ public record Reader(
      * @param name Custom human-readable, user-defined name for easier identification of the reader.
      * @return This builder instance.
      */
-    public Builder name(com.sumup.sdk.models.ReaderName name) {
+    public Builder name(String name) {
       this.name = name;
       return this;
     }

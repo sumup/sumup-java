@@ -177,7 +177,7 @@ String readerId =
             () ->
                 client.readers().list(merchantCode).items().stream()
                     .findFirst()
-                    .map(reader -> reader.id().value())
+                    .map(reader -> reader.id())
                     .orElseThrow(() -> new IllegalStateException("No paired readers found.")));
 
 CreateReaderCheckoutRequest request =
@@ -224,7 +224,7 @@ CompletableFuture<String> readerIdFuture =
                         response ->
                             response.items().stream()
                                 .findFirst()
-                                .map(reader -> reader.id().value())
+                                .map(reader -> reader.id())
                                 .orElseThrow(
                                     () ->
                                         new IllegalStateException("No paired readers found."))));

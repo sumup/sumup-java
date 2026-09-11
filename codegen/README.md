@@ -22,6 +22,12 @@ just generate
 
 The command is idempotent; rerunning it rewrites the generated clients in-place. Continuous Integration runs the same invocation and fails when the working tree is dirty afterward.
 
+Named scalar schemas use the same Java types as inline schemas: `String`, boxed
+numbers and booleans, or the existing date/time and UUID format mappings. They do
+not generate wrapper records. Enum schemas retain their open enum classes, and
+structured schemas retain their models. This applies to parameters, request and
+response fields, and code samples.
+
 ## Java Code Samples
 
 The `samples` command generates a deterministic, versioned JSON catalog of Java examples from the same intermediate representation used to generate the SDK. Each catalog entry contains a complete Java program. Named OpenAPI request examples produce separate entries.

@@ -10,7 +10,7 @@ public record UpdateReaderRequest(
     com.sumup.sdk.models.Metadata metadata,
 
     /** Custom human-readable, user-defined name for easier identification of the reader. */
-    com.sumup.sdk.models.ReaderName name) {
+    String name) {
   /**
    * Creates a builder for UpdateReaderRequest.
    *
@@ -23,7 +23,7 @@ public record UpdateReaderRequest(
   /** Builder for UpdateReaderRequest instances. */
   public static final class Builder {
     private com.sumup.sdk.models.Metadata metadata;
-    private com.sumup.sdk.models.ReaderName name;
+    private String name;
 
     private Builder() {}
 
@@ -46,7 +46,7 @@ public record UpdateReaderRequest(
      * @param name Custom human-readable, user-defined name for easier identification of the reader.
      * @return This builder instance.
      */
-    public Builder name(com.sumup.sdk.models.ReaderName name) {
+    public Builder name(String name) {
       this.name = name;
       return this;
     }

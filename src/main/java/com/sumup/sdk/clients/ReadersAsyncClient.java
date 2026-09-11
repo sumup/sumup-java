@@ -178,9 +178,7 @@ public final class ReadersAsyncClient {
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<com.sumup.sdk.models.ReaderPaymentResponse> createGoCheckout(
-      String merchantCode,
-      com.sumup.sdk.models.ReaderId readerId,
-      com.sumup.sdk.models.ReaderPaymentRequestParams request)
+      String merchantCode, String readerId, com.sumup.sdk.models.ReaderPaymentRequestParams request)
       throws ApiException {
     return createGoCheckout(merchantCode, readerId, request, null);
   }
@@ -205,7 +203,7 @@ public final class ReadersAsyncClient {
    */
   public CompletableFuture<com.sumup.sdk.models.ReaderPaymentResponse> createGoCheckout(
       String merchantCode,
-      com.sumup.sdk.models.ReaderId readerId,
+      String readerId,
       com.sumup.sdk.models.ReaderPaymentRequestParams request,
       RequestOptions requestOptions)
       throws ApiException {
@@ -242,8 +240,7 @@ public final class ReadersAsyncClient {
    * @return CompletableFuture completed when the request finishes.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<Void> delete(String merchantCode, com.sumup.sdk.models.ReaderId readerId)
-      throws ApiException {
+  public CompletableFuture<Void> delete(String merchantCode, String readerId) throws ApiException {
     return delete(merchantCode, readerId, null);
   }
 
@@ -262,8 +259,7 @@ public final class ReadersAsyncClient {
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<Void> delete(
-      String merchantCode, com.sumup.sdk.models.ReaderId readerId, RequestOptions requestOptions)
-      throws ApiException {
+      String merchantCode, String readerId, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(readerId, "readerId");
     String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}";
@@ -290,8 +286,8 @@ public final class ReadersAsyncClient {
    * @return CompletableFuture resolved with com.sumup.sdk.models.Reader parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.Reader> get(
-      String merchantCode, com.sumup.sdk.models.ReaderId readerId) throws ApiException {
+  public CompletableFuture<com.sumup.sdk.models.Reader> get(String merchantCode, String readerId)
+      throws ApiException {
     return get(merchantCode, readerId, null);
   }
 
@@ -311,8 +307,7 @@ public final class ReadersAsyncClient {
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<com.sumup.sdk.models.Reader> get(
-      String merchantCode, com.sumup.sdk.models.ReaderId readerId, GetReaderHeaders getReader)
-      throws ApiException {
+      String merchantCode, String readerId, GetReaderHeaders getReader) throws ApiException {
     return get(merchantCode, readerId, getReader, null);
   }
 
@@ -333,7 +328,7 @@ public final class ReadersAsyncClient {
    */
   public CompletableFuture<com.sumup.sdk.models.Reader> get(
       String merchantCode,
-      com.sumup.sdk.models.ReaderId readerId,
+      String readerId,
       GetReaderHeaders getReader,
       RequestOptions requestOptions)
       throws ApiException {
@@ -623,9 +618,7 @@ public final class ReadersAsyncClient {
    * @throws ApiException if the SumUp API returns an error.
    */
   public CompletableFuture<com.sumup.sdk.models.Reader> update(
-      String merchantCode,
-      com.sumup.sdk.models.ReaderId readerId,
-      com.sumup.sdk.models.UpdateReaderRequest request)
+      String merchantCode, String readerId, com.sumup.sdk.models.UpdateReaderRequest request)
       throws ApiException {
     return update(merchantCode, readerId, request, null);
   }
@@ -647,7 +640,7 @@ public final class ReadersAsyncClient {
    */
   public CompletableFuture<com.sumup.sdk.models.Reader> update(
       String merchantCode,
-      com.sumup.sdk.models.ReaderId readerId,
+      String readerId,
       com.sumup.sdk.models.UpdateReaderRequest request,
       RequestOptions requestOptions)
       throws ApiException {

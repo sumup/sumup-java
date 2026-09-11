@@ -90,9 +90,6 @@ func renderSumUpClient(model sdkModel, params Params) error {
 
 // renderModels generates POJO classes that mirror OpenAPI schemas.
 func renderModels(model sdkModel, params Params) error {
-	if len(model.Schemas) == 0 {
-		return nil
-	}
 	dir := filepath.Join(params.OutputDir, params.modelPackagePath())
 	if err := os.RemoveAll(dir); err != nil {
 		return fmt.Errorf("remove models directory: %w", err)

@@ -18,9 +18,7 @@ public final class CardReaderCheckoutExample {
     SumUpClient client = new SumUpClient();
 
     Optional<String> readerId =
-        client.readers().list(merchantCode).items().stream()
-            .findFirst()
-            .map(reader -> reader.id().value());
+        client.readers().list(merchantCode).items().stream().findFirst().map(reader -> reader.id());
     if (readerId.isEmpty()) {
       System.err.println("Merchant has no paired readers.");
       return;
