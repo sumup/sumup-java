@@ -7,7 +7,7 @@ public record ReceiptEvent(
     String amount,
 
     /** Unique identifier of the transaction event. */
-    com.sumup.sdk.models.TransactionEventId id,
+    Long id,
 
     /** Receipt number associated with the event. */
     String receiptNo,
@@ -34,7 +34,7 @@ public record ReceiptEvent(
     java.time.OffsetDateTime timestamp,
 
     /** Unique identifier of the transaction. */
-    com.sumup.sdk.models.TransactionId transactionId,
+    String transactionId,
 
     /** Type of the transaction event. */
     com.sumup.sdk.models.TransactionEventType type) {
@@ -50,11 +50,11 @@ public record ReceiptEvent(
   /** Builder for ReceiptEvent instances. */
   public static final class Builder {
     private String amount;
-    private com.sumup.sdk.models.TransactionEventId id;
+    private Long id;
     private String receiptNo;
     private com.sumup.sdk.models.TransactionEventStatus status;
     private java.time.OffsetDateTime timestamp;
-    private com.sumup.sdk.models.TransactionId transactionId;
+    private String transactionId;
     private com.sumup.sdk.models.TransactionEventType type;
 
     private Builder() {}
@@ -76,7 +76,7 @@ public record ReceiptEvent(
      * @param id Unique identifier of the transaction event.
      * @return This builder instance.
      */
-    public Builder id(com.sumup.sdk.models.TransactionEventId id) {
+    public Builder id(Long id) {
       this.id = id;
       return this;
     }
@@ -134,7 +134,7 @@ public record ReceiptEvent(
      * @param transactionId Unique identifier of the transaction.
      * @return This builder instance.
      */
-    public Builder transactionId(com.sumup.sdk.models.TransactionId transactionId) {
+    public Builder transactionId(String transactionId) {
       this.transactionId = transactionId;
       return this;
     }

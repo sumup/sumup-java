@@ -6,19 +6,19 @@ public record TransactionFullLocation(
     /**
      * Indication of the precision of the geographical position received from the payment terminal.
      */
-    com.sumup.sdk.models.HorizontalAccuracy horizontalAccuracy,
+    Float horizontalAccuracy,
 
     /**
      * Latitude value from the coordinates of the payment location (as received from the payment
      * terminal reader).
      */
-    com.sumup.sdk.models.Lat lat,
+    Float lat,
 
     /**
      * Longitude value from the coordinates of the payment location (as received from the payment
      * terminal reader).
      */
-    com.sumup.sdk.models.Lon lon) {
+    Float lon) {
   /**
    * Creates a builder for TransactionFullLocation.
    *
@@ -30,9 +30,9 @@ public record TransactionFullLocation(
 
   /** Builder for TransactionFullLocation instances. */
   public static final class Builder {
-    private com.sumup.sdk.models.HorizontalAccuracy horizontalAccuracy;
-    private com.sumup.sdk.models.Lat lat;
-    private com.sumup.sdk.models.Lon lon;
+    private Float horizontalAccuracy;
+    private Float lat;
+    private Float lon;
 
     private Builder() {}
 
@@ -43,7 +43,7 @@ public record TransactionFullLocation(
      *     from the payment terminal.
      * @return This builder instance.
      */
-    public Builder horizontalAccuracy(com.sumup.sdk.models.HorizontalAccuracy horizontalAccuracy) {
+    public Builder horizontalAccuracy(Float horizontalAccuracy) {
       this.horizontalAccuracy = horizontalAccuracy;
       return this;
     }
@@ -55,7 +55,7 @@ public record TransactionFullLocation(
      *     payment terminal reader).
      * @return This builder instance.
      */
-    public Builder lat(com.sumup.sdk.models.Lat lat) {
+    public Builder lat(Float lat) {
       this.lat = lat;
       return this;
     }
@@ -67,7 +67,7 @@ public record TransactionFullLocation(
      *     payment terminal reader).
      * @return This builder instance.
      */
-    public Builder lon(com.sumup.sdk.models.Lon lon) {
+    public Builder lon(Float lon) {
       this.lon = lon;
       return this;
     }

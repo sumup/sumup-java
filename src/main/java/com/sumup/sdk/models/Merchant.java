@@ -37,7 +37,7 @@ public record Merchant(
      * changes have been applied, the status `done`. The status is only returned after write
      * operations or on read endpoints when the `version` query parameter is provided.
      */
-    com.sumup.sdk.models.ChangeStatus changeStatus,
+    String changeStatus,
     com.sumup.sdk.models.ClassicMerchantIdentifiers classic,
 
     /**
@@ -51,7 +51,7 @@ public record Merchant(
      * definition users `oneOf` with a two-character string type to allow for support of future
      * countries in client code.
      */
-    com.sumup.sdk.models.CountryCode country,
+    String country,
 
     /**
      * The date and time when the resource was created. This is a string as defined in [RFC 3339,
@@ -103,7 +103,7 @@ public record Merchant(
      * The version of the resource. The version reflects a specific change submitted to the API via
      * one of the `PATCH` endpoints.
      */
-    com.sumup.sdk.models.Version version) {
+    String version) {
   /**
    * Creates a builder for Merchant.
    *
@@ -121,12 +121,12 @@ public record Merchant(
     private String businessType;
     private com.sumup.sdk.models.ClassicMerchantIdentifiers classic;
     private com.sumup.sdk.models.Company company;
-    private com.sumup.sdk.models.CountryCode country;
+    private String country;
     private String defaultLocale;
     private com.sumup.sdk.models.Meta meta;
     private String organizationId;
     private Boolean sandbox;
-    private com.sumup.sdk.models.Version version;
+    private String version;
 
     private Builder() {}
 
@@ -214,7 +214,7 @@ public record Merchant(
      *     support of future countries in client code.
      * @return This builder instance.
      */
-    public Builder country(com.sumup.sdk.models.CountryCode country) {
+    public Builder country(String country) {
       this.country = country;
       return this;
     }
@@ -280,7 +280,7 @@ public record Merchant(
      *     to the API via one of the `PATCH` endpoints.
      * @return This builder instance.
      */
-    public Builder version(com.sumup.sdk.models.Version version) {
+    public Builder version(String version) {
       this.version = version;
       return this;
     }

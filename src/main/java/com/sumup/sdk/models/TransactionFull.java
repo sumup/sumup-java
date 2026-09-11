@@ -44,7 +44,7 @@ public record TransactionFull(
     /**
      * Indication of the precision of the geographical position received from the payment terminal.
      */
-    com.sumup.sdk.models.HorizontalAccuracy horizontalAccuracy,
+    Float horizontalAccuracy,
 
     /** Unique identifier of the transaction. */
     String id,
@@ -56,7 +56,7 @@ public record TransactionFull(
      * Latitude value from the coordinates of the payment location (as received from the payment
      * terminal reader).
      */
-    com.sumup.sdk.models.Lat lat,
+    Float lat,
 
     /** List of hyperlinks for accessing related resources. */
     java.util.List<com.sumup.sdk.models.Link> links,
@@ -71,7 +71,7 @@ public record TransactionFull(
      * Longitude value from the coordinates of the payment location (as received from the payment
      * terminal reader).
      */
-    com.sumup.sdk.models.Lon lon,
+    Float lon,
 
     /** Unique code of the registered merchant to whom the payment is made. */
     String merchantCode,
@@ -188,14 +188,14 @@ public record TransactionFull(
     private java.util.List<com.sumup.sdk.models.Event> events;
     private Double feeAmount;
     private String foreignTransactionId;
-    private com.sumup.sdk.models.HorizontalAccuracy horizontalAccuracy;
+    private Float horizontalAccuracy;
     private String id;
     private Long installmentsCount;
-    private com.sumup.sdk.models.Lat lat;
+    private Float lat;
     private java.util.List<com.sumup.sdk.models.Link> links;
     private java.time.OffsetDateTime localTime;
     private com.sumup.sdk.models.TransactionFullLocation location;
-    private com.sumup.sdk.models.Lon lon;
+    private Float lon;
     private String merchantCode;
     private Long merchantId;
     private com.sumup.sdk.models.PaymentType paymentType;
@@ -352,7 +352,7 @@ public record TransactionFull(
      *     from the payment terminal.
      * @return This builder instance.
      */
-    public Builder horizontalAccuracy(com.sumup.sdk.models.HorizontalAccuracy horizontalAccuracy) {
+    public Builder horizontalAccuracy(Float horizontalAccuracy) {
       this.horizontalAccuracy = horizontalAccuracy;
       return this;
     }
@@ -386,7 +386,7 @@ public record TransactionFull(
      *     payment terminal reader).
      * @return This builder instance.
      */
-    public Builder lat(com.sumup.sdk.models.Lat lat) {
+    public Builder lat(Float lat) {
       this.lat = lat;
       return this;
     }
@@ -431,7 +431,7 @@ public record TransactionFull(
      *     payment terminal reader).
      * @return This builder instance.
      */
-    public Builder lon(com.sumup.sdk.models.Lon lon) {
+    public Builder lon(Float lon) {
       this.lon = lon;
       return this;
     }

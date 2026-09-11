@@ -52,7 +52,7 @@ public record ReceiptTransaction(
     String transactionCode,
 
     /** Unique identifier of the transaction. */
-    com.sumup.sdk.models.TransactionId transactionId,
+    String transactionId,
 
     /** VAT included in the transaction amount, in major units. */
     String vatAmount,
@@ -89,7 +89,7 @@ public record ReceiptTransaction(
     private java.time.OffsetDateTime timestamp;
     private String tipAmount;
     private String transactionCode;
-    private com.sumup.sdk.models.TransactionId transactionId;
+    private String transactionId;
     private String vatAmount;
     private java.util.List<com.sumup.sdk.models.ReceiptTransactionVatRatesItem> vatRates;
     private String verificationMethod;
@@ -279,7 +279,7 @@ public record ReceiptTransaction(
      * @param transactionId Unique identifier of the transaction.
      * @return This builder instance.
      */
-    public Builder transactionId(com.sumup.sdk.models.TransactionId transactionId) {
+    public Builder transactionId(String transactionId) {
       this.transactionId = transactionId;
       return this;
     }

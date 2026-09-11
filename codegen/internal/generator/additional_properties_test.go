@@ -107,16 +107,7 @@ func TestGenerateModelWithoutBuilderForTypeAliases(t *testing.T) {
 	}
 
 	lonPath := filepath.Join(outputDir, "com", "test", "sdk", "models", "Lon.java")
-	lonContent, err := os.ReadFile(lonPath)
-	if err != nil {
-		t.Fatalf("read generated Lon model: %v", err)
-	}
-	lonGenerated := string(lonContent)
-
-	assertContains(t, lonGenerated, "public record Lon(")
-	assertContains(t, lonGenerated, "Float value")
-	assertNotContains(t, lonGenerated, "public static Builder builder()")
-	assertNotContains(t, lonGenerated, "public static final class Builder")
+	assertFileDoesNotExist(t, lonPath)
 
 	metaPath := filepath.Join(outputDir, "com", "test", "sdk", "models", "Meta.java")
 	metaContent, err := os.ReadFile(metaPath)

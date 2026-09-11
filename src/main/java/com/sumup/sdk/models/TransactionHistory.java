@@ -68,7 +68,7 @@ public record TransactionHistory(
     String transactionCode,
 
     /** Unique identifier of the transaction. */
-    com.sumup.sdk.models.TransactionId transactionId,
+    String transactionId,
 
     /** Type of the transaction for the registered user specified in the `user` property. */
     com.sumup.sdk.models.TransactionHistoryType type,
@@ -103,7 +103,7 @@ public record TransactionHistory(
     private com.sumup.sdk.models.TransactionStatus status;
     private java.time.OffsetDateTime timestamp;
     private String transactionCode;
-    private com.sumup.sdk.models.TransactionId transactionId;
+    private String transactionId;
     private com.sumup.sdk.models.TransactionHistoryType type;
     private String user;
 
@@ -312,7 +312,7 @@ public record TransactionHistory(
      * @param transactionId Unique identifier of the transaction.
      * @return This builder instance.
      */
-    public Builder transactionId(com.sumup.sdk.models.TransactionId transactionId) {
+    public Builder transactionId(String transactionId) {
       this.transactionId = transactionId;
       return this;
     }

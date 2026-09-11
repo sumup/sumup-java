@@ -40,7 +40,10 @@ func newTypeResolver(doc *v3.Document, params Params) *typeResolver {
 		inlineNameUsage: make(map[string]int),
 	}
 	if doc.Components != nil && doc.Components.Schemas != nil && doc.Components.Schemas.Len() > 0 {
-		for name := range doc.Components.Schemas.KeysFromOldest() {
+		for name, ref := range doc.Components.Schemas.FromOldest() {
+			if isPlainScalarSchema(schemaFromProxy(ref)) {
+				continue
+			}
 			className := pascalCase(name, "")
 			resolver.schemaTypes[name] = params.modelPackage() + "." + className
 			resolver.inlineNameUsage[className]++
@@ -76,7 +79,7 @@ func (r *typeResolver) javaType(ref *base.SchemaProxy, context ...string) javaTy
 	if ref == nil {
 		return r.genericMap()
 	}
-	if ref.IsReference() {
+	if ref.IsReference() && !isPlainScalarSchema(ref.Schema()) {
 		name := componentNameFromRef(ref.GetReference())
 		if name != "" {
 			fqn := r.schemaClassName(name)
@@ -170,6 +173,28 @@ func (r *typeResolver) javaType(ref *base.SchemaProxy, context ...string) javaTy
 
 func (r *typeResolver) parameterJavaType(ref *base.SchemaProxy, context ...string) javaType {
 	return r.javaType(ref, context...)
+}
+
+// isPlainScalarSchema identifies schemas that use Java's scalar types even when
+// named as components. Enums and composed schemas retain their model handling.
+func isPlainScalarSchema(schema *base.Schema) bool {
+	if schema == nil || len(schema.Enum) > 0 || len(schema.AllOf) > 0 || len(schema.OneOf) > 0 || len(schema.AnyOf) > 0 {
+		return false
+	}
+	scalar := false
+	for _, kind := range schema.Type {
+		switch kind {
+		case "string", "integer", "number", "boolean":
+			if scalar {
+				return false
+			}
+			scalar = true
+		case "null":
+		default:
+			return false
+		}
+	}
+	return scalar
 }
 
 // objectType handles schemas that look like objects by either emitting inline
@@ -330,7 +355,7 @@ func (r *typeResolver) inlineSchemaModels(params Params) []schemaModel {
 				imports := sortedImports(map[string]struct{}{
 					"com.fasterxml.jackson.annotation.JsonCreator": {},
 					"com.fasterxml.jackson.annotation.JsonValue":   {},
-					"java.util.Objects":                           {},
+					"java.util.Objects":                            {},
 				})
 				models = append(models, schemaModel{
 					Name:             info.className,

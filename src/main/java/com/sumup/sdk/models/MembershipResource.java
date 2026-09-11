@@ -24,7 +24,7 @@ public record MembershipResource(
      * The type of the membership resource. Possible values are: * `merchant` - merchant account(s)
      * * `organization` - organization(s)
      */
-    com.sumup.sdk.models.ResourceType type,
+    String type,
 
     /** The timestamp of when the membership resource was last updated. */
     java.time.OffsetDateTime updatedAt) {
@@ -44,7 +44,7 @@ public record MembershipResource(
     private String id;
     private String logo;
     private String name;
-    private com.sumup.sdk.models.ResourceType type;
+    private String type;
     private java.time.OffsetDateTime updatedAt;
 
     private Builder() {}
@@ -111,7 +111,7 @@ public record MembershipResource(
      *     account(s) * `organization` - organization(s)
      * @return This builder instance.
      */
-    public Builder type(com.sumup.sdk.models.ResourceType type) {
+    public Builder type(String type) {
       this.type = type;
       return this;
     }

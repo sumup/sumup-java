@@ -16,7 +16,7 @@ public record Event(
     Float feeAmount,
 
     /** Unique identifier of the transaction event. */
-    com.sumup.sdk.models.TransactionEventId id,
+    Long id,
 
     /** Consecutive number of the installment associated with the event. */
     Long installmentNumber,
@@ -43,7 +43,7 @@ public record Event(
     java.time.OffsetDateTime timestamp,
 
     /** Unique identifier of the transaction. */
-    com.sumup.sdk.models.TransactionId transactionId,
+    String transactionId,
 
     /** Type of the transaction event. */
     com.sumup.sdk.models.TransactionEventType type) {
@@ -62,11 +62,11 @@ public record Event(
     private Float deductedAmount;
     private Float deductedFeeAmount;
     private Float feeAmount;
-    private com.sumup.sdk.models.TransactionEventId id;
+    private Long id;
     private Long installmentNumber;
     private com.sumup.sdk.models.TransactionEventStatus status;
     private java.time.OffsetDateTime timestamp;
-    private com.sumup.sdk.models.TransactionId transactionId;
+    private String transactionId;
     private com.sumup.sdk.models.TransactionEventType type;
 
     private Builder() {}
@@ -121,7 +121,7 @@ public record Event(
      * @param id Unique identifier of the transaction event.
      * @return This builder instance.
      */
-    public Builder id(com.sumup.sdk.models.TransactionEventId id) {
+    public Builder id(Long id) {
       this.id = id;
       return this;
     }
@@ -179,7 +179,7 @@ public record Event(
      * @param transactionId Unique identifier of the transaction.
      * @return This builder instance.
      */
-    public Builder transactionId(com.sumup.sdk.models.TransactionId transactionId) {
+    public Builder transactionId(String transactionId) {
       this.transactionId = transactionId;
       return this;
     }

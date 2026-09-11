@@ -31,7 +31,7 @@ public record Address(
      * definition users `oneOf` with a two-character string type to allow for support of future
      * countries in client code.
      */
-    com.sumup.sdk.models.CountryCode country,
+    String country,
 
     /**
      * A county is a geographic region of a country used for administrative or other purposes in
@@ -103,7 +103,7 @@ public record Address(
     private String autonomousCommunity;
     private String city;
     private String commune;
-    private com.sumup.sdk.models.CountryCode country;
+    private String country;
     private String county;
     private String department;
     private String district;
@@ -163,7 +163,7 @@ public record Address(
      *     support of future countries in client code.
      * @return This builder instance.
      */
-    public Builder country(com.sumup.sdk.models.CountryCode country) {
+    public Builder country(String country) {
       this.country = country;
       return this;
     }

@@ -16,7 +16,7 @@ public record TransactionEvent(
     com.sumup.sdk.models.TransactionEventType eventType,
 
     /** Unique identifier of the transaction event. */
-    com.sumup.sdk.models.TransactionEventId id,
+    Long id,
 
     /**
      * Consecutive number of the installment that is paid. Applicable only payout events, i.e.
@@ -59,7 +59,7 @@ public record TransactionEvent(
     private java.time.LocalDate date;
     private java.time.LocalDate dueDate;
     private com.sumup.sdk.models.TransactionEventType eventType;
-    private com.sumup.sdk.models.TransactionEventId id;
+    private Long id;
     private Long installmentNumber;
     private com.sumup.sdk.models.TransactionEventStatus status;
     private java.time.OffsetDateTime timestamp;
@@ -116,7 +116,7 @@ public record TransactionEvent(
      * @param id Unique identifier of the transaction event.
      * @return This builder instance.
      */
-    public Builder id(com.sumup.sdk.models.TransactionEventId id) {
+    public Builder id(Long id) {
       this.id = id;
       return this;
     }

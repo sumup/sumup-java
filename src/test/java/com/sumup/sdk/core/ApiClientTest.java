@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.sumup.sdk.clients.ReadersClient;
-import com.sumup.sdk.models.ReaderId;
 import java.net.Authenticator;
 import java.net.CookieHandler;
 import java.net.ProxySelector;
@@ -113,12 +112,12 @@ final class ApiClientTest {
   }
 
   @Test
-  void pathParamsUnwrapSingleValueRecords() {
+  void readerPathParamsEncodeStrings() {
     CapturingHttpClient httpClient = new CapturingHttpClient();
     ApiClient apiClient = ApiClient.builder().httpClient(httpClient).build();
     ReadersClient readersClient = new ReadersClient(apiClient);
 
-    readersClient.delete("merchant-code", new ReaderId("reader 123"));
+    readersClient.delete("merchant-code", "reader 123");
 
     assertEquals(
         URI.create("https://api.sumup.com/v0.1/merchants/merchant-code/readers/reader+123"),
