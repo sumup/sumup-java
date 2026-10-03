@@ -31,7 +31,10 @@ public final class MembersClient {
   /**
    * Create a member
    *
-   * <p>Create a merchant member.
+   * <p>Adds a member to the merchant account with the specified roles. By default, sends an
+   * invitation email to the provided address. The recipient must accept the invitation to join the
+   * account. When `is_managed_user` is `true`, creates a managed user with the provided password
+   * and optional nickname and assigns the roles directly, without sending an invitation.
    *
    * <p>Operation ID: CreateMerchantMember
    *
@@ -51,7 +54,10 @@ public final class MembersClient {
   /**
    * Create a member
    *
-   * <p>Create a merchant member.
+   * <p>Adds a member to the merchant account with the specified roles. By default, sends an
+   * invitation email to the provided address. The recipient must accept the invitation to join the
+   * account. When `is_managed_user` is `true`, creates a managed user with the provided password
+   * and optional nickname and assigns the roles directly, without sending an invitation.
    *
    * <p>Operation ID: CreateMerchantMember
    *
@@ -258,7 +264,11 @@ public final class MembersClient {
   /**
    * Update a member
    *
-   * <p>Update the merchant member.
+   * <p>Updates a merchant member and returns the updated member. Providing `roles` replaces the
+   * member's assigned roles and can grant or revoke access. Providing `metadata` replaces the
+   * entire metadata object. For managed users, `user.nickname` changes the display name and
+   * `user.password` replaces the password. Updating the password also enables the managed user
+   * account.
    *
    * <p>Operation ID: UpdateMerchantMember
    *
@@ -281,7 +291,11 @@ public final class MembersClient {
   /**
    * Update a member
    *
-   * <p>Update the merchant member.
+   * <p>Updates a merchant member and returns the updated member. Providing `roles` replaces the
+   * member's assigned roles and can grant or revoke access. Providing `metadata` replaces the
+   * entire metadata object. For managed users, `user.nickname` changes the display name and
+   * `user.password` replaces the password. Updating the password also enables the managed user
+   * account.
    *
    * <p>Operation ID: UpdateMerchantMember
    *
@@ -396,19 +410,6 @@ public final class MembersClient {
      */
     public ListMerchantMembersQueryParams userId(java.util.UUID value) {
       this.values.put("user.id", Objects.requireNonNull(value, "userId"));
-      return this;
-    }
-
-    /**
-     * Sets the user.type query parameter.
-     *
-     * @param value Filter the returned members by user type. Repeat this parameter to include
-     *     multiple user types.
-     * @return This ListMerchantMembersQueryParams instance.
-     */
-    public ListMerchantMembersQueryParams userType(
-        java.util.List<com.sumup.sdk.models.UserType> value) {
-      this.values.put("user.type", Objects.requireNonNull(value, "userType"));
       return this;
     }
 
