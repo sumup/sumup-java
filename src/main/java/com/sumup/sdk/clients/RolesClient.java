@@ -232,7 +232,9 @@ public final class RolesClient {
   /**
    * Update a role
    *
-   * <p>Update a custom role.
+   * <p>Updates a custom role's name, description, or permissions and returns the updated role.
+   * Providing `permissions` replaces the role's permission list and changes the access granted to
+   * members assigned to that role. Omitted fields remain unchanged.
    *
    * <p>Operation ID: UpdateMerchantRole
    *
@@ -253,7 +255,9 @@ public final class RolesClient {
   /**
    * Update a role
    *
-   * <p>Update a custom role.
+   * <p>Updates a custom role's name, description, or permissions and returns the updated role.
+   * Providing `permissions` replaces the role's permission list and changes the access granted to
+   * members assigned to that role. Omitted fields remain unchanged.
    *
    * <p>Operation ID: UpdateMerchantRole
    *
