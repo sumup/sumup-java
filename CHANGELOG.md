@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.1.1](https://github.com/sumup/sumup-java/compare/v0.1.0...v0.1.1) (2026-10-14)
+
+
+### Bug Fixes
+
+* **codegen:** preserve annotated schema types ([#168](https://github.com/sumup/sumup-java/issues/168)) ([84b53a8](https://github.com/sumup/sumup-java/commit/84b53a8b339cc3b76dffa858409c640e46522c50))
+
+
+### Chores
+
+* **deps:** bump actions/setup-java from 6.0.0 to 6.0.1 ([#155](https://github.com/sumup/sumup-java/issues/155)) ([770c64c](https://github.com/sumup/sumup-java/commit/770c64ca9921fb0853f29a4dad81de1416d69e9b))
+* **deps:** bump com.diffplug.spotless from 8.10.1 to 8.10.3 ([#164](https://github.com/sumup/sumup-java/issues/164)) ([12002af](https://github.com/sumup/sumup-java/commit/12002af34effe017f9aa1f68ff95a2263b36451e))
+* **deps:** bump com.fasterxml.jackson:jackson-bom in the jackson group ([#160](https://github.com/sumup/sumup-java/issues/160)) ([2d70a7c](https://github.com/sumup/sumup-java/commit/2d70a7cff33e8835b5552d5458a85c290ec7e7a0))
+* **deps:** bump github.com/lmittmann/tint in /codegen ([#167](https://github.com/sumup/sumup-java/issues/167)) ([1871595](https://github.com/sumup/sumup-java/commit/1871595359f391e8a3b7535cdd1381a73c1afc32))
+* **deps:** bump github.com/pb33f/libopenapi in /codegen ([#166](https://github.com/sumup/sumup-java/issues/166)) ([6acf6e5](https://github.com/sumup/sumup-java/commit/6acf6e5619b2a6f3c720a043cf74c23430e81382))
+* **deps:** bump gradle-wrapper from 9.7.1 to 9.8.0 ([#163](https://github.com/sumup/sumup-java/issues/163)) ([4c101ef](https://github.com/sumup/sumup-java/commit/4c101ef01d0ee43713e6e0a19b605a47756ad2af))
+* **deps:** bump reviewdog/action-actionlint from 1.73.3 to 1.79.1 ([#165](https://github.com/sumup/sumup-java/issues/165)) ([22a2ee9](https://github.com/sumup/sumup-java/commit/22a2ee913e200671e48d469f3838482ffd892d3f))
+* synced file(s) with sumup/apis ([#157](https://github.com/sumup/sumup-java/issues/157)) ([fdf7980](https://github.com/sumup/sumup-java/commit/fdf79803088ccab79fc1ded1fc924878a1c8bd12))
+
 ## [0.1.0](https://github.com/sumup/sumup-java/compare/v0.0.10...v0.1.0) (2026-09-11)
 
 
