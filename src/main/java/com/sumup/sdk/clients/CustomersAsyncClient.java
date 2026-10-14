@@ -12,10 +12,14 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Client for the "Customers" API group.
  *
- * <p>Allow your regular customers to save their information with the Customers model. This will
- * prevent re-entering payment instrument information for recurring payments on your platform.
- * Depending on the needs you can allow, creating, listing or deactivating payment instruments &
- * creating, retrieving and updating customers.
+ * <p>Customers represent payers in your integration. Create a customer with your own `customer_id`
+ * to associate their personal details and saved payment instruments with your business records. To
+ * save a card, create a checkout for that customer with `purpose = SETUP_RECURRING_PAYMENT`, then
+ * process it with the payer's consent and mandate details. See the [tokenization
+ * guide](https://developer.sumup.com/online-payments/guides/tokenization-with-payment-sdk/). Use
+ * the Customers endpoints to create, retrieve, or update customer details and to list or deactivate
+ * saved payment instruments. For subsequent payments, process a new checkout with the saved
+ * instrument's `token` and its associated `customer_id`.
  */
 public final class CustomersAsyncClient {
   private final ApiClient apiClient;
@@ -32,8 +36,9 @@ public final class CustomersAsyncClient {
   /**
    * Create a customer
    *
-   * <p>Creates a new saved customer resource which you can later manipulate and save payment
-   * instruments to.
+   * <p>Creates a customer using the `customer_id` you supply. Choose an identifier that maps to the
+   * payer in your own system and reuse it when retrieving the customer or associating checkouts and
+   * saved payment instruments with them.
    *
    * <p>Operation ID: CreateCustomer
    *
@@ -51,8 +56,9 @@ public final class CustomersAsyncClient {
   /**
    * Create a customer
    *
-   * <p>Creates a new saved customer resource which you can later manipulate and save payment
-   * instruments to.
+   * <p>Creates a customer using the `customer_id` you supply. Choose an identifier that maps to the
+   * payer in your own system and reuse it when retrieving the customer or associating checkouts and
+   * saved payment instruments with them.
    *
    * <p>Operation ID: CreateCustomer
    *
@@ -84,7 +90,7 @@ public final class CustomersAsyncClient {
    *
    * <p>Operation ID: DeactivatePaymentInstrument
    *
-   * @param customerId Unique identifier of the saved customer resource.
+   * @param customerId The `customer_id` you supplied when creating the customer.
    * @param token Unique token identifying the card saved as a payment instrument resource.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -103,7 +109,7 @@ public final class CustomersAsyncClient {
    *
    * <p>Operation ID: DeactivatePaymentInstrument
    *
-   * @param customerId Unique identifier of the saved customer resource.
+   * @param customerId The `customer_id` you supplied when creating the customer.
    * @param token Unique token identifying the card saved as a payment instrument resource.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -125,12 +131,11 @@ public final class CustomersAsyncClient {
   /**
    * Retrieve a customer
    *
-   * <p>Retrieves an identified saved customer resource through the unique `customer_id` parameter,
-   * generated upon customer creation.
+   * <p>Retrieves a saved customer using the `customer_id` you supplied when creating the customer.
    *
    * <p>Operation ID: GetCustomer
    *
-   * @param customerId Unique identifier of the saved customer resource.
+   * @param customerId The `customer_id` you supplied when creating the customer.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @return CompletableFuture resolved with com.sumup.sdk.models.Customer parsed response.
@@ -144,12 +149,11 @@ public final class CustomersAsyncClient {
   /**
    * Retrieve a customer
    *
-   * <p>Retrieves an identified saved customer resource through the unique `customer_id` parameter,
-   * generated upon customer creation.
+   * <p>Retrieves a saved customer using the `customer_id` you supplied when creating the customer.
    *
    * <p>Operation ID: GetCustomer
    *
-   * @param customerId Unique identifier of the saved customer resource.
+   * @param customerId The `customer_id` you supplied when creating the customer.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return CompletableFuture resolved with com.sumup.sdk.models.Customer parsed response.
@@ -178,7 +182,7 @@ public final class CustomersAsyncClient {
    *
    * <p>Operation ID: ListPaymentInstruments
    *
-   * @param customerId Unique identifier of the saved customer resource.
+   * @param customerId The `customer_id` you supplied when creating the customer.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @return CompletableFuture resolved with {@code
@@ -197,7 +201,7 @@ public final class CustomersAsyncClient {
    *
    * <p>Operation ID: ListPaymentInstruments
    *
-   * @param customerId Unique identifier of the saved customer resource.
+   * @param customerId The `customer_id` you supplied when creating the customer.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return CompletableFuture resolved with {@code
@@ -229,7 +233,7 @@ public final class CustomersAsyncClient {
    *
    * <p>Operation ID: UpdateCustomer
    *
-   * @param customerId Unique identifier of the saved customer resource.
+   * @param customerId The `customer_id` you supplied when creating the customer.
    * @param request Customer fields to update.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -250,7 +254,7 @@ public final class CustomersAsyncClient {
    *
    * <p>Operation ID: UpdateCustomer
    *
-   * @param customerId Unique identifier of the saved customer resource.
+   * @param customerId The `customer_id` you supplied when creating the customer.
    * @param request Customer fields to update.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.

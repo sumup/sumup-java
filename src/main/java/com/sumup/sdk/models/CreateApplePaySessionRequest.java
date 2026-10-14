@@ -4,10 +4,16 @@ package com.sumup.sdk.models;
 import java.util.Objects;
 
 public record CreateApplePaySessionRequest(
-    /** the context to create this apple pay session. */
+    /**
+     * Hostname of the website displaying the Apple Pay payment sheet, without a URL scheme or path.
+     * Use the domain registered for Apple Pay.
+     */
     String context,
 
-    /** The target url to create this apple pay session. */
+    /**
+     * Apple Pay validation URL received as `validationURL` in the browser's `onvalidatemerchant`
+     * event.
+     */
     String target) {
   /**
    * Creates a builder for CreateApplePaySessionRequest.
@@ -28,7 +34,8 @@ public record CreateApplePaySessionRequest(
     /**
      * Sets the value for {@code context}.
      *
-     * @param context the context to create this apple pay session.
+     * @param context Hostname of the website displaying the Apple Pay payment sheet, without a URL
+     *     scheme or path. Use the domain registered for Apple Pay.
      * @return This builder instance.
      */
     public Builder context(String context) {
@@ -39,7 +46,8 @@ public record CreateApplePaySessionRequest(
     /**
      * Sets the value for {@code target}.
      *
-     * @param target The target url to create this apple pay session.
+     * @param target Apple Pay validation URL received as `validationURL` in the browser's
+     *     `onvalidatemerchant` event.
      * @return This builder instance.
      */
     public Builder target(String target) {

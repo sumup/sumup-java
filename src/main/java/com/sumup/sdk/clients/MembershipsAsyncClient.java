@@ -151,6 +151,17 @@ public final class MembershipsAsyncClient {
     }
 
     /**
+     * Sets the resource.id query parameter.
+     *
+     * @param value Filter memberships by the ID of the resource the membership is in.
+     * @return This ListMembershipsQueryParams instance.
+     */
+    public ListMembershipsQueryParams resourceId(String value) {
+      this.values.put("resource.id", Objects.requireNonNull(value, "resourceId"));
+      return this;
+    }
+
+    /**
      * Sets the resource.name query parameter.
      *
      * @param value Filter memberships by the name of the resource the membership is in.
@@ -164,9 +175,10 @@ public final class MembershipsAsyncClient {
     /**
      * Sets the resource.parent.id query parameter.
      *
-     * @param value Filter memberships by the parent of the resource the membership is in. When
-     *     filtering by parent both `resource.parent.id` and `resource.parent.type` must be present.
-     *     Pass explicit null to filter for resources without a parent.
+     * @param value Filter memberships by the parent of the resource the membership is in. Omit both
+     *     `resource.parent.id` and `resource.parent.type` to skip parent filtering. When filtering
+     *     by parent, both parameters must be present. To select resources without a parent, set
+     *     each parameter to an empty value. Otherwise, both parameters must identify a parent.
      * @return This ListMembershipsQueryParams instance.
      */
     public ListMembershipsQueryParams resourceParentId(String value) {
@@ -177,12 +189,13 @@ public final class MembershipsAsyncClient {
     /**
      * Sets the resource.parent.type query parameter.
      *
-     * @param value Filter memberships by the parent of the resource the membership is in. When
-     *     filtering by parent both `resource.parent.id` and `resource.parent.type` must be present.
-     *     Pass explicit null to filter for resources without a parent.
+     * @param value Filter memberships by the parent of the resource the membership is in. Omit both
+     *     `resource.parent.id` and `resource.parent.type` to skip parent filtering. When filtering
+     *     by parent, both parameters must be present. To select resources without a parent, set
+     *     each parameter to an empty value. Otherwise, both parameters must identify a parent.
      * @return This ListMembershipsQueryParams instance.
      */
-    public ListMembershipsQueryParams resourceParentType(java.util.Map<String, Object> value) {
+    public ListMembershipsQueryParams resourceParentType(String value) {
       this.values.put("resource.parent.type", Objects.requireNonNull(value, "resourceParentType"));
       return this;
     }

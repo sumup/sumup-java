@@ -103,6 +103,9 @@ public class EventNotification {
             case "members.updated" -> MemberUpdatedEvent.class;
             case "readers.created" -> ReaderCreatedEvent.class;
             case "readers.deleted" -> ReaderDeletedEvent.class;
+            case "roles.created" -> RoleCreatedEvent.class;
+            case "roles.deleted" -> RoleDeletedEvent.class;
+            case "roles.updated" -> RoleUpdatedEvent.class;
             default -> EventNotification.class;
           };
       EventNotification event = MAPPER.treeToValue(root, type);

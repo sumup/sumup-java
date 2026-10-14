@@ -48,8 +48,9 @@ public record ProcessCheckout(
     com.sumup.sdk.models.PersonalDetails personalDetails,
 
     /**
-     * Saved-card token to use instead of raw card details when processing with a previously stored
-     * payment instrument.
+     * Token of a saved payment instrument returned by checkout processing or the customer's
+     * payment-instruments endpoint. To charge a saved card, set `payment_type` to `card` and
+     * provide both this `token` and the associated `customer_id` instead of raw card details.
      */
     String token) {
   /**
@@ -172,8 +173,10 @@ public record ProcessCheckout(
     /**
      * Sets the value for {@code token}.
      *
-     * @param token Saved-card token to use instead of raw card details when processing with a
-     *     previously stored payment instrument.
+     * @param token Token of a saved payment instrument returned by checkout processing or the
+     *     customer's payment-instruments endpoint. To charge a saved card, set `payment_type` to
+     *     `card` and provide both this `token` and the associated `customer_id` instead of raw card
+     *     details.
      * @return This builder instance.
      */
     public Builder token(String token) {

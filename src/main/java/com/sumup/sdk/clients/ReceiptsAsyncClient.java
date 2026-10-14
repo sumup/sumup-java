@@ -14,7 +14,9 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Client for the "Receipts" API group.
  *
- * <p>The Receipts model obtains receipt-like details for specific transactions.
+ * <p>Retrieve structured receipt data for a transaction, including payment, merchant, and acquirer
+ * details. Use this data to display a receipt in your application. The response is JSON, rather
+ * than a rendered receipt document.
  */
 public final class ReceiptsAsyncClient {
   private final ApiClient apiClient;
@@ -31,7 +33,9 @@ public final class ReceiptsAsyncClient {
   /**
    * Retrieve receipt details
    *
-   * <p>Retrieves receipt specific data for a transaction.
+   * <p>Retrieves structured receipt data for a transaction belonging to the merchant specified by
+   * `mid`. The path accepts either the SumUp transaction ID or transaction code. Provide
+   * `tx_event_id` to include a specific transaction event, such as a refund, on the receipt.
    *
    * <p>Operation ID: GetReceipt
    *
@@ -50,7 +54,9 @@ public final class ReceiptsAsyncClient {
   /**
    * Retrieve receipt details
    *
-   * <p>Retrieves receipt specific data for a transaction.
+   * <p>Retrieves structured receipt data for a transaction belonging to the merchant specified by
+   * `mid`. The path accepts either the SumUp transaction ID or transaction code. Provide
+   * `tx_event_id` to include a specific transaction event, such as a refund, on the receipt.
    *
    * <p>Operation ID: GetReceipt
    *
@@ -70,7 +76,9 @@ public final class ReceiptsAsyncClient {
   /**
    * Retrieve receipt details
    *
-   * <p>Retrieves receipt specific data for a transaction.
+   * <p>Retrieves structured receipt data for a transaction belonging to the merchant specified by
+   * `mid`. The path accepts either the SumUp transaction ID or transaction code. Provide
+   * `tx_event_id` to include a specific transaction event, such as a refund, on the receipt.
    *
    * <p>Operation ID: GetReceipt
    *

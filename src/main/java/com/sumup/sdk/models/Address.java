@@ -26,11 +26,7 @@ public record Address(
      */
     String commune,
 
-    /**
-     * An [ISO3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. This
-     * definition users `oneOf` with a two-character string type to allow for support of future
-     * countries in client code.
-     */
+    /** The ISO3166-1 Alpha-2 code of the address country. */
     String country,
 
     /**
@@ -158,9 +154,7 @@ public record Address(
     /**
      * Sets the value for {@code country}.
      *
-     * @param country An [ISO3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-     *     country code. This definition users `oneOf` with a two-character string type to allow for
-     *     support of future countries in client code.
+     * @param country The ISO3166-1 Alpha-2 code of the address country.
      * @return This builder instance.
      */
     public Builder country(String country) {

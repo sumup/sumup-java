@@ -5,10 +5,13 @@ import java.util.Objects;
 
 /** Hypermedia link used for transaction history pagination. */
 public record TransactionsHistoryLink(
-    /** Location. */
+    /**
+     * Query string to use with the transaction history endpoint when requesting the linked page.
+     * Preserve the returned pagination references and query parameters.
+     */
     String href,
 
-    /** Relation. */
+    /** Pagination relation indicating which page the link retrieves, for example `next`. */
     String rel) {
   /**
    * Creates a builder for TransactionsHistoryLink.
@@ -29,7 +32,8 @@ public record TransactionsHistoryLink(
     /**
      * Sets the value for {@code href}.
      *
-     * @param href Location.
+     * @param href Query string to use with the transaction history endpoint when requesting the
+     *     linked page. Preserve the returned pagination references and query parameters.
      * @return This builder instance.
      */
     public Builder href(String href) {
@@ -40,7 +44,7 @@ public record TransactionsHistoryLink(
     /**
      * Sets the value for {@code rel}.
      *
-     * @param rel Relation.
+     * @param rel Pagination relation indicating which page the link retrieves, for example `next`.
      * @return This builder instance.
      */
     public Builder rel(String rel) {

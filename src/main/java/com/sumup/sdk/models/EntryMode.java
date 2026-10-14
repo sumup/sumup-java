@@ -5,7 +5,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 
-/** Entry mode of the payment details. */
+/**
+ * How the payment details were captured, for example `CHIP` or `CONTACTLESS` for card-present
+ * payments and `CUSTOMER_ENTRY` for card details entered by the payer. For wallet and alternative
+ * payment methods, this can identify the method, such as `APPLE_PAY` or `BLIK`.
+ */
 public final class EntryMode {
   public static final EntryMode BOLETO = new EntryMode("BOLETO");
   public static final EntryMode SOFORT = new EntryMode("SOFORT");

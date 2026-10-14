@@ -605,7 +605,9 @@ public final class ReadersAsyncClient {
   /**
    * Update a Reader
    *
-   * <p>Update a Reader.
+   * <p>Updates a reader's name or metadata and returns the updated reader. Providing `metadata`
+   * replaces the entire metadata object; include all entries that should be retained. Omitted
+   * fields remain unchanged.
    *
    * <p>Operation ID: UpdateReader
    *
@@ -626,7 +628,9 @@ public final class ReadersAsyncClient {
   /**
    * Update a Reader
    *
-   * <p>Update a Reader.
+   * <p>Updates a reader's name or metadata and returns the updated reader. Providing `metadata`
+   * replaces the entire metadata object; include all entries that should be retained. Omitted
+   * fields remain unchanged.
    *
    * <p>Operation ID: UpdateReader
    *

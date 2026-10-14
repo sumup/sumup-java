@@ -3,7 +3,7 @@ package com.sumup.sdk.models;
 
 /** Detailed information about a transaction event. */
 public record TransactionEvent(
-    /** Amount of the event. */
+    /** Amount of the event in major units of the associated transaction's currency. */
     Double amount,
 
     /** Date when the transaction event occurred. */
@@ -12,14 +12,24 @@ public record TransactionEvent(
     /** Date when the transaction event is due to occur. */
     java.time.LocalDate dueDate,
 
-    /** Type of the transaction event. */
+    /**
+     * Financial event associated with a transaction. - `PAYOUT`: Funds from the transaction being
+     * prepared for or included in a merchant payout. Check the event status to determine whether
+     * they have been paid out. - `REFUND`: Money returned to the payer. - `CHARGE_BACK`: A reversal
+     * of the payment following a chargeback. - `PAYOUT_DEDUCTION`: An amount deducted from a
+     * merchant payout, for example to cover a refund or chargeback.
+     */
     com.sumup.sdk.models.TransactionEventType eventType,
 
-    /** Unique identifier of the transaction event. */
+    /**
+     * Numeric identifier of a transaction event. Use it as `tx_event_id` when requesting receipt
+     * details for a specific event. This is separate from the transaction ID and the transaction
+     * history pagination references.
+     */
     Long id,
 
     /**
-     * Consecutive number of the installment that is paid. Applicable only payout events, i.e.
+     * Consecutive number of the installment that is paid. Applicable only to payout events, i.e.
      * `event_type = PAYOUT`.
      */
     Long installmentNumber,
@@ -69,7 +79,7 @@ public record TransactionEvent(
     /**
      * Sets the value for {@code amount}.
      *
-     * @param amount Amount of the event.
+     * @param amount Amount of the event in major units of the associated transaction's currency.
      * @return This builder instance.
      */
     public Builder amount(Double amount) {
@@ -102,7 +112,11 @@ public record TransactionEvent(
     /**
      * Sets the value for {@code eventType}.
      *
-     * @param eventType Type of the transaction event.
+     * @param eventType Financial event associated with a transaction. - `PAYOUT`: Funds from the
+     *     transaction being prepared for or included in a merchant payout. Check the event status
+     *     to determine whether they have been paid out. - `REFUND`: Money returned to the payer. -
+     *     `CHARGE_BACK`: A reversal of the payment following a chargeback. - `PAYOUT_DEDUCTION`: An
+     *     amount deducted from a merchant payout, for example to cover a refund or chargeback.
      * @return This builder instance.
      */
     public Builder eventType(com.sumup.sdk.models.TransactionEventType eventType) {
@@ -113,7 +127,9 @@ public record TransactionEvent(
     /**
      * Sets the value for {@code id}.
      *
-     * @param id Unique identifier of the transaction event.
+     * @param id Numeric identifier of a transaction event. Use it as `tx_event_id` when requesting
+     *     receipt details for a specific event. This is separate from the transaction ID and the
+     *     transaction history pagination references.
      * @return This builder instance.
      */
     public Builder id(Long id) {
@@ -125,7 +141,7 @@ public record TransactionEvent(
      * Sets the value for {@code installmentNumber}.
      *
      * @param installmentNumber Consecutive number of the installment that is paid. Applicable only
-     *     payout events, i.e. `event_type = PAYOUT`.
+     *     to payout events, i.e. `event_type = PAYOUT`.
      * @return This builder instance.
      */
     public Builder installmentNumber(Long installmentNumber) {

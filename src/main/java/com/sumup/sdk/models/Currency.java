@@ -7,7 +7,6 @@ import java.util.Objects;
 
 /** Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of the amount. */
 public final class Currency {
-  public static final Currency BGN = new Currency("BGN");
   public static final Currency BRL = new Currency("BRL");
   public static final Currency CHF = new Currency("CHF");
   public static final Currency CLP = new Currency("CLP");

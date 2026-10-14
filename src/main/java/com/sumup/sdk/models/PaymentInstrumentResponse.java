@@ -18,7 +18,11 @@ public record PaymentInstrumentResponse(
     /** Details of the mandate linked to the saved payment instrument. */
     com.sumup.sdk.models.MandateResponse mandate,
 
-    /** Unique token identifying the saved payment card for a customer. */
+    /**
+     * Token identifying the customer's saved payment card. Pass it as `token`, together with the
+     * associated `customer_id` and `payment_type = card`, when processing a checkout with this
+     * instrument.
+     */
     String token,
 
     /** Type of the payment instrument. */

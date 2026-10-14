@@ -15,7 +15,11 @@ public record Event(
     /** Fee associated with the transaction event, in major units. */
     Float feeAmount,
 
-    /** Unique identifier of the transaction event. */
+    /**
+     * Numeric identifier of a transaction event. Use it as `tx_event_id` when requesting receipt
+     * details for a specific event. This is separate from the transaction ID and the transaction
+     * history pagination references.
+     */
     Long id,
 
     /** Consecutive number of the installment associated with the event. */
@@ -45,7 +49,13 @@ public record Event(
     /** Unique identifier of the transaction. */
     String transactionId,
 
-    /** Type of the transaction event. */
+    /**
+     * Financial event associated with a transaction. - `PAYOUT`: Funds from the transaction being
+     * prepared for or included in a merchant payout. Check the event status to determine whether
+     * they have been paid out. - `REFUND`: Money returned to the payer. - `CHARGE_BACK`: A reversal
+     * of the payment following a chargeback. - `PAYOUT_DEDUCTION`: An amount deducted from a
+     * merchant payout, for example to cover a refund or chargeback.
+     */
     com.sumup.sdk.models.TransactionEventType type) {
   /**
    * Creates a builder for Event.
@@ -118,7 +128,9 @@ public record Event(
     /**
      * Sets the value for {@code id}.
      *
-     * @param id Unique identifier of the transaction event.
+     * @param id Numeric identifier of a transaction event. Use it as `tx_event_id` when requesting
+     *     receipt details for a specific event. This is separate from the transaction ID and the
+     *     transaction history pagination references.
      * @return This builder instance.
      */
     public Builder id(Long id) {
@@ -187,7 +199,11 @@ public record Event(
     /**
      * Sets the value for {@code type}.
      *
-     * @param type Type of the transaction event.
+     * @param type Financial event associated with a transaction. - `PAYOUT`: Funds from the
+     *     transaction being prepared for or included in a merchant payout. Check the event status
+     *     to determine whether they have been paid out. - `REFUND`: Money returned to the payer. -
+     *     `CHARGE_BACK`: A reversal of the payment following a chargeback. - `PAYOUT_DEDUCTION`: An
+     *     amount deducted from a merchant payout, for example to cover a refund or chargeback.
      * @return This builder instance.
      */
     public Builder type(com.sumup.sdk.models.TransactionEventType type) {

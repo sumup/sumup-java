@@ -126,6 +126,54 @@ public final class EventsHandler {
   }
 
   /**
+   * Registers the callback for {@code "roles.created"}, replacing any previous registration.
+   *
+   * @param callback callback to complete before acknowledging delivery
+   * @return this handler for chaining
+   */
+  public EventsHandler onRoleCreated(EventCallback<RoleCreatedEvent> callback) {
+    Objects.requireNonNull(callback);
+    callbacks.put(
+        "roles.created",
+        event -> {
+          callback.handle((RoleCreatedEvent) event);
+        });
+    return this;
+  }
+
+  /**
+   * Registers the callback for {@code "roles.deleted"}, replacing any previous registration.
+   *
+   * @param callback callback to complete before acknowledging delivery
+   * @return this handler for chaining
+   */
+  public EventsHandler onRoleDeleted(EventCallback<RoleDeletedEvent> callback) {
+    Objects.requireNonNull(callback);
+    callbacks.put(
+        "roles.deleted",
+        event -> {
+          callback.handle((RoleDeletedEvent) event);
+        });
+    return this;
+  }
+
+  /**
+   * Registers the callback for {@code "roles.updated"}, replacing any previous registration.
+   *
+   * @param callback callback to complete before acknowledging delivery
+   * @return this handler for chaining
+   */
+  public EventsHandler onRoleUpdated(EventCallback<RoleUpdatedEvent> callback) {
+    Objects.requireNonNull(callback);
+    callbacks.put(
+        "roles.updated",
+        event -> {
+          callback.handle((RoleUpdatedEvent) event);
+        });
+    return this;
+  }
+
+  /**
    * Verifies, parses, and invokes the selected callback.
    *
    * @param body original HTTP request bytes; do not reserialize the JSON

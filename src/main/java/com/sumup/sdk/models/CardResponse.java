@@ -6,6 +6,17 @@ public record CardResponse(
     /** Last 4 digits of the payment card number. */
     String last4Digits,
 
+    /**
+     * Payment Account Reference (PAR) defined by
+     * [EMVCo](https://www.emvco.com/emv-technologies/payment-tokenisation/). It links a card's
+     * primary account number (PAN) with its affiliated payment tokens, allowing transactions made
+     * with the physical card and tokenized versions of that card, such as digital wallets, to be
+     * correlated when PAR is available. This reference cannot be used to initiate a payment and is
+     * separate from the saved payment instrument `token` used to process checkouts. Returned only
+     * when available for the card; integrations must handle its absence.
+     */
+    String paymentAccountReference,
+
     /** Issuing card network of the payment card used for the transaction. */
     com.sumup.sdk.models.CardType type) {
   /**
@@ -19,9 +30,28 @@ public record CardResponse(
 
   /** Builder for CardResponse instances. */
   public static final class Builder {
+    private String paymentAccountReference;
     private com.sumup.sdk.models.CardType type;
 
     private Builder() {}
+
+    /**
+     * Sets the value for {@code paymentAccountReference}.
+     *
+     * @param paymentAccountReference Payment Account Reference (PAR) defined by
+     *     [EMVCo](https://www.emvco.com/emv-technologies/payment-tokenisation/). It links a card's
+     *     primary account number (PAN) with its affiliated payment tokens, allowing transactions
+     *     made with the physical card and tokenized versions of that card, such as digital wallets,
+     *     to be correlated when PAR is available. This reference cannot be used to initiate a
+     *     payment and is separate from the saved payment instrument `token` used to process
+     *     checkouts. Returned only when available for the card; integrations must handle its
+     *     absence.
+     * @return This builder instance.
+     */
+    public Builder paymentAccountReference(String paymentAccountReference) {
+      this.paymentAccountReference = paymentAccountReference;
+      return this;
+    }
 
     /**
      * Sets the value for {@code type}.
@@ -40,7 +70,7 @@ public record CardResponse(
      * @return Immutable CardResponse.
      */
     public CardResponse build() {
-      return new CardResponse(null, type);
+      return new CardResponse(null, paymentAccountReference, type);
     }
   }
 }

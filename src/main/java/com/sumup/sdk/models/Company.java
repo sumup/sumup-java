@@ -6,13 +6,7 @@ package com.sumup.sdk.models;
  * verification.
  */
 public record Company(
-    /**
-     * An address somewhere in the world. The address fields used depend on the country conventions.
-     * For example, in Great Britain, `city` is `post_town`. In the United States, the top-level
-     * administrative unit used in addresses is `state`, whereas in Chile it's `region`. Whether an
-     * address is valid or not depends on whether the locally required fields are present. Fields
-     * not supported in a country will be ignored.
-     */
+    /** The company's primary address. */
     com.sumup.sdk.models.Address address,
 
     /** Object attributes that are modifiable only by SumUp applications. */
@@ -21,11 +15,7 @@ public record Company(
     /** A list of country-specific company identifiers. */
     com.sumup.sdk.models.CompanyIdentifiers identifiers,
 
-    /**
-     * The unique legal type reference as defined in the country SDK. We do not rely on IDs as used
-     * by other services. Consumers of this API are expected to use the country SDK to map to any
-     * other IDs, translation keys, or descriptions.
-     */
+    /** The category identifying the legal structure of the company or legal entity. */
     String legalType,
 
     /**
@@ -38,15 +28,15 @@ public record Company(
     /** The company's legal name. */
     String name,
 
-    /** A publicly available phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format. */
+    /**
+     * The company's phone number (used for verification) in
+     * [E.164](https://en.wikipedia.org/wiki/E.164) format.
+     */
     String phoneNumber,
 
     /**
-     * An address somewhere in the world. The address fields used depend on the country conventions.
-     * For example, in Great Britain, `city` is `post_town`. In the United States, the top-level
-     * administrative unit used in addresses is `state`, whereas in Chile it's `region`. Whether an
-     * address is valid or not depends on whether the locally required fields are present. Fields
-     * not supported in a country will be ignored.
+     * A trading address is where your suppliers, banks or customers send you correspondence to.
+     * Trading address can be different to the company's registered address (`address`).
      */
     com.sumup.sdk.models.Address tradingAddress,
 
@@ -78,11 +68,7 @@ public record Company(
     /**
      * Sets the value for {@code address}.
      *
-     * @param address An address somewhere in the world. The address fields used depend on the
-     *     country conventions. For example, in Great Britain, `city` is `post_town`. In the United
-     *     States, the top-level administrative unit used in addresses is `state`, whereas in Chile
-     *     it's `region`. Whether an address is valid or not depends on whether the locally required
-     *     fields are present. Fields not supported in a country will be ignored.
+     * @param address The company's primary address.
      * @return This builder instance.
      */
     public Builder address(com.sumup.sdk.models.Address address) {
@@ -115,9 +101,7 @@ public record Company(
     /**
      * Sets the value for {@code legalType}.
      *
-     * @param legalType The unique legal type reference as defined in the country SDK. We do not
-     *     rely on IDs as used by other services. Consumers of this API are expected to use the
-     *     country SDK to map to any other IDs, translation keys, or descriptions.
+     * @param legalType The category identifying the legal structure of the company or legal entity.
      * @return This builder instance.
      */
     public Builder legalType(String legalType) {
@@ -152,7 +136,7 @@ public record Company(
     /**
      * Sets the value for {@code phoneNumber}.
      *
-     * @param phoneNumber A publicly available phone number in
+     * @param phoneNumber The company's phone number (used for verification) in
      *     [E.164](https://en.wikipedia.org/wiki/E.164) format.
      * @return This builder instance.
      */
@@ -164,11 +148,9 @@ public record Company(
     /**
      * Sets the value for {@code tradingAddress}.
      *
-     * @param tradingAddress An address somewhere in the world. The address fields used depend on
-     *     the country conventions. For example, in Great Britain, `city` is `post_town`. In the
-     *     United States, the top-level administrative unit used in addresses is `state`, whereas in
-     *     Chile it's `region`. Whether an address is valid or not depends on whether the locally
-     *     required fields are present. Fields not supported in a country will be ignored.
+     * @param tradingAddress A trading address is where your suppliers, banks or customers send you
+     *     correspondence to. Trading address can be different to the company's registered address
+     *     (`address`).
      * @return This builder instance.
      */
     public Builder tradingAddress(com.sumup.sdk.models.Address tradingAddress) {

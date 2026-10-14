@@ -42,12 +42,15 @@ public final class CheckoutsClient {
   /**
    * Create a checkout
    *
-   * <p>Creates a new payment checkout resource. The unique `checkout_reference` created by this
-   * request, is used for further manipulation of the checkout. For 3DS checkouts, add the
-   * `redirect_url` parameter to your request body schema. To use the [Hosted
-   * Checkout](https://developer.sumup.com/online-payments/checkouts/hosted-checkout/) page, set the
-   * `hosted_checkout.enabled` to `true`. Follow by processing a checkout to charge the provided
-   * payment instrument.
+   * <p>Creates a payment checkout for the specified merchant, amount, and currency. Supply a
+   * `checkout_reference` to identify the payment attempt in your own systems. Creating a checkout
+   * does not charge a payment instrument. Set `hosted_checkout.enabled` to `true` to receive a
+   * [Hosted Checkout](https://developer.sumup.com/online-payments/checkouts/hosted-checkout/) URL
+   * where the customer can complete the payment. Use `redirect_url` for redirect-based payment and
+   * 3DS flows. If `return_url` is provided, SumUp sends processing updates to that backend callback
+   * URL. Complete the payment through [Hosted
+   * Checkout](https://developer.sumup.com/online-payments/checkouts/hosted-checkout/) or the
+   * [Payment Widget](https://developer.sumup.com/online-payments/checkouts/card-widget).
    *
    * <p>Operation ID: CreateCheckout
    *
@@ -65,12 +68,15 @@ public final class CheckoutsClient {
   /**
    * Create a checkout
    *
-   * <p>Creates a new payment checkout resource. The unique `checkout_reference` created by this
-   * request, is used for further manipulation of the checkout. For 3DS checkouts, add the
-   * `redirect_url` parameter to your request body schema. To use the [Hosted
-   * Checkout](https://developer.sumup.com/online-payments/checkouts/hosted-checkout/) page, set the
-   * `hosted_checkout.enabled` to `true`. Follow by processing a checkout to charge the provided
-   * payment instrument.
+   * <p>Creates a payment checkout for the specified merchant, amount, and currency. Supply a
+   * `checkout_reference` to identify the payment attempt in your own systems. Creating a checkout
+   * does not charge a payment instrument. Set `hosted_checkout.enabled` to `true` to receive a
+   * [Hosted Checkout](https://developer.sumup.com/online-payments/checkouts/hosted-checkout/) URL
+   * where the customer can complete the payment. Use `redirect_url` for redirect-based payment and
+   * 3DS flows. If `return_url` is provided, SumUp sends processing updates to that backend callback
+   * URL. Complete the payment through [Hosted
+   * Checkout](https://developer.sumup.com/online-payments/checkouts/hosted-checkout/) or the
+   * [Payment Widget](https://developer.sumup.com/online-payments/checkouts/card-widget).
    *
    * <p>Operation ID: CreateCheckout
    *
@@ -107,8 +113,9 @@ public final class CheckoutsClient {
    *
    * <p>Operation ID: CreateApplePaySession
    *
-   * @param checkoutId Unique identifier of the checkout resource.
-   * @param request The data needed to create an apple pay session for a checkout.
+   * @param checkoutId SumUp-generated `id` returned when creating a checkout. Use this value to
+   *     retrieve, update, process, or deactivate the checkout.
+   * @param request Merchant validation details from the Apple Pay session in the payer's browser.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @return {@code java.util.Map<String, Object>} parsed response.
@@ -131,8 +138,9 @@ public final class CheckoutsClient {
    *
    * <p>Operation ID: CreateApplePaySession
    *
-   * @param checkoutId Unique identifier of the checkout resource.
-   * @param request The data needed to create an apple pay session for a checkout.
+   * @param checkoutId SumUp-generated `id` returned when creating a checkout. Use this value to
+   *     retrieve, update, process, or deactivate the checkout.
+   * @param request Merchant validation details from the Apple Pay session in the payer's browser.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return {@code java.util.Map<String, Object>} parsed response.
@@ -165,7 +173,8 @@ public final class CheckoutsClient {
    *
    * <p>Operation ID: DeactivateCheckout
    *
-   * @param checkoutId Unique identifier of the checkout resource.
+   * @param checkoutId SumUp-generated `id` returned when creating a checkout. Use this value to
+   *     retrieve, update, process, or deactivate the checkout.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @return com.sumup.sdk.models.Checkout parsed response.
@@ -183,7 +192,8 @@ public final class CheckoutsClient {
    *
    * <p>Operation ID: DeactivateCheckout
    *
-   * @param checkoutId Unique identifier of the checkout resource.
+   * @param checkoutId SumUp-generated `id` returned when creating a checkout. Use this value to
+   *     retrieve, update, process, or deactivate the checkout.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return com.sumup.sdk.models.Checkout parsed response.
@@ -208,12 +218,14 @@ public final class CheckoutsClient {
   /**
    * Retrieve a checkout
    *
-   * <p>Retrieves an identified checkout resource. Use this request after processing a checkout to
-   * confirm its status and inform the end user respectively.
+   * <p>Retrieves a checkout by its SumUp `checkout_id`. After processing a payment, returning from
+   * a redirect, or receiving a checkout notification, retrieve the checkout to confirm its current
+   * `status` before updating your order or displaying the payment outcome to the payer.
    *
    * <p>Operation ID: GetCheckout
    *
-   * @param checkoutId Unique identifier of the checkout resource.
+   * @param checkoutId SumUp-generated `id` returned when creating a checkout. Use this value to
+   *     retrieve, update, process, or deactivate the checkout.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
    * @return com.sumup.sdk.models.CheckoutSuccess parsed response.
@@ -226,12 +238,14 @@ public final class CheckoutsClient {
   /**
    * Retrieve a checkout
    *
-   * <p>Retrieves an identified checkout resource. Use this request after processing a checkout to
-   * confirm its status and inform the end user respectively.
+   * <p>Retrieves a checkout by its SumUp `checkout_id`. After processing a payment, returning from
+   * a redirect, or receiving a checkout notification, retrieve the checkout to confirm its current
+   * `status` before updating your order or displaying the payment outcome to the payer.
    *
    * <p>Operation ID: GetCheckout
    *
-   * @param checkoutId Unique identifier of the checkout resource.
+   * @param checkoutId SumUp-generated `id` returned when creating a checkout. Use this value to
+   *     retrieve, update, process, or deactivate the checkout.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
    * @return com.sumup.sdk.models.CheckoutSuccess parsed response.
@@ -322,7 +336,9 @@ public final class CheckoutsClient {
   /**
    * Get available payment methods
    *
-   * <p>Get payment methods available for the given merchant to use with a checkout.
+   * <p>Lists the payment methods available to the merchant for checkout payments. Use the optional
+   * amount and currency filters to check eligibility for a particular payment before presenting
+   * payment options to the payer.
    *
    * <p>Operation ID: GetPaymentMethods
    *
@@ -340,7 +356,9 @@ public final class CheckoutsClient {
   /**
    * Get available payment methods
    *
-   * <p>Get payment methods available for the given merchant to use with a checkout.
+   * <p>Lists the payment methods available to the merchant for checkout payments. Use the optional
+   * amount and currency filters to check eligibility for a particular payment before presenting
+   * payment options to the payer.
    *
    * <p>Operation ID: GetPaymentMethods
    *
@@ -359,7 +377,9 @@ public final class CheckoutsClient {
   /**
    * Get available payment methods
    *
-   * <p>Get payment methods available for the given merchant to use with a checkout.
+   * <p>Lists the payment methods available to the merchant for checkout payments. Use the optional
+   * amount and currency filters to check eligibility for a particular payment before presenting
+   * payment options to the payer.
    *
    * <p>Operation ID: GetPaymentMethods
    *
@@ -404,12 +424,16 @@ public final class CheckoutsClient {
    * requirements](https://www.pcisecuritystandards.org/document_library/). You should only use this
    * integration if your environment is appropriately PCI DSS compliant. ::: Processing a checkout
    * will attempt to charge the provided payment instrument for the amount of the specified checkout
-   * resource initiated in the `Create a checkout` endpoint. Follow this request with `Retrieve a
-   * checkout` to confirm its status.
+   * resource initiated in the `Create a checkout` endpoint. A processing response can require an
+   * additional payer action, such as a 3DS challenge or a payment-provider redirect. If `next_step`
+   * is returned, follow its instructions to continue the payment flow. Retrieve the checkout
+   * afterwards to confirm its payment status. Acceptance of the processing request does not by
+   * itself mean the checkout is paid.
    *
    * <p>Operation ID: ProcessCheckout
    *
-   * @param checkoutId Unique identifier of the checkout resource.
+   * @param checkoutId SumUp-generated `id` returned when creating a checkout. Use this value to
+   *     retrieve, update, process, or deactivate the checkout.
    * @param request Details of the payment instrument for processing the checkout.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -430,12 +454,16 @@ public final class CheckoutsClient {
    * requirements](https://www.pcisecuritystandards.org/document_library/). You should only use this
    * integration if your environment is appropriately PCI DSS compliant. ::: Processing a checkout
    * will attempt to charge the provided payment instrument for the amount of the specified checkout
-   * resource initiated in the `Create a checkout` endpoint. Follow this request with `Retrieve a
-   * checkout` to confirm its status.
+   * resource initiated in the `Create a checkout` endpoint. A processing response can require an
+   * additional payer action, such as a 3DS challenge or a payment-provider redirect. If `next_step`
+   * is returned, follow its instructions to continue the payment flow. Retrieve the checkout
+   * afterwards to confirm its payment status. Acceptance of the processing request does not by
+   * itself mean the checkout is paid.
    *
    * <p>Operation ID: ProcessCheckout
    *
-   * @param checkoutId Unique identifier of the checkout resource.
+   * @param checkoutId SumUp-generated `id` returned when creating a checkout. Use this value to
+   *     retrieve, update, process, or deactivate the checkout.
    * @param request Details of the payment instrument for processing the checkout.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -465,11 +493,15 @@ public final class CheckoutsClient {
   /**
    * Update a checkout
    *
-   * <p>Updates an identified checkout resource.
+   * <p>Updates the amount, currency, description, reference, expiration, or customer associated
+   * with an existing checkout. Only the supplied fields are updated. This request changes the
+   * checkout details; it does not charge a payment instrument. Process the checkout separately to
+   * attempt a payment.
    *
    * <p>Operation ID: UpdateCheckout
    *
-   * @param checkoutId Unique identifier of the checkout resource.
+   * @param checkoutId SumUp-generated `id` returned when creating a checkout. Use this value to
+   *     retrieve, update, process, or deactivate the checkout.
    * @param request Details for updating a checkout resource.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
@@ -484,11 +516,15 @@ public final class CheckoutsClient {
   /**
    * Update a checkout
    *
-   * <p>Updates an identified checkout resource.
+   * <p>Updates the amount, currency, description, reference, expiration, or customer associated
+   * with an existing checkout. Only the supplied fields are updated. This request changes the
+   * checkout details; it does not charge a payment instrument. Process the checkout separately to
+   * attempt a payment.
    *
    * <p>Operation ID: UpdateCheckout
    *
-   * @param checkoutId Unique identifier of the checkout resource.
+   * @param checkoutId SumUp-generated `id` returned when creating a checkout. Use this value to
+   *     retrieve, update, process, or deactivate the checkout.
    * @param request Details for updating a checkout resource.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
@@ -522,7 +558,8 @@ public final class CheckoutsClient {
     /**
      * Sets the checkout_reference query parameter.
      *
-     * @param value Filters the list of checkout resources by the unique reference of the checkout.
+     * @param value Filters checkouts by the merchant-defined `checkout_reference` supplied when
+     *     creating the checkout. This is separate from the SumUp-generated checkout `id`.
      * @return This ListCheckoutsQueryParams instance.
      */
     public ListCheckoutsQueryParams checkoutReference(String value) {
@@ -547,7 +584,8 @@ public final class CheckoutsClient {
     /**
      * Sets the amount query parameter.
      *
-     * @param value The amount for which the payment methods should be eligible, in major units.
+     * @param value Payment amount in major units, for example `9.99` for EUR 9.99. When filtering
+     *     by `amount`, also provide `currency`.
      * @return This GetPaymentMethodsQueryParams instance.
      */
     public GetPaymentMethodsQueryParams amount(Double value) {
@@ -558,7 +596,8 @@ public final class CheckoutsClient {
     /**
      * Sets the currency query parameter.
      *
-     * @param value The currency for which the payment methods should be eligible.
+     * @param value Three-letter ISO 4217 currency code for which the payment methods should be
+     *     eligible, for example `EUR`.
      * @return This GetPaymentMethodsQueryParams instance.
      */
     public GetPaymentMethodsQueryParams currency(String value) {

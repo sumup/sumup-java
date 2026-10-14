@@ -12,8 +12,10 @@ public record CheckoutCreateRequest(
     Float amount,
 
     /**
-     * Merchant-defined reference for the new checkout. It should be unique enough for you to
-     * identify the payment attempt in your own systems.
+     * Merchant-defined reference for the new checkout, up to 64 characters. Use it to correlate the
+     * checkout with an order or payment attempt in your own system. If a checkout already exists
+     * for the supplied unique parameters, creation returns `409` with `DUPLICATED_CHECKOUT`; see
+     * the conflict response.
      */
     String checkoutReference,
 
@@ -61,8 +63,11 @@ public record CheckoutCreateRequest(
     String redirectUrl,
 
     /**
-     * Optional backend callback URL used by SumUp to notify your platform about processing updates
-     * for the checkout.
+     * Optional backend callback URL for checkout status notifications. SumUp sends an HTTP POST
+     * with `event_type` and the checkout `id`. Retrieve the checkout to verify its current status
+     * before updating your order. See the [webhook
+     * guide](https://developer.sumup.com/online-payments/webhooks/) for the payload and response
+     * requirements.
      */
     String returnUrl,
 
@@ -110,8 +115,10 @@ public record CheckoutCreateRequest(
     /**
      * Sets the value for {@code checkoutReference}.
      *
-     * @param checkoutReference Merchant-defined reference for the new checkout. It should be unique
-     *     enough for you to identify the payment attempt in your own systems.
+     * @param checkoutReference Merchant-defined reference for the new checkout, up to 64
+     *     characters. Use it to correlate the checkout with an order or payment attempt in your own
+     *     system. If a checkout already exists for the supplied unique parameters, creation returns
+     *     `409` with `DUPLICATED_CHECKOUT`; see the conflict response.
      * @return This builder instance.
      */
     public Builder checkoutReference(String checkoutReference) {
@@ -211,8 +218,11 @@ public record CheckoutCreateRequest(
     /**
      * Sets the value for {@code returnUrl}.
      *
-     * @param returnUrl Optional backend callback URL used by SumUp to notify your platform about
-     *     processing updates for the checkout.
+     * @param returnUrl Optional backend callback URL for checkout status notifications. SumUp sends
+     *     an HTTP POST with `event_type` and the checkout `id`. Retrieve the checkout to verify its
+     *     current status before updating your order. See the [webhook
+     *     guide](https://developer.sumup.com/online-payments/webhooks/) for the payload and
+     *     response requirements.
      * @return This builder instance.
      */
     public Builder returnUrl(String returnUrl) {
