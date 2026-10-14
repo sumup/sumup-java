@@ -3,7 +3,7 @@ module github.com/sumup/sumup-java/codegen
 go 1.25.7
 
 require (
-	github.com/lmittmann/tint v1.2.0
+	github.com/lmittmann/tint v1.2.1
 	github.com/pb33f/libopenapi v0.38.7
 	github.com/urfave/cli/v2 v2.27.7
 	go.yaml.in/yaml/v4 v4.0.0-rc.6
