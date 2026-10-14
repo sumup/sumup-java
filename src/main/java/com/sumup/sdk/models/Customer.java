@@ -3,9 +3,15 @@ package com.sumup.sdk.models;
 
 import java.util.Objects;
 
-/** Saved customer details. */
+/**
+ * Saved payer details identified by the `customer_id` supplied by your integration. A customer can
+ * have saved payment instruments for subsequent payments.
+ */
 public record Customer(
-    /** Unique identifier of the customer. */
+    /**
+     * Identifier you supply when creating the customer. Use an ID from your own system and retain
+     * it for subsequent customer, checkout, and saved-payment-instrument requests.
+     */
     String customerId,
 
     /** Personal details for the customer. */
@@ -29,7 +35,9 @@ public record Customer(
     /**
      * Sets the value for {@code customerId}.
      *
-     * @param customerId Unique identifier of the customer.
+     * @param customerId Identifier you supply when creating the customer. Use an ID from your own
+     *     system and retain it for subsequent customer, checkout, and saved-payment-instrument
+     *     requests.
      * @return This builder instance.
      */
     public Builder customerId(String customerId) {

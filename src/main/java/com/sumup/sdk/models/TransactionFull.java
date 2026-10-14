@@ -3,7 +3,10 @@ package com.sumup.sdk.models;
 
 /** Full transaction resource with checkout, payout, and event details. */
 public record TransactionFull(
-    /** Total amount of the transaction. */
+    /**
+     * Total amount of the transaction in major units of `currency`, for example `10.1` for EUR
+     * 10.10.
+     */
     Float amount,
 
     /**
@@ -29,13 +32,17 @@ public record TransactionFull(
     /** Details of the ELV card account associated with the transaction. */
     com.sumup.sdk.models.ElvCardAccount elvAccount,
 
-    /** Entry mode of the payment details. */
+    /**
+     * How the payment details were captured, for example `CHIP` or `CONTACTLESS` for card-present
+     * payments and `CUSTOMER_ENTRY` for card details entered by the payer. For wallet and
+     * alternative payment methods, this can identify the method, such as `APPLE_PAY` or `BLIK`.
+     */
     com.sumup.sdk.models.EntryMode entryMode,
 
     /** Compact list of events related to the transaction. */
     java.util.List<com.sumup.sdk.models.Event> events,
 
-    /** Transaction SumUp total fee amount. */
+    /** Total SumUp transaction fee in major units of the transaction's currency. */
     Double feeAmount,
 
     /** External transaction identifier supplied by the client. */
@@ -79,7 +86,12 @@ public record TransactionFull(
     /** Internal SumUp identifier of the merchant. */
     Long merchantId,
 
-    /** Payment type used for the transaction. */
+    /**
+     * Payment category recorded on a transaction, for example `POS` for a point-of-sale card
+     * payment, `ECOM` for an online card payment, or `RECURRING` for a recurring card payment.
+     * These reporting values are separate from the lowercase `payment_type` values used to process
+     * checkouts.
+     */
     com.sumup.sdk.models.PaymentType paymentType,
 
     /** The date of the payout. */
@@ -144,11 +156,15 @@ public record TransactionFull(
     /** The timestamp of when the transaction was created. */
     java.time.OffsetDateTime timestamp,
 
-    /** Amount of the tip (out of the total transaction amount). */
+    /**
+     * Tip included in the total transaction amount, in major units of the transaction's currency.
+     */
     Float tipAmount,
 
     /**
-     * Transaction code returned by the acquirer/processing entity after processing the transaction.
+     * SumUp transaction code, for example `TEENSK4W2K`. Use it to look up the transaction with the
+     * `transaction_code` query parameter. This is separate from the transaction's `id` and the card
+     * issuer's `auth_code`.
      */
     String transactionCode,
 
@@ -158,7 +174,9 @@ public record TransactionFull(
     /** Email address of the registered user (merchant) to whom the payment is made. */
     String username,
 
-    /** Amount of the applicable VAT (out of the total transaction amount). */
+    /**
+     * VAT included in the total transaction amount, in major units of the transaction's currency.
+     */
     Float vatAmount,
 
     /** List of VAT rates applicable to the transaction. */
@@ -225,7 +243,8 @@ public record TransactionFull(
     /**
      * Sets the value for {@code amount}.
      *
-     * @param amount Total amount of the transaction.
+     * @param amount Total amount of the transaction in major units of `currency`, for example
+     *     `10.1` for EUR 10.10.
      * @return This builder instance.
      */
     public Builder amount(Float amount) {
@@ -304,7 +323,10 @@ public record TransactionFull(
     /**
      * Sets the value for {@code entryMode}.
      *
-     * @param entryMode Entry mode of the payment details.
+     * @param entryMode How the payment details were captured, for example `CHIP` or `CONTACTLESS`
+     *     for card-present payments and `CUSTOMER_ENTRY` for card details entered by the payer. For
+     *     wallet and alternative payment methods, this can identify the method, such as `APPLE_PAY`
+     *     or `BLIK`.
      * @return This builder instance.
      */
     public Builder entryMode(com.sumup.sdk.models.EntryMode entryMode) {
@@ -326,7 +348,7 @@ public record TransactionFull(
     /**
      * Sets the value for {@code feeAmount}.
      *
-     * @param feeAmount Transaction SumUp total fee amount.
+     * @param feeAmount Total SumUp transaction fee in major units of the transaction's currency.
      * @return This builder instance.
      */
     public Builder feeAmount(Double feeAmount) {
@@ -461,7 +483,10 @@ public record TransactionFull(
     /**
      * Sets the value for {@code paymentType}.
      *
-     * @param paymentType Payment type used for the transaction.
+     * @param paymentType Payment category recorded on a transaction, for example `POS` for a
+     *     point-of-sale card payment, `ECOM` for an online card payment, or `RECURRING` for a
+     *     recurring card payment. These reporting values are separate from the lowercase
+     *     `payment_type` values used to process checkouts.
      * @return This builder instance.
      */
     public Builder paymentType(com.sumup.sdk.models.PaymentType paymentType) {
@@ -636,7 +661,8 @@ public record TransactionFull(
     /**
      * Sets the value for {@code tipAmount}.
      *
-     * @param tipAmount Amount of the tip (out of the total transaction amount).
+     * @param tipAmount Tip included in the total transaction amount, in major units of the
+     *     transaction's currency.
      * @return This builder instance.
      */
     public Builder tipAmount(Float tipAmount) {
@@ -647,8 +673,9 @@ public record TransactionFull(
     /**
      * Sets the value for {@code transactionCode}.
      *
-     * @param transactionCode Transaction code returned by the acquirer/processing entity after
-     *     processing the transaction.
+     * @param transactionCode SumUp transaction code, for example `TEENSK4W2K`. Use it to look up
+     *     the transaction with the `transaction_code` query parameter. This is separate from the
+     *     transaction's `id` and the card issuer's `auth_code`.
      * @return This builder instance.
      */
     public Builder transactionCode(String transactionCode) {
@@ -682,7 +709,8 @@ public record TransactionFull(
     /**
      * Sets the value for {@code vatAmount}.
      *
-     * @param vatAmount Amount of the applicable VAT (out of the total transaction amount).
+     * @param vatAmount VAT included in the total transaction amount, in major units of the
+     *     transaction's currency.
      * @return This builder instance.
      */
     public Builder vatAmount(Float vatAmount) {

@@ -9,6 +9,7 @@ import java.util.Objects;
 public final class CardType {
   public static final CardType ALELO = new CardType("ALELO");
   public static final CardType AMEX = new CardType("AMEX");
+  public static final CardType BANCOMAT = new CardType("BANCOMAT");
   public static final CardType CONECS = new CardType("CONECS");
   public static final CardType CUP = new CardType("CUP");
   public static final CardType DINERS = new CardType("DINERS");

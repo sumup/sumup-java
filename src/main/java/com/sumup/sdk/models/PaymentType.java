@@ -5,7 +5,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 
-/** Payment type used for the transaction. */
+/**
+ * Payment category recorded on a transaction, for example `POS` for a point-of-sale card payment,
+ * `ECOM` for an online card payment, or `RECURRING` for a recurring card payment. These reporting
+ * values are separate from the lowercase `payment_type` values used to process checkouts.
+ */
 public final class PaymentType {
   public static final PaymentType CASH = new PaymentType("CASH");
   public static final PaymentType POS = new PaymentType("POS");

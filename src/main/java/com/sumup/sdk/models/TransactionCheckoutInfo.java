@@ -9,16 +9,24 @@ public record TransactionCheckoutInfo(
      */
     String authCode,
 
-    /** Entry mode of the payment details. */
+    /**
+     * How the payment details were captured, for example `CHIP` or `CONTACTLESS` for card-present
+     * payments and `CUSTOMER_ENTRY` for card details entered by the payer. For wallet and
+     * alternative payment methods, this can identify the method, such as `APPLE_PAY` or `BLIK`.
+     */
     com.sumup.sdk.models.EntryMode entryMode,
 
     /** Unique code of the registered merchant to whom the payment is made. */
     String merchantCode,
 
-    /** Amount of the tip (out of the total transaction amount). */
+    /**
+     * Tip included in the total transaction amount, in major units of the transaction's currency.
+     */
     Float tipAmount,
 
-    /** Amount of the applicable VAT (out of the total transaction amount). */
+    /**
+     * VAT included in the total transaction amount, in major units of the transaction's currency.
+     */
     Float vatAmount) {
   /**
    * Creates a builder for TransactionCheckoutInfo.
@@ -54,7 +62,10 @@ public record TransactionCheckoutInfo(
     /**
      * Sets the value for {@code entryMode}.
      *
-     * @param entryMode Entry mode of the payment details.
+     * @param entryMode How the payment details were captured, for example `CHIP` or `CONTACTLESS`
+     *     for card-present payments and `CUSTOMER_ENTRY` for card details entered by the payer. For
+     *     wallet and alternative payment methods, this can identify the method, such as `APPLE_PAY`
+     *     or `BLIK`.
      * @return This builder instance.
      */
     public Builder entryMode(com.sumup.sdk.models.EntryMode entryMode) {
@@ -76,7 +87,8 @@ public record TransactionCheckoutInfo(
     /**
      * Sets the value for {@code tipAmount}.
      *
-     * @param tipAmount Amount of the tip (out of the total transaction amount).
+     * @param tipAmount Tip included in the total transaction amount, in major units of the
+     *     transaction's currency.
      * @return This builder instance.
      */
     public Builder tipAmount(Float tipAmount) {
@@ -87,7 +99,8 @@ public record TransactionCheckoutInfo(
     /**
      * Sets the value for {@code vatAmount}.
      *
-     * @param vatAmount Amount of the applicable VAT (out of the total transaction amount).
+     * @param vatAmount VAT included in the total transaction amount, in major units of the
+     *     transaction's currency.
      * @return This builder instance.
      */
     public Builder vatAmount(Float vatAmount) {

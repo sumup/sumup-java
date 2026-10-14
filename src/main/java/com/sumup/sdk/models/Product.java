@@ -30,7 +30,7 @@ public record Product(
     /** Total VAT amount for the product quantity. */
     Double vatAmount,
 
-    /** VAT rate applied to the product price. */
+    /** VAT rate as a decimal fraction, for example `0.19` for 19%. */
     Double vatRate) {
   /**
    * Creates a builder for Product.
@@ -158,7 +158,7 @@ public record Product(
     /**
      * Sets the value for {@code vatRate}.
      *
-     * @param vatRate VAT rate applied to the product price.
+     * @param vatRate VAT rate as a decimal fraction, for example `0.19` for 19%.
      * @return This builder instance.
      */
     public Builder vatRate(Double vatRate) {

@@ -5,7 +5,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 
-/** Type of the transaction event. */
+/**
+ * Financial event associated with a transaction. - `PAYOUT`: Funds from the transaction being
+ * prepared for or included in a merchant payout. Check the event status to determine whether they
+ * have been paid out. - `REFUND`: Money returned to the payer. - `CHARGE_BACK`: A reversal of the
+ * payment following a chargeback. - `PAYOUT_DEDUCTION`: An amount deducted from a merchant payout,
+ * for example to cover a refund or chargeback.
+ */
 public final class TransactionEventType {
   public static final TransactionEventType PAYOUT = new TransactionEventType("PAYOUT");
   public static final TransactionEventType CHARGE_BACK = new TransactionEventType("CHARGE_BACK");

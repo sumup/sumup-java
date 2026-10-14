@@ -4,14 +4,14 @@ package com.sumup.sdk.models;
 import java.util.Objects;
 
 public record ReaderPaymentRequestParams(
-    com.sumup.sdk.models.Affiliate affiliate,
+    com.sumup.sdk.models.ReaderPaymentRequestParamsAffiliate affiliate,
 
     /** Caller-supplied correlation identifier, used as the idempotency key. */
     String clientTransactionId,
 
-    /** Optional tip amount in minor units, added on top of total_amount. */
+    /** Portion of total_amount that is a tip, in minor units. */
     Long tipAmount,
-    com.sumup.sdk.models.Amount totalAmount) {
+    com.sumup.sdk.models.ReaderPaymentRequestParamsTotalAmount totalAmount) {
   /**
    * Creates a builder for ReaderPaymentRequestParams.
    *
@@ -23,10 +23,10 @@ public record ReaderPaymentRequestParams(
 
   /** Builder for ReaderPaymentRequestParams instances. */
   public static final class Builder {
-    private com.sumup.sdk.models.Affiliate affiliate;
+    private com.sumup.sdk.models.ReaderPaymentRequestParamsAffiliate affiliate;
     private String clientTransactionId;
     private Long tipAmount;
-    private com.sumup.sdk.models.Amount totalAmount;
+    private com.sumup.sdk.models.ReaderPaymentRequestParamsTotalAmount totalAmount;
 
     private Builder() {}
 
@@ -36,7 +36,7 @@ public record ReaderPaymentRequestParams(
      * @param affiliate Value for the affiliate field.
      * @return This builder instance.
      */
-    public Builder affiliate(com.sumup.sdk.models.Affiliate affiliate) {
+    public Builder affiliate(com.sumup.sdk.models.ReaderPaymentRequestParamsAffiliate affiliate) {
       this.affiliate = affiliate;
       return this;
     }
@@ -56,7 +56,7 @@ public record ReaderPaymentRequestParams(
     /**
      * Sets the value for {@code tipAmount}.
      *
-     * @param tipAmount Optional tip amount in minor units, added on top of total_amount.
+     * @param tipAmount Portion of total_amount that is a tip, in minor units.
      * @return This builder instance.
      */
     public Builder tipAmount(Long tipAmount) {
@@ -70,7 +70,8 @@ public record ReaderPaymentRequestParams(
      * @param totalAmount Value for the totalAmount field.
      * @return This builder instance.
      */
-    public Builder totalAmount(com.sumup.sdk.models.Amount totalAmount) {
+    public Builder totalAmount(
+        com.sumup.sdk.models.ReaderPaymentRequestParamsTotalAmount totalAmount) {
       this.totalAmount = totalAmount;
       return this;
     }

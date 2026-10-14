@@ -126,7 +126,11 @@ public final class TransactionsClient {
   /**
    * List transactions
    *
-   * <p>Lists detailed history of all transactions associated with the merchant profile.
+   * <p>Lists transaction history for the merchant, with optional filters for payment type, status,
+   * and date range. The response contains the current page in `items` and pagination query strings
+   * in `links`. To request another page, use the query string from the relevant link's `href` with
+   * this history endpoint. Use `changes_since` when retrieving transactions modified since a
+   * previous synchronization, including transactions created earlier whose status has changed.
    *
    * <p>Operation ID: ListTransactionsV2.1
    *
@@ -144,7 +148,11 @@ public final class TransactionsClient {
   /**
    * List transactions
    *
-   * <p>Lists detailed history of all transactions associated with the merchant profile.
+   * <p>Lists transaction history for the merchant, with optional filters for payment type, status,
+   * and date range. The response contains the current page in `items` and pagination query strings
+   * in `links`. To request another page, use the query string from the relevant link's `href` with
+   * this history endpoint. Use `changes_since` when retrieving transactions modified since a
+   * previous synchronization, including transactions created earlier whose status has changed.
    *
    * <p>Operation ID: ListTransactionsV2.1
    *
@@ -163,7 +171,11 @@ public final class TransactionsClient {
   /**
    * List transactions
    *
-   * <p>Lists detailed history of all transactions associated with the merchant profile.
+   * <p>Lists transaction history for the merchant, with optional filters for payment type, status,
+   * and date range. The response contains the current page in `items` and pagination query strings
+   * in `links`. To request another page, use the query string from the relevant link's `href` with
+   * this history endpoint. Use `changes_since` when retrieving transactions modified since a
+   * previous synchronization, including transactions created earlier whose status has changed.
    *
    * <p>Operation ID: ListTransactionsV2.1
    *
@@ -202,7 +214,11 @@ public final class TransactionsClient {
   /**
    * Refund a transaction
    *
-   * <p>Refunds an identified transaction either in full or partially.
+   * <p>Refunds a transaction identified by its SumUp transaction ID. Omit the request body to
+   * request a full refund, or provide `amount` for a partial refund in the transaction's currency.
+   * Retrieve the transaction afterwards to inspect its refunded amount and refund events. The
+   * transaction must be eligible for a refund; see the error responses for invalid amounts,
+   * permissions, and processing failures.
    *
    * <p>Operation ID: RefundTransaction
    *
@@ -225,7 +241,11 @@ public final class TransactionsClient {
   /**
    * Refund a transaction
    *
-   * <p>Refunds an identified transaction either in full or partially.
+   * <p>Refunds a transaction identified by its SumUp transaction ID. Omit the request body to
+   * request a full refund, or provide `amount` for a partial refund in the transaction's currency.
+   * Retrieve the transaction afterwards to inspect its refunded amount and refund events. The
+   * transaction must be eligible for a refund; see the error responses for invalid amounts,
+   * permissions, and processing failures.
    *
    * <p>Operation ID: RefundTransaction
    *
@@ -356,8 +376,8 @@ public final class TransactionsClient {
     /**
      * Sets the limit query parameter.
      *
-     * @param value Specifies the maximum number of results per page. Value must be a positive
-     *     integer and if not specified, will return 10 results.
+     * @param value Maximum number of transactions per page. Must be a positive integer. Defaults to
+     *     `10` when omitted; a page can contain fewer results.
      * @return This ListTransactionsV21QueryParams instance.
      */
     public ListTransactionsV21QueryParams limit(Long value) {
@@ -368,9 +388,9 @@ public final class TransactionsClient {
     /**
      * Sets the newest_ref query parameter.
      *
-     * @param value Filters the results by the reference ID of transaction events and returns only
-     *     transactions with events whose IDs are *smaller* than the specified value. This
-     *     parameters supersedes the `newest_time` parameter (if both are provided in the request).
+     * @param value Pagination reference that returns results before the specified reference. Use
+     *     the value from a returned pagination link rather than constructing it yourself. This
+     *     parameter takes precedence over `newest_time` when both are provided.
      * @return This ListTransactionsV21QueryParams instance.
      */
     public ListTransactionsV21QueryParams newestRef(String value) {
@@ -394,9 +414,9 @@ public final class TransactionsClient {
     /**
      * Sets the oldest_ref query parameter.
      *
-     * @param value Filters the results by the reference ID of transaction events and returns only
-     *     transactions with events whose IDs are *greater* than the specified value. This
-     *     parameters supersedes the `oldest_time` parameter (if both are provided in the request).
+     * @param value Pagination reference that returns results after the specified reference. Use the
+     *     value from a returned pagination link rather than constructing it yourself. This
+     *     parameter takes precedence over `oldest_time` when both are provided.
      * @return This ListTransactionsV21QueryParams instance.
      */
     public ListTransactionsV21QueryParams oldestRef(String value) {
@@ -420,7 +440,8 @@ public final class TransactionsClient {
     /**
      * Sets the order query parameter.
      *
-     * @param value Specifies the order in which the returned results are displayed.
+     * @param value Sort direction for the transaction history. Use `ascending` or `descending`; the
+     *     default is `ascending`.
      * @return This ListTransactionsV21QueryParams instance.
      */
     public ListTransactionsV21QueryParams order(
@@ -445,8 +466,8 @@ public final class TransactionsClient {
     /**
      * Sets the statuses[] query parameter.
      *
-     * @param value Filters the returned results by the specified list of final statuses of the
-     *     transactions.
+     * @param value Filters transactions by the listed final statuses. For multiple values, repeat
+     *     the query parameter, for example `statuses[]=SUCCESSFUL&statuses[]=REFUNDED`.
      * @return This ListTransactionsV21QueryParams instance.
      */
     public ListTransactionsV21QueryParams statuses(
@@ -481,7 +502,8 @@ public final class TransactionsClient {
     /**
      * Sets the users[] query parameter.
      *
-     * @param value Filters the returned results by user email.
+     * @param value Filters transactions by user email. For multiple values, repeat the query
+     *     parameter, for example `users[]=first@example.com&users[]=second@example.com`.
      * @return This ListTransactionsV21QueryParams instance.
      */
     public ListTransactionsV21QueryParams users(java.util.List<String> value) {

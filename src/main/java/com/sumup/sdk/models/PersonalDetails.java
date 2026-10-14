@@ -6,7 +6,7 @@ public record PersonalDetails(
     /** Profile's personal address information. */
     com.sumup.sdk.models.AddressLegacy address,
 
-    /** Date of birth of the customer. */
+    /** Date of birth of the customer in `YYYY-MM-DD` format, without a time or timezone. */
     java.time.LocalDate birthDate,
 
     /** Email address of the customer. */
@@ -58,7 +58,8 @@ public record PersonalDetails(
     /**
      * Sets the value for {@code birthDate}.
      *
-     * @param birthDate Date of birth of the customer.
+     * @param birthDate Date of birth of the customer in `YYYY-MM-DD` format, without a time or
+     *     timezone.
      * @return This builder instance.
      */
     public Builder birthDate(java.time.LocalDate birthDate) {

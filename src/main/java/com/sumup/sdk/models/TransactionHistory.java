@@ -3,7 +3,10 @@ package com.sumup.sdk.models;
 
 /** Transaction entry returned in history listing responses. */
 public record TransactionHistory(
-    /** Total amount of the transaction. */
+    /**
+     * Total amount of the transaction in major units of `currency`, for example `10.1` for EUR
+     * 10.10.
+     */
     Float amount,
 
     /** Issuing card network of the payment card used for the transaction. */
@@ -23,7 +26,12 @@ public record TransactionHistory(
     /** Number of installments for a deferred payment. */
     Long installmentsCount,
 
-    /** Payment type used for the transaction. */
+    /**
+     * Payment category recorded on a transaction, for example `POS` for a point-of-sale card
+     * payment, `ECOM` for an online card payment, or `RECURRING` for a recurring card payment.
+     * These reporting values are separate from the lowercase `payment_type` values used to process
+     * checkouts.
+     */
     com.sumup.sdk.models.PaymentType paymentType,
 
     /** Payout date (if paid out at once). */
@@ -47,7 +55,7 @@ public record TransactionHistory(
      */
     String productSummary,
 
-    /** Total refunded amount. */
+    /** Total amount refunded for this transaction, in major units of the transaction's currency. */
     Double refundedAmount,
 
     /**
@@ -63,7 +71,9 @@ public record TransactionHistory(
     java.time.OffsetDateTime timestamp,
 
     /**
-     * Transaction code returned by the acquirer/processing entity after processing the transaction.
+     * SumUp transaction code, for example `TEENSK4W2K`. Use it to look up the transaction with the
+     * `transaction_code` query parameter. This is separate from the transaction's `id` and the card
+     * issuer's `auth_code`.
      */
     String transactionCode,
 
@@ -112,7 +122,8 @@ public record TransactionHistory(
     /**
      * Sets the value for {@code amount}.
      *
-     * @param amount Total amount of the transaction.
+     * @param amount Total amount of the transaction in major units of `currency`, for example
+     *     `10.1` for EUR 10.10.
      * @return This builder instance.
      */
     public Builder amount(Float amount) {
@@ -179,7 +190,10 @@ public record TransactionHistory(
     /**
      * Sets the value for {@code paymentType}.
      *
-     * @param paymentType Payment type used for the transaction.
+     * @param paymentType Payment category recorded on a transaction, for example `POS` for a
+     *     point-of-sale card payment, `ECOM` for an online card payment, or `RECURRING` for a
+     *     recurring card payment. These reporting values are separate from the lowercase
+     *     `payment_type` values used to process checkouts.
      * @return This builder instance.
      */
     public Builder paymentType(com.sumup.sdk.models.PaymentType paymentType) {
@@ -260,7 +274,8 @@ public record TransactionHistory(
     /**
      * Sets the value for {@code refundedAmount}.
      *
-     * @param refundedAmount Total refunded amount.
+     * @param refundedAmount Total amount refunded for this transaction, in major units of the
+     *     transaction's currency.
      * @return This builder instance.
      */
     public Builder refundedAmount(Double refundedAmount) {
@@ -297,8 +312,9 @@ public record TransactionHistory(
     /**
      * Sets the value for {@code transactionCode}.
      *
-     * @param transactionCode Transaction code returned by the acquirer/processing entity after
-     *     processing the transaction.
+     * @param transactionCode SumUp transaction code, for example `TEENSK4W2K`. Use it to look up
+     *     the transaction with the `transaction_code` query parameter. This is separate from the
+     *     transaction's `id` and the card issuer's `auth_code`.
      * @return This builder instance.
      */
     public Builder transactionCode(String transactionCode) {
