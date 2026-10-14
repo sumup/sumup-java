@@ -135,6 +135,7 @@ const (
 // buildModel walks the OpenAPI document and produces the aggregated SDK model
 // used by renderers to generate source files.
 func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
+	normalizeSchemaAnnotations(doc)
 	resolver := newTypeResolver(doc, params)
 	tagDescriptions := map[string][]string{}
 	if doc.Tags != nil {
