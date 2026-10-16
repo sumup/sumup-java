@@ -24,6 +24,7 @@ public final class CardType {
   public static final CardType MAESTRO = new CardType("MAESTRO");
   public static final CardType MASTERCARD = new CardType("MASTERCARD");
   public static final CardType PLUXEE = new CardType("PLUXEE");
+  public static final CardType SUMUP = new CardType("SUMUP");
   public static final CardType SWILE = new CardType("SWILE");
   public static final CardType TICKET = new CardType("TICKET");
   public static final CardType VISA = new CardType("VISA");
