@@ -98,6 +98,11 @@ public class EventNotification {
         throw new EventPayloadException("Expected a JSON object.");
       Class<? extends EventNotification> type =
           switch (root.path("type").asText("")) {
+            case "checkouts.created" -> CheckoutCreatedEvent.class;
+            case "checkouts.expired" -> CheckoutExpiredEvent.class;
+            case "checkouts.failed" -> CheckoutFailedEvent.class;
+            case "checkouts.paid" -> CheckoutPaidEvent.class;
+            case "checkouts.updated" -> CheckoutUpdatedEvent.class;
             case "members.created" -> MemberCreatedEvent.class;
             case "members.deleted" -> MemberDeletedEvent.class;
             case "members.updated" -> MemberUpdatedEvent.class;
