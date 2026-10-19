@@ -46,6 +46,86 @@ public final class EventsHandler {
   }
 
   /**
+   * Registers the callback for {@code "checkouts.created"}, replacing any previous registration.
+   *
+   * @param callback callback to complete before acknowledging delivery
+   * @return this handler for chaining
+   */
+  public EventsHandler onCheckoutCreated(EventCallback<CheckoutCreatedEvent> callback) {
+    Objects.requireNonNull(callback);
+    callbacks.put(
+        "checkouts.created",
+        event -> {
+          callback.handle((CheckoutCreatedEvent) event);
+        });
+    return this;
+  }
+
+  /**
+   * Registers the callback for {@code "checkouts.expired"}, replacing any previous registration.
+   *
+   * @param callback callback to complete before acknowledging delivery
+   * @return this handler for chaining
+   */
+  public EventsHandler onCheckoutExpired(EventCallback<CheckoutExpiredEvent> callback) {
+    Objects.requireNonNull(callback);
+    callbacks.put(
+        "checkouts.expired",
+        event -> {
+          callback.handle((CheckoutExpiredEvent) event);
+        });
+    return this;
+  }
+
+  /**
+   * Registers the callback for {@code "checkouts.failed"}, replacing any previous registration.
+   *
+   * @param callback callback to complete before acknowledging delivery
+   * @return this handler for chaining
+   */
+  public EventsHandler onCheckoutFailed(EventCallback<CheckoutFailedEvent> callback) {
+    Objects.requireNonNull(callback);
+    callbacks.put(
+        "checkouts.failed",
+        event -> {
+          callback.handle((CheckoutFailedEvent) event);
+        });
+    return this;
+  }
+
+  /**
+   * Registers the callback for {@code "checkouts.paid"}, replacing any previous registration.
+   *
+   * @param callback callback to complete before acknowledging delivery
+   * @return this handler for chaining
+   */
+  public EventsHandler onCheckoutPaid(EventCallback<CheckoutPaidEvent> callback) {
+    Objects.requireNonNull(callback);
+    callbacks.put(
+        "checkouts.paid",
+        event -> {
+          callback.handle((CheckoutPaidEvent) event);
+        });
+    return this;
+  }
+
+  /**
+   * Registers the callback for {@code "checkouts.updated"}, replacing any previous registration.
+   *
+   * @param callback callback to complete before acknowledging delivery
+   * @return this handler for chaining
+   */
+  public EventsHandler onCheckoutUpdated(EventCallback<CheckoutUpdatedEvent> callback) {
+    Objects.requireNonNull(callback);
+    callbacks.put(
+        "checkouts.updated",
+        event -> {
+          callback.handle((CheckoutUpdatedEvent) event);
+        });
+    return this;
+  }
+
+  /**
    * Registers the callback for {@code "members.created"}, replacing any previous registration.
    *
    * @param callback callback to complete before acknowledging delivery
