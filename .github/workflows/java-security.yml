@@ -1,0 +1,27 @@
+name: Java certificate security
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  certificates:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        java: ['17', '21', '25']
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+      - name: Block compromised eMudhra certificates
+        run: sh .github/scripts/block-emudhra.sh "$JAVA_HOME"
+      - name: Verify offline certificate rejection
+        run: |
+          cd .github/scripts/java-security
+          javac --release 8 VerifyBlocked.java
+          java VerifyBlocked roots.pem emudhra.pem blocked
