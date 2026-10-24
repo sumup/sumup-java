@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 
 /**
- * The card type of the card used for the transaction. Is is required only for some countries (e.g:
+ * The card type of the card used for the transaction. It is required only for some countries (e.g:
  * Brazil).
  */
 public final class CreateReaderCheckoutRequestCardType {

@@ -91,7 +91,12 @@ public final class ReadersClient {
    * The target device must be online, otherwise checkout won't be accepted * After the checkout is
    * accepted, the system has 60 seconds to start the payment on the target device. During this
    * time, any other checkout for the same device will be rejected. **Note**: If the target device
-   * is a Solo, it must be in version 3.3.24.3 or higher.
+   * is a Solo, it must be in version 3.3.24.3 or higher. **Affiliate metadata**: Optionally include
+   * an `affiliate` object to attach integrator metadata to the payment. When provided, the
+   * affiliate key is validated against Identity Admin, stored server-side for approximately 600
+   * seconds, and merged into the downstream payment when the reader starts the transaction using
+   * the returned `client_transaction_id`. Affiliate metadata is not sent to the device during
+   * checkout creation.
    *
    * <p>Operation ID: CreateReaderCheckout
    *
@@ -119,7 +124,12 @@ public final class ReadersClient {
    * The target device must be online, otherwise checkout won't be accepted * After the checkout is
    * accepted, the system has 60 seconds to start the payment on the target device. During this
    * time, any other checkout for the same device will be rejected. **Note**: If the target device
-   * is a Solo, it must be in version 3.3.24.3 or higher.
+   * is a Solo, it must be in version 3.3.24.3 or higher. **Affiliate metadata**: Optionally include
+   * an `affiliate` object to attach integrator metadata to the payment. When provided, the
+   * affiliate key is validated against Identity Admin, stored server-side for approximately 600
+   * seconds, and merged into the downstream payment when the reader starts the transaction using
+   * the returned `client_transaction_id`. Affiliate metadata is not sent to the device during
+   * checkout creation.
    *
    * <p>Operation ID: CreateReaderCheckout
    *

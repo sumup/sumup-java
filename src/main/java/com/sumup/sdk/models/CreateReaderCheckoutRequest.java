@@ -3,7 +3,11 @@ package com.sumup.sdk.models;
 
 import java.util.Objects;
 
-/** Reader Checkout */
+/**
+ * Reader Checkout request for SumUp API clients. SumUp API integrators send affiliate metadata in
+ * the `affiliate` field below. SDK clients use `POST /api/terminals` with `terminal.affiliate`
+ * instead.
+ */
 public record CreateReaderCheckoutRequest(
     /**
      * Optional object containing data for transactions from ERP integrators in Greece that comply
@@ -14,13 +18,16 @@ public record CreateReaderCheckoutRequest(
     com.sumup.sdk.models.CreateReaderCheckoutRequestAade aade,
 
     /**
-     * Affiliate metadata for the transaction. It is a field that allow for integrators to track the
-     * source of the transaction.
+     * **SumUp API clients:** affiliate ingress for Reader Checkout. Send integrator metadata here
+     * when creating a checkout. When `app_id` and `key` are both present, the key is validated
+     * against Identity Admin, stored server-side, and merged into the payment when the reader
+     * starts the transaction using the returned `client_transaction_id` as `terminal.client_id`.
+     * SDK clients send affiliate on `POST /api/terminals` instead.
      */
-    com.sumup.sdk.models.Affiliate2 affiliate,
+    com.sumup.sdk.models.CreateReaderCheckoutRequestAffiliate affiliate,
 
     /**
-     * The card type of the card used for the transaction. Is is required only for some countries
+     * The card type of the card used for the transaction. It is required only for some countries
      * (e.g: Brazil).
      */
     com.sumup.sdk.models.CreateReaderCheckoutRequestCardType cardType,
@@ -31,16 +38,24 @@ public record CreateReaderCheckoutRequest(
     /**
      * Number of installments for the transaction. It may vary according to the merchant country.
      * For example, in Brazil, the maximum number of installments is 12. Omit if the merchant
-     * country does support installments. Otherwise, the checkout will be rejected.
+     * country does not support installments. Otherwise, the checkout will be rejected.
      */
     Long installments,
+
+    /**
+     * The payment method type for the transaction. Defaults to `card`. Use `pix` to initiate a Pix
+     * QR-code payment flow on the device. Pix is only supported for Brazilian merchants; other
+     * merchants will receive a 422 error.
+     */
+    com.sumup.sdk.models.CreateReaderCheckoutRequestPaymentType paymentType,
 
     /** Webhook URL to which the payment result will be sent. It must be a HTTPS url. */
     String returnUrl,
 
     /**
-     * List of tipping rates to be displayed to the cardholder. The rates are in percentage and
-     * should be between 0.01 and 0.99. The list should be sorted in ascending order.
+     * Exactly three distinct tipping rates to be displayed to the cardholder. Each rate is a
+     * fraction between 0.01 and 1.00 in increments of 0.01. The rates are sorted in ascending order
+     * by the server.
      */
     java.util.List<Float> tipRates,
 
@@ -68,10 +83,11 @@ public record CreateReaderCheckoutRequest(
   /** Builder for CreateReaderCheckoutRequest instances. */
   public static final class Builder {
     private com.sumup.sdk.models.CreateReaderCheckoutRequestAade aade;
-    private com.sumup.sdk.models.Affiliate2 affiliate;
+    private com.sumup.sdk.models.CreateReaderCheckoutRequestAffiliate affiliate;
     private com.sumup.sdk.models.CreateReaderCheckoutRequestCardType cardType;
     private String description;
     private Long installments;
+    private com.sumup.sdk.models.CreateReaderCheckoutRequestPaymentType paymentType;
     private String returnUrl;
     private java.util.List<Float> tipRates;
     private Long tipTimeout;
@@ -96,11 +112,15 @@ public record CreateReaderCheckoutRequest(
     /**
      * Sets the value for {@code affiliate}.
      *
-     * @param affiliate Affiliate metadata for the transaction. It is a field that allow for
-     *     integrators to track the source of the transaction.
+     * @param affiliate **SumUp API clients:** affiliate ingress for Reader Checkout. Send
+     *     integrator metadata here when creating a checkout. When `app_id` and `key` are both
+     *     present, the key is validated against Identity Admin, stored server-side, and merged into
+     *     the payment when the reader starts the transaction using the returned
+     *     `client_transaction_id` as `terminal.client_id`. SDK clients send affiliate on `POST
+     *     /api/terminals` instead.
      * @return This builder instance.
      */
-    public Builder affiliate(com.sumup.sdk.models.Affiliate2 affiliate) {
+    public Builder affiliate(com.sumup.sdk.models.CreateReaderCheckoutRequestAffiliate affiliate) {
       this.affiliate = affiliate;
       return this;
     }
@@ -108,7 +128,7 @@ public record CreateReaderCheckoutRequest(
     /**
      * Sets the value for {@code cardType}.
      *
-     * @param cardType The card type of the card used for the transaction. Is is required only for
+     * @param cardType The card type of the card used for the transaction. It is required only for
      *     some countries (e.g: Brazil).
      * @return This builder instance.
      */
@@ -133,12 +153,26 @@ public record CreateReaderCheckoutRequest(
      *
      * @param installments Number of installments for the transaction. It may vary according to the
      *     merchant country. For example, in Brazil, the maximum number of installments is 12. Omit
-     *     if the merchant country does support installments. Otherwise, the checkout will be
+     *     if the merchant country does not support installments. Otherwise, the checkout will be
      *     rejected.
      * @return This builder instance.
      */
     public Builder installments(Long installments) {
       this.installments = installments;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code paymentType}.
+     *
+     * @param paymentType The payment method type for the transaction. Defaults to `card`. Use `pix`
+     *     to initiate a Pix QR-code payment flow on the device. Pix is only supported for Brazilian
+     *     merchants; other merchants will receive a 422 error.
+     * @return This builder instance.
+     */
+    public Builder paymentType(
+        com.sumup.sdk.models.CreateReaderCheckoutRequestPaymentType paymentType) {
+      this.paymentType = paymentType;
       return this;
     }
 
@@ -157,9 +191,9 @@ public record CreateReaderCheckoutRequest(
     /**
      * Sets the value for {@code tipRates}.
      *
-     * @param tipRates List of tipping rates to be displayed to the cardholder. The rates are in
-     *     percentage and should be between 0.01 and 0.99. The list should be sorted in ascending
-     *     order.
+     * @param tipRates Exactly three distinct tipping rates to be displayed to the cardholder. Each
+     *     rate is a fraction between 0.01 and 1.00 in increments of 0.01. The rates are sorted in
+     *     ascending order by the server.
      * @return This builder instance.
      */
     public Builder tipRates(java.util.List<Float> tipRates) {
@@ -205,6 +239,7 @@ public record CreateReaderCheckoutRequest(
           cardType,
           description,
           installments,
+          paymentType,
           returnUrl,
           tipRates,
           tipTimeout,
