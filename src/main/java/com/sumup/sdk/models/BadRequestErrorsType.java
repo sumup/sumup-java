@@ -7,6 +7,9 @@ import java.util.Objects;
 
 /** Key indicating type of error */
 public final class BadRequestErrorsType {
+  public static final BadRequestErrorsType INVALID_AFFILIATE_KEY =
+      new BadRequestErrorsType("INVALID_AFFILIATE_KEY");
+  public static final BadRequestErrorsType APP_OUTDATED = new BadRequestErrorsType("APP_OUTDATED");
   public static final BadRequestErrorsType INVALID_BEARER_TOKEN =
       new BadRequestErrorsType("INVALID_BEARER_TOKEN");
   public static final BadRequestErrorsType INVALID_USER_AGENT =

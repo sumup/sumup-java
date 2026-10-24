@@ -4,7 +4,7 @@ package com.sumup.sdk.models;
 import java.util.Objects;
 
 public record GetReaderCheckoutResponseData(
-    /** Type of the card. Required for some countries */
+    /** Type of the card, or null when no card type was specified. */
     com.sumup.sdk.models.GetReaderCheckoutResponseDataCardType cardType,
 
     /** Unique identifier for the checkout */
@@ -81,7 +81,7 @@ public record GetReaderCheckoutResponseData(
     /**
      * Sets the value for {@code cardType}.
      *
-     * @param cardType Type of the card. Required for some countries
+     * @param cardType Type of the card, or null when no card type was specified.
      * @return This builder instance.
      */
     public Builder cardType(com.sumup.sdk.models.GetReaderCheckoutResponseDataCardType cardType) {

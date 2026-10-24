@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 
-/** Type of the card. Required for some countries */
+/** Type of the card, or null when no card type was specified. */
 public final class GetReaderCheckoutResponseDataCardType {
   public static final GetReaderCheckoutResponseDataCardType CREDIT =
       new GetReaderCheckoutResponseDataCardType("credit");
   public static final GetReaderCheckoutResponseDataCardType DEBIT =
       new GetReaderCheckoutResponseDataCardType("debit");
+  public static final GetReaderCheckoutResponseDataCardType NULL =
+      new GetReaderCheckoutResponseDataCardType("null");
 
   private final String value;
 
