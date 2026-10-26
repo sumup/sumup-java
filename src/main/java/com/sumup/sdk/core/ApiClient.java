@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.sumup.sdk.models.Problem;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URI;
@@ -13,6 +15,7 @@ import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.net.http.HttpTimeoutException;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.OffsetDateTime;
@@ -23,7 +26,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /** Minimal HTTP client wrapper used by the generated SDK clients. */
 public final class ApiClient {
@@ -75,15 +80,19 @@ public final class ApiClient {
       RequestOptions requestOptions) {
     HttpRequest request =
         buildRequest(method, path, queryParams, headerParams, body, requestOptions);
+    HttpResponse<String> response;
     try {
-      HttpResponse<String> response =
-          httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-      return readResponse(response, responseType);
+      response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     } catch (IOException | InterruptedException e) {
       if (e instanceof InterruptedException) {
         Thread.currentThread().interrupt();
       }
-      throw new ApiException("Failed to execute request", e);
+      throw transportException(e);
+    }
+    try {
+      return readResponse(response, responseType);
+    } catch (IOException e) {
+      throw new ApiException("Failed to decode response", e);
     }
   }
 
@@ -109,12 +118,22 @@ public final class ApiClient {
         buildRequest(method, path, queryParams, headerParams, body, requestOptions);
     return httpClient
         .sendAsync(request, HttpResponse.BodyHandlers.ofString())
-        .thenApply(
-            response -> {
+        .handle(
+            (response, failure) -> {
+              if (failure != null) {
+                Throwable cause =
+                    failure instanceof CompletionException && failure.getCause() != null
+                        ? failure.getCause()
+                        : failure;
+                if (cause instanceof CancellationException cancelled) {
+                  throw cancelled;
+                }
+                throw transportException(cause);
+              }
               try {
                 return readResponse(response, responseType);
               } catch (IOException e) {
-                throw new ApiException("Failed to execute request", e);
+                throw new ApiException("Failed to decode response", e);
               }
             });
   }
@@ -169,7 +188,32 @@ public final class ApiClient {
       }
       return objectMapper.readValue(responseBody, responseType);
     }
-    throw new ApiException("Request failed", status, response.body());
+    Problem problem = null;
+    try {
+      JsonNode json = objectMapper.readTree(response.body());
+      if (json != null && json.hasNonNull("type") && json.get("type").isTextual()) {
+        problem = objectMapper.treeToValue(json, Problem.class);
+      }
+    } catch (IOException | IllegalArgumentException ignored) {
+      // Preserve unrecognized or malformed bodies in the HTTP exception.
+    }
+    String message = "Request failed";
+    if (problem != null) {
+      if (problem.detail() != null && !problem.detail().isBlank()) {
+        message = problem.detail();
+      } else if (problem.title() != null && !problem.title().isBlank()) {
+        message = problem.title();
+      }
+    }
+    throw new ApiStatusException(
+        message, status, response.body(), problem, response.headers(), response.uri());
+  }
+
+  private static ApiConnectionException transportException(Throwable cause) {
+    if (cause instanceof HttpTimeoutException) {
+      return new ApiTimeoutException("Request timed out", cause);
+    }
+    return new ApiConnectionException("Failed to execute request", cause);
   }
 
   private Duration effectiveTimeout(RequestOptions requestOptions) {
@@ -319,7 +363,7 @@ public final class ApiClient {
     ObjectMapper mapper = new ObjectMapper();
     mapper.registerModule(new JavaTimeModule());
     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL);
     return mapper;
   }
 
