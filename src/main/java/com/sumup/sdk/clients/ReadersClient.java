@@ -91,7 +91,9 @@ public final class ReadersClient {
    * The target device must be online, otherwise checkout won't be accepted * After the checkout is
    * accepted, the system has 60 seconds to start the payment on the target device. During this
    * time, any other checkout for the same device will be rejected. **Note**: If the target device
-   * is a Solo, it must be in version 3.3.24.3 or higher.
+   * is a Solo, it must be in version 3.3.24.3 or higher. Optionally include an `affiliate` object
+   * to attach integrator metadata to the payment. Provide both `app_id` and `key` when including
+   * this object.
    *
    * <p>Operation ID: CreateReaderCheckout
    *
@@ -119,7 +121,9 @@ public final class ReadersClient {
    * The target device must be online, otherwise checkout won't be accepted * After the checkout is
    * accepted, the system has 60 seconds to start the payment on the target device. During this
    * time, any other checkout for the same device will be rejected. **Note**: If the target device
-   * is a Solo, it must be in version 3.3.24.3 or higher.
+   * is a Solo, it must be in version 3.3.24.3 or higher. Optionally include an `affiliate` object
+   * to attach integrator metadata to the payment. Provide both `app_id` and `key` when including
+   * this object.
    *
    * <p>Operation ID: CreateReaderCheckout
    *
@@ -404,6 +408,65 @@ public final class ReadersClient {
   }
 
   /**
+   * Get Reader Settings
+   *
+   * <p>Returns the menu lock settings for a Solo reader. For an online reader, returns the current
+   * settings. For an offline reader, returns the last saved settings, which may differ from its
+   * current configuration. Returns `404` if the reader is offline and no saved settings are
+   * available. The response may include the menu lock PIN.
+   *
+   * <p>Operation ID: GetReaderSettings
+   *
+   * @param merchantCode The merchant code of the account that owns the reader.
+   * @param readerId The unique identifier of the reader.
+   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
+   *     request timeout.
+   * @return com.sumup.sdk.models.GetReaderSettingsResponse parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public com.sumup.sdk.models.GetReaderSettingsResponse getReaderSettings(
+      String merchantCode, String readerId) throws ApiException {
+    return getReaderSettings(merchantCode, readerId, null);
+  }
+
+  /**
+   * Get Reader Settings
+   *
+   * <p>Returns the menu lock settings for a Solo reader. For an online reader, returns the current
+   * settings. For an offline reader, returns the last saved settings, which may differ from its
+   * current configuration. Returns `404` if the reader is offline and no saved settings are
+   * available. The response may include the menu lock PIN.
+   *
+   * <p>Operation ID: GetReaderSettings
+   *
+   * @param merchantCode The merchant code of the account that owns the reader.
+   * @param readerId The unique identifier of the reader.
+   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
+   *     {@code null} to use client defaults.
+   * @return com.sumup.sdk.models.GetReaderSettingsResponse parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public com.sumup.sdk.models.GetReaderSettingsResponse getReaderSettings(
+      String merchantCode, String readerId, RequestOptions requestOptions) throws ApiException {
+    Objects.requireNonNull(merchantCode, "merchantCode");
+    Objects.requireNonNull(readerId, "readerId");
+    String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}/settings";
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
+
+    return this.apiClient.send(
+        HttpMethod.GET,
+        path,
+        null,
+        null,
+        null,
+        new TypeReference<com.sumup.sdk.models.GetReaderSettingsResponse>() {},
+        requestOptions);
+  }
+
+  /**
    * Get a Reader Status
    *
    * <p>Provides the last known status for a Reader. This endpoint allows you to retrieve updates
@@ -647,6 +710,77 @@ public final class ReadersClient {
         null,
         request,
         new TypeReference<com.sumup.sdk.models.Reader>() {},
+        requestOptions);
+  }
+
+  /**
+   * Update Reader Settings
+   *
+   * <p>Updates the menu lock settings for a Solo reader. The reader must be online. A successful
+   * response confirms that the reader applied the update. Include at least one of
+   * `menu_lock.enabled` or `menu_lock.passcode`. Omitted settings keep their current values. The
+   * response contains only the settings included in the request. When enabling menu lock for a
+   * reader without a PIN, include a four-digit PIN in `menu_lock.passcode` in the same request.
+   *
+   * <p>Operation ID: UpdateReaderSettings
+   *
+   * @param merchantCode The merchant code of the account that owns the reader.
+   * @param readerId The unique identifier of the reader.
+   * @param request Menu lock settings to update.
+   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
+   *     request timeout.
+   * @return com.sumup.sdk.models.UpdateReaderSettingsResponse parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public com.sumup.sdk.models.UpdateReaderSettingsResponse updateReaderSettings(
+      String merchantCode,
+      String readerId,
+      com.sumup.sdk.models.UpdateReaderSettingsRequest request)
+      throws ApiException {
+    return updateReaderSettings(merchantCode, readerId, request, null);
+  }
+
+  /**
+   * Update Reader Settings
+   *
+   * <p>Updates the menu lock settings for a Solo reader. The reader must be online. A successful
+   * response confirms that the reader applied the update. Include at least one of
+   * `menu_lock.enabled` or `menu_lock.passcode`. Omitted settings keep their current values. The
+   * response contains only the settings included in the request. When enabling menu lock for a
+   * reader without a PIN, include a four-digit PIN in `menu_lock.passcode` in the same request.
+   *
+   * <p>Operation ID: UpdateReaderSettings
+   *
+   * @param merchantCode The merchant code of the account that owns the reader.
+   * @param readerId The unique identifier of the reader.
+   * @param request Menu lock settings to update.
+   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
+   *     {@code null} to use client defaults.
+   * @return com.sumup.sdk.models.UpdateReaderSettingsResponse parsed response.
+   * @throws ApiException if the SumUp API returns an error.
+   */
+  public com.sumup.sdk.models.UpdateReaderSettingsResponse updateReaderSettings(
+      String merchantCode,
+      String readerId,
+      com.sumup.sdk.models.UpdateReaderSettingsRequest request,
+      RequestOptions requestOptions)
+      throws ApiException {
+    Objects.requireNonNull(merchantCode, "merchantCode");
+    Objects.requireNonNull(readerId, "readerId");
+    Objects.requireNonNull(request, "request");
+    String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}/settings";
+    path =
+        path.replace(
+            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
+    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
+
+    return this.apiClient.send(
+        HttpMethod.PATCH,
+        path,
+        null,
+        null,
+        request,
+        new TypeReference<com.sumup.sdk.models.UpdateReaderSettingsResponse>() {},
         requestOptions);
   }
 
