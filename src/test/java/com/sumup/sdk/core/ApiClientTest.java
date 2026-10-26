@@ -1,12 +1,16 @@
 package com.sumup.sdk.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.sumup.sdk.clients.ReadersClient;
+import java.io.IOException;
 import java.net.Authenticator;
 import java.net.CookieHandler;
 import java.net.ProxySelector;
@@ -164,6 +168,17 @@ final class ApiClientTest {
   }
 
   @Test
+  void problemTitleIsUsedWhenDetailIsMissing() {
+    String body = "{\"type\":\"about:blank\",\"title\":\"Unauthorized\"}";
+    ApiClient client = ApiClient.builder().httpClient(new CapturingHttpClient(401, body)).build();
+    ApiStatusException error =
+        assertThrows(
+            ApiStatusException.class,
+            () -> client.send(HttpMethod.GET, "/error", null, null, null, null, null));
+    assertEquals("Unauthorized (401)", error.getMessage());
+  }
+
+  @Test
   void malformedErrorBodiesRemainHttpErrors() {
     ApiClient client =
         ApiClient.builder().httpClient(new CapturingHttpClient(502, "{invalid")).build();
@@ -176,10 +191,54 @@ final class ApiClientTest {
     assertEquals(502, error.getStatusCode());
   }
 
+  @Test
+  void malformedSuccessIsNotAConnectionFailure() {
+    ApiClient client =
+        ApiClient.builder().httpClient(new CapturingHttpClient(200, "{invalid")).build();
+    var type = new TypeReference<Map<String, Object>>() {};
+    ApiException error =
+        assertThrows(
+            ApiException.class,
+            () -> client.send(HttpMethod.GET, "/test", null, null, null, type, null));
+    assertFalse(error instanceof ApiConnectionException);
+    assertEquals("Failed to decode response", error.getMessage());
+    var asyncError =
+        assertThrows(
+            java.util.concurrent.CompletionException.class,
+            () -> client.sendAsync(HttpMethod.GET, "/test", null, null, null, type, null).join());
+    assertEquals(ApiException.class, asyncError.getCause().getClass());
+    assertEquals(error.getMessage(), asyncError.getCause().getMessage());
+  }
+
+  @Test
+  void transportFailuresPreserveTheirTypeAndCause() {
+    for (IOException cause :
+        new IOException[] {
+          new IOException("Disconnected"), new java.net.http.HttpTimeoutException("Deadline")
+        }) {
+      ApiClient client = ApiClient.builder().httpClient(new CapturingHttpClient(cause)).build();
+      var error =
+          assertThrows(
+              ApiConnectionException.class,
+              () -> client.send(HttpMethod.GET, "/test", null, null, null, null, null));
+      assertSame(cause, error.getCause());
+      assertEquals(
+          cause instanceof java.net.http.HttpTimeoutException,
+          error instanceof ApiTimeoutException);
+      var asyncError =
+          assertThrows(
+              java.util.concurrent.CompletionException.class,
+              () -> client.sendAsync(HttpMethod.GET, "/test", null, null, null, null, null).join());
+      assertEquals(error.getClass(), asyncError.getCause().getClass());
+      assertSame(cause, asyncError.getCause().getCause());
+    }
+  }
+
   private static final class CapturingHttpClient extends HttpClient {
     private HttpRequest lastRequest;
     private final int status;
     private final String body;
+    private final IOException failure;
 
     CapturingHttpClient() {
       this(200, "");
@@ -188,6 +247,13 @@ final class ApiClientTest {
     CapturingHttpClient(int status, String body) {
       this.status = status;
       this.body = body;
+      this.failure = null;
+    }
+
+    CapturingHttpClient(IOException failure) {
+      this.status = 0;
+      this.body = "";
+      this.failure = failure;
     }
 
     HttpRequest lastRequest() {
@@ -241,8 +307,9 @@ final class ApiClientTest {
 
     @Override
     public <T> HttpResponse<T> send(
-        HttpRequest request, HttpResponse.BodyHandler<T> responseBodyHandler) {
+        HttpRequest request, HttpResponse.BodyHandler<T> responseBodyHandler) throws IOException {
       this.lastRequest = request;
+      if (failure != null) throw failure;
       return (HttpResponse<T>) new CapturingHttpResponse(request, status, body);
     }
 
@@ -250,6 +317,7 @@ final class ApiClientTest {
     public <T> CompletableFuture<HttpResponse<T>> sendAsync(
         HttpRequest request, HttpResponse.BodyHandler<T> responseBodyHandler) {
       this.lastRequest = request;
+      if (failure != null) return CompletableFuture.failedFuture(failure);
       return CompletableFuture.completedFuture(
           (HttpResponse<T>) new CapturingHttpResponse(request, status, body));
     }
@@ -260,6 +328,7 @@ final class ApiClientTest {
         HttpResponse.BodyHandler<T> responseBodyHandler,
         HttpResponse.PushPromiseHandler<T> pushPromiseHandler) {
       this.lastRequest = request;
+      if (failure != null) return CompletableFuture.failedFuture(failure);
       return CompletableFuture.completedFuture(
           (HttpResponse<T>) new CapturingHttpResponse(request, status, body));
     }
