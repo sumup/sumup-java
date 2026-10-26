@@ -8,9 +8,8 @@ public record CreateReaderCheckoutResponseData(
     String checkoutId,
 
     /**
-     * The client transaction ID is a unique identifier for the transaction that is generated for
-     * the client. It can be used later to fetch the transaction details via the [Transactions
-     * API](https://developer.sumup.com/api/transactions/get).
+     * Unique identifier for the transaction associated with this checkout. Use this value to match
+     * the checkout with payment events and transaction records.
      */
     String clientTransactionId) {
   /**
@@ -43,10 +42,9 @@ public record CreateReaderCheckoutResponseData(
     /**
      * Sets the value for {@code clientTransactionId}.
      *
-     * @param clientTransactionId The client transaction ID is a unique identifier for the
-     *     transaction that is generated for the client. It can be used later to fetch the
-     *     transaction details via the [Transactions
-     *     API](https://developer.sumup.com/api/transactions/get).
+     * @param clientTransactionId Unique identifier for the transaction associated with this
+     *     checkout. Use this value to match the checkout with payment events and transaction
+     *     records.
      * @return This builder instance.
      */
     public Builder clientTransactionId(String clientTransactionId) {

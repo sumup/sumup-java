@@ -4,7 +4,7 @@ package com.sumup.sdk.models;
 import java.util.Objects;
 
 public record GetReaderCheckoutResponseData(
-    /** Type of the card. Required for some countries */
+    /** Type of the card, or null when no card type was specified. */
     com.sumup.sdk.models.GetReaderCheckoutResponseDataCardType cardType,
 
     /** Unique identifier for the checkout */
@@ -19,10 +19,10 @@ public record GetReaderCheckoutResponseData(
     /** Number of installments for the transaction. Required for some countries. */
     Long installments,
 
-    /** Payment failure reason */
+    /** Reason for the payment failure, or null when no failure reason is available. */
     String paymentFailureReason,
 
-    /** Payment status from payments v2 event */
+    /** Status of the payment, or null when no payment status is available. */
     String paymentStatus,
 
     /** Type of the payment. Required for some countries */
@@ -81,7 +81,7 @@ public record GetReaderCheckoutResponseData(
     /**
      * Sets the value for {@code cardType}.
      *
-     * @param cardType Type of the card. Required for some countries
+     * @param cardType Type of the card, or null when no card type was specified.
      * @return This builder instance.
      */
     public Builder cardType(com.sumup.sdk.models.GetReaderCheckoutResponseDataCardType cardType) {
@@ -136,7 +136,8 @@ public record GetReaderCheckoutResponseData(
     /**
      * Sets the value for {@code paymentFailureReason}.
      *
-     * @param paymentFailureReason Payment failure reason
+     * @param paymentFailureReason Reason for the payment failure, or null when no failure reason is
+     *     available.
      * @return This builder instance.
      */
     public Builder paymentFailureReason(String paymentFailureReason) {
@@ -147,7 +148,7 @@ public record GetReaderCheckoutResponseData(
     /**
      * Sets the value for {@code paymentStatus}.
      *
-     * @param paymentStatus Payment status from payments v2 event
+     * @param paymentStatus Status of the payment, or null when no payment status is available.
      * @return This builder instance.
      */
     public Builder paymentStatus(String paymentStatus) {
