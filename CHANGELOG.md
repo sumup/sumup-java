@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.2](https://github.com/sumup/sumup-java/compare/v0.1.1...v0.1.2) (2026-10-26)
+
+
+### Features
+
+* expose typed Problem details on API errors ([#179](https://github.com/sumup/sumup-java/issues/179)) ([3046211](https://github.com/sumup/sumup-java/commit/3046211783dca94f3fc3e7ff7f2acc284f09965e))
+
+
+### Chores
+
+* synced file(s) with sumup/apis ([#177](https://github.com/sumup/sumup-java/issues/177)) ([9792f3c](https://github.com/sumup/sumup-java/commit/9792f3cd002819306432a5bb35a77651226f45d0))
+
 ## [0.1.1](https://github.com/sumup/sumup-java/compare/v0.1.0...v0.1.1) (2026-10-20)
 
 
