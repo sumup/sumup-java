@@ -34,7 +34,8 @@ public record Problem(
     additionalProperties =
         additionalProperties == null
             ? java.util.Map.of()
-            : java.util.Map.copyOf(additionalProperties);
+            : java.util.Collections.unmodifiableMap(
+                new java.util.LinkedHashMap<>(additionalProperties));
   }
 
   @JsonAnyGetter

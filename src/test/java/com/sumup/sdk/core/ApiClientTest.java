@@ -2,6 +2,7 @@ package com.sumup.sdk.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -143,6 +144,23 @@ final class ApiClientTest {
             java.util.concurrent.CompletionException.class,
             () -> client.sendAsync(HttpMethod.GET, "/error", null, null, null, null, null).join());
     assertInstanceOf(ApiStatusException.class, asyncError.getCause());
+  }
+
+  @Test
+  void problemExtensionsCanContainNull() {
+    String body = "{\"type\":\"about:blank\",\"detail\":\"Token expired\",\"trace_id\":null}";
+    ApiClient client = ApiClient.builder().httpClient(new CapturingHttpClient(401, body)).build();
+    ApiStatusException error =
+        assertThrows(
+            ApiStatusException.class,
+            () -> client.send(HttpMethod.GET, "/error", null, null, null, null, null));
+    var problem = error.getProblem().orElseThrow();
+    assertEquals("Token expired", problem.detail());
+    assertTrue(problem.additionalProperties().containsKey("trace_id"));
+    assertNull(problem.additionalProperties().get("trace_id"));
+    assertThrows(
+        UnsupportedOperationException.class,
+        () -> problem.additionalProperties().put("trace_id", "changed"));
   }
 
   @Test
