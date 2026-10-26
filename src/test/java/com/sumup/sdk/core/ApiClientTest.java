@@ -1,6 +1,8 @@
 package com.sumup.sdk.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.sumup.sdk.clients.ReadersClient;
@@ -124,8 +126,51 @@ final class ApiClientTest {
         httpClient.lastRequest().uri());
   }
 
+  @Test
+  void apiErrorsExposeTypedProblemsAndKeepResponseContext() {
+    String body = "{\"type\":\"about:blank\",\"detail\":\"Invalid amount\"}";
+    ApiClient client = ApiClient.builder().httpClient(new CapturingHttpClient(400, body)).build();
+    ApiStatusException error =
+        assertThrows(
+            ApiStatusException.class,
+            () -> client.send(HttpMethod.GET, "/error", null, null, null, null, null));
+    assertEquals("Invalid amount", error.getProblem().orElseThrow().detail());
+    assertEquals(body, error.getResponseBody());
+    assertEquals(400, error.getStatusCode());
+    assertEquals("10", error.getResponseHeaders().get("Retry-After").get(0));
+    java.util.concurrent.CompletionException asyncError =
+        assertThrows(
+            java.util.concurrent.CompletionException.class,
+            () -> client.sendAsync(HttpMethod.GET, "/error", null, null, null, null, null).join());
+    assertInstanceOf(ApiStatusException.class, asyncError.getCause());
+  }
+
+  @Test
+  void malformedErrorBodiesRemainHttpErrors() {
+    ApiClient client =
+        ApiClient.builder().httpClient(new CapturingHttpClient(502, "{invalid")).build();
+    ApiStatusException error =
+        assertThrows(
+            ApiStatusException.class,
+            () -> client.send(HttpMethod.GET, "/error", null, null, null, null, null));
+    assertTrue(error.getProblem().isEmpty());
+    assertEquals("{invalid", error.getResponseBody());
+    assertEquals(502, error.getStatusCode());
+  }
+
   private static final class CapturingHttpClient extends HttpClient {
     private HttpRequest lastRequest;
+    private final int status;
+    private final String body;
+
+    CapturingHttpClient() {
+      this(200, "");
+    }
+
+    CapturingHttpClient(int status, String body) {
+      this.status = status;
+      this.body = body;
+    }
 
     HttpRequest lastRequest() {
       return lastRequest;
@@ -180,7 +225,7 @@ final class ApiClientTest {
     public <T> HttpResponse<T> send(
         HttpRequest request, HttpResponse.BodyHandler<T> responseBodyHandler) {
       this.lastRequest = request;
-      return (HttpResponse<T>) new CapturingHttpResponse(request);
+      return (HttpResponse<T>) new CapturingHttpResponse(request, status, body);
     }
 
     @Override
@@ -188,7 +233,7 @@ final class ApiClientTest {
         HttpRequest request, HttpResponse.BodyHandler<T> responseBodyHandler) {
       this.lastRequest = request;
       return CompletableFuture.completedFuture(
-          (HttpResponse<T>) new CapturingHttpResponse(request));
+          (HttpResponse<T>) new CapturingHttpResponse(request, status, body));
     }
 
     @Override
@@ -198,20 +243,24 @@ final class ApiClientTest {
         HttpResponse.PushPromiseHandler<T> pushPromiseHandler) {
       this.lastRequest = request;
       return CompletableFuture.completedFuture(
-          (HttpResponse<T>) new CapturingHttpResponse(request));
+          (HttpResponse<T>) new CapturingHttpResponse(request, status, body));
     }
   }
 
   private static final class CapturingHttpResponse implements HttpResponse<String> {
     private final HttpRequest request;
+    private final int status;
+    private final String body;
 
-    CapturingHttpResponse(HttpRequest request) {
+    CapturingHttpResponse(HttpRequest request, int status, String body) {
       this.request = request;
+      this.status = status;
+      this.body = body;
     }
 
     @Override
     public int statusCode() {
-      return 200;
+      return status;
     }
 
     @Override
@@ -226,12 +275,12 @@ final class ApiClientTest {
 
     @Override
     public HttpHeaders headers() {
-      return HttpHeaders.of(Map.of(), (a, b) -> true);
+      return HttpHeaders.of(Map.of("Retry-After", java.util.List.of("10")), (a, b) -> true);
     }
 
     @Override
     public String body() {
-      return "";
+      return body;
     }
 
     @Override

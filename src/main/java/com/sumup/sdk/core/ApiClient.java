@@ -83,7 +83,7 @@ public final class ApiClient {
       if (e instanceof InterruptedException) {
         Thread.currentThread().interrupt();
       }
-      throw new ApiException("Failed to execute request", e);
+      throw transportException(e);
     }
   }
 
@@ -109,8 +109,18 @@ public final class ApiClient {
         buildRequest(method, path, queryParams, headerParams, body, requestOptions);
     return httpClient
         .sendAsync(request, HttpResponse.BodyHandlers.ofString())
-        .thenApply(
-            response -> {
+        .handle(
+            (response, failure) -> {
+              if (failure != null) {
+                Throwable cause =
+                    failure instanceof java.util.concurrent.CompletionException
+                            && failure.getCause() != null
+                        ? failure.getCause()
+                        : failure;
+                if (cause instanceof java.util.concurrent.CancellationException cancelled)
+                  throw cancelled;
+                throw transportException(cause);
+              }
               try {
                 return readResponse(response, responseType);
               } catch (IOException e) {
@@ -169,7 +179,26 @@ public final class ApiClient {
       }
       return objectMapper.readValue(responseBody, responseType);
     }
-    throw new ApiException("Request failed", status, response.body());
+    com.sumup.sdk.models.Problem problem = null;
+    try {
+      com.fasterxml.jackson.databind.JsonNode json = objectMapper.readTree(response.body());
+      if (json != null && json.hasNonNull("type") && json.get("type").isTextual()) {
+        problem = objectMapper.treeToValue(json, com.sumup.sdk.models.Problem.class);
+      }
+    } catch (IOException | IllegalArgumentException ignored) {
+      // Preserve unrecognized or malformed bodies in the HTTP exception.
+    }
+    String message =
+        problem != null && problem.detail() != null ? problem.detail() : "Request failed";
+    throw new ApiStatusException(
+        message, status, response.body(), problem, response.headers(), response.uri());
+  }
+
+  private static ApiConnectionException transportException(Throwable cause) {
+    if (cause instanceof java.net.http.HttpTimeoutException) {
+      return new ApiTimeoutException("Request timed out", cause);
+    }
+    return new ApiConnectionException("Failed to execute request", cause);
   }
 
   private Duration effectiveTimeout(RequestOptions requestOptions) {
