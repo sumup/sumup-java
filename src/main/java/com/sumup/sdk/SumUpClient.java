@@ -10,6 +10,7 @@ import com.sumup.sdk.clients.PayoutsClient;
 import com.sumup.sdk.clients.ReadersClient;
 import com.sumup.sdk.clients.ReceiptsClient;
 import com.sumup.sdk.clients.RolesClient;
+import com.sumup.sdk.clients.SalesClient;
 import com.sumup.sdk.clients.TokensClient;
 import com.sumup.sdk.clients.TransactionsClient;
 import com.sumup.sdk.core.ApiClient;
@@ -32,6 +33,7 @@ public final class SumUpClient {
   private final ReadersClient readers;
   private final ReceiptsClient receipts;
   private final RolesClient roles;
+  private final SalesClient sales;
   private final TokensClient tokens;
   private final TransactionsClient transactions;
 
@@ -73,6 +75,7 @@ public final class SumUpClient {
     this.readers = new ReadersClient(this.apiClient);
     this.receipts = new ReceiptsClient(this.apiClient);
     this.roles = new RolesClient(this.apiClient);
+    this.sales = new SalesClient(this.apiClient);
     this.tokens = new TokensClient(this.apiClient);
     this.transactions = new TransactionsClient(this.apiClient);
   }
@@ -215,6 +218,15 @@ public final class SumUpClient {
    */
   public RolesClient roles() {
     return roles;
+  }
+
+  /**
+   * Returns the SalesClient client for the "Sales" API group.
+   *
+   * @return Client for the associated API group.
+   */
+  public SalesClient sales() {
+    return sales;
   }
 
   /**

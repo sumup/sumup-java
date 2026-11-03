@@ -10,6 +10,7 @@ import com.sumup.sdk.clients.PayoutsAsyncClient;
 import com.sumup.sdk.clients.ReadersAsyncClient;
 import com.sumup.sdk.clients.ReceiptsAsyncClient;
 import com.sumup.sdk.clients.RolesAsyncClient;
+import com.sumup.sdk.clients.SalesAsyncClient;
 import com.sumup.sdk.clients.TokensAsyncClient;
 import com.sumup.sdk.clients.TransactionsAsyncClient;
 import com.sumup.sdk.core.ApiClient;
@@ -32,6 +33,7 @@ public final class SumUpAsyncClient {
   private final ReadersAsyncClient readers;
   private final ReceiptsAsyncClient receipts;
   private final RolesAsyncClient roles;
+  private final SalesAsyncClient sales;
   private final TokensAsyncClient tokens;
   private final TransactionsAsyncClient transactions;
 
@@ -73,6 +75,7 @@ public final class SumUpAsyncClient {
     this.readers = new ReadersAsyncClient(this.apiClient);
     this.receipts = new ReceiptsAsyncClient(this.apiClient);
     this.roles = new RolesAsyncClient(this.apiClient);
+    this.sales = new SalesAsyncClient(this.apiClient);
     this.tokens = new TokensAsyncClient(this.apiClient);
     this.transactions = new TransactionsAsyncClient(this.apiClient);
   }
@@ -215,6 +218,15 @@ public final class SumUpAsyncClient {
    */
   public RolesAsyncClient roles() {
     return roles;
+  }
+
+  /**
+   * Returns the SalesAsyncClient client for the "Sales" API group.
+   *
+   * @return Client for the associated API group.
+   */
+  public SalesAsyncClient sales() {
+    return sales;
   }
 
   /**
