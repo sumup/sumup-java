@@ -254,6 +254,38 @@ public final class EventsHandler {
   }
 
   /**
+   * Registers the callback for {@code "sales.completed"}, replacing any previous registration.
+   *
+   * @param callback callback to complete before acknowledging delivery
+   * @return this handler for chaining
+   */
+  public EventsHandler onSaleCompleted(EventCallback<SaleCompletedEvent> callback) {
+    Objects.requireNonNull(callback);
+    callbacks.put(
+        "sales.completed",
+        event -> {
+          callback.handle((SaleCompletedEvent) event);
+        });
+    return this;
+  }
+
+  /**
+   * Registers the callback for {@code "sales.updated"}, replacing any previous registration.
+   *
+   * @param callback callback to complete before acknowledging delivery
+   * @return this handler for chaining
+   */
+  public EventsHandler onSaleUpdated(EventCallback<SaleUpdatedEvent> callback) {
+    Objects.requireNonNull(callback);
+    callbacks.put(
+        "sales.updated",
+        event -> {
+          callback.handle((SaleUpdatedEvent) event);
+        });
+    return this;
+  }
+
+  /**
    * Verifies, parses, and invokes the selected callback.
    *
    * @param body original HTTP request bytes; do not reserialize the JSON
