@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/sumup/sumup-java/compare/v0.1.3...v0.1.4) (2026-11-05)
+
+
+### Chores
+
+* synced file(s) with sumup/apis ([#189](https://github.com/sumup/sumup-java/issues/189)) ([c4f4351](https://github.com/sumup/sumup-java/commit/c4f43510751c7ca310c93d96b20824159231dc98))
+
 ## [0.1.3](https://github.com/sumup/sumup-java/compare/v0.1.2...v0.1.3) (2026-11-03)
 
 
