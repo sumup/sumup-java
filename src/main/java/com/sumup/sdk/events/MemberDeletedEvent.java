@@ -3,12 +3,12 @@ package com.sumup.sdk.events;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sumup.sdk.core.ApiClient;
+import com.sumup.sdk.models.Event;
 import com.sumup.sdk.models.Member;
-import com.sumup.sdk.models.WebhooksEvent;
 
 /** Sent when a member is deleted from a merchant account. */
 public final class MemberDeletedEvent extends FetchableEvent<Member> {
-  MemberDeletedEvent(WebhooksEvent payload, ApiClient client) {
+  MemberDeletedEvent(Event payload, ApiClient client) {
     super(payload, client);
   }
 

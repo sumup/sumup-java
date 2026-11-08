@@ -3,12 +3,12 @@ package com.sumup.sdk.events;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sumup.sdk.core.ApiClient;
+import com.sumup.sdk.models.Event;
 import com.sumup.sdk.models.Role;
-import com.sumup.sdk.models.WebhooksEvent;
 
 /** Sent when a role is updated for a merchant account. */
 public final class RoleUpdatedEvent extends FetchableEvent<Role> {
-  RoleUpdatedEvent(WebhooksEvent payload, ApiClient client) {
+  RoleUpdatedEvent(Event payload, ApiClient client) {
     super(payload, client);
   }
 

@@ -4,14 +4,14 @@ package com.sumup.sdk.events;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sumup.sdk.core.ApiClient;
 import com.sumup.sdk.models.Checkout;
-import com.sumup.sdk.models.WebhooksEvent;
+import com.sumup.sdk.models.Event;
 
 /**
  * Sent once when a checkout is first observed with status FAILED. A failed checkout can
  * subsequently be retried and paid. Later FAILED snapshots do not emit another failed event.
  */
 public final class CheckoutFailedEvent extends FetchableEvent<Checkout> {
-  CheckoutFailedEvent(WebhooksEvent payload, ApiClient client) {
+  CheckoutFailedEvent(Event payload, ApiClient client) {
     super(payload, client);
   }
 
