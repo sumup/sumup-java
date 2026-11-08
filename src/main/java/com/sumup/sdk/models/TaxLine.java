@@ -12,7 +12,7 @@ public record TaxLine(
      * Gross amount after applying the tax. The value of the amount in minor units of the currency
      * according to the Sale.currency.scale.
      */
-    com.sumup.sdk.models.TaxLineGrossAmount grossAmount,
+    Long grossAmount,
 
     /** Tax ID from the Tax Service (External Id) */
     String id,
@@ -24,7 +24,7 @@ public record TaxLine(
      * Net amount before applying the tax. The value of the amount in minor units of the currency
      * according to the Sale.currency.scale.
      */
-    com.sumup.sdk.models.TaxLineNetAmount netAmount,
+    Long netAmount,
 
     /** The tax rate percentage in minor units (1/100000). For example 19000 = 19%. */
     Long percentage,
@@ -33,7 +33,7 @@ public record TaxLine(
      * Amount of tax. The value of the amount in minor units of the currency according to the
      * Sale.currency.scale.
      */
-    com.sumup.sdk.models.TaxLineTaxAmount taxAmount) {
+    Long taxAmount) {
   /**
    * Creates a builder for TaxLine.
    *
@@ -45,12 +45,12 @@ public record TaxLine(
 
   /** Builder for TaxLine instances. */
   public static final class Builder {
-    private com.sumup.sdk.models.TaxLineGrossAmount grossAmount;
+    private Long grossAmount;
     private String id;
     private String name;
-    private com.sumup.sdk.models.TaxLineNetAmount netAmount;
+    private Long netAmount;
     private Long percentage;
-    private com.sumup.sdk.models.TaxLineTaxAmount taxAmount;
+    private Long taxAmount;
 
     private Builder() {}
 
@@ -61,7 +61,7 @@ public record TaxLine(
      *     units of the currency according to the Sale.currency.scale.
      * @return This builder instance.
      */
-    public Builder grossAmount(com.sumup.sdk.models.TaxLineGrossAmount grossAmount) {
+    public Builder grossAmount(Long grossAmount) {
       this.grossAmount = grossAmount;
       return this;
     }
@@ -95,7 +95,7 @@ public record TaxLine(
      *     of the currency according to the Sale.currency.scale.
      * @return This builder instance.
      */
-    public Builder netAmount(com.sumup.sdk.models.TaxLineNetAmount netAmount) {
+    public Builder netAmount(Long netAmount) {
       this.netAmount = netAmount;
       return this;
     }
@@ -118,7 +118,7 @@ public record TaxLine(
      *     according to the Sale.currency.scale.
      * @return This builder instance.
      */
-    public Builder taxAmount(com.sumup.sdk.models.TaxLineTaxAmount taxAmount) {
+    public Builder taxAmount(Long taxAmount) {
       this.taxAmount = taxAmount;
       return this;
     }

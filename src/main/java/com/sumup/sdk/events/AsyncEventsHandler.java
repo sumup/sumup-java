@@ -2,6 +2,7 @@
 package com.sumup.sdk.events;
 
 import com.sumup.sdk.core.ApiClient;
+import com.sumup.sdk.models.EventType;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -18,7 +19,7 @@ public final class AsyncEventsHandler {
   private final ApiClient client;
   private final String secret;
   private final AsyncEventCallback<EventNotification> fallback;
-  private final Map<String, AsyncEventCallback<EventNotification>> callbacks = new HashMap<>();
+  private final Map<EventType, AsyncEventCallback<EventNotification>> callbacks = new HashMap<>();
 
   /**
    * Creates a handler bound to an API client.
@@ -56,7 +57,8 @@ public final class AsyncEventsHandler {
    */
   public AsyncEventsHandler onCheckoutCreated(AsyncEventCallback<CheckoutCreatedEvent> callback) {
     Objects.requireNonNull(callback);
-    callbacks.put("checkouts.created", event -> callback.handle((CheckoutCreatedEvent) event));
+    callbacks.put(
+        EventType.CHECKOUTS_CREATED, event -> callback.handle((CheckoutCreatedEvent) event));
     return this;
   }
 
@@ -68,7 +70,8 @@ public final class AsyncEventsHandler {
    */
   public AsyncEventsHandler onCheckoutExpired(AsyncEventCallback<CheckoutExpiredEvent> callback) {
     Objects.requireNonNull(callback);
-    callbacks.put("checkouts.expired", event -> callback.handle((CheckoutExpiredEvent) event));
+    callbacks.put(
+        EventType.CHECKOUTS_EXPIRED, event -> callback.handle((CheckoutExpiredEvent) event));
     return this;
   }
 
@@ -80,7 +83,8 @@ public final class AsyncEventsHandler {
    */
   public AsyncEventsHandler onCheckoutFailed(AsyncEventCallback<CheckoutFailedEvent> callback) {
     Objects.requireNonNull(callback);
-    callbacks.put("checkouts.failed", event -> callback.handle((CheckoutFailedEvent) event));
+    callbacks.put(
+        EventType.CHECKOUTS_FAILED, event -> callback.handle((CheckoutFailedEvent) event));
     return this;
   }
 
@@ -92,7 +96,7 @@ public final class AsyncEventsHandler {
    */
   public AsyncEventsHandler onCheckoutPaid(AsyncEventCallback<CheckoutPaidEvent> callback) {
     Objects.requireNonNull(callback);
-    callbacks.put("checkouts.paid", event -> callback.handle((CheckoutPaidEvent) event));
+    callbacks.put(EventType.CHECKOUTS_PAID, event -> callback.handle((CheckoutPaidEvent) event));
     return this;
   }
 
@@ -104,7 +108,8 @@ public final class AsyncEventsHandler {
    */
   public AsyncEventsHandler onCheckoutUpdated(AsyncEventCallback<CheckoutUpdatedEvent> callback) {
     Objects.requireNonNull(callback);
-    callbacks.put("checkouts.updated", event -> callback.handle((CheckoutUpdatedEvent) event));
+    callbacks.put(
+        EventType.CHECKOUTS_UPDATED, event -> callback.handle((CheckoutUpdatedEvent) event));
     return this;
   }
 
@@ -116,7 +121,7 @@ public final class AsyncEventsHandler {
    */
   public AsyncEventsHandler onMemberCreated(AsyncEventCallback<MemberCreatedEvent> callback) {
     Objects.requireNonNull(callback);
-    callbacks.put("members.created", event -> callback.handle((MemberCreatedEvent) event));
+    callbacks.put(EventType.MEMBERS_CREATED, event -> callback.handle((MemberCreatedEvent) event));
     return this;
   }
 
@@ -128,7 +133,7 @@ public final class AsyncEventsHandler {
    */
   public AsyncEventsHandler onMemberDeleted(AsyncEventCallback<MemberDeletedEvent> callback) {
     Objects.requireNonNull(callback);
-    callbacks.put("members.deleted", event -> callback.handle((MemberDeletedEvent) event));
+    callbacks.put(EventType.MEMBERS_DELETED, event -> callback.handle((MemberDeletedEvent) event));
     return this;
   }
 
@@ -140,7 +145,7 @@ public final class AsyncEventsHandler {
    */
   public AsyncEventsHandler onMemberUpdated(AsyncEventCallback<MemberUpdatedEvent> callback) {
     Objects.requireNonNull(callback);
-    callbacks.put("members.updated", event -> callback.handle((MemberUpdatedEvent) event));
+    callbacks.put(EventType.MEMBERS_UPDATED, event -> callback.handle((MemberUpdatedEvent) event));
     return this;
   }
 
@@ -152,7 +157,7 @@ public final class AsyncEventsHandler {
    */
   public AsyncEventsHandler onReaderCreated(AsyncEventCallback<ReaderCreatedEvent> callback) {
     Objects.requireNonNull(callback);
-    callbacks.put("readers.created", event -> callback.handle((ReaderCreatedEvent) event));
+    callbacks.put(EventType.READERS_CREATED, event -> callback.handle((ReaderCreatedEvent) event));
     return this;
   }
 
@@ -164,7 +169,7 @@ public final class AsyncEventsHandler {
    */
   public AsyncEventsHandler onReaderDeleted(AsyncEventCallback<ReaderDeletedEvent> callback) {
     Objects.requireNonNull(callback);
-    callbacks.put("readers.deleted", event -> callback.handle((ReaderDeletedEvent) event));
+    callbacks.put(EventType.READERS_DELETED, event -> callback.handle((ReaderDeletedEvent) event));
     return this;
   }
 
@@ -176,7 +181,7 @@ public final class AsyncEventsHandler {
    */
   public AsyncEventsHandler onRoleCreated(AsyncEventCallback<RoleCreatedEvent> callback) {
     Objects.requireNonNull(callback);
-    callbacks.put("roles.created", event -> callback.handle((RoleCreatedEvent) event));
+    callbacks.put(EventType.ROLES_CREATED, event -> callback.handle((RoleCreatedEvent) event));
     return this;
   }
 
@@ -188,7 +193,7 @@ public final class AsyncEventsHandler {
    */
   public AsyncEventsHandler onRoleDeleted(AsyncEventCallback<RoleDeletedEvent> callback) {
     Objects.requireNonNull(callback);
-    callbacks.put("roles.deleted", event -> callback.handle((RoleDeletedEvent) event));
+    callbacks.put(EventType.ROLES_DELETED, event -> callback.handle((RoleDeletedEvent) event));
     return this;
   }
 
@@ -200,7 +205,7 @@ public final class AsyncEventsHandler {
    */
   public AsyncEventsHandler onRoleUpdated(AsyncEventCallback<RoleUpdatedEvent> callback) {
     Objects.requireNonNull(callback);
-    callbacks.put("roles.updated", event -> callback.handle((RoleUpdatedEvent) event));
+    callbacks.put(EventType.ROLES_UPDATED, event -> callback.handle((RoleUpdatedEvent) event));
     return this;
   }
 
@@ -212,7 +217,7 @@ public final class AsyncEventsHandler {
    */
   public AsyncEventsHandler onSaleCompleted(AsyncEventCallback<SaleCompletedEvent> callback) {
     Objects.requireNonNull(callback);
-    callbacks.put("sales.completed", event -> callback.handle((SaleCompletedEvent) event));
+    callbacks.put(EventType.SALES_COMPLETED, event -> callback.handle((SaleCompletedEvent) event));
     return this;
   }
 
@@ -224,7 +229,7 @@ public final class AsyncEventsHandler {
    */
   public AsyncEventsHandler onSaleUpdated(AsyncEventCallback<SaleUpdatedEvent> callback) {
     Objects.requireNonNull(callback);
-    callbacks.put("sales.updated", event -> callback.handle((SaleUpdatedEvent) event));
+    callbacks.put(EventType.SALES_UPDATED, event -> callback.handle((SaleUpdatedEvent) event));
     return this;
   }
 

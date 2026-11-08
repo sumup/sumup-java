@@ -2,6 +2,7 @@
 package com.sumup.sdk.events;
 
 import com.sumup.sdk.core.ApiClient;
+import com.sumup.sdk.models.EventType;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -16,7 +17,7 @@ public final class EventsHandler {
   private final ApiClient client;
   private final String secret;
   private final EventCallback<EventNotification> fallback;
-  private final Map<String, EventCallback<EventNotification>> callbacks = new HashMap<>();
+  private final Map<EventType, EventCallback<EventNotification>> callbacks = new HashMap<>();
 
   /**
    * Creates a handler bound to an API client.
@@ -54,7 +55,7 @@ public final class EventsHandler {
   public EventsHandler onCheckoutCreated(EventCallback<CheckoutCreatedEvent> callback) {
     Objects.requireNonNull(callback);
     callbacks.put(
-        "checkouts.created",
+        EventType.CHECKOUTS_CREATED,
         event -> {
           callback.handle((CheckoutCreatedEvent) event);
         });
@@ -70,7 +71,7 @@ public final class EventsHandler {
   public EventsHandler onCheckoutExpired(EventCallback<CheckoutExpiredEvent> callback) {
     Objects.requireNonNull(callback);
     callbacks.put(
-        "checkouts.expired",
+        EventType.CHECKOUTS_EXPIRED,
         event -> {
           callback.handle((CheckoutExpiredEvent) event);
         });
@@ -86,7 +87,7 @@ public final class EventsHandler {
   public EventsHandler onCheckoutFailed(EventCallback<CheckoutFailedEvent> callback) {
     Objects.requireNonNull(callback);
     callbacks.put(
-        "checkouts.failed",
+        EventType.CHECKOUTS_FAILED,
         event -> {
           callback.handle((CheckoutFailedEvent) event);
         });
@@ -102,7 +103,7 @@ public final class EventsHandler {
   public EventsHandler onCheckoutPaid(EventCallback<CheckoutPaidEvent> callback) {
     Objects.requireNonNull(callback);
     callbacks.put(
-        "checkouts.paid",
+        EventType.CHECKOUTS_PAID,
         event -> {
           callback.handle((CheckoutPaidEvent) event);
         });
@@ -118,7 +119,7 @@ public final class EventsHandler {
   public EventsHandler onCheckoutUpdated(EventCallback<CheckoutUpdatedEvent> callback) {
     Objects.requireNonNull(callback);
     callbacks.put(
-        "checkouts.updated",
+        EventType.CHECKOUTS_UPDATED,
         event -> {
           callback.handle((CheckoutUpdatedEvent) event);
         });
@@ -134,7 +135,7 @@ public final class EventsHandler {
   public EventsHandler onMemberCreated(EventCallback<MemberCreatedEvent> callback) {
     Objects.requireNonNull(callback);
     callbacks.put(
-        "members.created",
+        EventType.MEMBERS_CREATED,
         event -> {
           callback.handle((MemberCreatedEvent) event);
         });
@@ -150,7 +151,7 @@ public final class EventsHandler {
   public EventsHandler onMemberDeleted(EventCallback<MemberDeletedEvent> callback) {
     Objects.requireNonNull(callback);
     callbacks.put(
-        "members.deleted",
+        EventType.MEMBERS_DELETED,
         event -> {
           callback.handle((MemberDeletedEvent) event);
         });
@@ -166,7 +167,7 @@ public final class EventsHandler {
   public EventsHandler onMemberUpdated(EventCallback<MemberUpdatedEvent> callback) {
     Objects.requireNonNull(callback);
     callbacks.put(
-        "members.updated",
+        EventType.MEMBERS_UPDATED,
         event -> {
           callback.handle((MemberUpdatedEvent) event);
         });
@@ -182,7 +183,7 @@ public final class EventsHandler {
   public EventsHandler onReaderCreated(EventCallback<ReaderCreatedEvent> callback) {
     Objects.requireNonNull(callback);
     callbacks.put(
-        "readers.created",
+        EventType.READERS_CREATED,
         event -> {
           callback.handle((ReaderCreatedEvent) event);
         });
@@ -198,7 +199,7 @@ public final class EventsHandler {
   public EventsHandler onReaderDeleted(EventCallback<ReaderDeletedEvent> callback) {
     Objects.requireNonNull(callback);
     callbacks.put(
-        "readers.deleted",
+        EventType.READERS_DELETED,
         event -> {
           callback.handle((ReaderDeletedEvent) event);
         });
@@ -214,7 +215,7 @@ public final class EventsHandler {
   public EventsHandler onRoleCreated(EventCallback<RoleCreatedEvent> callback) {
     Objects.requireNonNull(callback);
     callbacks.put(
-        "roles.created",
+        EventType.ROLES_CREATED,
         event -> {
           callback.handle((RoleCreatedEvent) event);
         });
@@ -230,7 +231,7 @@ public final class EventsHandler {
   public EventsHandler onRoleDeleted(EventCallback<RoleDeletedEvent> callback) {
     Objects.requireNonNull(callback);
     callbacks.put(
-        "roles.deleted",
+        EventType.ROLES_DELETED,
         event -> {
           callback.handle((RoleDeletedEvent) event);
         });
@@ -246,7 +247,7 @@ public final class EventsHandler {
   public EventsHandler onRoleUpdated(EventCallback<RoleUpdatedEvent> callback) {
     Objects.requireNonNull(callback);
     callbacks.put(
-        "roles.updated",
+        EventType.ROLES_UPDATED,
         event -> {
           callback.handle((RoleUpdatedEvent) event);
         });
@@ -262,7 +263,7 @@ public final class EventsHandler {
   public EventsHandler onSaleCompleted(EventCallback<SaleCompletedEvent> callback) {
     Objects.requireNonNull(callback);
     callbacks.put(
-        "sales.completed",
+        EventType.SALES_COMPLETED,
         event -> {
           callback.handle((SaleCompletedEvent) event);
         });
@@ -278,7 +279,7 @@ public final class EventsHandler {
   public EventsHandler onSaleUpdated(EventCallback<SaleUpdatedEvent> callback) {
     Objects.requireNonNull(callback);
     callbacks.put(
-        "sales.updated",
+        EventType.SALES_UPDATED,
         event -> {
           callback.handle((SaleUpdatedEvent) event);
         });

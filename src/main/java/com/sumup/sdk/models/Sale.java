@@ -15,10 +15,8 @@ public record Sale(
     /** Instant when the sale was created. */
     java.time.OffsetDateTime createdAt,
 
-    /**
-     * Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of the amount.
-     */
-    com.sumup.sdk.models.Currency currency,
+    /** The currency of the sale. */
+    com.sumup.sdk.models.SalesActivityCurrency currency,
 
     /** The ID of the sale. */
     String id,
@@ -83,7 +81,7 @@ public record Sale(
   public static final class Builder {
     private java.time.OffsetDateTime closedAt;
     private java.time.OffsetDateTime createdAt;
-    private com.sumup.sdk.models.Currency currency;
+    private com.sumup.sdk.models.SalesActivityCurrency currency;
     private String id;
     private java.util.List<com.sumup.sdk.models.SaleLineItemV10> items;
     private String name;
@@ -123,11 +121,10 @@ public record Sale(
     /**
      * Sets the value for {@code currency}.
      *
-     * @param currency Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code
-     *     of the amount.
+     * @param currency The currency of the sale.
      * @return This builder instance.
      */
-    public Builder currency(com.sumup.sdk.models.Currency currency) {
+    public Builder currency(com.sumup.sdk.models.SalesActivityCurrency currency) {
       this.currency = currency;
       return this;
     }

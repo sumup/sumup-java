@@ -11,10 +11,8 @@ public record SaleSearchItem(
     /** Instant when the sale was created. */
     java.time.OffsetDateTime createdAt,
 
-    /**
-     * Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of the amount.
-     */
-    com.sumup.sdk.models.Currency currency,
+    /** The currency of the sale. */
+    com.sumup.sdk.models.SalesActivityCurrency currency,
 
     /** Sale identifier. */
     String id,
@@ -38,7 +36,7 @@ public record SaleSearchItem(
      * `Sale.price.gross_amount`, in minor units according to `currency.scale`. Payment amounts
      * include tips and can therefore differ from this total.
      */
-    com.sumup.sdk.models.SaleSearchItemTotalAmount totalAmount,
+    Long totalAmount,
 
     /**
      * Identity UUID of the cashier who processed the sale. Omitted when the cashier identity is
@@ -58,12 +56,12 @@ public record SaleSearchItem(
   public static final class Builder {
     private java.time.OffsetDateTime closedAt;
     private java.time.OffsetDateTime createdAt;
-    private com.sumup.sdk.models.Currency currency;
+    private com.sumup.sdk.models.SalesActivityCurrency currency;
     private String id;
     private String name;
     private com.sumup.sdk.models.SaleStateV10 state;
     private com.sumup.sdk.models.TaxMode taxMode;
-    private com.sumup.sdk.models.SaleSearchItemTotalAmount totalAmount;
+    private Long totalAmount;
     private java.util.UUID userId;
 
     private Builder() {}
@@ -94,11 +92,10 @@ public record SaleSearchItem(
     /**
      * Sets the value for {@code currency}.
      *
-     * @param currency Three-letter [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code
-     *     of the amount.
+     * @param currency The currency of the sale.
      * @return This builder instance.
      */
-    public Builder currency(com.sumup.sdk.models.Currency currency) {
+    public Builder currency(com.sumup.sdk.models.SalesActivityCurrency currency) {
       this.currency = currency;
       return this;
     }
@@ -157,7 +154,7 @@ public record SaleSearchItem(
      *     amounts include tips and can therefore differ from this total.
      * @return This builder instance.
      */
-    public Builder totalAmount(com.sumup.sdk.models.SaleSearchItemTotalAmount totalAmount) {
+    public Builder totalAmount(Long totalAmount) {
       this.totalAmount = totalAmount;
       return this;
     }

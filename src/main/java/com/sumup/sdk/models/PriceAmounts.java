@@ -6,10 +6,10 @@ import java.util.Objects;
 /** Base price information for items including unit amount and totals. */
 public record PriceAmounts(
     /** The gross amount (including modifiers if applied). It does NOT include discounts. */
-    com.sumup.sdk.models.PriceAmountsTotalGrossAmount totalGrossAmount,
+    Long totalGrossAmount,
 
     /** The net amount (including modifiers if applied). It does NOT include discounts. */
-    com.sumup.sdk.models.PriceAmountsTotalNetAmount totalNetAmount,
+    Long totalNetAmount,
 
     /**
      * The price of a single unit. If the tax_mode is GROSS, it includes taxes, otherwise no tax
@@ -27,8 +27,8 @@ public record PriceAmounts(
 
   /** Builder for PriceAmounts instances. */
   public static final class Builder {
-    private com.sumup.sdk.models.PriceAmountsTotalGrossAmount totalGrossAmount;
-    private com.sumup.sdk.models.PriceAmountsTotalNetAmount totalNetAmount;
+    private Long totalGrossAmount;
+    private Long totalNetAmount;
     private Long unitAmount;
 
     private Builder() {}
@@ -40,8 +40,7 @@ public record PriceAmounts(
      *     include discounts.
      * @return This builder instance.
      */
-    public Builder totalGrossAmount(
-        com.sumup.sdk.models.PriceAmountsTotalGrossAmount totalGrossAmount) {
+    public Builder totalGrossAmount(Long totalGrossAmount) {
       this.totalGrossAmount = totalGrossAmount;
       return this;
     }
@@ -53,7 +52,7 @@ public record PriceAmounts(
      *     discounts.
      * @return This builder instance.
      */
-    public Builder totalNetAmount(com.sumup.sdk.models.PriceAmountsTotalNetAmount totalNetAmount) {
+    public Builder totalNetAmount(Long totalNetAmount) {
       this.totalNetAmount = totalNetAmount;
       return this;
     }

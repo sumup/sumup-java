@@ -13,7 +13,7 @@ public record BusinessProfile(
      * address is valid or not depends on whether the locally required fields are present. Fields
      * not supported in a country will be ignored.
      */
-    com.sumup.sdk.models.Address address,
+    com.sumup.sdk.models.MerchantsAddress address,
 
     /**
      * Settings used to apply the Merchant's branding to email receipts, invoices, checkouts, and
@@ -34,7 +34,7 @@ public record BusinessProfile(
     /** The customer-facing business name. */
     String name,
 
-    /** A publicly available phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format. */
+    /** A public phone number that customers can call. */
     String phoneNumber,
 
     /** The business's publicly available website. */
@@ -50,7 +50,7 @@ public record BusinessProfile(
 
   /** Builder for BusinessProfile instances. */
   public static final class Builder {
-    private com.sumup.sdk.models.Address address;
+    private com.sumup.sdk.models.MerchantsAddress address;
     private com.sumup.sdk.models.Branding branding;
     private String dynamicDescriptor;
     private String email;
@@ -70,7 +70,7 @@ public record BusinessProfile(
      *     fields are present. Fields not supported in a country will be ignored.
      * @return This builder instance.
      */
-    public Builder address(com.sumup.sdk.models.Address address) {
+    public Builder address(com.sumup.sdk.models.MerchantsAddress address) {
       this.address = address;
       return this;
     }
@@ -125,8 +125,7 @@ public record BusinessProfile(
     /**
      * Sets the value for {@code phoneNumber}.
      *
-     * @param phoneNumber A publicly available phone number in
-     *     [E.164](https://en.wikipedia.org/wiki/E.164) format.
+     * @param phoneNumber A public phone number that customers can call.
      * @return This builder instance.
      */
     public Builder phoneNumber(String phoneNumber) {

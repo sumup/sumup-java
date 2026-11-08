@@ -23,18 +23,20 @@ func TestRenderEvents(t *testing.T) {
 		t.Fatal(err)
 	}
 	dir := filepath.Join(params.OutputDir, "com/test/sdk/events")
-	for file, expected := range map[string]string{
-		"WidgetUpdatedEvent.java": "extends FetchableEvent<Widget>",
-		"EventsHandler.java":      "onWidgetUpdated(EventCallback<WidgetUpdatedEvent>",
-		"AsyncEventsHandler.java": "onWidgetUpdated(AsyncEventCallback<WidgetUpdatedEvent>",
-		"EventNotification.java":  `case "widgets.updated" -> WidgetUpdatedEvent.class`,
+	for file, expected := range map[string][]string{
+		"WidgetUpdatedEvent.java": {"extends FetchableEvent<Widget>", "WidgetUpdatedEvent(WebhooksEvent payload, ApiClient client)"},
+		"EventsHandler.java":      {"onWidgetUpdated(EventCallback<WidgetUpdatedEvent>", "callbacks.put(EventType.WIDGETS_UPDATED,"},
+		"AsyncEventsHandler.java": {"onWidgetUpdated(AsyncEventCallback<WidgetUpdatedEvent>", "callbacks.put(EventType.WIDGETS_UPDATED,"},
+		"EventNotification.java":  {"EventType.WIDGETS_UPDATED.equals(payload.type())", "private final WebhooksEvent payload;", "public EventObject object()", "public EventType type()"},
 	} {
 		content, err := os.ReadFile(filepath.Join(dir, file))
 		if err != nil {
 			t.Fatal(err)
 		}
-		if !strings.Contains(string(content), expected) {
-			t.Errorf("%s missing %q", file, expected)
+		for _, part := range expected {
+			if !strings.Contains(string(content), part) {
+				t.Errorf("%s missing %q", file, part)
+			}
 		}
 		if err := renderEvents(doc, params); err != nil {
 			t.Fatal(err)

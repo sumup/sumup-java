@@ -2,7 +2,9 @@
 package com.sumup.sdk.events;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.sumup.sdk.core.ApiClient;
 import com.sumup.sdk.models.Checkout;
+import com.sumup.sdk.models.WebhooksEvent;
 
 /**
  * Sent once when a checkout is first observed with status PAID. Later PAID snapshots do not emit
@@ -10,6 +12,10 @@ import com.sumup.sdk.models.Checkout;
  * completion time.
  */
 public final class CheckoutPaidEvent extends FetchableEvent<Checkout> {
+  CheckoutPaidEvent(WebhooksEvent payload, ApiClient client) {
+    super(payload, client);
+  }
+
   @Override
   TypeReference<Checkout> resourceType() {
     return new TypeReference<>() {};

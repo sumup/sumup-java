@@ -25,22 +25,22 @@ public record LineItemPriceV10(
     java.util.List<com.sumup.sdk.models.TaxLine> taxesFinal,
 
     /** The gross amount (including modifiers if applied). It does NOT include discounts. */
-    com.sumup.sdk.models.LineItemPriceV10TotalGrossAmount totalGrossAmount,
+    Long totalGrossAmount,
 
     /**
      * The final gross amount including discounts, modifiers and taxes. Equals `total_gross_amount`
      * if no discounts apply.
      */
-    com.sumup.sdk.models.LineItemPriceV10TotalGrossAmountFinal totalGrossAmountFinal,
+    Long totalGrossAmountFinal,
 
     /** The net amount (including modifiers if applied). It does NOT include discounts. */
-    com.sumup.sdk.models.LineItemPriceV10TotalNetAmount totalNetAmount,
+    Long totalNetAmount,
 
     /**
      * The final net amount including discounts and modifiers. Equals `total_net_amount` if no
      * discounts apply.
      */
-    com.sumup.sdk.models.LineItemPriceV10TotalNetAmountFinal totalNetAmountFinal,
+    Long totalNetAmountFinal,
 
     /**
      * The price of a single unit. If the tax_mode is GROSS it includes taxes, otherwise no tax is
@@ -61,10 +61,10 @@ public record LineItemPriceV10(
     private java.util.List<com.sumup.sdk.models.DiscountLine> discounts;
     private java.util.List<com.sumup.sdk.models.TaxLine> taxes;
     private java.util.List<com.sumup.sdk.models.TaxLine> taxesFinal;
-    private com.sumup.sdk.models.LineItemPriceV10TotalGrossAmount totalGrossAmount;
-    private com.sumup.sdk.models.LineItemPriceV10TotalGrossAmountFinal totalGrossAmountFinal;
-    private com.sumup.sdk.models.LineItemPriceV10TotalNetAmount totalNetAmount;
-    private com.sumup.sdk.models.LineItemPriceV10TotalNetAmountFinal totalNetAmountFinal;
+    private Long totalGrossAmount;
+    private Long totalGrossAmountFinal;
+    private Long totalNetAmount;
+    private Long totalNetAmountFinal;
     private Long unitAmount;
 
     private Builder() {}
@@ -111,8 +111,7 @@ public record LineItemPriceV10(
      *     include discounts.
      * @return This builder instance.
      */
-    public Builder totalGrossAmount(
-        com.sumup.sdk.models.LineItemPriceV10TotalGrossAmount totalGrossAmount) {
+    public Builder totalGrossAmount(Long totalGrossAmount) {
       this.totalGrossAmount = totalGrossAmount;
       return this;
     }
@@ -124,8 +123,7 @@ public record LineItemPriceV10(
      *     Equals `total_gross_amount` if no discounts apply.
      * @return This builder instance.
      */
-    public Builder totalGrossAmountFinal(
-        com.sumup.sdk.models.LineItemPriceV10TotalGrossAmountFinal totalGrossAmountFinal) {
+    public Builder totalGrossAmountFinal(Long totalGrossAmountFinal) {
       this.totalGrossAmountFinal = totalGrossAmountFinal;
       return this;
     }
@@ -137,8 +135,7 @@ public record LineItemPriceV10(
      *     discounts.
      * @return This builder instance.
      */
-    public Builder totalNetAmount(
-        com.sumup.sdk.models.LineItemPriceV10TotalNetAmount totalNetAmount) {
+    public Builder totalNetAmount(Long totalNetAmount) {
       this.totalNetAmount = totalNetAmount;
       return this;
     }
@@ -150,8 +147,7 @@ public record LineItemPriceV10(
      *     `total_net_amount` if no discounts apply.
      * @return This builder instance.
      */
-    public Builder totalNetAmountFinal(
-        com.sumup.sdk.models.LineItemPriceV10TotalNetAmountFinal totalNetAmountFinal) {
+    public Builder totalNetAmountFinal(Long totalNetAmountFinal) {
       this.totalNetAmountFinal = totalNetAmountFinal;
       return this;
     }

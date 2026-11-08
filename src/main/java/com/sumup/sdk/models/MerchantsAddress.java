@@ -10,7 +10,7 @@ import java.util.Objects;
  * address is valid or not depends on whether the locally required fields are present. Fields not
  * supported in a country will be ignored.
  */
-public record Address(
+public record MerchantsAddress(
     /**
      * In Spain, an autonomous community is the first sub-national level of political and
      * administrative division.
@@ -86,15 +86,15 @@ public record Address(
     /** A US system of postal codes used by the United States Postal Service (USPS). */
     String zipCode) {
   /**
-   * Creates a builder for Address.
+   * Creates a builder for MerchantsAddress.
    *
-   * @return Builder that constructs immutable Address instances.
+   * @return Builder that constructs immutable MerchantsAddress instances.
    */
   public static Builder builder() {
     return new Builder();
   }
 
-  /** Builder for Address instances. */
+  /** Builder for MerchantsAddress instances. */
   public static final class Builder {
     private String autonomousCommunity;
     private String city;
@@ -317,12 +317,12 @@ public record Address(
     }
 
     /**
-     * Builds an immutable Address instance.
+     * Builds an immutable MerchantsAddress instance.
      *
-     * @return Immutable Address.
+     * @return Immutable MerchantsAddress.
      */
-    public Address build() {
-      return new Address(
+    public MerchantsAddress build() {
+      return new MerchantsAddress(
           autonomousCommunity,
           city,
           commune,

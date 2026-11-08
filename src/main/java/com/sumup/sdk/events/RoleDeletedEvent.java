@@ -2,10 +2,16 @@
 package com.sumup.sdk.events;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.sumup.sdk.core.ApiClient;
 import com.sumup.sdk.models.Role;
+import com.sumup.sdk.models.WebhooksEvent;
 
 /** Sent when a role is deleted for a merchant account. */
 public final class RoleDeletedEvent extends FetchableEvent<Role> {
+  RoleDeletedEvent(WebhooksEvent payload, ApiClient client) {
+    super(payload, client);
+  }
+
   @Override
   TypeReference<Role> resourceType() {
     return new TypeReference<>() {};
