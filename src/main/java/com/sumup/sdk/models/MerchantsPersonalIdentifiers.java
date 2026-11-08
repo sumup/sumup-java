@@ -2,4 +2,5 @@
 package com.sumup.sdk.models;
 
 /** A list of country-specific personal identifiers. */
-public record PersonalIdentifiers(java.util.List<com.sumup.sdk.models.PersonalIdentifier> value) {}
+public record MerchantsPersonalIdentifiers(
+    java.util.List<com.sumup.sdk.models.MerchantsPersonalIdentifiersItem> value) {}

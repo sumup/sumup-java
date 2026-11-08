@@ -9,7 +9,7 @@ public record Person(
      * address is valid or not depends on whether the locally required fields are present. Fields
      * not supported in a country will be ignored.
      */
-    com.sumup.sdk.models.Address address,
+    com.sumup.sdk.models.MerchantsAddress address,
 
     /**
      * The date of birth of the individual, represented as an ISO 8601:2004 [ISO8601‑2004]
@@ -25,11 +25,7 @@ public record Person(
      */
     String changeStatus,
 
-    /**
-     * An [ISO3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. This
-     * definition users `oneOf` with a two-character string type to allow for support of future
-     * countries in client code.
-     */
+    /** The Alpha-2 ISO code of the country where the Person is a citizen. */
     String citizenship,
 
     /**
@@ -50,7 +46,7 @@ public record Person(
     String id,
 
     /** A list of country-specific personal identifiers. */
-    com.sumup.sdk.models.PersonalIdentifiers identifiers,
+    com.sumup.sdk.models.MerchantsPersonalIdentifiers identifiers,
 
     /**
      * The Person's nationality. May be an [ISO3166-1
@@ -60,7 +56,10 @@ public record Person(
     String nationality,
     com.sumup.sdk.models.Ownership ownership,
 
-    /** A publicly available phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format. */
+    /**
+     * The (mobile) phone number of the individual (used for verification) in
+     * [E.164](https://en.wikipedia.org/wiki/E.164) format.
+     */
     String phoneNumber,
 
     /**
@@ -88,13 +87,13 @@ public record Person(
 
   /** Builder for Person instances. */
   public static final class Builder {
-    private com.sumup.sdk.models.Address address;
+    private com.sumup.sdk.models.MerchantsAddress address;
     private java.time.LocalDate birthdate;
     private String citizenship;
     private String countryOfResidence;
     private String familyName;
     private String givenName;
-    private com.sumup.sdk.models.PersonalIdentifiers identifiers;
+    private com.sumup.sdk.models.MerchantsPersonalIdentifiers identifiers;
     private String nationality;
     private com.sumup.sdk.models.Ownership ownership;
     private String phoneNumber;
@@ -114,7 +113,7 @@ public record Person(
      *     fields are present. Fields not supported in a country will be ignored.
      * @return This builder instance.
      */
-    public Builder address(com.sumup.sdk.models.Address address) {
+    public Builder address(com.sumup.sdk.models.MerchantsAddress address) {
       this.address = address;
       return this;
     }
@@ -134,9 +133,7 @@ public record Person(
     /**
      * Sets the value for {@code citizenship}.
      *
-     * @param citizenship An [ISO3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-     *     country code. This definition users `oneOf` with a two-character string type to allow for
-     *     support of future countries in client code.
+     * @param citizenship The Alpha-2 ISO code of the country where the Person is a citizen.
      * @return This builder instance.
      */
     public Builder citizenship(String citizenship) {
@@ -185,7 +182,7 @@ public record Person(
      * @param identifiers A list of country-specific personal identifiers.
      * @return This builder instance.
      */
-    public Builder identifiers(com.sumup.sdk.models.PersonalIdentifiers identifiers) {
+    public Builder identifiers(com.sumup.sdk.models.MerchantsPersonalIdentifiers identifiers) {
       this.identifiers = identifiers;
       return this;
     }
@@ -217,7 +214,7 @@ public record Person(
     /**
      * Sets the value for {@code phoneNumber}.
      *
-     * @param phoneNumber A publicly available phone number in
+     * @param phoneNumber The (mobile) phone number of the individual (used for verification) in
      *     [E.164](https://en.wikipedia.org/wiki/E.164) format.
      * @return This builder instance.
      */

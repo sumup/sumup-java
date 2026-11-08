@@ -7,10 +7,14 @@ package com.sumup.sdk.models;
  */
 public record Company(
     /** The company's primary address. */
-    com.sumup.sdk.models.Address address,
+    com.sumup.sdk.models.MerchantsAddress address,
 
-    /** Object attributes that are modifiable only by SumUp applications. */
-    com.sumup.sdk.models.Attributes attributes,
+    /**
+     * Object metadata which should only be writable for internal applications, and readable by all
+     * clients. **Warning**: Updating Attributes will overwrite the existing data. Make sure to
+     * always include the complete JSON object.
+     */
+    com.sumup.sdk.models.MerchantsAttributes attributes,
 
     /** A list of country-specific company identifiers. */
     com.sumup.sdk.models.CompanyIdentifiers identifiers,
@@ -38,7 +42,7 @@ public record Company(
      * A trading address is where your suppliers, banks or customers send you correspondence to.
      * Trading address can be different to the company's registered address (`address`).
      */
-    com.sumup.sdk.models.Address tradingAddress,
+    com.sumup.sdk.models.MerchantsAddress tradingAddress,
 
     /** HTTP(S) URL of the company's website. */
     String website) {
@@ -53,14 +57,14 @@ public record Company(
 
   /** Builder for Company instances. */
   public static final class Builder {
-    private com.sumup.sdk.models.Address address;
-    private com.sumup.sdk.models.Attributes attributes;
+    private com.sumup.sdk.models.MerchantsAddress address;
+    private com.sumup.sdk.models.MerchantsAttributes attributes;
     private com.sumup.sdk.models.CompanyIdentifiers identifiers;
     private String legalType;
     private String merchantCategoryCode;
     private String name;
     private String phoneNumber;
-    private com.sumup.sdk.models.Address tradingAddress;
+    private com.sumup.sdk.models.MerchantsAddress tradingAddress;
     private String website;
 
     private Builder() {}
@@ -71,7 +75,7 @@ public record Company(
      * @param address The company's primary address.
      * @return This builder instance.
      */
-    public Builder address(com.sumup.sdk.models.Address address) {
+    public Builder address(com.sumup.sdk.models.MerchantsAddress address) {
       this.address = address;
       return this;
     }
@@ -79,10 +83,12 @@ public record Company(
     /**
      * Sets the value for {@code attributes}.
      *
-     * @param attributes Object attributes that are modifiable only by SumUp applications.
+     * @param attributes Object metadata which should only be writable for internal applications,
+     *     and readable by all clients. **Warning**: Updating Attributes will overwrite the existing
+     *     data. Make sure to always include the complete JSON object.
      * @return This builder instance.
      */
-    public Builder attributes(com.sumup.sdk.models.Attributes attributes) {
+    public Builder attributes(com.sumup.sdk.models.MerchantsAttributes attributes) {
       this.attributes = attributes;
       return this;
     }
@@ -153,7 +159,7 @@ public record Company(
      *     (`address`).
      * @return This builder instance.
      */
-    public Builder tradingAddress(com.sumup.sdk.models.Address tradingAddress) {
+    public Builder tradingAddress(com.sumup.sdk.models.MerchantsAddress tradingAddress) {
       this.tradingAddress = tradingAddress;
       return this;
     }

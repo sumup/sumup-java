@@ -21,13 +21,13 @@ public record SalePriceV10(
      * according to `Sale.currency.scale`. Payment amounts include tips and can therefore differ
      * from this gross total.
      */
-    com.sumup.sdk.models.SalePriceV10GrossAmount grossAmount,
+    Long grossAmount,
 
     /**
      * Final net total for the sale: sum of `items[].price.total_net_amount_final` after cart-level
      * discounts (tips excluded). In minor units according to `Sale.currency.scale`.
      */
-    com.sumup.sdk.models.SalePriceV10NetAmount netAmount,
+    Long netAmount,
 
     /**
      * Tax lines aggregated across the sale (after cart-level discounts). Per-line tax detail
@@ -46,8 +46,8 @@ public record SalePriceV10(
   /** Builder for SalePriceV10 instances. */
   public static final class Builder {
     private java.util.List<com.sumup.sdk.models.DiscountLine> cartDiscounts;
-    private com.sumup.sdk.models.SalePriceV10GrossAmount grossAmount;
-    private com.sumup.sdk.models.SalePriceV10NetAmount netAmount;
+    private Long grossAmount;
+    private Long netAmount;
     private java.util.List<com.sumup.sdk.models.TaxLine> taxes;
 
     private Builder() {}
@@ -73,7 +73,7 @@ public record SalePriceV10(
      *     Payment amounts include tips and can therefore differ from this gross total.
      * @return This builder instance.
      */
-    public Builder grossAmount(com.sumup.sdk.models.SalePriceV10GrossAmount grossAmount) {
+    public Builder grossAmount(Long grossAmount) {
       this.grossAmount = grossAmount;
       return this;
     }
@@ -86,7 +86,7 @@ public record SalePriceV10(
      *     `Sale.currency.scale`.
      * @return This builder instance.
      */
-    public Builder netAmount(com.sumup.sdk.models.SalePriceV10NetAmount netAmount) {
+    public Builder netAmount(Long netAmount) {
       this.netAmount = netAmount;
       return this;
     }

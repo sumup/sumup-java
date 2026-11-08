@@ -47,9 +47,8 @@ public record Merchant(
     com.sumup.sdk.models.Company company,
 
     /**
-     * An [ISO3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. This
-     * definition users `oneOf` with a two-character string type to allow for support of future
-     * countries in client code.
+     * The [https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2](ISO3166-1 alpha-2) country code of the
+     * country the merchant is registered and operates in.
      */
     String country,
 
@@ -209,9 +208,8 @@ public record Merchant(
     /**
      * Sets the value for {@code country}.
      *
-     * @param country An [ISO3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-     *     country code. This definition users `oneOf` with a two-character string type to allow for
-     *     support of future countries in client code.
+     * @param country The [https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2](ISO3166-1 alpha-2)
+     *     country code of the country the merchant is registered and operates in.
      * @return This builder instance.
      */
     public Builder country(String country) {

@@ -3,22 +3,22 @@ package com.sumup.sdk.models;
 
 import java.util.Objects;
 
-public record PersonalIdentifier(
-    /** The unique reference for the personal identifier type. */
+public record MerchantsPersonalIdentifiersItem(
+    /** The unique reference for the personal identifier type as defined in the country SDK. */
     String ref,
 
-    /** The personal identifier value. */
+    /** The value of the personal identifier. */
     String value) {
   /**
-   * Creates a builder for PersonalIdentifier.
+   * Creates a builder for MerchantsPersonalIdentifiersItem.
    *
-   * @return Builder that constructs immutable PersonalIdentifier instances.
+   * @return Builder that constructs immutable MerchantsPersonalIdentifiersItem instances.
    */
   public static Builder builder() {
     return new Builder();
   }
 
-  /** Builder for PersonalIdentifier instances. */
+  /** Builder for MerchantsPersonalIdentifiersItem instances. */
   public static final class Builder {
     private String ref;
     private String value;
@@ -28,7 +28,8 @@ public record PersonalIdentifier(
     /**
      * Sets the value for {@code ref}.
      *
-     * @param ref The unique reference for the personal identifier type.
+     * @param ref The unique reference for the personal identifier type as defined in the country
+     *     SDK.
      * @return This builder instance.
      */
     public Builder ref(String ref) {
@@ -39,7 +40,7 @@ public record PersonalIdentifier(
     /**
      * Sets the value for {@code value}.
      *
-     * @param value The personal identifier value.
+     * @param value The value of the personal identifier.
      * @return This builder instance.
      */
     public Builder value(String value) {
@@ -48,12 +49,12 @@ public record PersonalIdentifier(
     }
 
     /**
-     * Builds an immutable PersonalIdentifier instance.
+     * Builds an immutable MerchantsPersonalIdentifiersItem instance.
      *
-     * @return Immutable PersonalIdentifier.
+     * @return Immutable MerchantsPersonalIdentifiersItem.
      */
-    public PersonalIdentifier build() {
-      return new PersonalIdentifier(
+    public MerchantsPersonalIdentifiersItem build() {
+      return new MerchantsPersonalIdentifiersItem(
           Objects.requireNonNull(ref, "ref"), Objects.requireNonNull(value, "value"));
     }
   }
