@@ -2,13 +2,19 @@
 package com.sumup.sdk.events;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.sumup.sdk.core.ApiClient;
 import com.sumup.sdk.models.Reader;
+import com.sumup.sdk.models.WebhooksEvent;
 
 /**
  * Sent when a reader is unpaired from a merchant account and is no longer available through the
  * Readers API.
  */
 public final class ReaderDeletedEvent extends FetchableEvent<Reader> {
+  ReaderDeletedEvent(WebhooksEvent payload, ApiClient client) {
+    super(payload, client);
+  }
+
   @Override
   TypeReference<Reader> resourceType() {
     return new TypeReference<>() {};

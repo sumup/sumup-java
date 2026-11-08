@@ -2,10 +2,15 @@ package com.sumup.sdk.events;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sumup.sdk.SumUpAsyncClient;
 import com.sumup.sdk.SumUpClient;
 import com.sumup.sdk.core.ApiException;
 import com.sumup.sdk.core.RequestOptions;
+import com.sumup.sdk.models.EventObjectType;
+import com.sumup.sdk.models.EventType;
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
@@ -31,10 +36,16 @@ final class EventsTest {
   }
 
   private static byte[] body(String type) {
+    return body(type, "member");
+  }
+
+  private static byte[] body(String type, String objectType) {
     return bytes(
         "{\"id\":\"evt_123\",\"type\":\""
             + type
-            + "\",\"created_at\":\"2026-09-05T09:30:00Z\",\"object\":{\"id\":\"123\",\"type\":\"member\"}}");
+            + "\",\"created_at\":\"2026-09-05T09:30:00Z\",\"object\":{\"id\":\"123\",\"type\":\""
+            + objectType
+            + "\"}}");
   }
 
   private static String sign(byte[] body) throws Exception {
@@ -118,6 +129,16 @@ final class EventsTest {
       "members.deleted",
       "readers.created",
       "readers.deleted",
+      "checkouts.created",
+      "checkouts.expired",
+      "checkouts.failed",
+      "checkouts.paid",
+      "checkouts.updated",
+      "roles.created",
+      "roles.updated",
+      "roles.deleted",
+      "sales.completed",
+      "sales.updated",
       "future.event"
     };
     Class<?>[] types = {
@@ -126,13 +147,25 @@ final class EventsTest {
       MemberDeletedEvent.class,
       ReaderCreatedEvent.class,
       ReaderDeletedEvent.class,
+      CheckoutCreatedEvent.class,
+      CheckoutExpiredEvent.class,
+      CheckoutFailedEvent.class,
+      CheckoutPaidEvent.class,
+      CheckoutUpdatedEvent.class,
+      RoleCreatedEvent.class,
+      RoleUpdatedEvent.class,
+      RoleDeletedEvent.class,
+      SaleCompletedEvent.class,
+      SaleUpdatedEvent.class,
       EventNotification.class
     };
     for (int i = 0; i < names.length; i++) {
       var body = body(names[i]);
       var event = CLIENT.parseEventNotification(body, sign(body), SECRET);
       assertEquals(types[i], event.getClass());
-      assertEquals(names[i], event.type());
+      assertEquals(EventType.of(names[i]), event.type());
+      assertEquals(EventObjectType.MEMBER, event.object().type());
+      assertSame(event.payload().object(), event.object());
       assertEquals("evt_123", event.id());
       assertEquals(2026, event.createdAt().getYear());
       assertEquals(types[i], CLIENT.parseEventNotificationWithoutVerification(body).getClass());
@@ -142,6 +175,25 @@ final class EventsTest {
         MemberUpdatedEvent.class,
         CLIENT.parseEventNotificationWithoutVerification(
             bytes("{\"type\":\"members.updated\",\"object\":{\"type\":\"future\"}}")));
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = {"members.updated", "sales.updated", "future.event"})
+  void preservesGeneratedPayloadAndUnknownResourceTypes(String type) throws Exception {
+    var body = body(type, "future-resource");
+    var event = CLIENT.parseEventNotificationWithoutVerification(body);
+    assertEquals(EventType.of(type), event.payload().type());
+    assertEquals(EventObjectType.of("future-resource"), event.object().type());
+    assertEquals(event.payload().id(), event.id());
+    assertEquals(event.payload().createdAt(), event.createdAt());
+    var mapper =
+        new ObjectMapper()
+            .registerModule(new JavaTimeModule())
+            .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
+    var serialized = mapper.writeValueAsBytes(event);
+    var reparsed = CLIENT.parseEventNotificationWithoutVerification(serialized);
+    assertEquals(event.getClass(), reparsed.getClass());
+    assertEquals(event.payload(), reparsed.payload());
   }
 
   @ParameterizedTest
@@ -164,7 +216,11 @@ final class EventsTest {
         event -> {
           fail("replaced callback");
         });
-    handler.onMemberUpdated(event -> calls.incrementAndGet());
+    handler.onMemberUpdated(
+        event -> {
+          assertEquals(EventType.MEMBERS_UPDATED, event.type());
+          calls.incrementAndGet();
+        });
     for (var type : new String[] {"members.updated", "members.created", "future.event"}) {
       var body = body(type);
       handler.handle(body, sign(body));
@@ -187,15 +243,26 @@ final class EventsTest {
   @Test
   void asyncHandlingWaitsAndPreservesFailures() throws Exception {
     var completion = new CompletableFuture<Void>();
+    var fallback = new AtomicInteger();
     var handler =
         new SumUpAsyncClient("key")
-            .eventsHandler(SECRET, event -> CompletableFuture.completedFuture(null));
+            .eventsHandler(
+                SECRET,
+                event -> {
+                  fallback.incrementAndGet();
+                  return CompletableFuture.completedFuture(null);
+                });
     handler.onMemberUpdated(event -> completion);
     var body = body("members.updated");
     var result = handler.handleAsync(body, sign(body));
     assertFalse(result.isDone());
     completion.complete(null);
     result.join();
+    for (var type : new String[] {"members.created", "future.event"}) {
+      var unhandled = body(type);
+      handler.handleAsync(unhandled, sign(unhandled)).join();
+    }
+    assertEquals(2, fallback.get());
     var cause = new IllegalStateException("failure");
     handler.onMemberUpdated(event -> CompletableFuture.failedFuture(cause));
     var failed = handler.handleAsync(body, sign(body));

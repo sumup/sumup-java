@@ -2,12 +2,18 @@
 package com.sumup.sdk.events;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.sumup.sdk.core.ApiClient;
 import com.sumup.sdk.models.Reader;
+import com.sumup.sdk.models.WebhooksEvent;
 
 /**
  * Sent when a reader is paired to a merchant account and becomes available through the Readers API.
  */
 public final class ReaderCreatedEvent extends FetchableEvent<Reader> {
+  ReaderCreatedEvent(WebhooksEvent payload, ApiClient client) {
+    super(payload, client);
+  }
+
   @Override
   TypeReference<Reader> resourceType() {
     return new TypeReference<>() {};

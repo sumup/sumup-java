@@ -2,17 +2,18 @@ package generator
 
 import (
 	"bytes"
+	"cmp"
 	"fmt"
 	"os"
 	"path/filepath"
-	"sort"
+	"slices"
 	"strconv"
 	"strings"
 
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 )
 
-type eventData struct{ Name, Type, Description, Model, Package string }
+type eventData struct{ Name, Type, TypeMember, Description, Model, Package string }
 
 func renderEvents(doc *v3.Document, params Params) error {
 	events := []eventData{}
@@ -36,10 +37,10 @@ func renderEvents(doc *v3.Document, params Params) error {
 				return fmt.Errorf("event %s: invalid object reference or operation ID", eventType)
 			}
 			description := strings.NewReplacer("&", "&amp;", "<", "&lt;", ">", "&gt;", "*/", "*&#47;").Replace(op.Description)
-			events = append(events, eventData{pascalCase(strings.TrimSuffix(op.OperationId, "Webhook"), ""), strconv.Quote(eventType), description, pascalCase(model, ""), params.BasePackage})
+			events = append(events, eventData{pascalCase(strings.TrimSuffix(op.OperationId, "Webhook"), ""), strconv.Quote(eventType), enumConstantName(eventType), description, pascalCase(model, ""), params.BasePackage})
 		}
 	}
-	sort.Slice(events, func(i, j int) bool { return events[i].Type < events[j].Type })
+	slices.SortFunc(events, func(a, b eventData) int { return cmp.Compare(a.Type, b.Type) })
 	dir := filepath.Join(params.OutputDir, params.basePackagePath(), "events")
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return fmt.Errorf("create events directory: %w", err)

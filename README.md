@@ -298,6 +298,8 @@ Deliveries may repeat; use event IDs to deduplicate processing.
 Call `handleAsync` and wait for its future to complete before acknowledging delivery.
 Use `event.fetchObjectAsync()` for asynchronous resource fetches.
 
+Notifications wrap the generated `WebhooksEvent` model, available through `event.payload()`. Compare `event.type()` with constants such as `EventType.MEMBERS_UPDATED`; `event.object()` returns the generated `EventObject` reference. Unknown event and resource type names remain available through `getValue()`.
+
 For manual dispatch, use `client.parseEventNotification(rawBody, signatureHeader, secret)`
 and match the notification type. Unknown event types remain available as `EventNotification`.
 Resource fetches require an HTTP client with redirects disabled (the default).
