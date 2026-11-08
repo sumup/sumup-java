@@ -24,10 +24,10 @@ func TestRenderEvents(t *testing.T) {
 	}
 	dir := filepath.Join(params.OutputDir, "com/test/sdk/events")
 	for file, expected := range map[string][]string{
-		"WidgetUpdatedEvent.java": {"extends FetchableEvent<Widget>", "WidgetUpdatedEvent(WebhooksEvent payload, ApiClient client)"},
+		"WidgetUpdatedEvent.java": {"extends FetchableEvent<Widget>", "WidgetUpdatedEvent(Event payload, ApiClient client)"},
 		"EventsHandler.java":      {"onWidgetUpdated(EventCallback<WidgetUpdatedEvent>", "callbacks.put(EventType.WIDGETS_UPDATED,"},
 		"AsyncEventsHandler.java": {"onWidgetUpdated(AsyncEventCallback<WidgetUpdatedEvent>", "callbacks.put(EventType.WIDGETS_UPDATED,"},
-		"EventNotification.java":  {"EventType.WIDGETS_UPDATED.equals(payload.type())", "private final WebhooksEvent payload;", "public EventObject object()", "public EventType type()"},
+		"EventNotification.java":  {"EventType.WIDGETS_UPDATED.equals(payload.type())", "private final Event payload;", "public EventObject object()", "public EventType type()"},
 	} {
 		content, err := os.ReadFile(filepath.Join(dir, file))
 		if err != nil {

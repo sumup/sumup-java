@@ -40,7 +40,7 @@ public record TransactionFull(
     com.sumup.sdk.models.EntryMode entryMode,
 
     /** Compact list of events related to the transaction. */
-    java.util.List<com.sumup.sdk.models.Event> events,
+    java.util.List<com.sumup.sdk.models.TransactionEvent> events,
 
     /** Total SumUp transaction fee in major units of the transaction's currency. */
     Double feeAmount,
@@ -169,7 +169,7 @@ public record TransactionFull(
     String transactionCode,
 
     /** Detailed list of events related to the transaction. */
-    java.util.List<com.sumup.sdk.models.TransactionEvent> transactionEvents,
+    java.util.List<com.sumup.sdk.models.TransactionEventDetails> transactionEvents,
 
     /** Email address of the registered user (merchant) to whom the payment is made. */
     String username,
@@ -203,7 +203,7 @@ public record TransactionFull(
     private com.sumup.sdk.models.Device deviceInfo;
     private com.sumup.sdk.models.ElvCardAccount elvAccount;
     private com.sumup.sdk.models.EntryMode entryMode;
-    private java.util.List<com.sumup.sdk.models.Event> events;
+    private java.util.List<com.sumup.sdk.models.TransactionEvent> events;
     private Double feeAmount;
     private String foreignTransactionId;
     private Float horizontalAccuracy;
@@ -232,7 +232,7 @@ public record TransactionFull(
     private java.time.OffsetDateTime timestamp;
     private Float tipAmount;
     private String transactionCode;
-    private java.util.List<com.sumup.sdk.models.TransactionEvent> transactionEvents;
+    private java.util.List<com.sumup.sdk.models.TransactionEventDetails> transactionEvents;
     private String username;
     private Float vatAmount;
     private java.util.List<com.sumup.sdk.models.TransactionFullVatRatesItem> vatRates;
@@ -340,7 +340,7 @@ public record TransactionFull(
      * @param events Compact list of events related to the transaction.
      * @return This builder instance.
      */
-    public Builder events(java.util.List<com.sumup.sdk.models.Event> events) {
+    public Builder events(java.util.List<com.sumup.sdk.models.TransactionEvent> events) {
       this.events = events;
       return this;
     }
@@ -690,7 +690,7 @@ public record TransactionFull(
      * @return This builder instance.
      */
     public Builder transactionEvents(
-        java.util.List<com.sumup.sdk.models.TransactionEvent> transactionEvents) {
+        java.util.List<com.sumup.sdk.models.TransactionEventDetails> transactionEvents) {
       this.transactionEvents = transactionEvents;
       return this;
     }

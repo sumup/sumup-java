@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.sumup.sdk.core.ApiClient;
 import com.sumup.sdk.core.HttpMethod;
 import com.sumup.sdk.core.RequestOptions;
-import com.sumup.sdk.models.WebhooksEvent;
+import com.sumup.sdk.models.Event;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.util.concurrent.CompletableFuture;
@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * @param <T> resource model
  */
 public abstract class FetchableEvent<T> extends EventNotification {
-  FetchableEvent(WebhooksEvent payload, ApiClient client) {
+  FetchableEvent(Event payload, ApiClient client) {
     super(payload, client);
   }
 

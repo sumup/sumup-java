@@ -3,12 +3,12 @@ package com.sumup.sdk.events;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sumup.sdk.core.ApiClient;
+import com.sumup.sdk.models.Event;
 import com.sumup.sdk.models.Member;
-import com.sumup.sdk.models.WebhooksEvent;
 
 /** Sent when a member is updated, disabled, rejected, or expires for a merchant account. */
 public final class MemberUpdatedEvent extends FetchableEvent<Member> {
-  MemberUpdatedEvent(WebhooksEvent payload, ApiClient client) {
+  MemberUpdatedEvent(Event payload, ApiClient client) {
     super(payload, client);
   }
 

@@ -3,12 +3,12 @@ package com.sumup.sdk.events;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sumup.sdk.core.ApiClient;
+import com.sumup.sdk.models.Event;
 import com.sumup.sdk.models.Member;
-import com.sumup.sdk.models.WebhooksEvent;
 
 /** Sent when a member is created, invited, or accepts an invitation for a merchant account. */
 public final class MemberCreatedEvent extends FetchableEvent<Member> {
-  MemberCreatedEvent(WebhooksEvent payload, ApiClient client) {
+  MemberCreatedEvent(Event payload, ApiClient client) {
     super(payload, client);
   }
 

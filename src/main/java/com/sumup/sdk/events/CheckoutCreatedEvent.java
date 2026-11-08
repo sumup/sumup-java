@@ -4,14 +4,14 @@ package com.sumup.sdk.events;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sumup.sdk.core.ApiClient;
 import com.sumup.sdk.models.Checkout;
-import com.sumup.sdk.models.WebhooksEvent;
+import com.sumup.sdk.models.Event;
 
 /**
  * Sent once when a checkout is first observed in the checkout snapshot stream, even if it is
  * already paid, failed, or expired. The event timestamp is the original checkout creation time.
  */
 public final class CheckoutCreatedEvent extends FetchableEvent<Checkout> {
-  CheckoutCreatedEvent(WebhooksEvent payload, ApiClient client) {
+  CheckoutCreatedEvent(Event payload, ApiClient client) {
     super(payload, client);
   }
 

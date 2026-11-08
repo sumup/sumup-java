@@ -4,7 +4,7 @@ package com.sumup.sdk.events;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sumup.sdk.core.ApiClient;
 import com.sumup.sdk.models.Checkout;
-import com.sumup.sdk.models.WebhooksEvent;
+import com.sumup.sdk.models.Event;
 
 /**
  * Sent when a checkout snapshot is published, including creation and payment status updates. Fetch
@@ -12,7 +12,7 @@ import com.sumup.sdk.models.WebhooksEvent;
  * produces a notification.
  */
 public final class CheckoutUpdatedEvent extends FetchableEvent<Checkout> {
-  CheckoutUpdatedEvent(WebhooksEvent payload, ApiClient client) {
+  CheckoutUpdatedEvent(Event payload, ApiClient client) {
     super(payload, client);
   }
 

@@ -7,9 +7,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sumup.sdk.core.ApiClient;
+import com.sumup.sdk.models.Event;
 import com.sumup.sdk.models.EventObject;
 import com.sumup.sdk.models.EventType;
-import com.sumup.sdk.models.WebhooksEvent;
 import java.io.IOException;
 import java.time.OffsetDateTime;
 
@@ -22,17 +22,17 @@ public class EventNotification {
           .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
           .enable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS);
 
-  private final WebhooksEvent payload;
+  private final Event payload;
   private final ApiClient client;
 
-  EventNotification(WebhooksEvent payload, ApiClient client) {
+  EventNotification(Event payload, ApiClient client) {
     this.payload = payload;
     this.client = client;
   }
 
   /** Returns the generated event payload. */
   @JsonValue
-  public WebhooksEvent payload() {
+  public Event payload() {
     return payload;
   }
 
@@ -101,7 +101,7 @@ public class EventNotification {
       var root = MAPPER.readTree(body);
       if (root == null || !root.isObject())
         throw new EventPayloadException("Expected a JSON object.");
-      var payload = MAPPER.treeToValue(root, WebhooksEvent.class);
+      var payload = MAPPER.treeToValue(root, Event.class);
       if (EventType.CHECKOUTS_CREATED.equals(payload.type())) {
         return new CheckoutCreatedEvent(payload, client);
       }
