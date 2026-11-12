@@ -33,9 +33,9 @@ public record TransactionFull(
     com.sumup.sdk.models.ElvCardAccount elvAccount,
 
     /**
-     * How the payment details were captured, for example `CHIP` or `CONTACTLESS` for card-present
-     * payments and `CUSTOMER_ENTRY` for card details entered by the payer. For wallet and
-     * alternative payment methods, this can identify the method, such as `APPLE_PAY` or `BLIK`.
+     * How the payment details were captured, for example `chip` or `contactless` for card-present
+     * payments and `customer entry` for card details entered by the payer. For wallet and
+     * alternative payment methods, this can identify the method, such as `apple pay` or `blik`.
      */
     com.sumup.sdk.models.EntryMode entryMode,
 
@@ -323,10 +323,10 @@ public record TransactionFull(
     /**
      * Sets the value for {@code entryMode}.
      *
-     * @param entryMode How the payment details were captured, for example `CHIP` or `CONTACTLESS`
-     *     for card-present payments and `CUSTOMER_ENTRY` for card details entered by the payer. For
-     *     wallet and alternative payment methods, this can identify the method, such as `APPLE_PAY`
-     *     or `BLIK`.
+     * @param entryMode How the payment details were captured, for example `chip` or `contactless`
+     *     for card-present payments and `customer entry` for card details entered by the payer. For
+     *     wallet and alternative payment methods, this can identify the method, such as `apple pay`
+     *     or `blik`.
      * @return This builder instance.
      */
     public Builder entryMode(com.sumup.sdk.models.EntryMode entryMode) {

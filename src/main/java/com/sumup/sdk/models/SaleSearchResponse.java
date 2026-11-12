@@ -10,7 +10,10 @@ import java.util.Objects;
 public record SaleSearchResponse(
     java.util.List<com.sumup.sdk.models.SaleSearchItem> items,
 
-    /** Opaque token for the next page of search results. */
+    /**
+     * Opaque token for the next page. Pass it as `pagination_token` in the next search request body
+     * with the same filters. Omitted when no further page is available.
+     */
     String paginationToken) {
   /**
    * Creates a builder for SaleSearchResponse.
@@ -42,7 +45,9 @@ public record SaleSearchResponse(
     /**
      * Sets the value for {@code paginationToken}.
      *
-     * @param paginationToken Opaque token for the next page of search results.
+     * @param paginationToken Opaque token for the next page. Pass it as `pagination_token` in the
+     *     next search request body with the same filters. Omitted when no further page is
+     *     available.
      * @return This builder instance.
      */
     public Builder paginationToken(String paginationToken) {

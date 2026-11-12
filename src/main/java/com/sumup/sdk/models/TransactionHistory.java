@@ -20,6 +20,13 @@ public record TransactionHistory(
      */
     com.sumup.sdk.models.Currency currency,
 
+    /**
+     * How the payment details were captured, for example `chip` or `contactless` for card-present
+     * payments and `customer entry` for card details entered by the payer. For wallet and
+     * alternative payment methods, this can identify the method, such as `apple pay` or `blik`.
+     */
+    com.sumup.sdk.models.EntryMode entryMode,
+
     /** Unique identifier of the transaction. */
     String id,
 
@@ -100,6 +107,7 @@ public record TransactionHistory(
     private com.sumup.sdk.models.CardType cardType;
     private String clientTransactionId;
     private com.sumup.sdk.models.Currency currency;
+    private com.sumup.sdk.models.EntryMode entryMode;
     private String id;
     private Long installmentsCount;
     private com.sumup.sdk.models.PaymentType paymentType;
@@ -162,6 +170,20 @@ public record TransactionHistory(
      */
     public Builder currency(com.sumup.sdk.models.Currency currency) {
       this.currency = currency;
+      return this;
+    }
+
+    /**
+     * Sets the value for {@code entryMode}.
+     *
+     * @param entryMode How the payment details were captured, for example `chip` or `contactless`
+     *     for card-present payments and `customer entry` for card details entered by the payer. For
+     *     wallet and alternative payment methods, this can identify the method, such as `apple pay`
+     *     or `blik`.
+     * @return This builder instance.
+     */
+    public Builder entryMode(com.sumup.sdk.models.EntryMode entryMode) {
+      this.entryMode = entryMode;
       return this;
     }
 
@@ -366,6 +388,7 @@ public record TransactionHistory(
           cardType,
           clientTransactionId,
           currency,
+          entryMode,
           id,
           installmentsCount,
           paymentType,

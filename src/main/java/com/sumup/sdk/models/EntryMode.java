@@ -6,38 +6,41 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 
 /**
- * How the payment details were captured, for example `CHIP` or `CONTACTLESS` for card-present
- * payments and `CUSTOMER_ENTRY` for card details entered by the payer. For wallet and alternative
- * payment methods, this can identify the method, such as `APPLE_PAY` or `BLIK`.
+ * How the payment details were captured, for example `chip` or `contactless` for card-present
+ * payments and `customer entry` for card details entered by the payer. For wallet and alternative
+ * payment methods, this can identify the method, such as `apple pay` or `blik`.
  */
 public final class EntryMode {
-  public static final EntryMode BOLETO = new EntryMode("BOLETO");
-  public static final EntryMode SOFORT = new EntryMode("SOFORT");
-  public static final EntryMode IDEAL = new EntryMode("IDEAL");
-  public static final EntryMode BANCONTACT = new EntryMode("BANCONTACT");
-  public static final EntryMode EPS = new EntryMode("EPS");
-  public static final EntryMode MYBANK = new EntryMode("MYBANK");
-  public static final EntryMode SATISPAY = new EntryMode("SATISPAY");
-  public static final EntryMode BLIK = new EntryMode("BLIK");
-  public static final EntryMode P24 = new EntryMode("P24");
-  public static final EntryMode GIROPAY = new EntryMode("GIROPAY");
-  public static final EntryMode PIX = new EntryMode("PIX");
-  public static final EntryMode QR_CODE_PIX = new EntryMode("QR_CODE_PIX");
-  public static final EntryMode APPLE_PAY = new EntryMode("APPLE_PAY");
-  public static final EntryMode GOOGLE_PAY = new EntryMode("GOOGLE_PAY");
-  public static final EntryMode PAYPAL = new EntryMode("PAYPAL");
-  public static final EntryMode TWINT = new EntryMode("TWINT");
-  public static final EntryMode NONE = new EntryMode("NONE");
-  public static final EntryMode CHIP = new EntryMode("CHIP");
-  public static final EntryMode MANUAL_ENTRY = new EntryMode("MANUAL_ENTRY");
-  public static final EntryMode CUSTOMER_ENTRY = new EntryMode("CUSTOMER_ENTRY");
-  public static final EntryMode MAGSTRIPE_FALLBACK = new EntryMode("MAGSTRIPE_FALLBACK");
-  public static final EntryMode MAGSTRIPE = new EntryMode("MAGSTRIPE");
-  public static final EntryMode DIRECT_DEBIT = new EntryMode("DIRECT_DEBIT");
-  public static final EntryMode CONTACTLESS = new EntryMode("CONTACTLESS");
-  public static final EntryMode MOTO = new EntryMode("MOTO");
-  public static final EntryMode CONTACTLESS_MAGSTRIPE = new EntryMode("CONTACTLESS_MAGSTRIPE");
-  public static final EntryMode N_A = new EntryMode("N/A");
+  public static final EntryMode NONE = new EntryMode("none");
+  public static final EntryMode MAGSTRIPE = new EntryMode("magstripe");
+  public static final EntryMode CHIP = new EntryMode("chip");
+  public static final EntryMode MANUAL_ENTRY = new EntryMode("manual entry");
+  public static final EntryMode CUSTOMER_ENTRY = new EntryMode("customer entry");
+  public static final EntryMode MAGSTRIPE_FALLBACK = new EntryMode("magstripe fallback");
+  public static final EntryMode CONTACTLESS = new EntryMode("contactless");
+  public static final EntryMode MOTO = new EntryMode("moto");
+  public static final EntryMode CONTACTLESS_MAGSTRIPE = new EntryMode("contactless magstripe");
+  public static final EntryMode BOLETO = new EntryMode("boleto");
+  public static final EntryMode DIRECT_DEBIT = new EntryMode("direct debit");
+  public static final EntryMode SOFORT = new EntryMode("sofort");
+  public static final EntryMode IDEAL = new EntryMode("ideal");
+  public static final EntryMode BANCONTACT = new EntryMode("bancontact");
+  public static final EntryMode EPS = new EntryMode("eps");
+  public static final EntryMode MYBANK = new EntryMode("mybank");
+  public static final EntryMode SATISPAY = new EntryMode("satispay");
+  public static final EntryMode BLIK = new EntryMode("blik");
+  public static final EntryMode P24 = new EntryMode("p24");
+  public static final EntryMode GIROPAY = new EntryMode("giropay");
+  public static final EntryMode PIX = new EntryMode("pix");
+  public static final EntryMode QR_CODE_PIX = new EntryMode("qr code pix");
+  public static final EntryMode APPLE_PAY = new EntryMode("apple pay");
+  public static final EntryMode GOOGLE_PAY = new EntryMode("google pay");
+  public static final EntryMode SUMUP_GIFT_CARD = new EntryMode("sumup gift card");
+  public static final EntryMode PAYPAL = new EntryMode("paypal");
+  public static final EntryMode TWINT = new EntryMode("twint");
+  public static final EntryMode IRIS = new EntryMode("iris");
+  public static final EntryMode SUMUP_PAY = new EntryMode("sumup pay");
+  public static final EntryMode NA = new EntryMode("na");
 
   private final String value;
 

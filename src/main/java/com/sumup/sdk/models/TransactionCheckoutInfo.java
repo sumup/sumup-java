@@ -9,13 +9,6 @@ public record TransactionCheckoutInfo(
      */
     String authCode,
 
-    /**
-     * How the payment details were captured, for example `CHIP` or `CONTACTLESS` for card-present
-     * payments and `CUSTOMER_ENTRY` for card details entered by the payer. For wallet and
-     * alternative payment methods, this can identify the method, such as `APPLE_PAY` or `BLIK`.
-     */
-    com.sumup.sdk.models.EntryMode entryMode,
-
     /** Unique code of the registered merchant to whom the payment is made. */
     String merchantCode,
 
@@ -40,7 +33,6 @@ public record TransactionCheckoutInfo(
   /** Builder for TransactionCheckoutInfo instances. */
   public static final class Builder {
     private String authCode;
-    private com.sumup.sdk.models.EntryMode entryMode;
     private String merchantCode;
     private Float tipAmount;
     private Float vatAmount;
@@ -56,20 +48,6 @@ public record TransactionCheckoutInfo(
      */
     public Builder authCode(String authCode) {
       this.authCode = authCode;
-      return this;
-    }
-
-    /**
-     * Sets the value for {@code entryMode}.
-     *
-     * @param entryMode How the payment details were captured, for example `CHIP` or `CONTACTLESS`
-     *     for card-present payments and `CUSTOMER_ENTRY` for card details entered by the payer. For
-     *     wallet and alternative payment methods, this can identify the method, such as `APPLE_PAY`
-     *     or `BLIK`.
-     * @return This builder instance.
-     */
-    public Builder entryMode(com.sumup.sdk.models.EntryMode entryMode) {
-      this.entryMode = entryMode;
       return this;
     }
 
@@ -114,7 +92,7 @@ public record TransactionCheckoutInfo(
      * @return Immutable TransactionCheckoutInfo.
      */
     public TransactionCheckoutInfo build() {
-      return new TransactionCheckoutInfo(authCode, entryMode, merchantCode, tipAmount, vatAmount);
+      return new TransactionCheckoutInfo(authCode, merchantCode, tipAmount, vatAmount);
     }
   }
 }

@@ -20,11 +20,12 @@ public record CheckoutTransactionsItem(
     com.sumup.sdk.models.Currency currency,
 
     /**
-     * How the payment details were captured, for example `CHIP` or `CONTACTLESS` for card-present
-     * payments and `CUSTOMER_ENTRY` for card details entered by the payer. For wallet and
-     * alternative payment methods, this can identify the method, such as `APPLE_PAY` or `BLIK`.
+     * How the payment details were captured for a checkout transaction, for example
+     * `CUSTOMER_ENTRY` for card details entered by the payer or `APPLE_PAY` for an Apple Pay
+     * payment. Checkout entry modes use uppercase values, unlike entry modes returned by the
+     * Transactions endpoints.
      */
-    com.sumup.sdk.models.EntryMode entryMode,
+    com.sumup.sdk.models.CheckoutEntryMode entryMode,
 
     /** Unique identifier of the transaction. */
     String id,
@@ -85,7 +86,7 @@ public record CheckoutTransactionsItem(
     private Float amount;
     private String authCode;
     private com.sumup.sdk.models.Currency currency;
-    private com.sumup.sdk.models.EntryMode entryMode;
+    private com.sumup.sdk.models.CheckoutEntryMode entryMode;
     private String id;
     private Long installmentsCount;
     private String merchantCode;
@@ -137,13 +138,13 @@ public record CheckoutTransactionsItem(
     /**
      * Sets the value for {@code entryMode}.
      *
-     * @param entryMode How the payment details were captured, for example `CHIP` or `CONTACTLESS`
-     *     for card-present payments and `CUSTOMER_ENTRY` for card details entered by the payer. For
-     *     wallet and alternative payment methods, this can identify the method, such as `APPLE_PAY`
-     *     or `BLIK`.
+     * @param entryMode How the payment details were captured for a checkout transaction, for
+     *     example `CUSTOMER_ENTRY` for card details entered by the payer or `APPLE_PAY` for an
+     *     Apple Pay payment. Checkout entry modes use uppercase values, unlike entry modes returned
+     *     by the Transactions endpoints.
      * @return This builder instance.
      */
-    public Builder entryMode(com.sumup.sdk.models.EntryMode entryMode) {
+    public Builder entryMode(com.sumup.sdk.models.CheckoutEntryMode entryMode) {
       this.entryMode = entryMode;
       return this;
     }
