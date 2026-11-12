@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.4](https://github.com/sumup/sumup-java/compare/v0.1.3...v0.1.4) (2026-11-12)
+
+
+### Chores
+
+* **deps:** bump com.diffplug.spotless from 8.10.4 to 8.11.0 ([#196](https://github.com/sumup/sumup-java/issues/196)) ([3182e8f](https://github.com/sumup/sumup-java/commit/3182e8f0e8715c026f89345fc80c6da729ab6f75))
+* **deps:** bump github.com/pb33f/libopenapi in /codegen ([#195](https://github.com/sumup/sumup-java/issues/195)) ([a25737d](https://github.com/sumup/sumup-java/commit/a25737d09f32a0a682bad20cc62c36269a8f2737))
+* **deps:** bump reviewdog/action-actionlint from 1.80.8 to 1.81.1 ([#194](https://github.com/sumup/sumup-java/issues/194)) ([29ff441](https://github.com/sumup/sumup-java/commit/29ff44190b234497b6a30f98ef255f5c1a1e0c7e))
+* synced file(s) with sumup/apis ([#189](https://github.com/sumup/sumup-java/issues/189)) ([c4f4351](https://github.com/sumup/sumup-java/commit/c4f43510751c7ca310c93d96b20824159231dc98))
+* synced file(s) with sumup/apis ([#191](https://github.com/sumup/sumup-java/issues/191)) ([388c3eb](https://github.com/sumup/sumup-java/commit/388c3eb98ba73a131beb4e476f28abfe36fd4578))
+* synced file(s) with sumup/apis ([#192](https://github.com/sumup/sumup-java/issues/192)) ([95c40cb](https://github.com/sumup/sumup-java/commit/95c40cb6472eb2050c8ae29a0aa93e8f60173097))
+* synced file(s) with sumup/apis ([#193](https://github.com/sumup/sumup-java/issues/193)) ([e69298c](https://github.com/sumup/sumup-java/commit/e69298cc44ea656337b6fb43f6402d639e24f554))
+
 ## [0.1.3](https://github.com/sumup/sumup-java/compare/v0.1.2...v0.1.3) (2026-11-03)
 
 
