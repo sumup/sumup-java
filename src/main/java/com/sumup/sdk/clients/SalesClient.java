@@ -13,7 +13,10 @@ import java.util.Objects;
 /**
  * Client for the "Sales" API group.
  *
- * <p>Operations related to reading sales data.
+ * <p>Read a merchant's fully-paid, closed sales, including item lines, taxes, discounts, and
+ * payments. List sales to retrieve full `Sale` objects, or search by date, payment status, and
+ * sales channel to retrieve summaries. Use a summary's `id` to get the full sale. Amounts are
+ * expressed in minor units according to each sale's `currency.scale`.
  */
 public final class SalesClient {
   private final ApiClient apiClient;
@@ -28,7 +31,7 @@ public final class SalesClient {
   }
 
   /**
-   * Gets a sale
+   * Get a sale
    *
    * <p>Returns `Sale` for `sale_id`, including item lines and `payments[]`. Non-finalised sales are
    * never returned; only fully-paid sales.
@@ -42,13 +45,12 @@ public final class SalesClient {
    * @return com.sumup.sdk.models.Sale parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Sale getSaleV10(String merchantCode, String saleId)
-      throws ApiException {
-    return getSaleV10(merchantCode, saleId, null);
+  public com.sumup.sdk.models.Sale get(String merchantCode, String saleId) throws ApiException {
+    return get(merchantCode, saleId, null);
   }
 
   /**
-   * Gets a sale
+   * Get a sale
    *
    * <p>Returns `Sale` for `sale_id`, including item lines and `payments[]`. Non-finalised sales are
    * never returned; only fully-paid sales.
@@ -62,7 +64,7 @@ public final class SalesClient {
    * @return com.sumup.sdk.models.Sale parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.Sale getSaleV10(
+  public com.sumup.sdk.models.Sale get(
       String merchantCode, String saleId, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(saleId, "saleId");
@@ -83,7 +85,7 @@ public final class SalesClient {
   }
 
   /**
-   * Lists sales
+   * List sales
    *
    * <p>Returns a paginated list of `Sale` objects. Results are sorted **newest first** by the
    * **newest event** recorded for each sale. Pagination tokens follow that order. Covers the
@@ -98,12 +100,12 @@ public final class SalesClient {
    * @return com.sumup.sdk.models.SalePage parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.SalePage listSalesV10(String merchantCode) throws ApiException {
-    return listSalesV10(merchantCode, null);
+  public com.sumup.sdk.models.SalePage list(String merchantCode) throws ApiException {
+    return list(merchantCode, null);
   }
 
   /**
-   * Lists sales
+   * List sales
    *
    * <p>Returns a paginated list of `Sale` objects. Results are sorted **newest first** by the
    * **newest event** recorded for each sale. Pagination tokens follow that order. Covers the
@@ -119,13 +121,13 @@ public final class SalesClient {
    * @return com.sumup.sdk.models.SalePage parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.SalePage listSalesV10(
+  public com.sumup.sdk.models.SalePage list(
       String merchantCode, ListSalesV10QueryParams listSalesV10) throws ApiException {
-    return listSalesV10(merchantCode, listSalesV10, null);
+    return list(merchantCode, listSalesV10, null);
   }
 
   /**
-   * Lists sales
+   * List sales
    *
    * <p>Returns a paginated list of `Sale` objects. Results are sorted **newest first** by the
    * **newest event** recorded for each sale. Pagination tokens follow that order. Covers the
@@ -141,7 +143,7 @@ public final class SalesClient {
    * @return com.sumup.sdk.models.SalePage parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.SalePage listSalesV10(
+  public com.sumup.sdk.models.SalePage list(
       String merchantCode, ListSalesV10QueryParams listSalesV10, RequestOptions requestOptions)
       throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
@@ -165,7 +167,7 @@ public final class SalesClient {
   }
 
   /**
-   * Searches sales
+   * Search sales
    *
    * <p>Returns a paginated list of `SaleSearchItem` rows matching filter criteria. Results are
    * sorted **newest first** by **sale close date**. Filters from different categories stack with
@@ -182,13 +184,13 @@ public final class SalesClient {
    * @return com.sumup.sdk.models.SaleSearchResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.SaleSearchResponse searchSalesV10(
+  public com.sumup.sdk.models.SaleSearchResponse search(
       String merchantCode, com.sumup.sdk.models.SaleSearchRequest request) throws ApiException {
-    return searchSalesV10(merchantCode, request, null);
+    return search(merchantCode, request, null);
   }
 
   /**
-   * Searches sales
+   * Search sales
    *
    * <p>Returns a paginated list of `SaleSearchItem` rows matching filter criteria. Results are
    * sorted **newest first** by **sale close date**. Filters from different categories stack with
@@ -205,7 +207,7 @@ public final class SalesClient {
    * @return com.sumup.sdk.models.SaleSearchResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.SaleSearchResponse searchSalesV10(
+  public com.sumup.sdk.models.SaleSearchResponse search(
       String merchantCode,
       com.sumup.sdk.models.SaleSearchRequest request,
       RequestOptions requestOptions)
@@ -245,10 +247,9 @@ public final class SalesClient {
     /**
      * Sets the pagination_token query parameter.
      *
-     * @param value Pagination token for subsequent requests. Should only be set by clients if they
-     *     have received a token in the previous response, and this request is an immediate
-     *     follow-up request to that response to load the subsequent page. Clients should treat this
-     *     as an opaque token and should not attempt to parse it in any way.
+     * @param value Opaque token from the previous list response. Omit it on the first request. To
+     *     load the next page, pass the returned token unchanged. Not interchangeable with tokens
+     *     from `POST /sales/search`.
      * @return This ListSalesV10QueryParams instance.
      */
     public ListSalesV10QueryParams paginationToken(String value) {

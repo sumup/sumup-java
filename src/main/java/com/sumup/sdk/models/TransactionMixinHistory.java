@@ -3,6 +3,13 @@ package com.sumup.sdk.models;
 
 /** Additional transaction fields used by history and detailed views. */
 public record TransactionMixinHistory(
+    /**
+     * How the payment details were captured, for example `chip` or `contactless` for card-present
+     * payments and `customer entry` for card details entered by the payer. For wallet and
+     * alternative payment methods, this can identify the method, such as `apple pay` or `blik`.
+     */
+    com.sumup.sdk.models.EntryMode entryMode,
+
     /** Payout plan of the registered user at the time when the transaction was made. */
     com.sumup.sdk.models.TransactionMixinHistoryPayoutPlan payoutPlan,
 
@@ -28,12 +35,27 @@ public record TransactionMixinHistory(
 
   /** Builder for TransactionMixinHistory instances. */
   public static final class Builder {
+    private com.sumup.sdk.models.EntryMode entryMode;
     private com.sumup.sdk.models.TransactionMixinHistoryPayoutPlan payoutPlan;
     private Long payoutsReceived;
     private Long payoutsTotal;
     private String productSummary;
 
     private Builder() {}
+
+    /**
+     * Sets the value for {@code entryMode}.
+     *
+     * @param entryMode How the payment details were captured, for example `chip` or `contactless`
+     *     for card-present payments and `customer entry` for card details entered by the payer. For
+     *     wallet and alternative payment methods, this can identify the method, such as `apple pay`
+     *     or `blik`.
+     * @return This builder instance.
+     */
+    public Builder entryMode(com.sumup.sdk.models.EntryMode entryMode) {
+      this.entryMode = entryMode;
+      return this;
+    }
 
     /**
      * Sets the value for {@code payoutPlan}.
@@ -89,7 +111,8 @@ public record TransactionMixinHistory(
      * @return Immutable TransactionMixinHistory.
      */
     public TransactionMixinHistory build() {
-      return new TransactionMixinHistory(payoutPlan, payoutsReceived, payoutsTotal, productSummary);
+      return new TransactionMixinHistory(
+          entryMode, payoutPlan, payoutsReceived, payoutsTotal, productSummary);
     }
   }
 }

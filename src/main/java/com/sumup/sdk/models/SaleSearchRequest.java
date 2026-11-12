@@ -15,8 +15,8 @@ public record SaleSearchRequest(
     Long paginationLimit,
 
     /**
-     * Opaque pagination token from a previous search response. Not interchangeable with tokens from
-     * `GET /sales`.
+     * Opaque token from the previous search response. To load the next page, send it with the same
+     * filters. Not interchangeable with tokens from `GET /sales`.
      */
     String paginationToken,
 
@@ -84,8 +84,8 @@ public record SaleSearchRequest(
     /**
      * Sets the value for {@code paginationToken}.
      *
-     * @param paginationToken Opaque pagination token from a previous search response. Not
-     *     interchangeable with tokens from `GET /sales`.
+     * @param paginationToken Opaque token from the previous search response. To load the next page,
+     *     send it with the same filters. Not interchangeable with tokens from `GET /sales`.
      * @return This builder instance.
      */
     public Builder paginationToken(String paginationToken) {
