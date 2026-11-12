@@ -21,7 +21,7 @@ Add the dependency in your `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
-    implementation("com.sumup:sumup-sdk:0.1.3")
+    implementation("com.sumup:sumup-sdk:0.1.4")
 }
 ```
 
@@ -31,7 +31,7 @@ Add the dependency in your `build.gradle` file:
 
 ```groovy
 dependencies {
-    implementation 'com.sumup:sumup-sdk:0.1.3'
+    implementation 'com.sumup:sumup-sdk:0.1.4'
 }
 ```
 
@@ -43,7 +43,7 @@ Add the dependency in your `pom.xml` file:
 <dependency>
   <groupId>com.sumup</groupId>
   <artifactId>sumup-sdk</artifactId>
-  <version>0.1.3</version>
+  <version>0.1.4</version>
 </dependency>
 ```
 
