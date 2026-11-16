@@ -6,23 +6,23 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 
 /** Lifecycle state of the sale. Non-finalised sales are never returned; only fully-paid sales. */
-public final class SaleStateV10 {
-  public static final SaleStateV10 CLOSED = new SaleStateV10("CLOSED");
+public final class SaleLifecycleState {
+  public static final SaleLifecycleState CLOSED = new SaleLifecycleState("CLOSED");
 
   private final String value;
 
-  private SaleStateV10(String value) {
+  private SaleLifecycleState(String value) {
     this.value = Objects.requireNonNull(value, "value");
   }
 
   /**
-   * Creates a SaleStateV10 for a value not yet known to this SDK version.
+   * Creates a SaleLifecycleState for a value not yet known to this SDK version.
    *
    * @param value Wire value sent to or received from the API.
    * @return Open enum value wrapping {@code value}.
    */
-  public static SaleStateV10 of(String value) {
-    return new SaleStateV10(value);
+  public static SaleLifecycleState of(String value) {
+    return new SaleLifecycleState(value);
   }
 
   @JsonValue
@@ -36,13 +36,14 @@ public final class SaleStateV10 {
   }
 
   @JsonCreator
-  public static SaleStateV10 fromValue(String value) {
-    return value == null ? null : new SaleStateV10(value);
+  public static SaleLifecycleState fromValue(String value) {
+    return value == null ? null : new SaleLifecycleState(value);
   }
 
   @Override
   public boolean equals(Object other) {
-    return this == other || (other instanceof SaleStateV10 that && this.value.equals(that.value));
+    return this == other
+        || (other instanceof SaleLifecycleState that && this.value.equals(that.value));
   }
 
   @Override

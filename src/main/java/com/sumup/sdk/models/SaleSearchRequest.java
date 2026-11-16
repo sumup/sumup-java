@@ -24,17 +24,17 @@ public record SaleSearchRequest(
      * Filters rows by payment outcome. Multiple values match any of them (**OR**). The search row
      * does not echo this value.
      */
-    java.util.List<com.sumup.sdk.models.PaymentStatusFilterV10> paymentStatuses,
+    java.util.List<com.sumup.sdk.models.SalePaymentStatusFilter> paymentStatuses,
 
     /**
      * Filters rows by sale lifecycle (`state`). Multiple values match any of them (**OR**). Uses
      * the same values as `Sale.state`. Non-finalised sales are never returned; only fully-paid
      * sales.
      */
-    java.util.List<com.sumup.sdk.models.SaleStateV10> saleStatuses,
+    java.util.List<com.sumup.sdk.models.SaleLifecycleState> saleStatuses,
 
     /** Sales channel filter. Multiple values match any of them (**OR**). */
-    java.util.List<com.sumup.sdk.models.SalesChannelFilterV10> salesChannels,
+    java.util.List<com.sumup.sdk.models.SaleChannelFilter> salesChannels,
 
     /** Sale created **on or after** this instant (inclusive). */
     java.time.OffsetDateTime startDate) {
@@ -52,9 +52,9 @@ public record SaleSearchRequest(
     private java.time.OffsetDateTime endDate;
     private Long paginationLimit;
     private String paginationToken;
-    private java.util.List<com.sumup.sdk.models.PaymentStatusFilterV10> paymentStatuses;
-    private java.util.List<com.sumup.sdk.models.SaleStateV10> saleStatuses;
-    private java.util.List<com.sumup.sdk.models.SalesChannelFilterV10> salesChannels;
+    private java.util.List<com.sumup.sdk.models.SalePaymentStatusFilter> paymentStatuses;
+    private java.util.List<com.sumup.sdk.models.SaleLifecycleState> saleStatuses;
+    private java.util.List<com.sumup.sdk.models.SaleChannelFilter> salesChannels;
     private java.time.OffsetDateTime startDate;
 
     private Builder() {}
@@ -101,7 +101,7 @@ public record SaleSearchRequest(
      * @return This builder instance.
      */
     public Builder paymentStatuses(
-        java.util.List<com.sumup.sdk.models.PaymentStatusFilterV10> paymentStatuses) {
+        java.util.List<com.sumup.sdk.models.SalePaymentStatusFilter> paymentStatuses) {
       this.paymentStatuses = paymentStatuses;
       return this;
     }
@@ -114,7 +114,8 @@ public record SaleSearchRequest(
      *     returned; only fully-paid sales.
      * @return This builder instance.
      */
-    public Builder saleStatuses(java.util.List<com.sumup.sdk.models.SaleStateV10> saleStatuses) {
+    public Builder saleStatuses(
+        java.util.List<com.sumup.sdk.models.SaleLifecycleState> saleStatuses) {
       this.saleStatuses = saleStatuses;
       return this;
     }
@@ -126,7 +127,7 @@ public record SaleSearchRequest(
      * @return This builder instance.
      */
     public Builder salesChannels(
-        java.util.List<com.sumup.sdk.models.SalesChannelFilterV10> salesChannels) {
+        java.util.List<com.sumup.sdk.models.SaleChannelFilter> salesChannels) {
       this.salesChannels = salesChannels;
       return this;
     }

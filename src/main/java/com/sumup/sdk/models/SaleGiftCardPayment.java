@@ -7,21 +7,21 @@ import java.util.Objects;
  * Gift card used for this payment. Present when `method` is `gift_card` and the gift card id is
  * known. Gift card IDs use the format "GC" followed by 9 alphanumeric characters (e.g. GCZ3NTMB1V).
  */
-public record PublicGiftCardPayment(
+public record SaleGiftCardPayment(
     /**
      * Gift card identifier. Format "GC" followed by 9 alphanumeric characters (e.g. GCZ3NTMB1V).
      */
     String id) {
   /**
-   * Creates a builder for PublicGiftCardPayment.
+   * Creates a builder for SaleGiftCardPayment.
    *
-   * @return Builder that constructs immutable PublicGiftCardPayment instances.
+   * @return Builder that constructs immutable SaleGiftCardPayment instances.
    */
   public static Builder builder() {
     return new Builder();
   }
 
-  /** Builder for PublicGiftCardPayment instances. */
+  /** Builder for SaleGiftCardPayment instances. */
   public static final class Builder {
     private String id;
 
@@ -40,12 +40,12 @@ public record PublicGiftCardPayment(
     }
 
     /**
-     * Builds an immutable PublicGiftCardPayment instance.
+     * Builds an immutable SaleGiftCardPayment instance.
      *
-     * @return Immutable PublicGiftCardPayment.
+     * @return Immutable SaleGiftCardPayment.
      */
-    public PublicGiftCardPayment build() {
-      return new PublicGiftCardPayment(Objects.requireNonNull(id, "id"));
+    public SaleGiftCardPayment build() {
+      return new SaleGiftCardPayment(Objects.requireNonNull(id, "id"));
     }
   }
 }

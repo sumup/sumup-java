@@ -4,22 +4,22 @@ package com.sumup.sdk.models;
 import java.util.Objects;
 
 /** A category a line belongs to. */
-public record CategoryV10(
+public record SaleItemCategory(
     /** The category id. Usually a UUID, but not always (legacy cases). */
     String id,
 
     /** The category name. */
     String name) {
   /**
-   * Creates a builder for CategoryV10.
+   * Creates a builder for SaleItemCategory.
    *
-   * @return Builder that constructs immutable CategoryV10 instances.
+   * @return Builder that constructs immutable SaleItemCategory instances.
    */
   public static Builder builder() {
     return new Builder();
   }
 
-  /** Builder for CategoryV10 instances. */
+  /** Builder for SaleItemCategory instances. */
   public static final class Builder {
     private String id;
     private String name;
@@ -49,12 +49,12 @@ public record CategoryV10(
     }
 
     /**
-     * Builds an immutable CategoryV10 instance.
+     * Builds an immutable SaleItemCategory instance.
      *
-     * @return Immutable CategoryV10.
+     * @return Immutable SaleItemCategory.
      */
-    public CategoryV10 build() {
-      return new CategoryV10(
+    public SaleItemCategory build() {
+      return new SaleItemCategory(
           Objects.requireNonNull(id, "id"), Objects.requireNonNull(name, "name"));
     }
   }

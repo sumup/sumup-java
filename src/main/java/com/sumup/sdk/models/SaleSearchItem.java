@@ -26,7 +26,7 @@ public record SaleSearchItem(
     /**
      * Lifecycle state of the sale. Non-finalised sales are never returned; only fully-paid sales.
      */
-    com.sumup.sdk.models.SaleStateV10 state,
+    com.sumup.sdk.models.SaleLifecycleState state,
 
     /** Checkout tax mode for the sale. Same values as `Sale.tax_mode`. */
     com.sumup.sdk.models.TaxMode taxMode,
@@ -59,7 +59,7 @@ public record SaleSearchItem(
     private com.sumup.sdk.models.SalesActivityCurrency currency;
     private String id;
     private String name;
-    private com.sumup.sdk.models.SaleStateV10 state;
+    private com.sumup.sdk.models.SaleLifecycleState state;
     private com.sumup.sdk.models.TaxMode taxMode;
     private Long totalAmount;
     private java.util.UUID userId;
@@ -130,7 +130,7 @@ public record SaleSearchItem(
      *     fully-paid sales.
      * @return This builder instance.
      */
-    public Builder state(com.sumup.sdk.models.SaleStateV10 state) {
+    public Builder state(com.sumup.sdk.models.SaleLifecycleState state) {
       this.state = state;
       return this;
     }

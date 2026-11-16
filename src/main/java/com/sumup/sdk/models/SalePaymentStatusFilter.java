@@ -10,25 +10,25 @@ import java.util.Objects;
  * filters using **AND**. Only fully-paid closed sales are exposed. Refunded original sales remain
  * searchable as `PAID`; refunds are separate negative sales, not a `REFUNDED` sale-search outcome.
  */
-public final class PaymentStatusFilterV10 {
-  public static final PaymentStatusFilterV10 PAID = new PaymentStatusFilterV10("PAID");
-  public static final PaymentStatusFilterV10 CHARGED_BACK =
-      new PaymentStatusFilterV10("CHARGED_BACK");
+public final class SalePaymentStatusFilter {
+  public static final SalePaymentStatusFilter PAID = new SalePaymentStatusFilter("PAID");
+  public static final SalePaymentStatusFilter CHARGED_BACK =
+      new SalePaymentStatusFilter("CHARGED_BACK");
 
   private final String value;
 
-  private PaymentStatusFilterV10(String value) {
+  private SalePaymentStatusFilter(String value) {
     this.value = Objects.requireNonNull(value, "value");
   }
 
   /**
-   * Creates a PaymentStatusFilterV10 for a value not yet known to this SDK version.
+   * Creates a SalePaymentStatusFilter for a value not yet known to this SDK version.
    *
    * @param value Wire value sent to or received from the API.
    * @return Open enum value wrapping {@code value}.
    */
-  public static PaymentStatusFilterV10 of(String value) {
-    return new PaymentStatusFilterV10(value);
+  public static SalePaymentStatusFilter of(String value) {
+    return new SalePaymentStatusFilter(value);
   }
 
   @JsonValue
@@ -42,14 +42,14 @@ public final class PaymentStatusFilterV10 {
   }
 
   @JsonCreator
-  public static PaymentStatusFilterV10 fromValue(String value) {
-    return value == null ? null : new PaymentStatusFilterV10(value);
+  public static SalePaymentStatusFilter fromValue(String value) {
+    return value == null ? null : new SalePaymentStatusFilter(value);
   }
 
   @Override
   public boolean equals(Object other) {
     return this == other
-        || (other instanceof PaymentStatusFilterV10 that && this.value.equals(that.value));
+        || (other instanceof SalePaymentStatusFilter that && this.value.equals(that.value));
   }
 
   @Override

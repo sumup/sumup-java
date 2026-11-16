@@ -9,25 +9,25 @@ import java.util.Objects;
  * Credit or debit processing choice, not brand or funding. `unknown` when unavailable;
  * prepaid/voucher are not processing types.
  */
-public final class PublicCardV10Type {
-  public static final PublicCardV10Type CREDIT = new PublicCardV10Type("credit");
-  public static final PublicCardV10Type DEBIT = new PublicCardV10Type("debit");
-  public static final PublicCardV10Type UNKNOWN = new PublicCardV10Type("unknown");
+public final class SalePaymentCardType {
+  public static final SalePaymentCardType CREDIT = new SalePaymentCardType("credit");
+  public static final SalePaymentCardType DEBIT = new SalePaymentCardType("debit");
+  public static final SalePaymentCardType UNKNOWN = new SalePaymentCardType("unknown");
 
   private final String value;
 
-  private PublicCardV10Type(String value) {
+  private SalePaymentCardType(String value) {
     this.value = Objects.requireNonNull(value, "value");
   }
 
   /**
-   * Creates a PublicCardV10Type for a value not yet known to this SDK version.
+   * Creates a SalePaymentCardType for a value not yet known to this SDK version.
    *
    * @param value Wire value sent to or received from the API.
    * @return Open enum value wrapping {@code value}.
    */
-  public static PublicCardV10Type of(String value) {
-    return new PublicCardV10Type(value);
+  public static SalePaymentCardType of(String value) {
+    return new SalePaymentCardType(value);
   }
 
   @JsonValue
@@ -41,14 +41,14 @@ public final class PublicCardV10Type {
   }
 
   @JsonCreator
-  public static PublicCardV10Type fromValue(String value) {
-    return value == null ? null : new PublicCardV10Type(value);
+  public static SalePaymentCardType fromValue(String value) {
+    return value == null ? null : new SalePaymentCardType(value);
   }
 
   @Override
   public boolean equals(Object other) {
     return this == other
-        || (other instanceof PublicCardV10Type that && this.value.equals(that.value));
+        || (other instanceof SalePaymentCardType that && this.value.equals(that.value));
   }
 
   @Override

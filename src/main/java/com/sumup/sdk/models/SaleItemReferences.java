@@ -4,7 +4,7 @@ package com.sumup.sdk.models;
 /**
  * Outward identifiers and links for a line, kept in one place rather than scattered per item type.
  */
-public record ItemReferencesV10(
+public record SaleItemReferences(
     /**
      * Reference to the backing catalog entity (item variant, deposit, ...), typically a URN such as
      * `urn:sumup:pos:variant:${MERCHANT_CODE}:${ITEM_ID}:${VARIANT_ID}` or
@@ -15,7 +15,7 @@ public record ItemReferencesV10(
     String catalogReference,
 
     /** The source of the catalog the line originates from. */
-    com.sumup.sdk.models.ItemReferencesV10CatalogSource catalogSource,
+    com.sumup.sdk.models.SaleItemReferencesCatalogSource catalogSource,
 
     /** An external reference id connecting this line to another system. */
     String externalId,
@@ -23,18 +23,18 @@ public record ItemReferencesV10(
     /** Stock keeping unit, enriched from the Catalog when available. */
     String sku) {
   /**
-   * Creates a builder for ItemReferencesV10.
+   * Creates a builder for SaleItemReferences.
    *
-   * @return Builder that constructs immutable ItemReferencesV10 instances.
+   * @return Builder that constructs immutable SaleItemReferences instances.
    */
   public static Builder builder() {
     return new Builder();
   }
 
-  /** Builder for ItemReferencesV10 instances. */
+  /** Builder for SaleItemReferences instances. */
   public static final class Builder {
     private String catalogReference;
-    private com.sumup.sdk.models.ItemReferencesV10CatalogSource catalogSource;
+    private com.sumup.sdk.models.SaleItemReferencesCatalogSource catalogSource;
     private String externalId;
     private String sku;
 
@@ -62,7 +62,7 @@ public record ItemReferencesV10(
      * @return This builder instance.
      */
     public Builder catalogSource(
-        com.sumup.sdk.models.ItemReferencesV10CatalogSource catalogSource) {
+        com.sumup.sdk.models.SaleItemReferencesCatalogSource catalogSource) {
       this.catalogSource = catalogSource;
       return this;
     }
@@ -90,12 +90,12 @@ public record ItemReferencesV10(
     }
 
     /**
-     * Builds an immutable ItemReferencesV10 instance.
+     * Builds an immutable SaleItemReferences instance.
      *
-     * @return Immutable ItemReferencesV10.
+     * @return Immutable SaleItemReferences.
      */
-    public ItemReferencesV10 build() {
-      return new ItemReferencesV10(catalogReference, catalogSource, externalId, sku);
+    public SaleItemReferences build() {
+      return new SaleItemReferences(catalogReference, catalogSource, externalId, sku);
     }
   }
 }

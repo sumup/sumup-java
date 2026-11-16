@@ -8,7 +8,7 @@ import java.util.Objects;
  * this object. Merchant-charged fees (shipping, service charge, etc.) appear as `type: "FEE"` item
  * lines in `Sale.items`.
  */
-public record PublicPaymentV10(
+public record SalePayment(
     /**
      * The amount of the payment including tips. The value of the amount in minor units of
      * `Sale.currency`.
@@ -24,14 +24,14 @@ public record PublicPaymentV10(
     String apmType,
 
     /** Card brand, credit/debit processing type, and last four digits. */
-    com.sumup.sdk.models.PublicCardV10 card,
+    com.sumup.sdk.models.SalePaymentCard card,
 
     /**
      * Gift card used for this payment. Present when `method` is `gift_card` and the gift card id is
      * known. Gift card IDs use the format "GC" followed by 9 alphanumeric characters (e.g.
      * GCZ3NTMB1V).
      */
-    com.sumup.sdk.models.PublicGiftCardPayment giftCard,
+    com.sumup.sdk.models.SaleGiftCardPayment giftCard,
 
     /**
      * Payment method on public sales read API v1.0. Digital wallets are first-class methods. Gift
@@ -52,7 +52,7 @@ public record PublicPaymentV10(
     String reference,
 
     /** The status of the payment. */
-    com.sumup.sdk.models.PublicPaymentV10Status status,
+    com.sumup.sdk.models.SalePaymentStatus status,
 
     /**
      * Payment operation type. This is distinct from the payment instrument in `method`. Values use
@@ -61,24 +61,24 @@ public record PublicPaymentV10(
      */
     String type) {
   /**
-   * Creates a builder for PublicPaymentV10.
+   * Creates a builder for SalePayment.
    *
-   * @return Builder that constructs immutable PublicPaymentV10 instances.
+   * @return Builder that constructs immutable SalePayment instances.
    */
   public static Builder builder() {
     return new Builder();
   }
 
-  /** Builder for PublicPaymentV10 instances. */
+  /** Builder for SalePayment instances. */
   public static final class Builder {
     private Long amount;
     private String apmType;
-    private com.sumup.sdk.models.PublicCardV10 card;
-    private com.sumup.sdk.models.PublicGiftCardPayment giftCard;
+    private com.sumup.sdk.models.SalePaymentCard card;
+    private com.sumup.sdk.models.SaleGiftCardPayment giftCard;
     private String method;
     private java.time.OffsetDateTime processedAt;
     private String reference;
-    private com.sumup.sdk.models.PublicPaymentV10Status status;
+    private com.sumup.sdk.models.SalePaymentStatus status;
     private String type;
 
     private Builder() {}
@@ -115,7 +115,7 @@ public record PublicPaymentV10(
      * @param card Card brand, credit/debit processing type, and last four digits.
      * @return This builder instance.
      */
-    public Builder card(com.sumup.sdk.models.PublicCardV10 card) {
+    public Builder card(com.sumup.sdk.models.SalePaymentCard card) {
       this.card = card;
       return this;
     }
@@ -128,7 +128,7 @@ public record PublicPaymentV10(
      *     characters (e.g. GCZ3NTMB1V).
      * @return This builder instance.
      */
-    public Builder giftCard(com.sumup.sdk.models.PublicGiftCardPayment giftCard) {
+    public Builder giftCard(com.sumup.sdk.models.SaleGiftCardPayment giftCard) {
       this.giftCard = giftCard;
       return this;
     }
@@ -179,7 +179,7 @@ public record PublicPaymentV10(
      * @param status The status of the payment.
      * @return This builder instance.
      */
-    public Builder status(com.sumup.sdk.models.PublicPaymentV10Status status) {
+    public Builder status(com.sumup.sdk.models.SalePaymentStatus status) {
       this.status = status;
       return this;
     }
@@ -198,12 +198,12 @@ public record PublicPaymentV10(
     }
 
     /**
-     * Builds an immutable PublicPaymentV10 instance.
+     * Builds an immutable SalePayment instance.
      *
-     * @return Immutable PublicPaymentV10.
+     * @return Immutable SalePayment.
      */
-    public PublicPaymentV10 build() {
-      return new PublicPaymentV10(
+    public SalePayment build() {
+      return new SalePayment(
           Objects.requireNonNull(amount, "amount"),
           apmType,
           card,

@@ -9,18 +9,18 @@ import java.util.Objects;
  * Type-specific data is in `features`. There is no per-type object and no discriminator, so a new
  * item type does not change this schema.
  */
-public record SaleLineItemV10(
+public record SaleItem(
     /**
      * Categories the line belongs to. A shared optional structure available to any line; not a
      * per-type field.
      */
-    java.util.List<com.sumup.sdk.models.CategoryV10> categories,
+    java.util.List<com.sumup.sdk.models.SaleItemCategory> categories,
 
     /**
      * Named, typed, type-specific data. New item types add their data here as features instead of
-     * new schema variants. See `Feature` for per-type examples.
+     * new schema variants. See `SaleItemFeature` for per-type examples.
      */
-    java.util.List<com.sumup.sdk.models.FeatureV10> features,
+    java.util.List<com.sumup.sdk.models.SaleItemFeature> features,
 
     /** Stable identifier of the line within the sale. Used for linking (e.g. deposits). */
     String id,
@@ -42,7 +42,7 @@ public record SaleLineItemV10(
      * breakdown) and the final amounts (after discounts/modifiers). Totals and tax amounts can be
      * negative for return-like operations (for example a deposit with `operation_type` = `RETURN`).
      */
-    com.sumup.sdk.models.LineItemPriceV10 price,
+    com.sumup.sdk.models.SaleItemPrice price,
 
     /** The numerical value representing the quantity in the specified unit. */
     Double quantity,
@@ -51,46 +51,46 @@ public record SaleLineItemV10(
      * Outward identifiers and links for a line, kept in one place rather than scattered per item
      * type.
      */
-    com.sumup.sdk.models.ItemReferencesV10 references,
+    com.sumup.sdk.models.SaleItemReferences references,
 
     /** The type of service for this line. */
-    com.sumup.sdk.models.SaleLineItemV10ServiceType serviceType,
+    com.sumup.sdk.models.SaleItemServiceType serviceType,
 
     /**
      * Classifies a sale line. Not a schema subclass. Known values: `CATALOG`, `DEPOSIT`,
      * `GIFT_CARD`, `CUSTOM`, `FEE`. `FEE` lines represent merchant-charged fees on the sale (e.g.
      * shipping, service charge, surcharge, cancellation). They participate in sale totals like any
-     * other line; type-specific data is carried in `features` (see `Feature` for the conventional
-     * feature keys). This is intentionally an open string, NOT a closed enum: new values are added
-     * over time as pure data and consumers MUST tolerate unknown values, rendering the line from
-     * the generic envelope (name, quantity, price, taxes) and reading any extra information from
-     * `features`.
+     * other line; type-specific data is carried in `features` (see `SaleItemFeature` for the
+     * conventional feature keys). This is intentionally an open string, NOT a closed enum: new
+     * values are added over time as pure data and consumers MUST tolerate unknown values, rendering
+     * the line from the generic envelope (name, quantity, price, taxes) and reading any extra
+     * information from `features`.
      */
     String type,
 
     /** The unit of measure of the item. */
     com.sumup.sdk.models.UnitOfMeasure unitOfMeasure) {
   /**
-   * Creates a builder for SaleLineItemV10.
+   * Creates a builder for SaleItem.
    *
-   * @return Builder that constructs immutable SaleLineItemV10 instances.
+   * @return Builder that constructs immutable SaleItem instances.
    */
   public static Builder builder() {
     return new Builder();
   }
 
-  /** Builder for SaleLineItemV10 instances. */
+  /** Builder for SaleItem instances. */
   public static final class Builder {
-    private java.util.List<com.sumup.sdk.models.CategoryV10> categories;
-    private java.util.List<com.sumup.sdk.models.FeatureV10> features;
+    private java.util.List<com.sumup.sdk.models.SaleItemCategory> categories;
+    private java.util.List<com.sumup.sdk.models.SaleItemFeature> features;
     private String id;
     private java.util.List<com.sumup.sdk.models.ModifierItem> modifiers;
     private String name;
     private String note;
-    private com.sumup.sdk.models.LineItemPriceV10 price;
+    private com.sumup.sdk.models.SaleItemPrice price;
     private Double quantity;
-    private com.sumup.sdk.models.ItemReferencesV10 references;
-    private com.sumup.sdk.models.SaleLineItemV10ServiceType serviceType;
+    private com.sumup.sdk.models.SaleItemReferences references;
+    private com.sumup.sdk.models.SaleItemServiceType serviceType;
     private String type;
     private com.sumup.sdk.models.UnitOfMeasure unitOfMeasure;
 
@@ -103,7 +103,7 @@ public record SaleLineItemV10(
      *     any line; not a per-type field.
      * @return This builder instance.
      */
-    public Builder categories(java.util.List<com.sumup.sdk.models.CategoryV10> categories) {
+    public Builder categories(java.util.List<com.sumup.sdk.models.SaleItemCategory> categories) {
       this.categories = categories;
       return this;
     }
@@ -112,10 +112,10 @@ public record SaleLineItemV10(
      * Sets the value for {@code features}.
      *
      * @param features Named, typed, type-specific data. New item types add their data here as
-     *     features instead of new schema variants. See `Feature` for per-type examples.
+     *     features instead of new schema variants. See `SaleItemFeature` for per-type examples.
      * @return This builder instance.
      */
-    public Builder features(java.util.List<com.sumup.sdk.models.FeatureV10> features) {
+    public Builder features(java.util.List<com.sumup.sdk.models.SaleItemFeature> features) {
       this.features = features;
       return this;
     }
@@ -174,7 +174,7 @@ public record SaleLineItemV10(
      *     `operation_type` = `RETURN`).
      * @return This builder instance.
      */
-    public Builder price(com.sumup.sdk.models.LineItemPriceV10 price) {
+    public Builder price(com.sumup.sdk.models.SaleItemPrice price) {
       this.price = price;
       return this;
     }
@@ -197,7 +197,7 @@ public record SaleLineItemV10(
      *     scattered per item type.
      * @return This builder instance.
      */
-    public Builder references(com.sumup.sdk.models.ItemReferencesV10 references) {
+    public Builder references(com.sumup.sdk.models.SaleItemReferences references) {
       this.references = references;
       return this;
     }
@@ -208,7 +208,7 @@ public record SaleLineItemV10(
      * @param serviceType The type of service for this line.
      * @return This builder instance.
      */
-    public Builder serviceType(com.sumup.sdk.models.SaleLineItemV10ServiceType serviceType) {
+    public Builder serviceType(com.sumup.sdk.models.SaleItemServiceType serviceType) {
       this.serviceType = serviceType;
       return this;
     }
@@ -220,10 +220,10 @@ public record SaleLineItemV10(
      *     `DEPOSIT`, `GIFT_CARD`, `CUSTOM`, `FEE`. `FEE` lines represent merchant-charged fees on
      *     the sale (e.g. shipping, service charge, surcharge, cancellation). They participate in
      *     sale totals like any other line; type-specific data is carried in `features` (see
-     *     `Feature` for the conventional feature keys). This is intentionally an open string, NOT a
-     *     closed enum: new values are added over time as pure data and consumers MUST tolerate
-     *     unknown values, rendering the line from the generic envelope (name, quantity, price,
-     *     taxes) and reading any extra information from `features`.
+     *     `SaleItemFeature` for the conventional feature keys). This is intentionally an open
+     *     string, NOT a closed enum: new values are added over time as pure data and consumers MUST
+     *     tolerate unknown values, rendering the line from the generic envelope (name, quantity,
+     *     price, taxes) and reading any extra information from `features`.
      * @return This builder instance.
      */
     public Builder type(String type) {
@@ -243,12 +243,12 @@ public record SaleLineItemV10(
     }
 
     /**
-     * Builds an immutable SaleLineItemV10 instance.
+     * Builds an immutable SaleItem instance.
      *
-     * @return Immutable SaleLineItemV10.
+     * @return Immutable SaleItem.
      */
-    public SaleLineItemV10 build() {
-      return new SaleLineItemV10(
+    public SaleItem build() {
+      return new SaleItem(
           categories,
           features,
           Objects.requireNonNull(id, "id"),
