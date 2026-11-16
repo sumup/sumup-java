@@ -8,7 +8,7 @@ import java.util.Objects;
  * breakdown) and the final amounts (after discounts/modifiers). Totals and tax amounts can be
  * negative for return-like operations (for example a deposit with `operation_type` = `RETURN`).
  */
-public record LineItemPriceV10(
+public record SaleItemPrice(
     /**
      * Discounts applied. Discount amounts do not affect `total_net_amount` / `total_gross_amount`;
      * they are reflected in the `*_final` amounts.
@@ -48,15 +48,15 @@ public record LineItemPriceV10(
      */
     Long unitAmount) {
   /**
-   * Creates a builder for LineItemPriceV10.
+   * Creates a builder for SaleItemPrice.
    *
-   * @return Builder that constructs immutable LineItemPriceV10 instances.
+   * @return Builder that constructs immutable SaleItemPrice instances.
    */
   public static Builder builder() {
     return new Builder();
   }
 
-  /** Builder for LineItemPriceV10 instances. */
+  /** Builder for SaleItemPrice instances. */
   public static final class Builder {
     private java.util.List<com.sumup.sdk.models.DiscountLine> discounts;
     private java.util.List<com.sumup.sdk.models.TaxLine> taxes;
@@ -165,12 +165,12 @@ public record LineItemPriceV10(
     }
 
     /**
-     * Builds an immutable LineItemPriceV10 instance.
+     * Builds an immutable SaleItemPrice instance.
      *
-     * @return Immutable LineItemPriceV10.
+     * @return Immutable SaleItemPrice.
      */
-    public LineItemPriceV10 build() {
-      return new LineItemPriceV10(
+    public SaleItemPrice build() {
+      return new SaleItemPrice(
           discounts,
           Objects.requireNonNull(taxes, "taxes"),
           Objects.requireNonNull(taxesFinal, "taxesFinal"),

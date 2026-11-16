@@ -20,7 +20,7 @@ import java.util.Objects;
  * noted): `delivery_name`, `tracking_reference` (shipping); `card_type`, `scheme` (surcharge);
  * `policy_id` (cancellation)
  */
-public record FeatureV10(
+public record SaleItemFeature(
     /** The feature name/key. */
     String name,
 
@@ -35,21 +35,21 @@ public record FeatureV10(
      * The data type of a feature value. The wire `value` is always a string and is parsed according
      * to this type.
      */
-    com.sumup.sdk.models.FeatureValueTypeV10 valueType) {
+    com.sumup.sdk.models.SaleItemFeatureValueType valueType) {
   /**
-   * Creates a builder for FeatureV10.
+   * Creates a builder for SaleItemFeature.
    *
-   * @return Builder that constructs immutable FeatureV10 instances.
+   * @return Builder that constructs immutable SaleItemFeature instances.
    */
   public static Builder builder() {
     return new Builder();
   }
 
-  /** Builder for FeatureV10 instances. */
+  /** Builder for SaleItemFeature instances. */
   public static final class Builder {
     private String name;
     private String value;
-    private com.sumup.sdk.models.FeatureValueTypeV10 valueType;
+    private com.sumup.sdk.models.SaleItemFeatureValueType valueType;
 
     private Builder() {}
 
@@ -85,18 +85,18 @@ public record FeatureV10(
      *     parsed according to this type.
      * @return This builder instance.
      */
-    public Builder valueType(com.sumup.sdk.models.FeatureValueTypeV10 valueType) {
+    public Builder valueType(com.sumup.sdk.models.SaleItemFeatureValueType valueType) {
       this.valueType = valueType;
       return this;
     }
 
     /**
-     * Builds an immutable FeatureV10 instance.
+     * Builds an immutable SaleItemFeature instance.
      *
-     * @return Immutable FeatureV10.
+     * @return Immutable SaleItemFeature.
      */
-    public FeatureV10 build() {
-      return new FeatureV10(
+    public SaleItemFeature build() {
+      return new SaleItemFeature(
           Objects.requireNonNull(name, "name"),
           Objects.requireNonNull(value, "value"),
           Objects.requireNonNull(valueType, "valueType"));

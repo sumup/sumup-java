@@ -4,7 +4,7 @@ package com.sumup.sdk.models;
 import java.util.Objects;
 
 /** Card brand, credit/debit processing type, and last four digits. */
-public record PublicCardV10(
+public record SalePaymentCard(
     /**
      * The brand of the card. Input is case-insensitive; the canonical form is lowercase snake_case.
      * **VALUES**: [amex, cup, diners, discover, elo, elv, hipercard, jcb, maestro, mastercard,
@@ -20,21 +20,21 @@ public record PublicCardV10(
      * Credit or debit processing choice, not brand or funding. `unknown` when unavailable;
      * prepaid/voucher are not processing types.
      */
-    com.sumup.sdk.models.PublicCardV10Type type) {
+    com.sumup.sdk.models.SalePaymentCardType type) {
   /**
-   * Creates a builder for PublicCardV10.
+   * Creates a builder for SalePaymentCard.
    *
-   * @return Builder that constructs immutable PublicCardV10 instances.
+   * @return Builder that constructs immutable SalePaymentCard instances.
    */
   public static Builder builder() {
     return new Builder();
   }
 
-  /** Builder for PublicCardV10 instances. */
+  /** Builder for SalePaymentCard instances. */
   public static final class Builder {
     private String brand;
     private String last4Digits;
-    private com.sumup.sdk.models.PublicCardV10Type type;
+    private com.sumup.sdk.models.SalePaymentCardType type;
 
     private Builder() {}
 
@@ -70,18 +70,18 @@ public record PublicCardV10(
      *     unavailable; prepaid/voucher are not processing types.
      * @return This builder instance.
      */
-    public Builder type(com.sumup.sdk.models.PublicCardV10Type type) {
+    public Builder type(com.sumup.sdk.models.SalePaymentCardType type) {
       this.type = type;
       return this;
     }
 
     /**
-     * Builds an immutable PublicCardV10 instance.
+     * Builds an immutable SalePaymentCard instance.
      *
-     * @return Immutable PublicCardV10.
+     * @return Immutable SalePaymentCard.
      */
-    public PublicCardV10 build() {
-      return new PublicCardV10(
+    public SalePaymentCard build() {
+      return new SalePaymentCard(
           Objects.requireNonNull(brand, "brand"),
           Objects.requireNonNull(last4Digits, "last4Digits"),
           Objects.requireNonNull(type, "type"));

@@ -6,26 +6,24 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Objects;
 
 /** The type of service for this line. */
-public final class SaleLineItemV10ServiceType {
-  public static final SaleLineItemV10ServiceType IN_HOUSE =
-      new SaleLineItemV10ServiceType("IN_HOUSE");
-  public static final SaleLineItemV10ServiceType TAKE_AWAY =
-      new SaleLineItemV10ServiceType("TAKE_AWAY");
+public final class SaleItemServiceType {
+  public static final SaleItemServiceType IN_HOUSE = new SaleItemServiceType("IN_HOUSE");
+  public static final SaleItemServiceType TAKE_AWAY = new SaleItemServiceType("TAKE_AWAY");
 
   private final String value;
 
-  private SaleLineItemV10ServiceType(String value) {
+  private SaleItemServiceType(String value) {
     this.value = Objects.requireNonNull(value, "value");
   }
 
   /**
-   * Creates a SaleLineItemV10ServiceType for a value not yet known to this SDK version.
+   * Creates a SaleItemServiceType for a value not yet known to this SDK version.
    *
    * @param value Wire value sent to or received from the API.
    * @return Open enum value wrapping {@code value}.
    */
-  public static SaleLineItemV10ServiceType of(String value) {
-    return new SaleLineItemV10ServiceType(value);
+  public static SaleItemServiceType of(String value) {
+    return new SaleItemServiceType(value);
   }
 
   @JsonValue
@@ -39,14 +37,14 @@ public final class SaleLineItemV10ServiceType {
   }
 
   @JsonCreator
-  public static SaleLineItemV10ServiceType fromValue(String value) {
-    return value == null ? null : new SaleLineItemV10ServiceType(value);
+  public static SaleItemServiceType fromValue(String value) {
+    return value == null ? null : new SaleItemServiceType(value);
   }
 
   @Override
   public boolean equals(Object other) {
     return this == other
-        || (other instanceof SaleLineItemV10ServiceType that && this.value.equals(that.value));
+        || (other instanceof SaleItemServiceType that && this.value.equals(that.value));
   }
 
   @Override

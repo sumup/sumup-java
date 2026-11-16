@@ -5,8 +5,8 @@ import java.util.Objects;
 
 /**
  * Core model of the Sales API. Returned by `GET /sales` and `GET /sales/{sale_id}`. Non-finalised
- * sales are never returned; only fully-paid sales. Item lines are `SaleLineItem`. Merchant fees
- * appear as `type: "FEE"` lines; extra fee data is in `features`.
+ * sales are never returned; only fully-paid sales. Item lines are `SaleItem`. Merchant fees appear
+ * as `type: "FEE"` lines; extra fee data is in `features`.
  */
 public record Sale(
     /** Instant when the sale was closed. Always present: non-finalised sales are never returned. */
@@ -25,7 +25,7 @@ public record Sale(
      * The lines sold in this sale, in the order they were added to the cart. Includes merchant fees
      * (`type: "FEE"`) when present; fee details are in `features`.
      */
-    java.util.List<com.sumup.sdk.models.SaleLineItemV10> items,
+    java.util.List<com.sumup.sdk.models.SaleItem> items,
 
     /** Human-readable name of the sale (not unique, not the sale id). */
     String name,
@@ -34,15 +34,15 @@ public record Sale(
     String note,
 
     /** Payments on this sale, in the order they were recorded. */
-    java.util.List<com.sumup.sdk.models.PublicPaymentV10> payments,
+    java.util.List<com.sumup.sdk.models.SalePayment> payments,
 
     /**
-     * Sale-level pricing aggregate, parallel to `LineItemPrice` on each `SaleLineItem`. Line-level
+     * Sale-level pricing aggregate, parallel to `SaleItemPrice` on each `SaleItem`. Line-level
      * breakdown (unit price, line discounts, per-line taxes) lives on `items[].price`. This object
      * holds the rolled-up totals and cart-level adjustments that consumers use for receipts and
      * payment reconciliation.
      */
-    com.sumup.sdk.models.SalePriceV10 price,
+    com.sumup.sdk.models.SaleTotals price,
 
     /** Information about the source of the sale. */
     com.sumup.sdk.models.SaleSource source,
@@ -50,7 +50,7 @@ public record Sale(
     /**
      * Lifecycle state of the sale. Non-finalised sales are never returned; only fully-paid sales.
      */
-    com.sumup.sdk.models.SaleStateV10 state,
+    com.sumup.sdk.models.SaleLifecycleState state,
 
     /**
      * The tax mode used by merchant for displaying prices and calculating taxes: - NO_TAX: The
@@ -83,13 +83,13 @@ public record Sale(
     private java.time.OffsetDateTime createdAt;
     private com.sumup.sdk.models.SalesActivityCurrency currency;
     private String id;
-    private java.util.List<com.sumup.sdk.models.SaleLineItemV10> items;
+    private java.util.List<com.sumup.sdk.models.SaleItem> items;
     private String name;
     private String note;
-    private java.util.List<com.sumup.sdk.models.PublicPaymentV10> payments;
-    private com.sumup.sdk.models.SalePriceV10 price;
+    private java.util.List<com.sumup.sdk.models.SalePayment> payments;
+    private com.sumup.sdk.models.SaleTotals price;
     private com.sumup.sdk.models.SaleSource source;
-    private com.sumup.sdk.models.SaleStateV10 state;
+    private com.sumup.sdk.models.SaleLifecycleState state;
     private com.sumup.sdk.models.TaxMode taxMode;
     private java.util.UUID userId;
 
@@ -147,7 +147,7 @@ public record Sale(
      *     merchant fees (`type: "FEE"`) when present; fee details are in `features`.
      * @return This builder instance.
      */
-    public Builder items(java.util.List<com.sumup.sdk.models.SaleLineItemV10> items) {
+    public Builder items(java.util.List<com.sumup.sdk.models.SaleItem> items) {
       this.items = items;
       return this;
     }
@@ -180,7 +180,7 @@ public record Sale(
      * @param payments Payments on this sale, in the order they were recorded.
      * @return This builder instance.
      */
-    public Builder payments(java.util.List<com.sumup.sdk.models.PublicPaymentV10> payments) {
+    public Builder payments(java.util.List<com.sumup.sdk.models.SalePayment> payments) {
       this.payments = payments;
       return this;
     }
@@ -188,13 +188,13 @@ public record Sale(
     /**
      * Sets the value for {@code price}.
      *
-     * @param price Sale-level pricing aggregate, parallel to `LineItemPrice` on each
-     *     `SaleLineItem`. Line-level breakdown (unit price, line discounts, per-line taxes) lives
-     *     on `items[].price`. This object holds the rolled-up totals and cart-level adjustments
-     *     that consumers use for receipts and payment reconciliation.
+     * @param price Sale-level pricing aggregate, parallel to `SaleItemPrice` on each `SaleItem`.
+     *     Line-level breakdown (unit price, line discounts, per-line taxes) lives on
+     *     `items[].price`. This object holds the rolled-up totals and cart-level adjustments that
+     *     consumers use for receipts and payment reconciliation.
      * @return This builder instance.
      */
-    public Builder price(com.sumup.sdk.models.SalePriceV10 price) {
+    public Builder price(com.sumup.sdk.models.SaleTotals price) {
       this.price = price;
       return this;
     }
@@ -217,7 +217,7 @@ public record Sale(
      *     fully-paid sales.
      * @return This builder instance.
      */
-    public Builder state(com.sumup.sdk.models.SaleStateV10 state) {
+    public Builder state(com.sumup.sdk.models.SaleLifecycleState state) {
       this.state = state;
       return this;
     }

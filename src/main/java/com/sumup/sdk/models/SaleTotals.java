@@ -4,12 +4,12 @@ package com.sumup.sdk.models;
 import java.util.Objects;
 
 /**
- * Sale-level pricing aggregate, parallel to `LineItemPrice` on each `SaleLineItem`. Line-level
+ * Sale-level pricing aggregate, parallel to `SaleItemPrice` on each `SaleItem`. Line-level
  * breakdown (unit price, line discounts, per-line taxes) lives on `items[].price`. This object
  * holds the rolled-up totals and cart-level adjustments that consumers use for receipts and payment
  * reconciliation.
  */
-public record SalePriceV10(
+public record SaleTotals(
     /**
      * Discounts applied at cart level. Item-level discounts remain on `items[].price.discounts`.
      */
@@ -35,15 +35,15 @@ public record SalePriceV10(
      */
     java.util.List<com.sumup.sdk.models.TaxLine> taxes) {
   /**
-   * Creates a builder for SalePriceV10.
+   * Creates a builder for SaleTotals.
    *
-   * @return Builder that constructs immutable SalePriceV10 instances.
+   * @return Builder that constructs immutable SaleTotals instances.
    */
   public static Builder builder() {
     return new Builder();
   }
 
-  /** Builder for SalePriceV10 instances. */
+  /** Builder for SaleTotals instances. */
   public static final class Builder {
     private java.util.List<com.sumup.sdk.models.DiscountLine> cartDiscounts;
     private Long grossAmount;
@@ -104,12 +104,12 @@ public record SalePriceV10(
     }
 
     /**
-     * Builds an immutable SalePriceV10 instance.
+     * Builds an immutable SaleTotals instance.
      *
-     * @return Immutable SalePriceV10.
+     * @return Immutable SaleTotals.
      */
-    public SalePriceV10 build() {
-      return new SalePriceV10(
+    public SaleTotals build() {
+      return new SaleTotals(
           cartDiscounts,
           Objects.requireNonNull(grossAmount, "grossAmount"),
           Objects.requireNonNull(netAmount, "netAmount"),
