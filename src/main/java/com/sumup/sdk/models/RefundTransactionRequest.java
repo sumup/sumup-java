@@ -4,12 +4,12 @@ package com.sumup.sdk.models;
 /** Optional amount for partial refunds of transactions. */
 public record RefundTransactionRequest(
     /**
-     * Amount to refund in major units of the transaction's currency, for example `5` for EUR 5.00.
-     * It must be greater than zero and cannot exceed the amount eligible for a refund. Eligibility
-     * depends on the transaction and country/currency rules. If omitted, the system requests a full
-     * refund.
+     * Amount to refund in minor units of the transaction's currency, for example `500` for EUR
+     * 5.00. It must be greater than zero and cannot exceed the amount eligible for a refund.
+     * Eligibility depends on the transaction and country/currency rules. If omitted, the system
+     * requests a full refund.
      */
-    Float amount) {
+    Long amount) {
   /**
    * Creates a builder for RefundTransactionRequest.
    *
@@ -21,20 +21,20 @@ public record RefundTransactionRequest(
 
   /** Builder for RefundTransactionRequest instances. */
   public static final class Builder {
-    private Float amount;
+    private Long amount;
 
     private Builder() {}
 
     /**
      * Sets the value for {@code amount}.
      *
-     * @param amount Amount to refund in major units of the transaction's currency, for example `5`
-     *     for EUR 5.00. It must be greater than zero and cannot exceed the amount eligible for a
-     *     refund. Eligibility depends on the transaction and country/currency rules. If omitted,
-     *     the system requests a full refund.
+     * @param amount Amount to refund in minor units of the transaction's currency, for example
+     *     `500` for EUR 5.00. It must be greater than zero and cannot exceed the amount eligible
+     *     for a refund. Eligibility depends on the transaction and country/currency rules. If
+     *     omitted, the system requests a full refund.
      * @return This builder instance.
      */
-    public Builder amount(Float amount) {
+    public Builder amount(Long amount) {
       this.amount = amount;
       return this;
     }
