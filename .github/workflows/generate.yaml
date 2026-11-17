@@ -40,6 +40,11 @@ jobs:
           java-version: '21'
           cache: gradle
 
+      - name: Block compromised eMudhra certificates
+        shell: bash
+        run: |
+          sh "${GITHUB_WORKSPACE}/.github/scripts/block-emudhra.sh" "$JAVA_HOME"
+
       - name: Format SDK code
         run: ./gradlew spotlessApply
 
