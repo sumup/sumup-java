@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.5](https://github.com/sumup/sumup-java/compare/v0.1.4...v0.1.5) (2026-11-17)
+
+
+### Chores
+
+* **deps:** bump actions/setup-java from 6.1.0 to 6.2.0 ([#201](https://github.com/sumup/sumup-java/issues/201)) ([6208066](https://github.com/sumup/sumup-java/commit/62080665833e6905c711b3befb5aafca365a9c52))
+* **deps:** bump amannn/action-semantic-pull-request ([#204](https://github.com/sumup/sumup-java/issues/204)) ([c836fa8](https://github.com/sumup/sumup-java/commit/c836fa858b8891c3468d3c20ddfc812fa322a9db))
+* **deps:** bump com.fasterxml.jackson:jackson-bom ([#200](https://github.com/sumup/sumup-java/issues/200)) ([1dcd785](https://github.com/sumup/sumup-java/commit/1dcd785999c5ffcef5f1a916deecea1be1318a33))
+* **deps:** bump github.com/pb33f/libopenapi in /codegen ([#202](https://github.com/sumup/sumup-java/issues/202)) ([6461402](https://github.com/sumup/sumup-java/commit/64614020ade378b314a5cdc1873f20b210ae4653))
+* **deps:** bump gradle-wrapper from 9.8.2 to 9.9.0 ([#205](https://github.com/sumup/sumup-java/issues/205)) ([9b947d6](https://github.com/sumup/sumup-java/commit/9b947d63fe9ad40b3840d40f000a6a30ac37b1e4))
+* **deps:** bump reviewdog/action-actionlint from 1.81.1 to 1.83.0 ([#203](https://github.com/sumup/sumup-java/issues/203)) ([27ea28d](https://github.com/sumup/sumup-java/commit/27ea28d0a2b4057e879e1ba903e52f174af85bc4))
+* synced file(s) with sumup/apis ([#198](https://github.com/sumup/sumup-java/issues/198)) ([6682301](https://github.com/sumup/sumup-java/commit/668230195d23b613a95a8c48423cd7c77de3f210))
+* synced file(s) with sumup/apis ([#206](https://github.com/sumup/sumup-java/issues/206)) ([4d92a91](https://github.com/sumup/sumup-java/commit/4d92a91e8bbd997a015c7816eb17a47d09443557))
+
 ## [0.1.4](https://github.com/sumup/sumup-java/compare/v0.1.3...v0.1.4) (2026-11-12)
 
 
