@@ -1,8 +1,9 @@
 package generator
 
 import (
-	"github.com/pb33f/libopenapi"
 	"testing"
+
+	"github.com/pb33f/libopenapi"
 )
 
 func TestNestedReaderResources(t *testing.T) {
@@ -28,6 +29,7 @@ paths:
     post:
       operationId: CreateReaderCheckout
       tags: [ReaderCheckouts]
+      x-codegen: {method_name: create}
       responses:
         '204': {description: OK}
 components: {schemas: {}}
@@ -47,11 +49,11 @@ components: {schemas: {}}
 	for _, client := range sdk.Clients {
 		switch client.TagName {
 		case "Readers":
-			if len(client.Children) != 1 || client.Children[0].AccessorName != "checkouts" || len(client.Methods) != 2 {
-				t.Fatalf("expected Checkouts and both legacy operations: %+v", client)
+			if len(client.Children) != 1 || client.Children[0].AccessorName != "checkouts" || len(client.Methods) != 1 || client.Methods[0].MethodName != "listReaders" {
+				t.Fatalf("expected Checkouts and the parent operation: %+v", client)
 			}
 		case "ReaderCheckouts":
-			if client.AccessPath != "readers().checkouts()" || len(client.Methods) != 1 {
+			if client.AccessPath != "readers().checkouts()" || len(client.Methods) != 1 || client.Methods[0].MethodName != "create" {
 				t.Fatalf("expected only the checkout operation on the nested client: %+v", client)
 			}
 		}

@@ -163,7 +163,7 @@ type operationTemplateData struct {
 // clientTemplateData contains the data required to render a single client
 // class.
 type clientTemplateData struct {
-	Children            []clientModel
+	Children            []childClient
 	Package             string
 	ClassName           string
 	TagName             string

@@ -75,9 +75,6 @@ func BuildSamples(params Params, sdkVersion string) (*SampleCatalog, error) {
 	samples := make([]Sample, 0)
 	for _, client := range model.Clients {
 		for _, operation := range client.Methods {
-			if operation.Alias {
-				continue
-			}
 			for _, example := range operationRequestExamples(operation.Operation) {
 				renderer := javaSampleRenderer{registry: registry}
 				source, err := renderer.render(client, operation, example)

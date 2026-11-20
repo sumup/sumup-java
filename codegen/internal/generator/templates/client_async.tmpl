@@ -16,7 +16,7 @@ import {{ . }};
 public final class {{ .ClassName }} {
     private final ApiClient apiClient;
 {{- range .Children }}
-    private final {{ .ClassName }} {{ .FieldName }};
+    private final {{ .ClassName }} {{ .AccessorName }};
 {{- end }}
 
     /**
@@ -27,14 +27,14 @@ public final class {{ .ClassName }} {
     public {{ .ClassName }}(ApiClient apiClient) {
         this.apiClient = Objects.requireNonNull(apiClient, "apiClient");
 {{- range .Children }}
-        this.{{ .FieldName }} = new {{ .ClassName }}(apiClient);
+        this.{{ .AccessorName }} = new {{ .ClassName }}(apiClient);
 {{- end }}
     }
 {{- range .Children }}
 
     /** @return the {{ .AccessorName }} client. */
     public {{ .ClassName }} {{ .AccessorName }}() {
-        return {{ .FieldName }};
+        return {{ .AccessorName }};
     }
 {{- end }}
 

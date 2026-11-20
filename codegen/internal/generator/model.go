@@ -29,13 +29,17 @@ type clientModel struct {
 	Package             string
 	Methods             []operationModel
 	Nested              bool
-	Children            []clientModel
+	Children            []childClient
 	AccessPath          string
+}
+
+type childClient struct {
+	ClassName    string
+	AccessorName string
 }
 
 // operationModel stores the derived metadata for one OpenAPI operation.
 type operationModel struct {
-	Alias                bool
 	OperationID          string
 	MethodName           string
 	SummaryLines         []string
@@ -170,9 +174,12 @@ func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
 				}
 				opModel := convertOperation(method, path, item, operation, resolver)
 				tag := opModel.TagName
-				for owner := tag; owner != ""; owner = parents[owner].tag {
-					opModel.Alias = owner != tag
-					groups[owner] = append(groups[owner], opModel)
+				groups[tag] = append(groups[tag], opModel)
+				for parent := parents[tag].tag; parent != ""; parent = parents[parent].tag {
+					if _, exists := groups[parent]; exists {
+						break
+					}
+					groups[parent] = nil
 				}
 			}
 		}
@@ -221,7 +228,6 @@ func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
 		if parent := parents[tag]; parent.tag != "" {
 			client.Nested = true
 			client.AccessorName = camelCase(parent.label, "client")
-			client.FieldName = client.AccessorName
 		}
 		clients = append(clients, client)
 	}
@@ -237,8 +243,8 @@ func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
 		}
 		client.AccessPath = path
 		if parent := byTag[parents[client.TagName].tag]; parent != nil {
-			parent.Children = append(parent.Children, clientModel{
-				ClassName: client.ClassName, AccessorName: client.AccessorName, FieldName: client.FieldName,
+			parent.Children = append(parent.Children, childClient{
+				ClassName: client.ClassName, AccessorName: client.AccessorName,
 			})
 		}
 	}
