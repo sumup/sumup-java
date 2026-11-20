@@ -75,6 +75,9 @@ func BuildSamples(params Params, sdkVersion string) (*SampleCatalog, error) {
 	samples := make([]Sample, 0)
 	for _, client := range model.Clients {
 		for _, operation := range client.Methods {
+			if operation.Alias {
+				continue
+			}
 			for _, example := range operationRequestExamples(operation.Operation) {
 				renderer := javaSampleRenderer{registry: registry}
 				source, err := renderer.render(client, operation, example)
@@ -143,7 +146,7 @@ func (r javaSampleRenderer) render(client clientModel, operation operationModel,
 	}
 
 	className := pascalCase(operation.OperationID+" "+example.name, "Sample")
-	call := "client." + client.AccessorName + "()." + operation.MethodName + "("
+	call := "client." + client.AccessPath + "." + operation.MethodName + "("
 	if len(args) > 0 {
 		call += "\n"
 		for i, arg := range args {

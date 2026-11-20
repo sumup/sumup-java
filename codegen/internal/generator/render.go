@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -162,19 +163,26 @@ type operationTemplateData struct {
 // clientTemplateData contains the data required to render a single client
 // class.
 type clientTemplateData struct {
-	Package       string
-	ClassName     string
-	TagName       string
+	Children            []clientModel
+	Package             string
+	ClassName           string
+	TagName             string
 	TagDescriptionLines []string
-	Imports       []string
-	Operations    []operationTemplateData
-	QueryStructs  []*parameterGroupModel
-	HeaderStructs []*parameterGroupModel
+	Imports             []string
+	Operations          []operationTemplateData
+	QueryStructs        []*parameterGroupModel
+	HeaderStructs       []*parameterGroupModel
 }
 
 // prepareClientTemplateData converts an internal client model into a richer
 // structure that is easier for templates to consume.
 func prepareClientTemplateData(client clientModel, className string, async bool) clientTemplateData {
+	children := slices.Clone(client.Children)
+	if async {
+		for i := range children {
+			children[i].ClassName = asyncClientClassName(children[i].ClassName)
+		}
+	}
 	importSet := map[string]struct{}{
 		"com.sumup.sdk.core.ApiClient":      {},
 		"com.sumup.sdk.core.ApiException":   {},
@@ -318,6 +326,7 @@ func prepareClientTemplateData(client clientModel, className string, async bool)
 	sort.Strings(imports)
 
 	return clientTemplateData{
+		Children:            children,
 		Package:             client.Package,
 		ClassName:           className,
 		TagName:             client.TagName,
@@ -339,6 +348,9 @@ func prepareSumUpClientData(model sdkModel, className string, async bool) map[st
 	}
 	clientInfos := make([]map[string]string, 0, len(model.Clients))
 	for _, client := range model.Clients {
+		if client.Nested {
+			continue
+		}
 		clientClass := client.ClassName
 		if async {
 			clientClass = asyncClientClassName(clientClass)
