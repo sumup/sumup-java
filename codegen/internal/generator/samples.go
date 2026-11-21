@@ -143,7 +143,7 @@ func (r javaSampleRenderer) render(client clientModel, operation operationModel,
 	}
 
 	className := pascalCase(operation.OperationID+" "+example.name, "Sample")
-	call := "client." + client.AccessorName + "()." + operation.MethodName + "("
+	call := "client." + client.AccessPath + "." + operation.MethodName + "("
 	if len(args) > 0 {
 		call += "\n"
 		for i, arg := range args {

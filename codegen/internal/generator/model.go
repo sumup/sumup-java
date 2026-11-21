@@ -28,6 +28,14 @@ type clientModel struct {
 	FieldName           string
 	Package             string
 	Methods             []operationModel
+	Nested              bool
+	Children            []childClient
+	AccessPath          string
+}
+
+type childClient struct {
+	ClassName    string
+	AccessorName string
 }
 
 // operationModel stores the derived metadata for one OpenAPI operation.
@@ -147,6 +155,10 @@ func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
 		}
 	}
 	groups := map[string][]operationModel{}
+	parents, err := readResourceParents(doc)
+	if err != nil {
+		return sdkModel{}, err
+	}
 	if doc.Paths != nil && doc.Paths.PathItems != nil && doc.Paths.PathItems.Len() > 0 {
 		for path, item := range doc.Paths.PathItems.FromOldest() {
 			if item == nil {
@@ -163,6 +175,12 @@ func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
 				opModel := convertOperation(method, path, item, operation, resolver)
 				tag := opModel.TagName
 				groups[tag] = append(groups[tag], opModel)
+				for parent := parents[tag].tag; parent != ""; parent = parents[parent].tag {
+					if _, exists := groups[parent]; exists {
+						break
+					}
+					groups[parent] = nil
+				}
 			}
 		}
 	}
@@ -198,7 +216,7 @@ func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
 			className += suffix
 		}
 
-		clients = append(clients, clientModel{
+		client := clientModel{
 			TagName:             tag,
 			TagDescriptionLines: tagDescriptions[tag],
 			ClassName:           className,
@@ -206,7 +224,29 @@ func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
 			FieldName:           fieldName,
 			Package:             params.clientPackage(),
 			Methods:             ops,
-		})
+		}
+		if parent := parents[tag]; parent.tag != "" {
+			client.Nested = true
+			client.AccessorName = camelCase(parent.label, "client")
+		}
+		clients = append(clients, client)
+	}
+	byTag := make(map[string]*clientModel, len(clients))
+	for i := range clients {
+		byTag[clients[i].TagName] = &clients[i]
+	}
+	for i := range clients {
+		client := &clients[i]
+		path := client.AccessorName + "()"
+		for ancestor := parents[client.TagName].tag; ancestor != ""; ancestor = parents[ancestor].tag {
+			path = byTag[ancestor].AccessorName + "()." + path
+		}
+		client.AccessPath = path
+		if parent := byTag[parents[client.TagName].tag]; parent != nil {
+			parent.Children = append(parent.Children, childClient{
+				ClassName: client.ClassName, AccessorName: client.AccessorName,
+			})
+		}
 	}
 
 	schemas := buildSchemas(doc, params, resolver)
