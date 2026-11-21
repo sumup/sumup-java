@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/sumup/sumup-java/compare/v0.1.5...v0.1.6) (2026-11-21)
+
+
+### Features
+
+* **codegen:** support nested SDK resources ([#208](https://github.com/sumup/sumup-java/issues/208)) ([c899fbe](https://github.com/sumup/sumup-java/commit/c899fbee9974bf698262096c67de7c9a4d1c2c2a))
+
 ## [0.1.5](https://github.com/sumup/sumup-java/compare/v0.1.4...v0.1.5) (2026-11-17)
 
 
