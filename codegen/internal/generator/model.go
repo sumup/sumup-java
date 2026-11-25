@@ -12,11 +12,10 @@ import (
 
 // sdkModel represents the aggregate information needed to render the SDK.
 type sdkModel struct {
-	BasePackage   string
-	ClientPackage string
-	ModelPackage  string
-	Clients       []clientModel
-	Schemas       []schemaModel
+	BasePackage  string
+	ModelPackage string
+	Clients      []clientModel
+	Schemas      []schemaModel
 }
 
 // clientModel encapsulates the data necessary to render a Java API client.
@@ -36,6 +35,7 @@ type clientModel struct {
 type childClient struct {
 	ClassName    string
 	AccessorName string
+	Package      string
 }
 
 // operationModel stores the derived metadata for one OpenAPI operation.
@@ -144,7 +144,6 @@ const (
 // used by renderers to generate source files.
 func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
 	normalizeSchemaAnnotations(doc)
-	resolver := newTypeResolver(doc, params)
 	tagDescriptions := map[string][]string{}
 	if doc.Tags != nil {
 		for _, tag := range doc.Tags {
@@ -159,6 +158,7 @@ func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
 	if err != nil {
 		return sdkModel{}, err
 	}
+	resolver := newTypeResolver(doc, params, collectModelPackages(doc, params, parents))
 	if doc.Paths != nil && doc.Paths.PathItems != nil && doc.Paths.PathItems.Len() > 0 {
 		for path, item := range doc.Paths.PathItems.FromOldest() {
 			if item == nil {
@@ -239,25 +239,28 @@ func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
 		client := &clients[i]
 		path := client.AccessorName + "()"
 		for ancestor := parents[client.TagName].tag; ancestor != ""; ancestor = parents[ancestor].tag {
-			path = byTag[ancestor].AccessorName + "()." + path
+			accessor := byTag[ancestor].AccessorName
+			path = accessor + "()." + path
 		}
 		client.AccessPath = path
 		if parent := byTag[parents[client.TagName].tag]; parent != nil {
+			client.Package += "." + resourcePackageSuffix(client.TagName, parents)
 			parent.Children = append(parent.Children, childClient{
-				ClassName: client.ClassName, AccessorName: client.AccessorName,
+				ClassName:    client.ClassName,
+				AccessorName: client.AccessorName,
+				Package:      client.Package,
 			})
 		}
 	}
 
-	schemas := buildSchemas(doc, params, resolver)
-	schemas = append(schemas, resolver.inlineSchemaModels(params)...)
+	schemas := buildSchemas(doc, resolver)
+	schemas = append(schemas, resolver.inlineSchemaModels()...)
 
 	return sdkModel{
-		BasePackage:   params.BasePackage,
-		ClientPackage: params.clientPackage(),
-		ModelPackage:  params.modelPackage(),
-		Clients:       clients,
-		Schemas:       schemas,
+		BasePackage:  params.BasePackage,
+		ModelPackage: params.modelPackage(),
+		Clients:      clients,
+		Schemas:      schemas,
 	}, nil
 }
 
@@ -599,7 +602,7 @@ func preferredSchema(content *orderedmap.Map[string, *v3.MediaType]) *base.Schem
 }
 
 // buildSchemas converts OpenAPI components into schemaModel instances.
-func buildSchemas(doc *v3.Document, params Params, resolver *typeResolver) []schemaModel {
+func buildSchemas(doc *v3.Document, resolver *typeResolver) []schemaModel {
 	if doc.Components == nil || doc.Components.Schemas == nil || doc.Components.Schemas.Len() == 0 {
 		return nil
 	}
@@ -616,6 +619,7 @@ func buildSchemas(doc *v3.Document, params Params, resolver *typeResolver) []sch
 			continue
 		}
 		description := schemaDescription(ref)
+		pkg := resolver.modelPackage(ref.Schema())
 		if enumValues, ok := enumValuesForSchema(schemaFromProxy(ref)); ok {
 			imports := sortedImports(map[string]struct{}{
 				"com.fasterxml.jackson.annotation.JsonCreator": {},
@@ -625,7 +629,7 @@ func buildSchemas(doc *v3.Document, params Params, resolver *typeResolver) []sch
 			result = append(result, schemaModel{
 				Name:             name,
 				ClassName:        pascalCase(name, ""),
-				Package:          params.modelPackage(),
+				Package:          pkg,
 				DescriptionLines: splitComment(description),
 				Imports:          imports,
 				IsEnum:           true,
@@ -644,7 +648,7 @@ func buildSchemas(doc *v3.Document, params Params, resolver *typeResolver) []sch
 		model := schemaModel{
 			Name:             name,
 			ClassName:        pascalCase(name, ""),
-			Package:          params.modelPackage(),
+			Package:          pkg,
 			DescriptionLines: splitComment(description),
 			Fields:           fields,
 			AdditionalProps:  additionalProps,

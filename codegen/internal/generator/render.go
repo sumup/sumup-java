@@ -33,12 +33,16 @@ func renderClients(model sdkModel, params Params) error {
 	}
 
 	for _, client := range model.Clients {
+		clientDir := filepath.Join(params.OutputDir, filepath.FromSlash(strings.ReplaceAll(client.Package, ".", "/")))
+		if err := os.MkdirAll(clientDir, 0o755); err != nil {
+			return fmt.Errorf("create %s package directory: %w", client.Package, err)
+		}
 		data := prepareClientTemplateData(client, client.ClassName, false)
 		var buf bytes.Buffer
 		if err := syncTmpl.Execute(&buf, data); err != nil {
 			return fmt.Errorf("render client %s: %w", client.ClassName, err)
 		}
-		target := filepath.Join(dir, client.ClassName+".java")
+		target := filepath.Join(clientDir, client.ClassName+".java")
 		if err := os.WriteFile(target, buf.Bytes(), 0o644); err != nil {
 			return fmt.Errorf("write client %s: %w", client.ClassName, err)
 		}
@@ -48,7 +52,7 @@ func renderClients(model sdkModel, params Params) error {
 		if err := asyncTmpl.Execute(&buf, asyncData); err != nil {
 			return fmt.Errorf("render async client %s: %w", asyncData.ClassName, err)
 		}
-		asyncTarget := filepath.Join(dir, asyncData.ClassName+".java")
+		asyncTarget := filepath.Join(clientDir, asyncData.ClassName+".java")
 		if err := os.WriteFile(asyncTarget, buf.Bytes(), 0o644); err != nil {
 			return fmt.Errorf("write async client %s: %w", asyncData.ClassName, err)
 		}
@@ -105,12 +109,16 @@ func renderModels(model sdkModel, params Params) error {
 	}
 
 	for _, schema := range model.Schemas {
+		modelDir := filepath.Join(params.OutputDir, filepath.FromSlash(strings.ReplaceAll(schema.Package, ".", "/")))
+		if err := os.MkdirAll(modelDir, 0o755); err != nil {
+			return fmt.Errorf("create %s package directory: %w", schema.Package, err)
+		}
 		data := prepareModelTemplateData(schema)
 		var buf bytes.Buffer
 		if err := tmpl.Execute(&buf, data); err != nil {
 			return fmt.Errorf("render model %s: %w", schema.ClassName, err)
 		}
-		target := filepath.Join(dir, schema.ClassName+".java")
+		target := filepath.Join(modelDir, schema.ClassName+".java")
 		if err := os.WriteFile(target, buf.Bytes(), 0o644); err != nil {
 			return fmt.Errorf("write model %s: %w", schema.ClassName, err)
 		}
@@ -193,6 +201,9 @@ func prepareClientTemplateData(client clientModel, className string, async bool)
 	importSet["java.util.Map"] = struct{}{}
 	if async {
 		importSet["java.util.concurrent.CompletableFuture"] = struct{}{}
+	}
+	for _, child := range children {
+		importSet[child.Package+"."+child.ClassName] = struct{}{}
 	}
 
 	operations := make([]operationTemplateData, 0, len(client.Methods))
@@ -355,7 +366,7 @@ func prepareSumUpClientData(model sdkModel, className string, async bool) map[st
 		if async {
 			clientClass = asyncClientClassName(clientClass)
 		}
-		imports = append(imports, fmt.Sprintf("%s.%s", model.ClientPackage, clientClass))
+		imports = append(imports, client.Package+"."+clientClass)
 		clientInfos = append(clientInfos, map[string]string{
 			"ClassName":    clientClass,
 			"FieldName":    client.FieldName,

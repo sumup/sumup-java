@@ -1,6 +1,9 @@
 package generator
 
 import (
+	"os"
+	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/pb33f/libopenapi"
@@ -25,14 +28,33 @@ paths:
       operationId: ListReaders
       tags: [Readers]
       responses:
-        '204': {description: OK}
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Shared'}
     post:
       operationId: CreateReaderCheckout
       tags: [ReaderCheckouts]
       x-codegen: {method_name: create}
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/CheckoutRequest'}
       responses:
         '204': {description: OK}
-components: {schemas: {}}
+components:
+  schemas:
+    CheckoutRequest:
+      type: object
+      properties:
+        shared: {$ref: '#/components/schemas/Shared'}
+        details:
+          type: object
+          properties: {reference: {type: string}}
+    Shared:
+      type: object
+      properties: {id: {type: string}}
 `))
 	if err != nil {
 		t.Fatal(err)
@@ -42,7 +64,8 @@ components: {schemas: {}}
 		t.Fatal(err)
 	}
 
-	sdk, err := buildModel(&model.Model, Params{BasePackage: "com.sumup.sdk"})
+	params := Params{BasePackage: "com.sumup.sdk", OutputDir: t.TempDir()}
+	sdk, err := buildModel(&model.Model, params)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -60,5 +83,42 @@ components: {schemas: {}}
 	}
 	if len(sdk.Clients) != 2 {
 		t.Fatalf("expected two clients, got %d", len(sdk.Clients))
+	}
+	if err := renderClients(sdk, params); err != nil {
+		t.Fatal(err)
+	}
+	root := filepath.Join(params.OutputDir, params.clientPackagePath())
+	for _, variant := range []string{"Client", "AsyncClient"} {
+		childClass := "ReaderCheckouts" + variant
+		child, err := os.ReadFile(filepath.Join(root, "readers", "checkouts", childClass+".java"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !strings.Contains(string(child), "package com.sumup.sdk.clients.readers.checkouts;") {
+			t.Errorf("%s declares the wrong package", childClass)
+		}
+		if !strings.Contains(string(child), "com.sumup.sdk.models.readers.checkouts.CheckoutRequest") {
+			t.Errorf("%s does not use the scoped request model", childClass)
+		}
+		parent, err := os.ReadFile(filepath.Join(root, "Readers"+variant+".java"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !strings.Contains(string(parent), "import com.sumup.sdk.clients.readers.checkouts."+childClass+";") {
+			t.Errorf("Readers%s does not import %s", variant, childClass)
+		}
+	}
+	if err := renderModels(sdk, params); err != nil {
+		t.Fatal(err)
+	}
+	modelRoot := filepath.Join(params.OutputDir, params.modelPackagePath())
+	request, err := os.ReadFile(filepath.Join(modelRoot, "readers", "checkouts", "CheckoutRequest.java"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, name := range []string{"com.sumup.sdk.models.Shared", "com.sumup.sdk.models.readers.checkouts.CheckoutRequestDetails"} {
+		if !strings.Contains(string(request), name) {
+			t.Errorf("checkout request does not reference %s", name)
+		}
 	}
 }

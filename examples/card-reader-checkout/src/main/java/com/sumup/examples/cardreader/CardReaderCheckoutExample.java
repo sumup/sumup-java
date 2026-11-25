@@ -2,8 +2,8 @@ package com.sumup.examples.cardreader;
 
 import com.sumup.sdk.SumUpClient;
 import com.sumup.sdk.core.ApiException;
-import com.sumup.sdk.models.CreateReaderCheckoutRequest;
-import com.sumup.sdk.models.Money;
+import com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutRequest;
+import com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutRequestTotalAmount;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,11 +40,15 @@ public final class CardReaderCheckoutExample {
     CreateReaderCheckoutRequest request =
         CreateReaderCheckoutRequest.builder()
             .description("sumup-java card reader checkout " + checkoutReference)
-            .totalAmount(Money.builder().currency("EUR").minorUnit(2L).value(1000L).build())
+            .totalAmount(
+                CreateReaderCheckoutRequestTotalAmount.builder()
+                    .currency("EUR")
+                    .value(1000L)
+                    .build())
             .build();
 
     try {
-      client.readers().createCheckout(merchantCode, readerId, request);
+      client.readers().checkouts().create(merchantCode, readerId, request);
       return true;
     } catch (ApiException ex) {
       System.err.printf(

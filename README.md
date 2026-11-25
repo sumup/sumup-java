@@ -160,8 +160,8 @@ Synchronous example:
 
 ```java
 import com.sumup.sdk.SumUpClient;
-import com.sumup.sdk.models.CreateReaderCheckoutRequest;
-import com.sumup.sdk.models.Money;
+import com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutRequest;
+import com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutRequestTotalAmount;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -184,15 +184,14 @@ CreateReaderCheckoutRequest request =
     CreateReaderCheckoutRequest.builder()
         .description("sumup-java reader checkout " + UUID.randomUUID())
         .totalAmount(
-            Money.builder()
+            CreateReaderCheckoutRequestTotalAmount.builder()
                 .currency("EUR")
-                .minorUnit(2L)
                 .value(1000L) // €10.00
                 .build())
         .returnUrl("https://example.com/webhook")
         .build();
 
-client.readers().createCheckout(merchantCode, readerId, request);
+client.readers().checkouts().create(merchantCode, readerId, request);
 System.out.println("Reader checkout created.");
 ```
 
@@ -200,8 +199,8 @@ Asynchronous example:
 
 ```java
 import com.sumup.sdk.SumUpAsyncClient;
-import com.sumup.sdk.models.CreateReaderCheckoutRequest;
-import com.sumup.sdk.models.Money;
+import com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutRequest;
+import com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutRequestTotalAmount;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -236,15 +235,14 @@ readerIdFuture
               CreateReaderCheckoutRequest.builder()
                   .description("sumup-java reader checkout " + UUID.randomUUID())
                   .totalAmount(
-                      Money.builder()
+                      CreateReaderCheckoutRequestTotalAmount.builder()
                           .currency("EUR")
-                          .minorUnit(2L)
                           .value(1000L)
                           .build())
                   .returnUrl("https://example.com/webhook")
                   .build();
 
-          return client.readers().createCheckout(merchantCode, readerId, request);
+          return client.readers().checkouts().create(merchantCode, readerId, request);
         })
     .thenAccept(
         response ->

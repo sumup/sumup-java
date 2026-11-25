@@ -15,6 +15,23 @@ import (
 
 type eventData struct{ Name, Type, TypeMember, Description, Model, Package string }
 
+func eventObjectSchemaName(op *v3.Operation) (string, error) {
+	if op.Extensions == nil || op.Extensions.GetOrZero("x-object") == nil {
+		return "", fmt.Errorf("missing x-object")
+	}
+	var object struct {
+		Ref string `yaml:"$ref"`
+	}
+	if err := op.Extensions.GetOrZero("x-object").Decode(&object); err != nil {
+		return "", fmt.Errorf("decode object: %w", err)
+	}
+	name, ok := strings.CutPrefix(object.Ref, "#/components/schemas/")
+	if !ok || name == "" {
+		return "", fmt.Errorf("invalid object reference")
+	}
+	return name, nil
+}
+
 func renderEvents(doc *v3.Document, params Params) error {
 	events := []eventData{}
 	if doc.Webhooks != nil {
@@ -23,17 +40,11 @@ func renderEvents(doc *v3.Document, params Params) error {
 				continue
 			}
 			op := path.Post
-			var object struct {
-				Ref string `yaml:"$ref"`
+			model, err := eventObjectSchemaName(op)
+			if err != nil {
+				return fmt.Errorf("event %s: %w", eventType, err)
 			}
-			if op.Extensions == nil || op.Extensions.GetOrZero("x-object") == nil {
-				return fmt.Errorf("event %s: missing x-object", eventType)
-			}
-			if err := op.Extensions.GetOrZero("x-object").Decode(&object); err != nil {
-				return fmt.Errorf("event %s: decode object: %w", eventType, err)
-			}
-			model := strings.TrimPrefix(object.Ref, "#/components/schemas/")
-			if model == object.Ref || doc.Components == nil || doc.Components.Schemas.GetOrZero(model) == nil || op.OperationId == "" {
+			if doc.Components == nil || doc.Components.Schemas.GetOrZero(model) == nil || op.OperationId == "" {
 				return fmt.Errorf("event %s: invalid object reference or operation ID", eventType)
 			}
 			description := strings.NewReplacer("&", "&amp;", "<", "&lt;", ">", "&gt;", "*/", "*&#47;").Replace(op.Description)
