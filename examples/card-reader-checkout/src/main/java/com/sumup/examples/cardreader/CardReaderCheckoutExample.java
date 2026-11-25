@@ -2,8 +2,8 @@ package com.sumup.examples.cardreader;
 
 import com.sumup.sdk.SumUpClient;
 import com.sumup.sdk.core.ApiException;
-import com.sumup.sdk.models.CreateReaderCheckoutRequest;
-import com.sumup.sdk.models.CreateReaderCheckoutRequestTotalAmount;
+import com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutRequest;
+import com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutRequestTotalAmount;
 import java.util.Optional;
 import java.util.UUID;
 

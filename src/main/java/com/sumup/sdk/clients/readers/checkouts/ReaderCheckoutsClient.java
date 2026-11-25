@@ -44,13 +44,13 @@ public final class ReaderCheckoutsClient {
    * @param request A checkout initial attributes
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
-   * @return com.sumup.sdk.models.CreateReaderCheckoutResponse parsed response.
+   * @return com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.CreateReaderCheckoutResponse create(
+  public com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutResponse create(
       String merchantCode,
       String readerId,
-      com.sumup.sdk.models.CreateReaderCheckoutRequest request)
+      com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutRequest request)
       throws ApiException {
     return create(merchantCode, readerId, request, null);
   }
@@ -74,13 +74,13 @@ public final class ReaderCheckoutsClient {
    * @param request A checkout initial attributes
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
-   * @return com.sumup.sdk.models.CreateReaderCheckoutResponse parsed response.
+   * @return com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.CreateReaderCheckoutResponse create(
+  public com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutResponse create(
       String merchantCode,
       String readerId,
-      com.sumup.sdk.models.CreateReaderCheckoutRequest request,
+      com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutRequest request,
       RequestOptions requestOptions)
       throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
@@ -98,7 +98,7 @@ public final class ReaderCheckoutsClient {
         null,
         null,
         request,
-        new TypeReference<com.sumup.sdk.models.CreateReaderCheckoutResponse>() {},
+        new TypeReference<com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutResponse>() {},
         requestOptions);
   }
 
@@ -114,10 +114,10 @@ public final class ReaderCheckoutsClient {
    * @param readerId The unique identifier of the Reader
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
-   * @return com.sumup.sdk.models.GetReaderCheckoutResponse parsed response.
+   * @return com.sumup.sdk.models.readers.checkouts.GetReaderCheckoutResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.GetReaderCheckoutResponse get(
+  public com.sumup.sdk.models.readers.checkouts.GetReaderCheckoutResponse get(
       String checkoutId, String merchantCode, String readerId) throws ApiException {
     return get(checkoutId, merchantCode, readerId, null);
   }
@@ -134,10 +134,10 @@ public final class ReaderCheckoutsClient {
    * @param readerId The unique identifier of the Reader
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
-   * @return com.sumup.sdk.models.GetReaderCheckoutResponse parsed response.
+   * @return com.sumup.sdk.models.readers.checkouts.GetReaderCheckoutResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.GetReaderCheckoutResponse get(
+  public com.sumup.sdk.models.readers.checkouts.GetReaderCheckoutResponse get(
       String checkoutId, String merchantCode, String readerId, RequestOptions requestOptions)
       throws ApiException {
     Objects.requireNonNull(checkoutId, "checkoutId");
@@ -156,7 +156,7 @@ public final class ReaderCheckoutsClient {
         null,
         null,
         null,
-        new TypeReference<com.sumup.sdk.models.GetReaderCheckoutResponse>() {},
+        new TypeReference<com.sumup.sdk.models.readers.checkouts.GetReaderCheckoutResponse>() {},
         requestOptions);
   }
 

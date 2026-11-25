@@ -27,17 +27,19 @@ type typeResolver struct {
 	inlineTypes     map[*base.Schema]string
 	inlineSchemas   []*inlineSchemaInfo
 	inlineNameUsage map[string]int
+	modelPackages   map[*base.Schema]string
 }
 
 // newTypeResolver returns a resolver that knows how to reference components and
 // captures inline schema names as it uncovers them.
-func newTypeResolver(doc *v3.Document, params Params) *typeResolver {
+func newTypeResolver(doc *v3.Document, params Params, packages map[*base.Schema]string) *typeResolver {
 	resolver := &typeResolver{
 		params:          params,
 		schemaTypes:     make(map[string]string),
 		inlineTypes:     make(map[*base.Schema]string),
 		inlineSchemas:   []*inlineSchemaInfo{},
 		inlineNameUsage: make(map[string]int),
+		modelPackages:   packages,
 	}
 	if doc.Components != nil && doc.Components.Schemas != nil && doc.Components.Schemas.Len() > 0 {
 		for name, ref := range doc.Components.Schemas.FromOldest() {
@@ -45,11 +47,18 @@ func newTypeResolver(doc *v3.Document, params Params) *typeResolver {
 				continue
 			}
 			className := pascalCase(name, "")
-			resolver.schemaTypes[name] = params.modelPackage() + "." + className
+			resolver.schemaTypes[name] = resolver.modelPackage(schemaFromProxy(ref)) + "." + className
 			resolver.inlineNameUsage[className]++
 		}
 	}
 	return resolver
+}
+
+func (r *typeResolver) modelPackage(schema *base.Schema) string {
+	if pkg := r.modelPackages[schema]; pkg != "" {
+		return pkg
+	}
+	return r.params.modelPackage()
 }
 
 // schemaClassName resolves a schema component name to the fully-qualified Java
@@ -95,7 +104,7 @@ func (r *typeResolver) javaType(ref *base.SchemaProxy, context ...string) javaTy
 	}
 	if enumValues, ok := enumValuesForSchema(schema); ok && len(enumValues) > 0 {
 		name := r.registerInlineSchema(schema, context)
-		fqn := r.params.modelPackage() + "." + name
+		fqn := r.modelPackage(schema) + "." + name
 		return javaType{
 			Name:        fqn,
 			TypeRefExpr: fmt.Sprintf("new TypeReference<%s>() {}", fqn),
@@ -235,7 +244,7 @@ func (r *typeResolver) genericList() javaType {
 // fully-qualified name for use in generated sources.
 func (r *typeResolver) inlineObjectType(schema *base.Schema, context []string) javaType {
 	name := r.registerInlineSchema(schema, context)
-	fqn := r.params.modelPackage() + "." + name
+	fqn := r.modelPackage(schema) + "." + name
 	return javaType{
 		Name:        fqn,
 		TypeRefExpr: fmt.Sprintf("new TypeReference<%s>() {}", fqn),
@@ -343,7 +352,7 @@ func (r *typeResolver) genericMap() javaType {
 
 // inlineSchemaModels converts the inline schemas tracked by the resolver into
 // schemaModel values so the renderer can emit classes for them.
-func (r *typeResolver) inlineSchemaModels(params Params) []schemaModel {
+func (r *typeResolver) inlineSchemaModels() []schemaModel {
 	var models []schemaModel
 	for {
 		added := false
@@ -360,7 +369,7 @@ func (r *typeResolver) inlineSchemaModels(params Params) []schemaModel {
 				models = append(models, schemaModel{
 					Name:             info.className,
 					ClassName:        info.className,
-					Package:          params.modelPackage(),
+					Package:          r.modelPackage(info.schema),
 					DescriptionLines: splitComment(info.description),
 					Imports:          imports,
 					IsEnum:           true,
@@ -381,7 +390,7 @@ func (r *typeResolver) inlineSchemaModels(params Params) []schemaModel {
 			models = append(models, schemaModel{
 				Name:             info.className,
 				ClassName:        info.className,
-				Package:          params.modelPackage(),
+				Package:          r.modelPackage(info.schema),
 				DescriptionLines: splitComment(info.description),
 				Fields:           fields,
 				AdditionalProps:  additionalProps,

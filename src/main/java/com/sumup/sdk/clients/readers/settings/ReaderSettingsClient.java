@@ -39,11 +39,11 @@ public final class ReaderSettingsClient {
    * @param readerId The unique identifier of the reader.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
-   * @return com.sumup.sdk.models.GetReaderSettingsResponse parsed response.
+   * @return com.sumup.sdk.models.readers.settings.GetReaderSettingsResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.GetReaderSettingsResponse get(String merchantCode, String readerId)
-      throws ApiException {
+  public com.sumup.sdk.models.readers.settings.GetReaderSettingsResponse get(
+      String merchantCode, String readerId) throws ApiException {
     return get(merchantCode, readerId, null);
   }
 
@@ -61,10 +61,10 @@ public final class ReaderSettingsClient {
    * @param readerId The unique identifier of the reader.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
-   * @return com.sumup.sdk.models.GetReaderSettingsResponse parsed response.
+   * @return com.sumup.sdk.models.readers.settings.GetReaderSettingsResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.GetReaderSettingsResponse get(
+  public com.sumup.sdk.models.readers.settings.GetReaderSettingsResponse get(
       String merchantCode, String readerId, RequestOptions requestOptions) throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(readerId, "readerId");
@@ -80,7 +80,7 @@ public final class ReaderSettingsClient {
         null,
         null,
         null,
-        new TypeReference<com.sumup.sdk.models.GetReaderSettingsResponse>() {},
+        new TypeReference<com.sumup.sdk.models.readers.settings.GetReaderSettingsResponse>() {},
         requestOptions);
   }
 
@@ -100,13 +100,13 @@ public final class ReaderSettingsClient {
    * @param request Menu lock settings to update.
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
-   * @return com.sumup.sdk.models.UpdateReaderSettingsResponse parsed response.
+   * @return com.sumup.sdk.models.readers.settings.UpdateReaderSettingsResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.UpdateReaderSettingsResponse update(
+  public com.sumup.sdk.models.readers.settings.UpdateReaderSettingsResponse update(
       String merchantCode,
       String readerId,
-      com.sumup.sdk.models.UpdateReaderSettingsRequest request)
+      com.sumup.sdk.models.readers.settings.UpdateReaderSettingsRequest request)
       throws ApiException {
     return update(merchantCode, readerId, request, null);
   }
@@ -127,13 +127,13 @@ public final class ReaderSettingsClient {
    * @param request Menu lock settings to update.
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
-   * @return com.sumup.sdk.models.UpdateReaderSettingsResponse parsed response.
+   * @return com.sumup.sdk.models.readers.settings.UpdateReaderSettingsResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public com.sumup.sdk.models.UpdateReaderSettingsResponse update(
+  public com.sumup.sdk.models.readers.settings.UpdateReaderSettingsResponse update(
       String merchantCode,
       String readerId,
-      com.sumup.sdk.models.UpdateReaderSettingsRequest request,
+      com.sumup.sdk.models.readers.settings.UpdateReaderSettingsRequest request,
       RequestOptions requestOptions)
       throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
@@ -151,7 +151,7 @@ public final class ReaderSettingsClient {
         null,
         null,
         request,
-        new TypeReference<com.sumup.sdk.models.UpdateReaderSettingsResponse>() {},
+        new TypeReference<com.sumup.sdk.models.readers.settings.UpdateReaderSettingsResponse>() {},
         requestOptions);
   }
 }

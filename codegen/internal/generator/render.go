@@ -109,12 +109,16 @@ func renderModels(model sdkModel, params Params) error {
 	}
 
 	for _, schema := range model.Schemas {
+		modelDir := filepath.Join(params.OutputDir, filepath.FromSlash(strings.ReplaceAll(schema.Package, ".", "/")))
+		if err := os.MkdirAll(modelDir, 0o755); err != nil {
+			return fmt.Errorf("create %s package directory: %w", schema.Package, err)
+		}
 		data := prepareModelTemplateData(schema)
 		var buf bytes.Buffer
 		if err := tmpl.Execute(&buf, data); err != nil {
 			return fmt.Errorf("render model %s: %w", schema.ClassName, err)
 		}
-		target := filepath.Join(dir, schema.ClassName+".java")
+		target := filepath.Join(modelDir, schema.ClassName+".java")
 		if err := os.WriteFile(target, buf.Bytes(), 0o644); err != nil {
 			return fmt.Errorf("write model %s: %w", schema.ClassName, err)
 		}

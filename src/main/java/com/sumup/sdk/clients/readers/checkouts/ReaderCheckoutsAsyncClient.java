@@ -45,15 +45,16 @@ public final class ReaderCheckoutsAsyncClient {
    * @param request A checkout initial attributes
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.CreateReaderCheckoutResponse
-   *     parsed response.
+   * @return CompletableFuture resolved with
+   *     com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.CreateReaderCheckoutResponse> create(
-      String merchantCode,
-      String readerId,
-      com.sumup.sdk.models.CreateReaderCheckoutRequest request)
-      throws ApiException {
+  public CompletableFuture<com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutResponse>
+      create(
+          String merchantCode,
+          String readerId,
+          com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutRequest request)
+          throws ApiException {
     return create(merchantCode, readerId, request, null);
   }
 
@@ -76,16 +77,17 @@ public final class ReaderCheckoutsAsyncClient {
    * @param request A checkout initial attributes
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.CreateReaderCheckoutResponse
-   *     parsed response.
+   * @return CompletableFuture resolved with
+   *     com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.CreateReaderCheckoutResponse> create(
-      String merchantCode,
-      String readerId,
-      com.sumup.sdk.models.CreateReaderCheckoutRequest request,
-      RequestOptions requestOptions)
-      throws ApiException {
+  public CompletableFuture<com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutResponse>
+      create(
+          String merchantCode,
+          String readerId,
+          com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutRequest request,
+          RequestOptions requestOptions)
+          throws ApiException {
     Objects.requireNonNull(merchantCode, "merchantCode");
     Objects.requireNonNull(readerId, "readerId");
     Objects.requireNonNull(request, "request");
@@ -101,7 +103,7 @@ public final class ReaderCheckoutsAsyncClient {
         null,
         null,
         request,
-        new TypeReference<com.sumup.sdk.models.CreateReaderCheckoutResponse>() {},
+        new TypeReference<com.sumup.sdk.models.readers.checkouts.CreateReaderCheckoutResponse>() {},
         requestOptions);
   }
 
@@ -117,11 +119,11 @@ public final class ReaderCheckoutsAsyncClient {
    * @param readerId The unique identifier of the Reader
    *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
    *     request timeout.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.GetReaderCheckoutResponse parsed
-   *     response.
+   * @return CompletableFuture resolved with
+   *     com.sumup.sdk.models.readers.checkouts.GetReaderCheckoutResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.GetReaderCheckoutResponse> get(
+  public CompletableFuture<com.sumup.sdk.models.readers.checkouts.GetReaderCheckoutResponse> get(
       String checkoutId, String merchantCode, String readerId) throws ApiException {
     return get(checkoutId, merchantCode, readerId, null);
   }
@@ -138,11 +140,11 @@ public final class ReaderCheckoutsAsyncClient {
    * @param readerId The unique identifier of the Reader
    * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
    *     {@code null} to use client defaults.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.GetReaderCheckoutResponse parsed
-   *     response.
+   * @return CompletableFuture resolved with
+   *     com.sumup.sdk.models.readers.checkouts.GetReaderCheckoutResponse parsed response.
    * @throws ApiException if the SumUp API returns an error.
    */
-  public CompletableFuture<com.sumup.sdk.models.GetReaderCheckoutResponse> get(
+  public CompletableFuture<com.sumup.sdk.models.readers.checkouts.GetReaderCheckoutResponse> get(
       String checkoutId, String merchantCode, String readerId, RequestOptions requestOptions)
       throws ApiException {
     Objects.requireNonNull(checkoutId, "checkoutId");
@@ -161,7 +163,7 @@ public final class ReaderCheckoutsAsyncClient {
         null,
         null,
         null,
-        new TypeReference<com.sumup.sdk.models.GetReaderCheckoutResponse>() {},
+        new TypeReference<com.sumup.sdk.models.readers.checkouts.GetReaderCheckoutResponse>() {},
         requestOptions);
   }
 

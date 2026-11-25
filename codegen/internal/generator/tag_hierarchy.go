@@ -3,6 +3,7 @@ package generator
 import (
 	"cmp"
 	"fmt"
+	"strings"
 
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 )
@@ -10,6 +11,14 @@ import (
 type resourceParent struct {
 	tag   string
 	label string
+}
+
+func resourcePackageSuffix(tag string, parents map[string]resourceParent) string {
+	parent := parents[tag]
+	if parent.tag == "" {
+		return strings.ToLower(camelCase(tag, "client"))
+	}
+	return resourcePackageSuffix(parent.tag, parents) + "." + strings.ToLower(camelCase(parent.label, "client"))
 }
 
 func readResourceParents(doc *v3.Document) (map[string]resourceParent, error) {

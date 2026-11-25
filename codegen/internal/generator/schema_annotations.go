@@ -42,24 +42,7 @@ func normalizeSchemaAnnotations(doc *v3.Document) {
 				}
 			}
 		}
-		for _, child := range schema.Properties.FromOldest() {
-			visit(child)
-		}
-		if schema.Items != nil && schema.Items.IsA() {
-			visit(schema.Items.A)
-		}
-		if schema.AdditionalProperties != nil && schema.AdditionalProperties.IsA() {
-			visit(schema.AdditionalProperties.A)
-		}
-		for _, child := range schema.AllOf {
-			visit(child)
-		}
-		for _, child := range schema.AnyOf {
-			visit(child)
-		}
-		for _, child := range schema.OneOf {
-			visit(child)
-		}
+		visitSchemaChildren(schema, visit)
 		if len(schema.AllOf) == 0 || !annotationOnlySchema(schema, true) {
 			return
 		}
@@ -107,45 +90,15 @@ func normalizeSchemaAnnotations(doc *v3.Document) {
 			visit(schema)
 		}
 	}
-	visitContent := func(content iter.Seq2[string, *v3.MediaType]) {
-		for _, media := range content {
-			if media != nil {
-				visit(media.Schema)
-			}
-		}
-	}
-	visitParameter := func(parameter *v3.Parameter) {
-		if parameter == nil {
-			return
-		}
-		visit(parameter.Schema)
-		visitContent(parameter.Content.FromOldest())
-	}
-	visitResponse := func(response *v3.Response) {
-		if response != nil {
-			visitContent(response.Content.FromOldest())
-		}
-	}
 	visitPath := func(item *v3.PathItem) {
 		if item == nil {
 			return
 		}
 		for _, parameter := range item.Parameters {
-			visitParameter(parameter)
+			visitParameterSchemas(parameter, visit)
 		}
 		for _, operation := range item.GetOperations().FromOldest() {
-			for _, parameter := range operation.Parameters {
-				visitParameter(parameter)
-			}
-			if operation.RequestBody != nil {
-				visitContent(operation.RequestBody.Content.FromOldest())
-			}
-			if operation.Responses != nil {
-				for _, response := range operation.Responses.Codes.FromOldest() {
-					visitResponse(response)
-				}
-				visitResponse(operation.Responses.Default)
-			}
+			visitOperationSchemas(operation, visit)
 		}
 	}
 	if doc.Paths != nil {
@@ -155,6 +108,58 @@ func normalizeSchemaAnnotations(doc *v3.Document) {
 	}
 	for _, item := range doc.Webhooks.FromOldest() {
 		visitPath(item)
+	}
+}
+
+func visitSchemaChildren(schema *base.Schema, visit func(*base.SchemaProxy)) {
+	for _, child := range schema.Properties.FromOldest() {
+		visit(child)
+	}
+	if schema.Items != nil && schema.Items.IsA() {
+		visit(schema.Items.A)
+	}
+	if schema.AdditionalProperties != nil && schema.AdditionalProperties.IsA() {
+		visit(schema.AdditionalProperties.A)
+	}
+	for _, child := range slices.Concat(schema.AllOf, schema.AnyOf, schema.OneOf) {
+		visit(child)
+	}
+}
+
+func visitMediaSchemas(content iter.Seq2[string, *v3.MediaType], visit func(*base.SchemaProxy)) {
+	for _, media := range content {
+		if media != nil {
+			visit(media.Schema)
+		}
+	}
+}
+
+func visitParameterSchemas(parameter *v3.Parameter, visit func(*base.SchemaProxy)) {
+	if parameter != nil {
+		visit(parameter.Schema)
+		visitMediaSchemas(parameter.Content.FromOldest(), visit)
+	}
+}
+
+func visitOperationSchemas(operation *v3.Operation, visit func(*base.SchemaProxy)) {
+	if operation == nil {
+		return
+	}
+	for _, parameter := range operation.Parameters {
+		visitParameterSchemas(parameter, visit)
+	}
+	if operation.RequestBody != nil {
+		visitMediaSchemas(operation.RequestBody.Content.FromOldest(), visit)
+	}
+	if operation.Responses != nil {
+		for _, response := range operation.Responses.Codes.FromOldest() {
+			if response != nil {
+				visitMediaSchemas(response.Content.FromOldest(), visit)
+			}
+		}
+		if response := operation.Responses.Default; response != nil {
+			visitMediaSchemas(response.Content.FromOldest(), visit)
+		}
 	}
 }
 
