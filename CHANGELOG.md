@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.1.6](https://github.com/sumup/sumup-java/compare/v0.1.5...v0.1.6) (2026-11-25)
+
+
+### Features
+
+* **codegen:** support nested SDK resources ([#208](https://github.com/sumup/sumup-java/issues/208)) ([c899fbe](https://github.com/sumup/sumup-java/commit/c899fbee9974bf698262096c67de7c9a4d1c2c2a))
+
+
+### Chores
+
+* **deps:** bump actions/setup-go from 7.0.0 to 7.1.0 ([#210](https://github.com/sumup/sumup-java/issues/210)) ([71beaa2](https://github.com/sumup/sumup-java/commit/71beaa232382025761bd03a8e6e556c5d510e70f))
+* **deps:** bump actions/setup-java from 6.2.0 to 6.3.0 ([#211](https://github.com/sumup/sumup-java/issues/211)) ([bfd062e](https://github.com/sumup/sumup-java/commit/bfd062e12db0aa1ec9bd097ca71e4fef35522019))
+* **deps:** bump github.com/pb33f/libopenapi in /codegen ([#212](https://github.com/sumup/sumup-java/issues/212)) ([9743816](https://github.com/sumup/sumup-java/commit/97438163c1654bf4a038efa882d691553d279360))
+* **deps:** bump gradle-wrapper from 9.9.0 to 9.9.1 ([#213](https://github.com/sumup/sumup-java/issues/213)) ([b79555b](https://github.com/sumup/sumup-java/commit/b79555b518bad38b63d877ebe3a62841ca769f0e))
+* **deps:** bump reviewdog/action-actionlint from 1.83.0 to 1.84.1 ([#214](https://github.com/sumup/sumup-java/issues/214)) ([fdb9da3](https://github.com/sumup/sumup-java/commit/fdb9da32e36caa71e962d45ea067841673c1e562))
+* synced file(s) with sumup/apis ([#207](https://github.com/sumup/sumup-java/issues/207)) ([3059aed](https://github.com/sumup/sumup-java/commit/3059aeddc42c10475d45babd9d28295abb676f71))
+
 ## [0.1.5](https://github.com/sumup/sumup-java/compare/v0.1.4...v0.1.5) (2026-11-17)
 
 
