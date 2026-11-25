@@ -12,11 +12,10 @@ import (
 
 // sdkModel represents the aggregate information needed to render the SDK.
 type sdkModel struct {
-	BasePackage   string
-	ClientPackage string
-	ModelPackage  string
-	Clients       []clientModel
-	Schemas       []schemaModel
+	BasePackage  string
+	ModelPackage string
+	Clients      []clientModel
+	Schemas      []schemaModel
 }
 
 // clientModel encapsulates the data necessary to render a Java API client.
@@ -36,6 +35,7 @@ type clientModel struct {
 type childClient struct {
 	ClassName    string
 	AccessorName string
+	Package      string
 }
 
 // operationModel stores the derived metadata for one OpenAPI operation.
@@ -238,13 +238,19 @@ func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
 	for i := range clients {
 		client := &clients[i]
 		path := client.AccessorName + "()"
+		packageSuffix := client.AccessorName
 		for ancestor := parents[client.TagName].tag; ancestor != ""; ancestor = parents[ancestor].tag {
-			path = byTag[ancestor].AccessorName + "()." + path
+			accessor := byTag[ancestor].AccessorName
+			path = accessor + "()." + path
+			packageSuffix = accessor + "." + packageSuffix
 		}
 		client.AccessPath = path
 		if parent := byTag[parents[client.TagName].tag]; parent != nil {
+			client.Package += "." + strings.ToLower(packageSuffix)
 			parent.Children = append(parent.Children, childClient{
-				ClassName: client.ClassName, AccessorName: client.AccessorName,
+				ClassName:    client.ClassName,
+				AccessorName: client.AccessorName,
+				Package:      client.Package,
 			})
 		}
 	}
@@ -253,11 +259,10 @@ func buildModel(doc *v3.Document, params Params) (sdkModel, error) {
 	schemas = append(schemas, resolver.inlineSchemaModels(params)...)
 
 	return sdkModel{
-		BasePackage:   params.BasePackage,
-		ClientPackage: params.clientPackage(),
-		ModelPackage:  params.modelPackage(),
-		Clients:       clients,
-		Schemas:       schemas,
+		BasePackage:  params.BasePackage,
+		ModelPackage: params.modelPackage(),
+		Clients:      clients,
+		Schemas:      schemas,
 	}, nil
 }
 

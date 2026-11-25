@@ -38,10 +38,11 @@ public record GetReaderCheckoutResponseData(
     com.sumup.sdk.models.GetReaderCheckoutResponseDataStatus status,
 
     /**
-     * Amount structure. The amount is represented as an integer value altogether with the currency
-     * and the minor unit. For example, EUR 1.00 is represented as value 100 with minor unit of 2.
+     * The checkout amount. The value uses two decimal places, even for currencies such as CLP that
+     * use zero decimal places in the create request. For example, EUR 10.00 is returned as `1000`
+     * and CLP 1000 as `100000`.
      */
-    com.sumup.sdk.models.Money2 totalAmount,
+    com.sumup.sdk.models.GetReaderCheckoutResponseDataTotalAmount totalAmount,
 
     /** Checkout last update timestamp */
     java.time.OffsetDateTime updatedAt,
@@ -72,7 +73,7 @@ public record GetReaderCheckoutResponseData(
     private String readerFirmwareVersion;
     private String readerSerialNumber;
     private com.sumup.sdk.models.GetReaderCheckoutResponseDataStatus status;
-    private com.sumup.sdk.models.Money2 totalAmount;
+    private com.sumup.sdk.models.GetReaderCheckoutResponseDataTotalAmount totalAmount;
     private java.time.OffsetDateTime updatedAt;
     private java.time.OffsetDateTime validUntil;
 
@@ -204,12 +205,13 @@ public record GetReaderCheckoutResponseData(
     /**
      * Sets the value for {@code totalAmount}.
      *
-     * @param totalAmount Amount structure. The amount is represented as an integer value altogether
-     *     with the currency and the minor unit. For example, EUR 1.00 is represented as value 100
-     *     with minor unit of 2.
+     * @param totalAmount The checkout amount. The value uses two decimal places, even for
+     *     currencies such as CLP that use zero decimal places in the create request. For example,
+     *     EUR 10.00 is returned as `1000` and CLP 1000 as `100000`.
      * @return This builder instance.
      */
-    public Builder totalAmount(com.sumup.sdk.models.Money2 totalAmount) {
+    public Builder totalAmount(
+        com.sumup.sdk.models.GetReaderCheckoutResponseDataTotalAmount totalAmount) {
       this.totalAmount = totalAmount;
       return this;
     }

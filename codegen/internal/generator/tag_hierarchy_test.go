@@ -1,6 +1,9 @@
 package generator
 
 import (
+	"os"
+	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/pb33f/libopenapi"
@@ -42,7 +45,8 @@ components: {schemas: {}}
 		t.Fatal(err)
 	}
 
-	sdk, err := buildModel(&model.Model, Params{BasePackage: "com.sumup.sdk"})
+	params := Params{BasePackage: "com.sumup.sdk", OutputDir: t.TempDir()}
+	sdk, err := buildModel(&model.Model, params)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -60,5 +64,26 @@ components: {schemas: {}}
 	}
 	if len(sdk.Clients) != 2 {
 		t.Fatalf("expected two clients, got %d", len(sdk.Clients))
+	}
+	if err := renderClients(sdk, params); err != nil {
+		t.Fatal(err)
+	}
+	root := filepath.Join(params.OutputDir, params.clientPackagePath())
+	for _, variant := range []string{"Client", "AsyncClient"} {
+		childClass := "ReaderCheckouts" + variant
+		child, err := os.ReadFile(filepath.Join(root, "readers", "checkouts", childClass+".java"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !strings.Contains(string(child), "package com.sumup.sdk.clients.readers.checkouts;") {
+			t.Errorf("%s declares the wrong package", childClass)
+		}
+		parent, err := os.ReadFile(filepath.Join(root, "Readers"+variant+".java"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !strings.Contains(string(parent), "import com.sumup.sdk.clients.readers.checkouts."+childClass+";") {
+			t.Errorf("Readers%s does not import %s", variant, childClass)
+		}
 	}
 }

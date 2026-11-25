@@ -2,6 +2,8 @@
 package com.sumup.sdk.clients;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.sumup.sdk.clients.readers.checkouts.ReaderCheckoutsAsyncClient;
+import com.sumup.sdk.clients.readers.settings.ReaderSettingsAsyncClient;
 import com.sumup.sdk.core.ApiClient;
 import com.sumup.sdk.core.ApiException;
 import com.sumup.sdk.core.HttpMethod;
@@ -19,6 +21,8 @@ import java.util.concurrent.CompletableFuture;
  */
 public final class ReadersAsyncClient {
   private final ApiClient apiClient;
+  private final ReaderCheckoutsAsyncClient checkouts;
+  private final ReaderSettingsAsyncClient settings;
 
   /**
    * Creates a new ReadersAsyncClient instance backed by the provided ApiClient.
@@ -27,6 +31,22 @@ public final class ReadersAsyncClient {
    */
   public ReadersAsyncClient(ApiClient apiClient) {
     this.apiClient = Objects.requireNonNull(apiClient, "apiClient");
+    this.checkouts = new ReaderCheckoutsAsyncClient(apiClient);
+    this.settings = new ReaderSettingsAsyncClient(apiClient);
+  }
+
+  /**
+   * @return the checkouts client.
+   */
+  public ReaderCheckoutsAsyncClient checkouts() {
+    return checkouts;
+  }
+
+  /**
+   * @return the settings client.
+   */
+  public ReaderSettingsAsyncClient settings() {
+    return settings;
   }
 
   /**
@@ -81,85 +101,6 @@ public final class ReadersAsyncClient {
         null,
         request,
         new TypeReference<com.sumup.sdk.models.Reader>() {},
-        requestOptions);
-  }
-
-  /**
-   * Create a Reader Checkout
-   *
-   * <p>Creates a Checkout for a Reader. This process is asynchronous and the actual transaction may
-   * take some time to be started on the device. There are some caveats when using this endpoint: *
-   * The target device must be online, otherwise checkout won't be accepted * After the checkout is
-   * accepted, the system has 60 seconds to start the payment on the target device. During this
-   * time, any other checkout for the same device will be rejected. **Note**: If the target device
-   * is a Solo, it must be in version 3.3.24.3 or higher. Optionally include an `affiliate` object
-   * to attach integrator metadata to the payment. Provide both `app_id` and `key` when including
-   * this object.
-   *
-   * <p>Operation ID: CreateReaderCheckout
-   *
-   * @param merchantCode Merchant Code
-   * @param readerId The unique identifier of the Reader
-   * @param request A checkout initial attributes
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.CreateReaderCheckoutResponse
-   *     parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.CreateReaderCheckoutResponse> createCheckout(
-      String merchantCode,
-      String readerId,
-      com.sumup.sdk.models.CreateReaderCheckoutRequest request)
-      throws ApiException {
-    return createCheckout(merchantCode, readerId, request, null);
-  }
-
-  /**
-   * Create a Reader Checkout
-   *
-   * <p>Creates a Checkout for a Reader. This process is asynchronous and the actual transaction may
-   * take some time to be started on the device. There are some caveats when using this endpoint: *
-   * The target device must be online, otherwise checkout won't be accepted * After the checkout is
-   * accepted, the system has 60 seconds to start the payment on the target device. During this
-   * time, any other checkout for the same device will be rejected. **Note**: If the target device
-   * is a Solo, it must be in version 3.3.24.3 or higher. Optionally include an `affiliate` object
-   * to attach integrator metadata to the payment. Provide both `app_id` and `key` when including
-   * this object.
-   *
-   * <p>Operation ID: CreateReaderCheckout
-   *
-   * @param merchantCode Merchant Code
-   * @param readerId The unique identifier of the Reader
-   * @param request A checkout initial attributes
-   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
-   *     {@code null} to use client defaults.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.CreateReaderCheckoutResponse
-   *     parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.CreateReaderCheckoutResponse> createCheckout(
-      String merchantCode,
-      String readerId,
-      com.sumup.sdk.models.CreateReaderCheckoutRequest request,
-      RequestOptions requestOptions)
-      throws ApiException {
-    Objects.requireNonNull(merchantCode, "merchantCode");
-    Objects.requireNonNull(readerId, "readerId");
-    Objects.requireNonNull(request, "request");
-    String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}/checkout";
-    path =
-        path.replace(
-            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
-    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
-
-    return this.apiClient.sendAsync(
-        HttpMethod.POST,
-        path,
-        null,
-        null,
-        request,
-        new TypeReference<com.sumup.sdk.models.CreateReaderCheckoutResponse>() {},
         requestOptions);
   }
 
@@ -359,127 +300,6 @@ public final class ReadersAsyncClient {
   }
 
   /**
-   * Get a Reader Checkout
-   *
-   * <p>Get a Checkout for a Reader.
-   *
-   * <p>Operation ID: GetReaderCheckout
-   *
-   * @param checkoutId The unique identifier of the Checkout
-   * @param merchantCode Merchant Code
-   * @param readerId The unique identifier of the Reader
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.GetReaderCheckoutResponse parsed
-   *     response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.GetReaderCheckoutResponse> getCheckout(
-      String checkoutId, String merchantCode, String readerId) throws ApiException {
-    return getCheckout(checkoutId, merchantCode, readerId, null);
-  }
-
-  /**
-   * Get a Reader Checkout
-   *
-   * <p>Get a Checkout for a Reader.
-   *
-   * <p>Operation ID: GetReaderCheckout
-   *
-   * @param checkoutId The unique identifier of the Checkout
-   * @param merchantCode Merchant Code
-   * @param readerId The unique identifier of the Reader
-   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
-   *     {@code null} to use client defaults.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.GetReaderCheckoutResponse parsed
-   *     response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.GetReaderCheckoutResponse> getCheckout(
-      String checkoutId, String merchantCode, String readerId, RequestOptions requestOptions)
-      throws ApiException {
-    Objects.requireNonNull(checkoutId, "checkoutId");
-    Objects.requireNonNull(merchantCode, "merchantCode");
-    Objects.requireNonNull(readerId, "readerId");
-    String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}/checkout/{checkout_id}";
-    path = path.replace("{checkout_id}", ApiClient.urlEncode(ApiClient.parameterValue(checkoutId)));
-    path =
-        path.replace(
-            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
-    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
-
-    return this.apiClient.sendAsync(
-        HttpMethod.GET,
-        path,
-        null,
-        null,
-        null,
-        new TypeReference<com.sumup.sdk.models.GetReaderCheckoutResponse>() {},
-        requestOptions);
-  }
-
-  /**
-   * Get Reader Settings
-   *
-   * <p>Returns the menu lock settings for a Solo reader. For an online reader, returns the current
-   * settings. For an offline reader, returns the last saved settings, which may differ from its
-   * current configuration. Returns `404` if the reader is offline and no saved settings are
-   * available. The response may include the menu lock PIN.
-   *
-   * <p>Operation ID: GetReaderSettings
-   *
-   * @param merchantCode The merchant code of the account that owns the reader.
-   * @param readerId The unique identifier of the reader.
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.GetReaderSettingsResponse parsed
-   *     response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.GetReaderSettingsResponse> getReaderSettings(
-      String merchantCode, String readerId) throws ApiException {
-    return getReaderSettings(merchantCode, readerId, null);
-  }
-
-  /**
-   * Get Reader Settings
-   *
-   * <p>Returns the menu lock settings for a Solo reader. For an online reader, returns the current
-   * settings. For an offline reader, returns the last saved settings, which may differ from its
-   * current configuration. Returns `404` if the reader is offline and no saved settings are
-   * available. The response may include the menu lock PIN.
-   *
-   * <p>Operation ID: GetReaderSettings
-   *
-   * @param merchantCode The merchant code of the account that owns the reader.
-   * @param readerId The unique identifier of the reader.
-   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
-   *     {@code null} to use client defaults.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.GetReaderSettingsResponse parsed
-   *     response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.GetReaderSettingsResponse> getReaderSettings(
-      String merchantCode, String readerId, RequestOptions requestOptions) throws ApiException {
-    Objects.requireNonNull(merchantCode, "merchantCode");
-    Objects.requireNonNull(readerId, "readerId");
-    String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}/settings";
-    path =
-        path.replace(
-            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
-    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
-
-    return this.apiClient.sendAsync(
-        HttpMethod.GET,
-        path,
-        null,
-        null,
-        null,
-        new TypeReference<com.sumup.sdk.models.GetReaderSettingsResponse>() {},
-        requestOptions);
-  }
-
-  /**
    * Get a Reader Status
    *
    * <p>Provides the last known status for a Reader. This endpoint allows you to retrieve updates
@@ -600,74 +420,6 @@ public final class ReadersAsyncClient {
   }
 
   /**
-   * Terminate a Reader Checkout
-   *
-   * <p>Terminate a Reader Checkout stops the current transaction on the target device. This process
-   * is asynchronous and the actual termination may take some time to be performed on the device.
-   * There are some caveats when using this endpoint: * The target device must be online, otherwise
-   * terminate won't be accepted * The action will succeed only if the device is waiting for
-   * cardholder action: e.g: waiting for card, waiting for PIN, etc. * There is no confirmation of
-   * the termination. If a transaction is successfully terminated and `return_url` was provided on
-   * Checkout, the transaction status will be sent as `failed` to the provided URL. **Note**: If the
-   * target device is a Solo, it must be in version 3.3.28.0 or higher.
-   *
-   * <p>Operation ID: CreateReaderTerminate
-   *
-   * @param merchantCode Merchant Code
-   * @param readerId The unique identifier of the Reader
-   * @param request A checkout initial attributes
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @return CompletableFuture completed when the request finishes.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<Void> terminateCheckout(
-      String merchantCode, String readerId, java.util.Map<String, Object> request)
-      throws ApiException {
-    return terminateCheckout(merchantCode, readerId, request, null);
-  }
-
-  /**
-   * Terminate a Reader Checkout
-   *
-   * <p>Terminate a Reader Checkout stops the current transaction on the target device. This process
-   * is asynchronous and the actual termination may take some time to be performed on the device.
-   * There are some caveats when using this endpoint: * The target device must be online, otherwise
-   * terminate won't be accepted * The action will succeed only if the device is waiting for
-   * cardholder action: e.g: waiting for card, waiting for PIN, etc. * There is no confirmation of
-   * the termination. If a transaction is successfully terminated and `return_url` was provided on
-   * Checkout, the transaction status will be sent as `failed` to the provided URL. **Note**: If the
-   * target device is a Solo, it must be in version 3.3.28.0 or higher.
-   *
-   * <p>Operation ID: CreateReaderTerminate
-   *
-   * @param merchantCode Merchant Code
-   * @param readerId The unique identifier of the Reader
-   * @param request A checkout initial attributes
-   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
-   *     {@code null} to use client defaults.
-   * @return CompletableFuture completed when the request finishes.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<Void> terminateCheckout(
-      String merchantCode,
-      String readerId,
-      java.util.Map<String, Object> request,
-      RequestOptions requestOptions)
-      throws ApiException {
-    Objects.requireNonNull(merchantCode, "merchantCode");
-    Objects.requireNonNull(readerId, "readerId");
-    String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}/terminate";
-    path =
-        path.replace(
-            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
-    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
-
-    return this.apiClient.sendAsync(
-        HttpMethod.POST, path, null, null, request, null, requestOptions);
-  }
-
-  /**
    * Update a Reader
    *
    * <p>Updates a reader's name or metadata and returns the updated reader. Providing `metadata`
@@ -729,79 +481,6 @@ public final class ReadersAsyncClient {
         null,
         request,
         new TypeReference<com.sumup.sdk.models.Reader>() {},
-        requestOptions);
-  }
-
-  /**
-   * Update Reader Settings
-   *
-   * <p>Updates the menu lock settings for a Solo reader. The reader must be online. A successful
-   * response confirms that the reader applied the update. Include at least one of
-   * `menu_lock.enabled` or `menu_lock.passcode`. Omitted settings keep their current values. The
-   * response contains only the settings included in the request. When enabling menu lock for a
-   * reader without a PIN, include a four-digit PIN in `menu_lock.passcode` in the same request.
-   *
-   * <p>Operation ID: UpdateReaderSettings
-   *
-   * @param merchantCode The merchant code of the account that owns the reader.
-   * @param readerId The unique identifier of the reader.
-   * @param request Menu lock settings to update.
-   *     <p>Call the overload that accepts RequestOptions to customize headers, authorization, or
-   *     request timeout.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.UpdateReaderSettingsResponse
-   *     parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.UpdateReaderSettingsResponse> updateReaderSettings(
-      String merchantCode,
-      String readerId,
-      com.sumup.sdk.models.UpdateReaderSettingsRequest request)
-      throws ApiException {
-    return updateReaderSettings(merchantCode, readerId, request, null);
-  }
-
-  /**
-   * Update Reader Settings
-   *
-   * <p>Updates the menu lock settings for a Solo reader. The reader must be online. A successful
-   * response confirms that the reader applied the update. Include at least one of
-   * `menu_lock.enabled` or `menu_lock.passcode`. Omitted settings keep their current values. The
-   * response contains only the settings included in the request. When enabling menu lock for a
-   * reader without a PIN, include a four-digit PIN in `menu_lock.passcode` in the same request.
-   *
-   * <p>Operation ID: UpdateReaderSettings
-   *
-   * @param merchantCode The merchant code of the account that owns the reader.
-   * @param readerId The unique identifier of the reader.
-   * @param request Menu lock settings to update.
-   * @param requestOptions Request-specific overrides (headers, authorization, or timeout). Pass
-   *     {@code null} to use client defaults.
-   * @return CompletableFuture resolved with com.sumup.sdk.models.UpdateReaderSettingsResponse
-   *     parsed response.
-   * @throws ApiException if the SumUp API returns an error.
-   */
-  public CompletableFuture<com.sumup.sdk.models.UpdateReaderSettingsResponse> updateReaderSettings(
-      String merchantCode,
-      String readerId,
-      com.sumup.sdk.models.UpdateReaderSettingsRequest request,
-      RequestOptions requestOptions)
-      throws ApiException {
-    Objects.requireNonNull(merchantCode, "merchantCode");
-    Objects.requireNonNull(readerId, "readerId");
-    Objects.requireNonNull(request, "request");
-    String path = "/v0.1/merchants/{merchant_code}/readers/{reader_id}/settings";
-    path =
-        path.replace(
-            "{merchant_code}", ApiClient.urlEncode(ApiClient.parameterValue(merchantCode)));
-    path = path.replace("{reader_id}", ApiClient.urlEncode(ApiClient.parameterValue(readerId)));
-
-    return this.apiClient.sendAsync(
-        HttpMethod.PATCH,
-        path,
-        null,
-        null,
-        request,
-        new TypeReference<com.sumup.sdk.models.UpdateReaderSettingsResponse>() {},
         requestOptions);
   }
 
